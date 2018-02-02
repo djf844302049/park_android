@@ -6,7 +6,4 @@ package com.anyidc.cloudpark.utils;
 
 public class SpUtils {
 
-    private SpUtils() {
-
-    }
 }
