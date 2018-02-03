@@ -25,7 +25,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.2'
 
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
@@ -42,4 +42,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
     implementation 'com.yanzhenjie:permission:2.0.0-alpha'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }
