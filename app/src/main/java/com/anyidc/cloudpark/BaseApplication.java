@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
@@ -34,7 +35,9 @@ public class BaseApplication extends MultiDexApplication {
         try {
             PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
             int versionCode = info.versionCode;
+            String versionName = info.versionName;
             SpUtils.set(SpUtils.VERSIONCODE, versionCode);
+            SpUtils.set(SpUtils.VERSIONNAME, versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

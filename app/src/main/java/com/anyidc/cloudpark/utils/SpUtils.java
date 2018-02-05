@@ -22,6 +22,7 @@ public class SpUtils {
      */
     public static final String FILE_NAME = BaseApplication.appContext.getPackageName() + ".preference";
     public static final String VERSIONCODE = "versionCode";
+    public static final String VERSIONNAME = "versionName";
     public static final String DID = "did";
     public static final String TOKEN = "token";
 
