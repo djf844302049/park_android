@@ -10,6 +10,12 @@ android {
         versionName configs.versionName
         multiDexEnabled true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -46,4 +52,8 @@ dependencies {
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    implementation 'com.youth.banner:banner:1.4.10'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

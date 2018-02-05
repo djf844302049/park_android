@@ -63,7 +63,6 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
             onError("网络异常，请稍后重试！");
         } else {
             onError("未知错误！");
-            Log.e("Throwable", e.getMessage());
         }
     }
 
