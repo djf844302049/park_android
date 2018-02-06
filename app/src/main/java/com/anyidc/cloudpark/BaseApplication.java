@@ -36,8 +36,8 @@ public class BaseApplication extends MultiDexApplication {
             PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
             int versionCode = info.versionCode;
             String versionName = info.versionName;
-            SpUtils.set(SpUtils.VERSIONCODE, versionCode);
-            SpUtils.set(SpUtils.VERSIONNAME, versionName);
+            SpUtils.set(SpUtils.VERSION_CODE, versionCode);
+            SpUtils.set(SpUtils.VERSION_NAME, versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

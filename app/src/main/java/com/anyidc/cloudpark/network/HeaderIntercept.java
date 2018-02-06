@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.network;
 
 import android.text.TextUtils;
 
+import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 
 import java.io.IOException;
@@ -19,8 +20,12 @@ public class HeaderIntercept implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder newBuilder = chain.request().newBuilder();
-        newBuilder.addHeader("sign", "111");
-        newBuilder.addHeader("version", String.valueOf(SpUtils.get(SpUtils.VERSIONCODE, 0)));
+        try {
+            newBuilder.addHeader("sign", AesUtil.getSign());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        newBuilder.addHeader("version", String.valueOf(SpUtils.get(SpUtils.VERSION_CODE, 0)));
         newBuilder.addHeader("type", "Android");
         newBuilder.addHeader("did", (String) SpUtils.get(SpUtils.DID, ""));
         String token = (String) SpUtils.get(SpUtils.TOKEN, "");

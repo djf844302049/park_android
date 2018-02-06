@@ -21,8 +21,9 @@ public class SpUtils {
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = BaseApplication.appContext.getPackageName() + ".preference";
-    public static final String VERSIONCODE = "versionCode";
-    public static final String VERSIONNAME = "versionName";
+    public static final String VERSION_CODE = "versionCode";
+    public static final String VERSION_NAME = "versionName";
+    public static final String TIME = "time";
     public static final String DID = "did";
     public static final String TOKEN = "token";
 

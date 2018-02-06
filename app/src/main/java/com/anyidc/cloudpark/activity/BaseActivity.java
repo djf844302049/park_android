@@ -9,9 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.TimeBean;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.SpUtils;
 import com.trello.rxlifecycle2.components.RxActivity;
 
 import java.io.File;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by necer on 2017/6/29.
@@ -46,6 +54,26 @@ public abstract class BaseActivity extends RxActivity {
     protected abstract void initData();
 
     public void updateImg(File file) {
+
+    }
+
+    protected void getTime() {
+        Api.getDefaultService()
+                .getTime()
+                .compose(this.bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new RxObserver<BaseEntity<TimeBean>>(this, false) {
+
+                    @Override
+                    public void onSuccess(BaseEntity<TimeBean> timeBeanBaseEntity) {
+                        SpUtils.set(SpUtils.TIME, timeBeanBaseEntity.getData().getTime());
+                        getNetData();
+                    }
+                });
+    }
+
+    protected void getNetData(){
 
     }
 }

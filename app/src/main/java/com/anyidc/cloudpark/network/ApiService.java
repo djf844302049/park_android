@@ -15,4 +15,7 @@ public interface ApiService {
     @GET("api/time")
     Observable<BaseEntity<TimeBean>> getTime();
 
+    @GET("api/v1/init")
+    Observable<BaseEntity<String>> appInit();
+
 }
