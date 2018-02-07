@@ -20,11 +20,7 @@ public class HeaderIntercept implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder newBuilder = chain.request().newBuilder();
-        try {
-            newBuilder.addHeader("sign", AesUtil.getSign());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        newBuilder.addHeader("sign", AesUtil.getSign().trim());
         newBuilder.addHeader("version", String.valueOf(SpUtils.get(SpUtils.VERSION_CODE, 0)));
         newBuilder.addHeader("type", "Android");
         newBuilder.addHeader("did", (String) SpUtils.get(SpUtils.DID, ""));

@@ -3,9 +3,7 @@ package com.anyidc.cloudpark.activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
@@ -18,6 +16,7 @@ import com.trello.rxlifecycle2.components.RxActivity;
 
 import java.io.File;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -25,7 +24,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by necer on 2017/6/29.
  */
 
-public abstract class BaseActivity extends RxActivity {
+public abstract class BaseActivity<T> extends RxActivity {
     private TextView tvTitle;
     protected final String TAG = getClass().getSimpleName();
 
@@ -57,7 +56,7 @@ public abstract class BaseActivity extends RxActivity {
 
     }
 
-    protected void getTime() {
+    public void getTime(Observable<BaseEntity<T>> observable, RxObserver<BaseEntity<T>> observer) {
         Api.getDefaultService()
                 .getTime()
                 .compose(this.bindToLifecycle())
@@ -68,14 +67,14 @@ public abstract class BaseActivity extends RxActivity {
                     @Override
                     public void onSuccess(BaseEntity<TimeBean> timeBeanBaseEntity) {
                         SpUtils.set(SpUtils.TIME, timeBeanBaseEntity.getData().getTime());
-                        getNetData();
+                        observable.compose(BaseActivity.this.bindToLifecycle())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeWith(observer);
                     }
                 });
     }
 
-    protected void getNetData(){
-
-    }
 }
 
 

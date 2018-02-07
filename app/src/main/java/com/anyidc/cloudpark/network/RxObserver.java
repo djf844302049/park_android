@@ -3,7 +3,6 @@ package com.anyidc.cloudpark.network;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -34,7 +33,6 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
         this.isShowDialog = isShowDialog;
         mDialog = new ProgressDialog(context);
         mDialog.setTitle("请稍后");
-
     }
 
 
@@ -73,7 +71,7 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
         }
     }
 
-    public abstract void onSuccess( T t);
+    public abstract void onSuccess(T t);
 
     public void onError(String errMsg) {
         Toast.makeText(mContext, errMsg, Toast.LENGTH_SHORT).show();
