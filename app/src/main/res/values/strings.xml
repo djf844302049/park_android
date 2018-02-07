@@ -26,6 +26,7 @@
     <string name="driver_license_deputy">请拍摄上传行驶证副页</string>
     <string name="input_watch_car_monitor">请输入车位编号查看监控录像</string>
     <string name="confirm_right_away">马上认证</string>
+    <string name="search_place">搜目的地、找停车场</string>
     <string name="real_name">真实姓名</string>
     <string name="next_step">下一步</string>
     <string name="id_num">身份证号</string>

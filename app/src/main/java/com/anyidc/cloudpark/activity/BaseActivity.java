@@ -12,6 +12,7 @@ import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.StatusBarCompat;
 import com.trello.rxlifecycle2.components.RxActivity;
 
 import java.io.File;
@@ -46,6 +47,10 @@ public abstract class BaseActivity<T> extends RxActivity {
     protected void initTitle(String title) {
         if (tvTitle != null)
             tvTitle.setText(title);
+    }
+
+    protected void initStatuBarColor(int color) {
+        StatusBarCompat.compat(this, color);
     }
 
     protected abstract int getLayoutId();

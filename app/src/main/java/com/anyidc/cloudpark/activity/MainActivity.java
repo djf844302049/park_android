@@ -16,6 +16,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        initStatuBarColor(getResources().getColor(R.color.top_blue));
         getTime(Api.getDefaultService().appInit()
                 , new RxObserver<BaseEntity<List<String>>>(this, true) {
                     @Override
