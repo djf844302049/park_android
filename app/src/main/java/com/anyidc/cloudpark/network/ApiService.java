@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -32,12 +33,14 @@ public interface ApiService {
      * 获取验证码
      */
     @POST("App/v1/identify")
+    @FormUrlEncoded
     Observable<BaseEntity<String>> getCode(@Field("mobile") String mobile);
 
     /**
      * 登录接口
      */
     @POST("api/v1/login")
+    @FormUrlEncoded
     Observable<BaseEntity<String>> login(@Field("mobile") String mobile
             , @Field("password") String password);
 
@@ -45,6 +48,7 @@ public interface ApiService {
      * 登录接口
      */
     @POST("api/v1/register")
+    @FormUrlEncoded
     Observable<BaseEntity<String>> register(@Field("mobile") String mobile
             , @Field("password") String password, @Field("code") String code);
 
@@ -52,6 +56,7 @@ public interface ApiService {
      * 忘记密码接口
      */
     @POST("api/v1/forget")
+    @FormUrlEncoded
     Observable<BaseEntity<String>> forgetPassword(@Field("mobile") String mobile
             , @Field("password") String password, @Field("code") String code);
 
@@ -65,5 +70,6 @@ public interface ApiService {
      * 图片上传接口
      */
     @POST("api/v1/image")
+    @FormUrlEncoded
     Observable<BaseEntity<String>> uploadImg();
 }

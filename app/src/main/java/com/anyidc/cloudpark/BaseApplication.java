@@ -6,11 +6,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.LeakCanary;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Administrator on 2018/2/1.
@@ -29,6 +30,7 @@ public class BaseApplication extends MultiDexApplication {
         }
         LeakCanary.install(this);
         appContext = this;
+        JPushInterface.init(this);
         String did = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         SpUtils.set(SpUtils.DID, did);
         PackageManager manager = this.getPackageManager();

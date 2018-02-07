@@ -10,6 +10,7 @@
     <string name="input_password">请输入登录密码</string>
     <string name="input_confirm_num">请输入短信验证码</string>
     <string name="input_new_password">请输入新密码 由6-20位数字组成</string>
+    <string name="input_register_password">请输入密码 由6-20位数字组成</string>
     <string name="input_real_name">请输入您的真实姓名</string>
     <string name="input_id_num">请输入您的身份证号</string>
     <string name="get_confirm_num">获取验证码</string>

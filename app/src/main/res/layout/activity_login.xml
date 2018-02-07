@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:inputType="phone"
         android:drawableLeft="@mipmap/ic_launcher"
         android:hint="@string/input_phone_num" />
 
