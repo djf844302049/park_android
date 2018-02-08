@@ -17,15 +17,13 @@
 
         <TextView
             android:id="@+id/tv_balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:layout_marginLeft="25dp"
             android:text="@string/balance" />
 
         <TextView
             android:id="@+id/tv_balance_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:layout_below="@id/tv_balance"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="20dp"
@@ -49,15 +47,13 @@
 
         <TextView
             android:id="@+id/tv_deposit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:layout_marginLeft="25dp"
             android:text="@string/deposit" />
 
         <TextView
             android:id="@+id/tv_deposit_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:layout_below="@id/tv_deposit"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="20dp"
@@ -73,8 +69,7 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_marginRight="90dp"
         android:layout_marginTop="20dp"
         android:text="@string/pay_setting" />

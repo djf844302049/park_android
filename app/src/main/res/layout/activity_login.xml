@@ -52,21 +52,18 @@
 
         <TextView
             android:id="@+id/tv_login_by_code"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:layout_weight="1"
             android:text="@string/short_mess_confirm_login" />
 
         <TextView
             android:id="@+id/tv_forget_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:text="@string/forget_password" />
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_marginTop="30dp"
         android:text="登录代表您已同意《》" />
 

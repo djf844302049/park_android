@@ -8,8 +8,7 @@
     <include layout="@layout/toolbar" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/recharge_deposit_tip"
@@ -27,13 +26,11 @@
         android:padding="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:text="￥***.00" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:layout_marginTop="10dp"
             android:text="@string/deposit" />
     </LinearLayout>

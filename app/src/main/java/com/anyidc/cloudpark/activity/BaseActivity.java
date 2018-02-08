@@ -34,6 +34,7 @@ public abstract class BaseActivity<T> extends RxActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无ActionBar
         setContentView(getLayoutId());
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.top_blue), true);
         try {
             findViewById(R.id.iv_back).setOnClickListener(view -> finish());
             tvTitle = findViewById(R.id.tv_title);
@@ -47,10 +48,6 @@ public abstract class BaseActivity<T> extends RxActivity {
     protected void initTitle(String title) {
         if (tvTitle != null)
             tvTitle.setText(title);
-    }
-
-    protected void initStatusBarColor(int color) {
-        StatusBarCompat.setStatusBarColor(this, color, true);
     }
 
     protected abstract int getLayoutId();

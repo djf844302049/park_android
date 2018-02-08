@@ -14,18 +14,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_white_16sp"
             android:layout_marginLeft="10dp"
             android:drawableLeft="@mipmap/img_location"
             android:drawablePadding="3dp"
             android:gravity="center_vertical"
-            android:text="厦门"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:text="厦门" />
 
         <TextView
-            android:layout_width="0dp"
+            style="@style/text_gray_14sp"
             android:layout_height="27dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
@@ -34,8 +31,7 @@
             android:drawablePadding="3dp"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="@string/search_place"
-            android:textColor="@color/text_color_gray" />
+            android:text="@string/search_place" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -77,14 +73,12 @@
 
                 <TextView
                     android:id="@+id/tv_message"
-                    android:layout_width="0dp"
+                    style="@style/text_gray_16sp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="思明区xxx新增55个停车位"
-                    android:textColor="@color/text_color_gray"
-                    android:textSize="16sp" />
+                    android:text="思明区xxx新增55个停车位" />
 
                 <Button
                     android:layout_width="55dp"

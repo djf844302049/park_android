@@ -9,8 +9,7 @@
     <include layout="@layout/toolbar" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_gravity="right"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
@@ -27,8 +26,7 @@
         android:paddingBottom="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:text="@string/real_name" />
 
         <EditText
@@ -51,8 +49,7 @@
         android:paddingBottom="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_gray_14sp"
             android:text="@string/id_num" />
 
         <EditText
@@ -71,8 +68,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_marginTop="10dp"
         android:text="@string/front_id_photo" />
 
@@ -83,8 +79,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_marginTop="10dp"
         android:text="@string/inverse_id_photo" />
 
@@ -97,8 +92,7 @@
         android:text="@string/next_step" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_gray_14sp"
         android:layout_marginTop="10dp"
         android:lineSpacingExtra="5dp"
         android:text="@string/id_confirm_tip" />
