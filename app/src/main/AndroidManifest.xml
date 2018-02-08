@@ -55,6 +55,7 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.LoginByCodeActivity" />
         <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.SearchMapActivity" />
 
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity

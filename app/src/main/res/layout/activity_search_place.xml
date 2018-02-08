@@ -18,14 +18,15 @@
             android:layout_marginLeft="10dp"
             android:src="@mipmap/img_location" />
 
-        <android.support.v7.widget.SearchView
+        <SearchView
+            android:id="@+id/sv_map"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:iconifiedByDefault="false"
             android:background="@drawable/shape_round_white_bg"
-            android:gravity="center_vertical"
-            app:queryHint="@string/search_place" />
+            android:queryHint="@string/search_place" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -43,40 +44,52 @@
 
     </LinearLayout>
 
-    <TextView
-        style="@style/text_gray_16sp"
-        android:padding="10dp"
-        android:text="热门地区" />
-
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:layout_height="match_parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="@color/text_color_gray" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        style="@style/text_gray_16sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="搜索历史" />
+            <TextView
+                style="@style/text_gray_16sp"
+                android:padding="10dp"
+                android:text="热门地区" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
-    <TextView
-        style="@style/text_gray_12sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="清除搜索历史" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/text_color_gray" />
+
+            <TextView
+                style="@style/text_gray_16sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="搜索历史" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp" />
+
+            <TextView
+                style="@style/text_gray_12sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="清除搜索历史" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
