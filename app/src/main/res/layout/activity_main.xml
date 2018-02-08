@@ -70,12 +70,17 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/img_message" />
+
                 <TextView
+                    android:id="@+id/tv_message"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@mipmap/img_message"
-                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
                     android:text="思明区xxx新增55个停车位"
                     android:textColor="@color/text_color_gray"
@@ -83,7 +88,7 @@
 
                 <Button
                     android:layout_width="55dp"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:background="@mipmap/img_btn_bg"
                     android:text="@string/detail"
                     android:textColor="@color/text_color_gray" />
