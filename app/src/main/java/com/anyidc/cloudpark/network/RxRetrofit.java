@@ -30,7 +30,7 @@ public class RxRetrofit {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.e("message", message);
+                Log.e("message", unicodeToUTF_8(message));
             }
         });
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -57,5 +57,29 @@ public class RxRetrofit {
         return retrofit;
     }
 
+    private static String unicodeToUTF_8(String src) {
+        if (null == src) {
+            return null;
+        }
+        StringBuilder out = new StringBuilder();
+        int length = src.length();
+        for (int i = 0; i < length; ) {
+            char c = src.charAt(i);
+            if (i + 6 < length && c == '\\' && src.charAt(i + 1) == 'u') {
+                String hex = src.substring(i + 2, i + 6);
+                try {
+                    out.append((char) Integer.parseInt(hex, 16));
+                } catch (NumberFormatException nfe) {
+                    nfe.fillInStackTrace();
+                }
+                i = i + 6;
+            } else {
+                out.append(src.charAt(i));
+                ++i;
+            }
+        }
+        return out.toString();
+
+    }
 
 }
