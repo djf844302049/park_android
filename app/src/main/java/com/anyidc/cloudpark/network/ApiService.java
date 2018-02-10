@@ -1,9 +1,8 @@
 package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -27,12 +26,12 @@ public interface ApiService {
      * 获取初始化数据
      */
     @GET("api/v1/init")
-    Observable<BaseEntity<List<String>>> appInit();
+    Observable<BaseEntity<InitBean>> appInit();
 
     /**
      * 获取验证码
      */
-    @POST("App/v1/identify")
+    @POST("api/v1/identify")
     @FormUrlEncoded
     Observable<BaseEntity<String>> getCode(@Field("mobile") String mobile);
 

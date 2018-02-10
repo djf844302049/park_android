@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
     private EditText etConfirmCode;
     private EditText etPassword;
     private TextView tvGetCode;
+    private String phoneNum;
 
     @Override
     protected int getLayoutId() {
@@ -43,18 +45,40 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
                 getCode();
                 break;
             case R.id.btn_register:
+                register();
                 break;
         }
     }
 
     private void getCode() {
-        String phoneNum = etPhoneNum.getText().toString();
+        phoneNum = etPhoneNum.getText().toString();
         getTime(Api.getDefaultService().getCode(phoneNum)
                 , new RxObserver<BaseEntity>(this, true) {
-            @Override
-            public void onSuccess(BaseEntity baseEntity) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
 
-            }
-        });
+                    }
+                });
+    }
+
+    private void register() {
+        if (TextUtils.isEmpty(phoneNum)) {
+            return;
+        }
+        String code = etConfirmCode.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            return;
+        }
+        String password = etPassword.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            return;
+        }
+        getTime(Api.getDefaultService().register(phoneNum, password, code),
+                new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+
+                    }
+                });
     }
 }

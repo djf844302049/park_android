@@ -27,12 +27,7 @@ public class RxRetrofit {
 
     public static Retrofit getRetrofit(String baseUrl) {
         //开启Log
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Log.e("message", unicodeToUTF_8(message));
-            }
-        });
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(message -> Log.e("message", unicodeToUTF_8(message)));
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //缓存
         File cacheFile = new File(BaseApplication.appContext.getCacheDir(), "cache");

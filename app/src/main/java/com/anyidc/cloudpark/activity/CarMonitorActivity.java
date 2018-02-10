@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.activity;
 
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;

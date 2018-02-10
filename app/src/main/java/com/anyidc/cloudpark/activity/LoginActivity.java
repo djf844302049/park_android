@@ -27,7 +27,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         etPhoneNum = findViewById(R.id.et_phone_num);
         etPassword = findViewById(R.id.et_password);
         tvRight = findViewById(R.id.tv_right);
-        tvRight.setText("注册");
+        tvRight.setVisibility(View.VISIBLE);
+        tvRight.setText(getResources().getString(R.string.register));
         tvRight.setOnClickListener(this);
         findViewById(R.id.tv_login_by_code).setOnClickListener(this);
         findViewById(R.id.tv_forget_password).setOnClickListener(this);
@@ -41,6 +42,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(new Intent(this, LoginByCodeActivity.class));
                 break;
             case R.id.tv_forget_password:
+                startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
             case R.id.btn_login:
                 break;
