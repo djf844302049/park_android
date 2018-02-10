@@ -71,4 +71,100 @@ public interface ApiService {
     @POST("api/v1/image")
     @FormUrlEncoded
     Observable<BaseEntity<String>> uploadImg();
+
+    /**
+     * 获取基本信息接口
+     */
+    @GET("api/v1/user/1")
+    Observable<BaseEntity<String>> getUserInfo();
+
+    /**
+     * 基本信息提交接口
+     */
+    @POST("api/v1/baseinfo")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> updateUserInfo(@Field("header_img") String header_img
+            , @Field("sex") String sex, @Field("username") String username);
+
+    /**
+     * 身份认证申请提交接口
+     */
+    @POST("api/v1/auth")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> idConfirm(@Field("real_name") String realName
+            , @Field("id_pos") String idPos, @Field("id_neg") String idNeg);
+
+    /**
+     * 增加车辆接口
+     */
+    @POST("api/v1/addMyCar")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> addCar(@Field("car_no") String carNum, @Field("new_energy") int newEnergy);
+
+    /**
+     * 车辆认证接口
+     */
+    @POST("api/v1/carAuth")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> carAuth(@Field("id") String id
+            , @Field("license_pos") String licensePos, @Field("license_neg") String licenseNeg);
+
+    /**
+     * 管理员控制车位升降接口
+     */
+    @POST("api/v1/parkingControlByManager")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> parkControl(@Field("parking_sn") String parkSn, @Field("control") String control);
+
+    /**
+     * 停车位摄像头播放地址请求接口
+     */
+    @POST("api/v1/watchCamera")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> watchCamera(@Field("parking_sn") String parkSn);
+
+    /**
+     * 热搜地区接口
+     */
+    @GET("api/v1/getHotSearch")
+    Observable<BaseEntity<String>> getHotSearch();
+
+    /**
+     * 停车场搜索请求接口
+     */
+    @POST("api/v1/parkingSearch")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> parkingSearch(@Field("size") String size, @Field("page") int page);
+
+    /**
+     * 首页预约请求接口
+     */
+    @POST("api/v1/parkingAppointment")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> parkOrder();
+
+    /**
+     * 个人中心接口
+     */
+    @GET("api/v1/center")
+    Observable<BaseEntity<String>> center();
+
+    /**
+     * 用户意见反馈接口
+     */
+    @POST("api/v1/addAdvise")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> addAdvise(@Field("content") String content, @Field("images") String images);
+
+    /**
+     * 常见问题接口
+     */
+    @GET("api/v1/getCommonQuestion")
+    Observable<BaseEntity<String>> getQuestion();
+
+    /**
+     * 获取用户车辆列表接口
+     */
+    @GET("api/v1/getUserCars")
+    Observable<BaseEntity<String>> getUserCars();
 }
