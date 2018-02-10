@@ -54,6 +54,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/shape_bottom_line"
         android:hint="@string/input_register_password"
+        android:inputType="textPassword"
         android:paddingBottom="15dp" />
 
     <LinearLayout

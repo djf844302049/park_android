@@ -1,11 +1,17 @@
 package com.anyidc.cloudpark.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.LoginRegisterBean;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
  * Created by Administrator on 2018/2/6.
@@ -45,10 +51,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
             case R.id.btn_login:
+                login();
                 break;
             case R.id.tv_right:
                 startActivity(new Intent(this, RegisterActivity.class));
                 break;
         }
+    }
+
+    private void login() {
+        String phoneNum = etPhoneNum.getText().toString();
+        if (TextUtils.isEmpty(phoneNum)) {
+            return;
+        }
+        String password = etPassword.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            return;
+        }
+        getTime(Api.getDefaultService().loginByPassword(phoneNum, password)
+                , new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
+                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+                    }
+                });
     }
 }

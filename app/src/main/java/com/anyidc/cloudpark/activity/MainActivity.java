@@ -5,10 +5,9 @@ import android.view.View;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -21,9 +20,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void initData() {
         findViewById(R.id.tv_search_place).setOnClickListener(this);
         getTime(Api.getDefaultService().appInit()
-                , new RxObserver<BaseEntity<List<String>>>(this, true) {
+                , new RxObserver<BaseEntity<InitBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity<List<String>> stringBaseEntity) {
+                    public void onSuccess(BaseEntity<InitBean> initBean) {
 
                     }
                 });

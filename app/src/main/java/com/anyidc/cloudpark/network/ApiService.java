@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.InitBean;
+import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 
 import io.reactivex.Observable;
@@ -33,22 +34,30 @@ public interface ApiService {
      */
     @POST("api/v1/identify")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> getCode(@Field("mobile") String mobile);
+    Observable<BaseEntity> getCode(@Field("mobile") String mobile);
 
     /**
-     * 登录接口
+     * 密码登录接口
      */
     @POST("api/v1/login")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> login(@Field("mobile") String mobile
+    Observable<BaseEntity<LoginRegisterBean>> loginByPassword(@Field("mobile") String mobile
             , @Field("password") String password);
 
     /**
-     * 登录接口
+     * 验证码登录接口
+     */
+    @POST("api/v1/login")
+    @FormUrlEncoded
+    Observable<BaseEntity<LoginRegisterBean>> loginByCode(@Field("mobile") String mobile
+            , @Field("code") String password);
+
+    /**
+     * 注册接口
      */
     @POST("api/v1/register")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> register(@Field("mobile") String mobile
+    Observable<BaseEntity<LoginRegisterBean>> register(@Field("mobile") String mobile
             , @Field("password") String password, @Field("code") String code);
 
     /**

@@ -8,8 +8,11 @@ import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CountDownRunnable;
+import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -21,6 +24,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
     private EditText etPassword;
     private TextView tvGetCode;
     private String phoneNum;
+    private int countDownTime = 120;
 
     @Override
     protected int getLayoutId() {
@@ -52,11 +56,14 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
     private void getCode() {
         phoneNum = etPhoneNum.getText().toString();
+        if (TextUtils.isEmpty(phoneNum)) {
+            return;
+        }
         getTime(Api.getDefaultService().getCode(phoneNum)
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-
+                        new CountDownRunnable(120, tvGetCode).run();
                     }
                 });
     }
@@ -74,10 +81,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
             return;
         }
         getTime(Api.getDefaultService().register(phoneNum, password, code),
-                new RxObserver<BaseEntity>(this, true) {
+                new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity baseEntity) {
-
+                    public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
+                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
                     }
                 });
     }
