@@ -27,11 +27,11 @@
             android:src="@mipmap/ic_launcher"
             app:civ_border_width="1dp" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text=">" />
+            android:src="@mipmap/img_right_arrow" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,12 +52,11 @@
 
         <TextView
             style="@style/text_gray_14sp"
+            android:drawablePadding="3dp"
+            android:drawableRight="@mipmap/img_right_arrow"
+            android:gravity="center"
             android:text="lalala" />
 
-        <TextView
-            style="@style/text_gray_14sp"
-            android:layout_marginLeft="5dp"
-            android:text=">" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,12 +77,10 @@
 
         <TextView
             style="@style/text_gray_14sp"
+            android:drawablePadding="3dp"
+            android:drawableRight="@mipmap/img_right_arrow"
+            android:gravity="center"
             android:text="未设置" />
-
-        <TextView
-            style="@style/text_gray_14sp"
-            android:layout_marginLeft="5dp"
-            android:text=">" />
     </LinearLayout>
 
 </LinearLayout>

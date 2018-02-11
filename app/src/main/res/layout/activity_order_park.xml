@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/common_text"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="XX云能停车场"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/common_text"
+                    android:layout_marginLeft="11dp"
+                    android:drawableLeft="@mipmap/img_num"
+                    android:drawablePadding="7dp"
+                    android:gravity="center"
+                    android:text="@string/park_place_num"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/common_text"
+                    android:gravity="center"
+                    android:text="XXX"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/common_text"
+                    android:layout_marginLeft="11dp"
+                    android:drawableLeft="@mipmap/img_order"
+                    android:drawablePadding="7dp"
+                    android:gravity="center"
+                    android:text="@string/order_time"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/common_text"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="(16:00)"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/common_text"
+                    android:layout_marginLeft="11dp"
+                    android:drawableLeft="@mipmap/img_share"
+                    android:drawablePadding="7dp"
+                    android:gravity="center"
+                    android:text="@string/share_time"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/common_text"
+                    android:gravity="center"
+                    android:text="21:00-24:00"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/common_text"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center"
+                    android:src="@mipmap/img_tip" />
+
+                <TextView
+                    style="@style/common_text"
+                    android:layout_marginLeft="7dp"
+                    android:text="@string/share_tip"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/bg_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:src="@mipmap/img_balance" />
+
+                <LinearLayout
+                    android:id="@+id/ll_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toRightOf="@id/img_balance"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/common_text"
+                        android:text="@string/balance_pay"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        style="@style/text_gray_14sp"
+                        android:layout_marginTop="3dp"
+                        android:text="账户余额为xxx可使用" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="11dp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@id/ll_balance"
+                    android:layout_below="@id/ll_balance"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/bg_gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_al"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:src="@mipmap/img_al" />
+
+                <LinearLayout
+                    android:id="@+id/ll_al"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toRightOf="@id/img_al"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/common_text"
+                        android:text="@string/ali_pay"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        style="@style/text_gray_14sp"
+                        android:layout_marginTop="3dp"
+                        android:text="账户余额为xxx可使用" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="11dp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@id/ll_al"
+                    android:layout_below="@id/ll_al"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/bg_gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:src="@mipmap/img_wx" />
+
+                <LinearLayout
+                    android:id="@+id/ll_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toRightOf="@id/img_wx"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/common_text"
+                        android:text="@string/wx_pay"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        style="@style/text_gray_14sp"
+                        android:layout_marginTop="3dp"
+                        android:text="账户余额为xxx可使用" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="11dp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@id/ll_wx"
+                    android:layout_below="@id/ll_wx"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/bg_gray" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="7dp"
+                android:paddingTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_yl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="11dp"
+                    android:src="@mipmap/img_yl" />
+
+                <LinearLayout
+                    android:id="@+id/ll_yl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toRightOf="@id/img_yl"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/common_text"
+                        android:text="@string/yl_pay"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        style="@style/text_gray_14sp"
+                        android:layout_marginTop="3dp"
+                        android:text="账户余额为xxx可使用" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="11dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_gray_12sp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@string/order_tip" />
+
+                <Button
+                    android:layout_width="320dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_bg_blue"
+                    android:text="@string/confirm_pay_5"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

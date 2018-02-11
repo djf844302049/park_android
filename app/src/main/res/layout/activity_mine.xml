@@ -63,7 +63,10 @@
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_gravity="right"
-                    android:text="余额：￥20>" />
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@mipmap/img_right_arrow"
+                    android:gravity="center"
+                    android:text="余额：￥20" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -121,9 +124,9 @@
                 android:layout_weight="1"
                 android:text="@string/id_confirm" />
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:text=">" />
+            <ImageView
+                style="@style/common_text"
+                android:src="@mipmap/img_right_arrow" />
         </LinearLayout>
 
         <LinearLayout
@@ -139,9 +142,9 @@
                 android:layout_weight="1"
                 android:text="@string/common_questions" />
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:text=">" />
+            <ImageView
+                style="@style/common_text"
+                android:src="@mipmap/img_right_arrow" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,9 +160,9 @@
                 android:layout_weight="1"
                 android:text="@string/advise" />
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:text=">" />
+            <ImageView
+                style="@style/common_text"
+                android:src="@mipmap/img_right_arrow" />
         </LinearLayout>
 
         <LinearLayout
@@ -175,9 +178,9 @@
                 android:layout_weight="1"
                 android:text="@string/setting" />
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:text=">" />
+            <ImageView
+                style="@style/common_text"
+                android:src="@mipmap/img_right_arrow" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

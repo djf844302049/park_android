@@ -19,9 +19,9 @@
             android:layout_weight="1"
             android:text="@string/check_update" />
 
-        <TextView
-            style="@style/text_gray_14sp"
-            android:text=">" />
+        <ImageView
+            style="@style/common_text"
+            android:src="@mipmap/img_right_arrow" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,9 +36,9 @@
             android:layout_weight="1"
             android:text="@string/give_a_mark" />
 
-        <TextView
-            style="@style/text_gray_14sp"
-            android:text=">" />
+        <ImageView
+            style="@style/common_text"
+            android:src="@mipmap/img_right_arrow" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,9 +53,9 @@
             android:layout_weight="1"
             android:text="@string/about_us" />
 
-        <TextView
-            style="@style/text_gray_14sp"
-            android:text=">" />
+        <ImageView
+            style="@style/common_text"
+            android:src="@mipmap/img_right_arrow" />
     </LinearLayout>
 
     <LinearLayout

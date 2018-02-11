@@ -32,7 +32,7 @@
     <string name="id_num">身份证号</string>
     <string name="login">登录</string>
     <string name="complete">完成</string>
-    <string name="skip">跳过></string>
+    <string name="skip">跳过</string>
     <string name="register">注册</string>
     <string name="balance">余额</string>
     <string name="deposit">押金</string>
@@ -40,7 +40,7 @@
     <string name="recharge_deposit">缴纳押金</string>
     <string name="recharge_deposit_tip">预约前需缴纳押金</string>
     <string name="recharge_deposit_tip_detail">· 充值后您将成为VIP用户，可以进行车位\n预约，享有停车优惠折扣。\n· 押金可在“个人中心-我的钱包”中提现。</string>
-    <string name="pay_setting">支付设置 ></string>
+    <string name="pay_setting">支付设置</string>
     <string name="ali_pay">支付宝支付</string>
     <string name="wx_pay">微信支付</string>
     <string name="yl_pay">银联支付</string>
@@ -67,4 +67,11 @@
     <string name="give_a_mark">去评分</string>
     <string name="about_us">关于我们</string>
     <string name="current_version">当前版本</string>
+    <string name="park_place_num">车位编号：</string>
+    <string name="order_time">预约时间</string>
+    <string name="share_time">共享时间：</string>
+    <string name="balance_pay">账户余额支付</string>
+    <string name="confirm_pay_5">确认支付￥5</string>
+    <string name="share_tip">请注意停车不要超出该时间段，否则需交纳超出部分N倍的金额。</string>
+    <string name="order_tip">注:缴纳预约费用后才可以进行预约，不同地段预约费用\n不同，且预约费用不予退还。</string>
 </resources>
