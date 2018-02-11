@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -77,6 +78,7 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+                        startActivity(new Intent(LoginByCodeActivity.this,MainActivity.class));
                     }
                 });
     }

@@ -48,13 +48,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(new Intent(this, LoginByCodeActivity.class));
                 break;
             case R.id.tv_forget_password:
-                startActivity(new Intent(this, ForgetPasswordActivity.class));
+                RegisterActivity.actionStart(this, 1);
                 break;
             case R.id.btn_login:
                 login();
                 break;
             case R.id.tv_right:
-                startActivity(new Intent(this, RegisterActivity.class));
+                RegisterActivity.actionStart(this, 0);
                 break;
         }
     }
@@ -73,6 +73,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }

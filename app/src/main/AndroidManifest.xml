@@ -56,7 +56,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.LoginByCodeActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.RegisterActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.SearchMapActivity" />
-        <activity android:name="com.anyidc.cloudpark.activity.ForgetPasswordActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.MineActivity" />
 
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity

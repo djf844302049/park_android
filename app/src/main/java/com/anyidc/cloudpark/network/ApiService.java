@@ -71,8 +71,9 @@ public interface ApiService {
     /**
      * 首页接口
      */
-    @GET("api/v1/index")
-    Observable<BaseEntity<String>> getIndex();
+    @POST("api/v1/index")
+    @FormUrlEncoded
+    Observable<BaseEntity<String>> getIndex(@Field("lat") double lat, @Field("lng") double lng);
 
     /**
      * 图片上传接口

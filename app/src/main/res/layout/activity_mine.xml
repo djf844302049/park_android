@@ -1,186 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee"
-    android:scrollbars="none">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:background="#999999"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="30dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"
+                        app:civ_border_width="1dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/login_or_register" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="80dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_gray_14sp"
+                        android:text="@string/mine_wallet" />
+
+                    <TextView
+                        style="@style/text_gray_14sp"
+                        android:layout_gravity="right"
+                        android:drawablePadding="3dp"
+                        android:drawableRight="@mipmap/img_right_arrow"
+                        android:gravity="center"
+                        android:text="余额：￥20" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="#999999"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="30dp">
+                android:padding="10dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    app:civ_border_width="1dp" />
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@mipmap/ic_launcher"
+                    android:gravity="center"
+                    android:text="@string/park_record" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/login_or_register" />
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@mipmap/ic_launcher"
+                    android:gravity="center"
+                    android:text="@string/order_record" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@mipmap/ic_launcher"
+                    android:gravity="center"
+                    android:text="@string/car_monitor" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp" />
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@mipmap/ic_launcher"
+                    android:gravity="center"
+                    android:text="@string/mine_car" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="240dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/white"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     style="@style/text_gray_14sp"
-                    android:text="@string/mine_wallet" />
+                    android:layout_weight="1"
+                    android:text="@string/id_confirm" />
 
                 <TextView
                     style="@style/text_gray_14sp"
-                    android:layout_gravity="right"
                     android:drawablePadding="3dp"
                     android:drawableRight="@mipmap/img_right_arrow"
-                    android:gravity="center"
-                    android:text="余额：￥20" />
+                    android:text="认证中" />
             </LinearLayout>
-        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:gravity="center"
-                android:text="@string/park_record" />
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:text="@string/common_questions" />
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:gravity="center"
-                android:text="@string/park_record" />
+                <ImageView
+                    style="@style/common_text"
+                    android:src="@mipmap/img_right_arrow" />
+            </LinearLayout>
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:gravity="center"
-                android:text="@string/park_record" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:gravity="center"
-                android:text="@string/park_record" />
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:text="@string/advise" />
+
+                <ImageView
+                    style="@style/common_text"
+                    android:src="@mipmap/img_right_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:text="@string/setting" />
+
+                <ImageView
+                    style="@style/common_text"
+                    android:src="@mipmap/img_right_arrow" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:text="@string/id_confirm" />
-
-            <ImageView
-                style="@style/common_text"
-                android:src="@mipmap/img_right_arrow" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:text="@string/common_questions" />
-
-            <ImageView
-                style="@style/common_text"
-                android:src="@mipmap/img_right_arrow" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:text="@string/advise" />
-
-            <ImageView
-                style="@style/common_text"
-                android:src="@mipmap/img_right_arrow" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                style="@style/text_gray_14sp"
-                android:layout_weight="1"
-                android:text="@string/setting" />
-
-            <ImageView
-                style="@style/common_text"
-                android:src="@mipmap/img_right_arrow" />
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

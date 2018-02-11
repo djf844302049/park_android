@@ -3,17 +3,18 @@ package com.anyidc.cloudpark.activity;
 import com.anyidc.cloudpark.R;
 
 /**
- * Created by Administrator on 2018/2/10.
+ * Created by Administrator on 2018/2/11.
  */
 
-public class ForgetPasswordActivity extends BaseActivity {
+public class MineActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_forget_password;
+        return R.layout.activity_mine;
     }
 
     @Override
     protected void initData() {
+        initTitle("我的");
 
     }
 }
