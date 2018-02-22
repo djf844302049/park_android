@@ -46,7 +46,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.anyidc.cloudpark.activity.LoginActivity">
+        <activity android:name="com.anyidc.cloudpark.activity.CutImageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
