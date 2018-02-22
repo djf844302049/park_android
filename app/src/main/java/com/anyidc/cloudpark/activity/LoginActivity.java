@@ -11,6 +11,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
@@ -68,12 +69,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (TextUtils.isEmpty(password)) {
             return;
         }
-        getTime(Api.getDefaultService().loginByPassword(phoneNum, password)
+        getTime(Api.getDefaultService().loginByPassword(phoneNum, AesUtil.encrypt(password))
                 , new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, CompleteBaseInfoActivity.class));
                     }
                 });
     }

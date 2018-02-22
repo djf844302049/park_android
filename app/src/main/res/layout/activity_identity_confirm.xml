@@ -9,6 +9,7 @@
     <include layout="@layout/toolbar" />
 
     <TextView
+        android:id="@+id/tv_skip"
         style="@style/text_gray_14sp"
         android:layout_gravity="right"
         android:layout_marginRight="10dp"
@@ -33,6 +34,7 @@
             android:text="@string/real_name" />
 
         <EditText
+            android:id="@+id/et_real_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -56,6 +58,7 @@
             android:text="@string/id_num" />
 
         <EditText
+            android:id="@+id/et_id_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -65,6 +68,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/iv_id_pos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -76,6 +80,7 @@
         android:text="@string/front_id_photo" />
 
     <ImageView
+        android:id="@+id/iv_id_neg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -87,6 +92,7 @@
         android:text="@string/inverse_id_photo" />
 
     <Button
+        android:id="@+id/btn_next_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"

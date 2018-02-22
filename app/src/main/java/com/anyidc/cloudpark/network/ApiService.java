@@ -1,15 +1,20 @@
 package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
+import com.anyidc.cloudpark.moduel.UpdateImgBean;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by necer on 2017/6/28.
@@ -61,11 +66,18 @@ public interface ApiService {
             , @Field("password") String password, @Field("code") String code);
 
     /**
+     * 图片上传接口
+     */
+    @POST("api/v1/image")
+    @Multipart
+    Observable<BaseEntity<UpdateImgBean>> uploadImg(@Part MultipartBody.Part part);
+
+    /**
      * 忘记密码接口
      */
     @POST("api/v1/forget")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> forgetPassword(@Field("mobile") String mobile
+    Observable<BaseEntity<LoginRegisterBean>> forgetPassword(@Field("mobile") String mobile
             , @Field("password") String password, @Field("code") String code);
 
     /**
@@ -74,13 +86,6 @@ public interface ApiService {
     @POST("api/v1/index")
     @FormUrlEncoded
     Observable<BaseEntity<String>> getIndex(@Field("lat") double lat, @Field("lng") double lng);
-
-    /**
-     * 图片上传接口
-     */
-    @POST("api/v1/image")
-    @FormUrlEncoded
-    Observable<BaseEntity<String>> uploadImg();
 
     /**
      * 获取基本信息接口
@@ -93,8 +98,8 @@ public interface ApiService {
      */
     @POST("api/v1/baseinfo")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> updateUserInfo(@Field("header_img") String header_img
-            , @Field("sex") String sex, @Field("username") String username);
+    Observable<BaseEntity<InfoBean>> updateInfo(@Field("header_img") String header_img
+            , @Field("sex") int sex, @Field("username") String username);
 
     /**
      * 身份认证申请提交接口

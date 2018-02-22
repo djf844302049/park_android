@@ -74,4 +74,5 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
 
     implementation 'com.githang:status-bar-compat:latest.integration'
+    implementation 'com.android.support:design:24.2.1'
 }

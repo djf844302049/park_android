@@ -9,16 +9,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetDialog;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.activity.BaseActivity;
 import com.bumptech.glide.Glide;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Rationale;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/6/20 0020.
@@ -30,8 +36,19 @@ public class UpdateImgUtil {
     private static final int REQUEST_CODE_CAPTURE = 3;
     private static final int REQUEST_CODE_CUTTING = 2;
     private File file;
+    private Uri uri;
+
     private BaseActivity activity;
     private ImageView view;
+    private Rationale mRationale = (context, permissions, executor) -> {
+        // 这里使用一个Dialog询问用户是否继续授权。
+
+        // 如果用户继续：
+        executor.execute();
+
+        // 如果用户中断：
+        executor.cancel();
+    };
 
     public UpdateImgUtil(BaseActivity activity, ImageView view) {
         this.activity = activity;
@@ -47,16 +64,37 @@ public class UpdateImgUtil {
                 startPhotoZoom(data.getData());
                 break;
             case REQUEST_CODE_CAPTURE:
-                if (file != null && file.length() > 0) {
-                    Uri uri = null;
-                    if (Build.VERSION.SDK_INT < 24) {
-                        uri = Uri.fromFile(file);
-                    } else {
-                        uri = getImageContentUri(file);
+                //通过这种方式得到的图片经过压缩，分辨率非常低
+                if (data == null) {
+                    return;
+                } else {
+                    Bundle cameraBundle = data.getExtras();
+                    if (cameraBundle != null) {
+                        Bitmap cameraBitmap = cameraBundle.getParcelable("data");
+                        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                            file = new File(Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/", new Date().getTime() + ".png");
+                        } else {
+                            Toast.makeText(activity, R.string.sd_card_does_not_exist, Toast.LENGTH_SHORT).show();
+                            file = new File(Environment.getDownloadCacheDirectory() + "/DCIM/Camera/", new Date().getTime() + ".png");
+                        }
+                        try {
+                            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+                            cameraBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                            bos.flush();
+                            bos.close();
+                            Uri uri = null;
+                            if (Build.VERSION.SDK_INT < 24) {
+                                uri = Uri.fromFile(file);
+                            } else {
+                                uri = getImageContentUri(file);
+                            }
+                            //裁剪图片
+                            startPhotoZoom(uri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                    startPhotoZoom(uri);
                 }
-
                 break;
             case REQUEST_CODE_CUTTING:
                 if (data != null) {
@@ -109,8 +147,8 @@ public class UpdateImgUtil {
         intent.putExtra("crop", true);
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
+        intent.putExtra("outputX", 100);
+        intent.putExtra("outputY", 100);
         intent.putExtra("return-data", true);
         intent.putExtra("noFaceDetection", true);
         activity.startActivityForResult(intent, REQUEST_CODE_CUTTING);
@@ -150,74 +188,50 @@ public class UpdateImgUtil {
      * 头像控件点击触发的事件
      */
     public void uploadHeadPhoto() {
-//        AlertDialog.Builder builder = null;
-//        if (Build.VERSION.SDK_INT > 21) {
-//            builder = new AlertDialog.Builder(activity);
-//        } else {
-//            builder = new AlertDialog.Builder(activity);
-//        }
-//        builder.setTitle(R.string.dl_title_upload_photo);
-//        builder.setItems(new String[]{activity.getString(R.string.dl_msg_take_photo), activity.getString(R.string.dl_msg_local_upload)},
-//                (dialog1, which) -> {
-//                    dialog1.dismiss();
-//                    switch (which) {
-//                        case 0:
-//                            if (Build.VERSION.SDK_INT >= 23) {
-//                                int checkCallPhonePermission = ContextCompat.checkSelfPermission(activity, android.Manifest.permission.CAMERA);
-//                                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-//                                    AlertDialog alertDialog = new AlertDialog.Builder(activity)
-//                                            .setMessage("很遗憾你把相机权限禁用了，请到授权管理中打开该权限。")
-//                                            .setCancelable(false)
-//                                            .setPositiveButton("立即前往", (dialog, which1) -> {
-//                                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-//                                                activity.startActivity(intent);
-//                                            }).setNegativeButton("稍后再说", null).create();
-//                                    alertDialog.show();
-//                                    return;
+        BottomSheetDialog dialog = new BottomSheetDialog(activity);
+        dialog.setContentView(R.layout.layout_picture_choice);
+        dialog.findViewById(R.id.tv_take_photo).setOnClickListener(view1 -> {
+                    AndPermission.with(activity)
+                            .permission(android.Manifest.permission.CAMERA
+                                    , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .rationale(mRationale)
+                            .onGranted(permissions -> {
+                                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//                                    file = new File(Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/", new Date().getTime() + ".png");
+//                                } else {
+//                                    Toast.makeText(activity, R.string.sd_card_does_not_exist, Toast.LENGTH_SHORT).show();
+//                                    file = new File(Environment.getDownloadCacheDirectory(), new Date().getTime() + ".png");
 //                                }
-//                            }
-//                            Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//                                file = new File(Environment.getExternalStorageDirectory().getPath(), new Date().getTime() + ".png");
-//                            } else {
-//                                Toast.makeText(activity, R.string.sd_card_does_not_exist, Toast.LENGTH_SHORT).show();
-//                                file = new File(Environment.getDownloadCacheDirectory(), new Date().getTime() + ".png");
-//                            }
-//                            if (Build.VERSION.SDK_INT < 24) {
-//                                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-//                            } else {
-//                                Uri uri = getImageContentUri(file);
+//                                if (!file.exists()) {
+//                                    file.mkdirs();
+//                                }
+//                                if (Build.VERSION.SDK_INT < 24) {
+//                                    uri = Uri.fromFile(file);
+//                                } else {
+//                                    uri = getImageContentUri(file);
+//                                }
+                                //华为P10系统8.0手机通过这种方式保存不了原图
 //                                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//                            }
-//                            if (captureIntent.resolveActivity(activity.getPackageManager()) != null) {
-//                                activity.startActivityForResult(captureIntent, REQUEST_CODE_CAPTURE);
-//                            }
-//                            break;
-//                        case 1:
-//                            if (Build.VERSION.SDK_INT >= 23) {
-//                                int checkCallPhonePermission = ContextCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//                                int checkCallPhonePermission1 = ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_EXTERNAL_STORAGE);
-//                                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED || checkCallPhonePermission1 != PackageManager.PERMISSION_GRANTED) {
-//                                    AlertDialog alertDialog = new AlertDialog.Builder(activity)
-//                                            .setMessage("很遗憾您禁用了读写权限，请到授权管理中打开该权限。")
-//                                            .setCancelable(false)
-//                                            .setPositiveButton("立即前往", (dialog, which1) -> {
-//                                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-//                                                activity.startActivity(intent);
-//                                            }).setNegativeButton("稍后再说", null).create();
-//                                    alertDialog.show();
-//                                    return;
-//                                }
-//                            }
-//                            Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-//                            pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//                            activity.startActivityForResult(pickIntent, REQUEST_CODE_PICK);
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                });
-//        builder.create().show();
+                                activity.startActivityForResult(captureIntent, REQUEST_CODE_CAPTURE);
+                            }).start();
+                    dialog.dismiss();
+                }
+        );
+        dialog.findViewById(R.id.tv_pick_photo).setOnClickListener(view1 -> {
+                    AndPermission.with(activity)
+                            .permission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                            .onGranted(permissions -> {
+                                Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
+                                pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                                activity.startActivityForResult(pickIntent, REQUEST_CODE_PICK);
+                            })
+                            .rationale(mRationale)
+                            .start();
+                    dialog.dismiss();
+                }
+        );
+        dialog.show();
     }
 
     private File bytesFile(byte[] bytes) throws IOException {
@@ -225,7 +239,7 @@ public class UpdateImgUtil {
         FileOutputStream fos = null;
         File file = null;
         try {
-            file = new File(Environment.getExternalStorageDirectory().getPath(), "uploadimg.JPG");
+            file = new File(Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/", "file.JPG");
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);

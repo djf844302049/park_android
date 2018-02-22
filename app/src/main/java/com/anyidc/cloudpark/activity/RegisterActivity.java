@@ -15,6 +15,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.CountDownRunnable;
 import com.anyidc.cloudpark.utils.SpUtils;
 
@@ -111,7 +112,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         if (TextUtils.isEmpty(password)) {
             return;
         }
-        getTime(Api.getDefaultService().register(phoneNum, password, code),
+        getTime(Api.getDefaultService().register(phoneNum, AesUtil.encrypt(password), code),
                 new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
@@ -132,7 +133,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         if (TextUtils.isEmpty(password)) {
             return;
         }
-        getTime(Api.getDefaultService().forgetPassword(phoneNum, password, code),
+        getTime(Api.getDefaultService().forgetPassword(phoneNum, AesUtil.encrypt(password), code),
                 new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
