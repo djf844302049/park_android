@@ -107,7 +107,7 @@ public interface ApiService {
     @POST("api/v1/auth")
     @FormUrlEncoded
     Observable<BaseEntity<String>> idConfirm(@Field("real_name") String realName
-            , @Field("id_pos") String idPos, @Field("id_neg") String idNeg);
+            , @Field("id_pos") String idPos, @Field("id_neg") String idNeg,@Field("id_num") String idNum);
 
     /**
      * 增加车辆接口

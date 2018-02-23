@@ -13,7 +13,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.UpdateImgUtil;
+import com.anyidc.cloudpark.utils.UploadImageUtil;
 
 import java.io.File;
 
@@ -31,7 +31,7 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
     private ImageView ivIdPos;
     private ImageView ivIdNeg;
     private Button btnNext;
-    private UpdateImgUtil imgUtil;
+    private UploadImageUtil imgUtil;
     private String idPosImgUrl;
     private String idNegImgUrl;
     private final int POS = 1;
@@ -65,12 +65,12 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.iv_id_pos:
                 which = POS;
-                imgUtil = new UpdateImgUtil(this, ivIdPos);
+                imgUtil = new UploadImageUtil(this, ivIdPos);
                 imgUtil.uploadHeadPhoto();
                 break;
             case R.id.iv_id_neg:
                 which = NEG;
-                imgUtil = new UpdateImgUtil(this, ivIdNeg);
+                imgUtil = new UploadImageUtil(this, ivIdNeg);
                 imgUtil.uploadHeadPhoto();
                 break;
             case R.id.btn_next_step:
@@ -115,11 +115,11 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
             Toast.makeText(this, "真实姓名格式错误", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if (TextUtils.isEmpty(idNum)) {
-//            Toast.makeText(this, "身份证号码格式错误", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-        getTime(Api.getDefaultService().idConfirm(realName, idPosImgUrl, idNegImgUrl),
+        if (TextUtils.isEmpty(idNum)) {
+            Toast.makeText(this, "身份证号码格式错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        getTime(Api.getDefaultService().idConfirm(realName, idPosImgUrl, idNegImgUrl, idNum),
                 new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {

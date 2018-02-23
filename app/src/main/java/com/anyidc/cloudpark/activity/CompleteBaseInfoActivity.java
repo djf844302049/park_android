@@ -16,7 +16,7 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.UpdateImgUtil;
+import com.anyidc.cloudpark.utils.UploadImageUtil;
 
 import java.io.File;
 
@@ -33,7 +33,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
     private EditText etUserName;
     private RadioGroup rbGender;
     private Button btnNext;
-    private UpdateImgUtil imgUtil;
+    private UploadImageUtil imgUtil;
     private String imgUrl;
     private int sex;
 
@@ -62,7 +62,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
         });
         btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(this);
-        imgUtil = new UpdateImgUtil(this, ivAvatar);
+        imgUtil = new UploadImageUtil(this, ivAvatar);
     }
 
     @Override

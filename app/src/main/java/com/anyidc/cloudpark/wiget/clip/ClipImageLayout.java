@@ -11,7 +11,7 @@ public class ClipImageLayout extends RelativeLayout {
 
     private ClipZoomImageView mZoomImageView;
     private ClipImageBorderView mClipImageView;
-    private float scale = 1.5f;
+    private float scale = 1.0f;
 
     private int mHorizontalPadding = 20;
 

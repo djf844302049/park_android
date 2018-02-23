@@ -31,7 +31,7 @@ public class ClipZoomImageView extends AppCompatImageView implements
 {
 
     public static float SCALE_MAX = 4.0f;
-    private static float SCALE_MID = 2.0f;
+    private static float SCALE_MID = 0.5f;
 
     /**
      * 初始化时的缩放比例，如果图片宽或高大于屏幕，此值将小于0
@@ -321,7 +321,7 @@ public class ClipZoomImageView extends AppCompatImageView implements
             if (d == null)
                 return;
             // 垂直方向的边距
-            mVerticalPadding = (int) ((getHeight() - (getWidth() - 2 * mHorizontalPadding)) / (2f*mScale));
+            mVerticalPadding = (int) (mScale * (getHeight() - (getWidth() - 2 * mHorizontalPadding)) / 2);
 
             int width = getWidth();
             int height = getHeight();
@@ -343,7 +343,7 @@ public class ClipZoomImageView extends AppCompatImageView implements
                 scale = Math.max(scaleW, scaleH);
             }
             initScale = scale;
-            SCALE_MID = initScale * 2;
+            SCALE_MID = initScale * 0.5f;
             SCALE_MAX = initScale * 4;
             mScaleMatrix.postTranslate((width - dw) / 2, (height - dh) / 2);//平移至屏幕中心
             mScaleMatrix.postScale(scale, scale, getWidth() / 2, getHeight() / 2);//设置缩放比例

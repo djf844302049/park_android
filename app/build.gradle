@@ -75,4 +75,5 @@ dependencies {
 
     implementation 'com.githang:status-bar-compat:latest.integration'
     implementation 'com.android.support:design:24.2.1'
+    implementation 'com.yanzhenjie:album:1.0.7'
 }
