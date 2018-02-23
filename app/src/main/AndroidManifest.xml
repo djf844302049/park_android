@@ -46,7 +46,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.anyidc.cloudpark.activity.LoginActivity">
+        <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +60,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.MineActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CarConfirmActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CompleteBaseInfoActivity" />
-        <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.LoginActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CutImageActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AddCarActivity" />
 

@@ -19,9 +19,10 @@ public class CutImageActivity extends BaseActivity implements View.OnClickListen
 
     private ClipImageLayout clipLayout;
 
-    public static void actionStart(Activity context, String imgPath, int requestCode) {
+    public static void actionStart(Activity context, String imgPath, int requestCode, float scale) {
         Intent intent = new Intent(context, CutImageActivity.class);
         intent.putExtra("path", imgPath);
+        intent.putExtra("scale", scale);
         context.startActivityForResult(intent, requestCode);
     }
 
@@ -39,7 +40,9 @@ public class CutImageActivity extends BaseActivity implements View.OnClickListen
         tvRight.setText("完成");
         tvRight.setOnClickListener(this);
         String path = getIntent().getStringExtra("path");
-        Bitmap bitmap = ImageTools.convertToBitmap(path, 1000, 1000);
+        float scale = getIntent().getFloatExtra("scale", 1.0f);
+        clipLayout.setScale(scale);
+        Bitmap bitmap = ImageTools.convertToBitmap(path, 600, 600);
         clipLayout.setBitmap(bitmap);
     }
 

@@ -31,6 +31,7 @@ public class UploadImageUtil {
     private static final int REQUEST_CODE_CUTTING = 2;
 
     private BaseActivity activity;
+    private float scale;
     private ImageView view;
     private Rationale mRationale = (context, permissions, executor) -> {
         // 这里使用一个Dialog询问用户是否继续授权。
@@ -45,6 +46,7 @@ public class UploadImageUtil {
     public UploadImageUtil(BaseActivity activity, ImageView view) {
         this.activity = activity;
         this.view = view;
+        this.scale = ((float) view.getWidth()) / view.getHeight();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -53,7 +55,7 @@ public class UploadImageUtil {
             case REQUEST_CODE_CAPTURE:
                 if (resultCode == activity.RESULT_OK) {
                     List<String> pathList = Album.parseResult(data);
-                    CutImageActivity.actionStart(activity, pathList.get(0), REQUEST_CODE_CUTTING);
+                    CutImageActivity.actionStart(activity, pathList.get(0), REQUEST_CODE_CUTTING, scale);
                 }
                 break;
             case REQUEST_CODE_CUTTING:
@@ -76,14 +78,6 @@ public class UploadImageUtil {
         File file = new File(path);
         Log.e("path", path);
         view.setImageBitmap(bitmap);
-//            if (view instanceof SimpleDraweeView) {
-//        Glide.with(activity)
-//                .load(baos)
-//                .into(view);
-//            } else {
-//                Drawable drawable = new BitmapDrawable(activity.getResources(), photo);
-//                view.setImageDrawable(drawable);
-//            }
         activity.updateImg(file);
     }
 

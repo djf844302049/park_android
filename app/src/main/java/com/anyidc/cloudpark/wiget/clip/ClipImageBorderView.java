@@ -82,8 +82,8 @@ public class ClipImageBorderView extends View {
             //绘制阴影层
             mCanvas.drawRect(mRect, mPaintRect);
             //绘制实心矩形 ，绘制完后，在mCanvas画布中，mPaintRect和mPaintCirle相交部分即被掏空
-            clipRect = new RectF(mHorizontalPadding, getHeight() / 2 - (getWidth() - 2 * mHorizontalPadding) / (2f*scale),
-                    getWidth() - mHorizontalPadding, getHeight() / 2 + (getWidth() - 2 * mHorizontalPadding) / (2f*scale));
+            clipRect = new RectF(mHorizontalPadding, getHeight() / 2 - (getWidth() - 2 * mHorizontalPadding) / (2f * scale),
+                    getWidth() - mHorizontalPadding, getHeight() / 2 + (getWidth() - 2 * mHorizontalPadding) / (2f * scale));
             mCanvas.drawRect(clipRect, mPaintCirle);
         }
         //将阴影层画进本View的画布中
@@ -100,6 +100,7 @@ public class ClipImageBorderView extends View {
 
     public void setScale(float scale) {
         this.scale = scale;
+        postInvalidate();
     }
 
 

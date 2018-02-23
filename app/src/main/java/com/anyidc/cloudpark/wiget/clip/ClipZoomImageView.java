@@ -417,6 +417,7 @@ public class ClipZoomImageView extends AppCompatImageView implements
 
     public void setWidthHeightScale(float scale) {
         this.mScale = scale;
+        postInvalidate();
     }
 
     /**
