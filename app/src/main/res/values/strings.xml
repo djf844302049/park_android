@@ -50,7 +50,7 @@
     <string name="female">女</string>
     <string name="detail">详情</string>
     <string name="watch">查看</string>
-    <string name="login_or_register">登录/注册</string>
+    <string name="login_or_register">注册/登录</string>
     <string name="mine_wallet">我的钱包</string>
     <string name="park_record">停车记录</string>
     <string name="order_record">预约记录</string>

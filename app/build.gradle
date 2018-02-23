@@ -83,4 +83,7 @@ dependencies {
     implementation 'com.amap.api:location:3.3.0'
     //搜索功能
     implementation 'com.amap.api:search:5.0.0'
+    //Xrefreshview
+    implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
+    implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
 }
