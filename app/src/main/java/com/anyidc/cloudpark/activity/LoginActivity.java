@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-                        startActivity(new Intent(LoginActivity.this, CompleteBaseInfoActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }

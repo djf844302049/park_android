@@ -1,10 +1,10 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,39 +22,45 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Created by Administrator on 2018/2/22.
+ * Created by Administrator on 2018/2/23.
  */
 
-public class IdentityConfirmActivity extends BaseActivity implements View.OnClickListener {
-    private EditText etRealName;
-    private EditText etIdNum;
-    private ImageView ivIdPos;
-    private ImageView ivIdNeg;
-    private Button btnNext;
+public class CarConfirmActivity extends BaseActivity implements View.OnClickListener {
+
+    private ImageView icLicensePos;
+    private ImageView icLicenseNeg;
+    private Button btnConfirm;
+    private String licensePosImgUrl;
+    private String licenseNegImgUrl;
     private UploadImageUtil imgUtil;
-    private String idPosImgUrl;
-    private String idNegImgUrl;
+    private String id;
     private final int POS = 1;
     private final int NEG = 2;
     private int which;
 
+    public static void actionStart(Context context, String id) {
+        Intent intent = new Intent(context, CarConfirmActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_identity_confirm;
+        return R.layout.activity_car_confirm;
     }
 
     @Override
     protected void initData() {
-        initTitle("身份认证");
-        etRealName = findViewById(R.id.et_real_name);
-        etIdNum = findViewById(R.id.et_id_num);
-        ivIdPos = findViewById(R.id.iv_id_pos);
-        ivIdPos.setOnClickListener(this);
-        ivIdNeg = findViewById(R.id.iv_id_neg);
-        ivIdNeg.setOnClickListener(this);
-        btnNext = findViewById(R.id.btn_next_step);
-        btnNext.setOnClickListener(this);
+        icLicensePos = findViewById(R.id.iv_license_pos);
+        icLicensePos.setOnClickListener(this);
+        icLicenseNeg = findViewById(R.id.iv_license_neg);
+        icLicenseNeg.setOnClickListener(this);
+        btnConfirm = findViewById(R.id.btn_confirm);
+        btnConfirm.setOnClickListener(this);
         findViewById(R.id.tv_skip).setOnClickListener(this);
+        id = getIntent().getStringExtra("id");
+        id = "6";
+        initTitle("车辆认证");
     }
 
     @Override
@@ -63,18 +69,18 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
             case R.id.tv_skip:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
-            case R.id.iv_id_pos:
+            case R.id.iv_license_pos:
                 which = POS;
-                imgUtil = new UploadImageUtil(this, ivIdPos);
+                imgUtil = new UploadImageUtil(this, icLicensePos);
                 imgUtil.uploadHeadPhoto();
                 break;
-            case R.id.iv_id_neg:
+            case R.id.iv_license_neg:
                 which = NEG;
-                imgUtil = new UploadImageUtil(this, ivIdNeg);
+                imgUtil = new UploadImageUtil(this, icLicenseNeg);
                 imgUtil.uploadHeadPhoto();
                 break;
-            case R.id.btn_next_step:
-                idConfirm();
+            case R.id.btn_confirm:
+                carAuth();
                 break;
         }
     }
@@ -90,40 +96,34 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
                         String url = updateImgBean.getData().getUrl();
                         switch (which) {
                             case POS:
-                                idPosImgUrl = url;
+                                licensePosImgUrl = url;
                                 break;
                             case NEG:
-                                idNegImgUrl = url;
+                                licenseNegImgUrl = url;
                                 break;
                         }
                     }
                 });
     }
 
-    private void idConfirm() {
-        String realName = etRealName.getText().toString();
-        String idNum = etIdNum.getText().toString();
-        if (TextUtils.isEmpty(idPosImgUrl)) {
-            Toast.makeText(this, "您还未上传手持身份证正面照", Toast.LENGTH_SHORT).show();
+    private void carAuth() {
+        if (TextUtils.isEmpty(licensePosImgUrl)) {
+            Toast.makeText(this, "您还未上传行驶证主页", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(idPosImgUrl)) {
-            Toast.makeText(this, "您还未上传手持身份证背面照", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(licenseNegImgUrl)) {
+            Toast.makeText(this, "您还未上传行驶证副页", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(realName)) {
-            Toast.makeText(this, "真实姓名格式错误", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(id)) {
+            Toast.makeText(this, "要认证的车辆id异常", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(idNum)) {
-            Toast.makeText(this, "身份证号码格式错误", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        getTime(Api.getDefaultService().idConfirm(realName, idPosImgUrl, idNegImgUrl, idNum),
-                new RxObserver<BaseEntity>(this, true) {
+        getTime(Api.getDefaultService().carAuth(id, licensePosImgUrl, licenseNegImgUrl)
+                , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-                        startActivity(new Intent(IdentityConfirmActivity.this, AddCarActivity.class));
+                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class));
                     }
                 });
     }

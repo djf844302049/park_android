@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.network;
 
+import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
@@ -106,8 +107,8 @@ public interface ApiService {
      */
     @POST("api/v1/auth")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> idConfirm(@Field("real_name") String realName
-            , @Field("id_pos") String idPos, @Field("id_neg") String idNeg,@Field("id_num") String idNum);
+    Observable<BaseEntity<AddCarBean>> idConfirm(@Field("real_name") String realName
+            , @Field("id_pos") String idPos, @Field("id_neg") String idNeg, @Field("id_no") String idNum);
 
     /**
      * 增加车辆接口
