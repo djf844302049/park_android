@@ -80,4 +80,5 @@
     <string name="new_energy_car">新能源汽车</string>
     <string name="bind_real_car_num">请绑定真实有效的车牌号</string>
     <string name="confirm_add">确认添加</string>
+    <string name="clear_history">清除搜索历史</string>
 </resources>

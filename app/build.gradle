@@ -76,4 +76,11 @@ dependencies {
     implementation 'com.githang:status-bar-compat:latest.integration'
     implementation 'com.android.support:design:24.2.1'
     implementation 'com.yanzhenjie:album:1.0.7'
+
+    //3D地图so及jar
+    implementation 'com.amap.api:3dmap:5.0.0'
+    //定位功能
+    implementation 'com.amap.api:location:3.3.0'
+    //搜索功能
+    implementation 'com.amap.api:search:5.0.0'
 }

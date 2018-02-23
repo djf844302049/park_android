@@ -2,11 +2,15 @@ package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
+import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -143,14 +147,15 @@ public interface ApiService {
      * 热搜地区接口
      */
     @GET("api/v1/getHotSearch")
-    Observable<BaseEntity<String>> getHotSearch();
+    Observable<BaseEntity<List<HotAreaBean>>> getHotSearch();
 
     /**
      * 停车场搜索请求接口
      */
     @POST("api/v1/parkingSearch")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> parkingSearch(@Field("size") String size, @Field("page") int page);
+    Observable<BaseEntity<ParkSearchBean>> parkingSearch(@Field("size") int size, @Field("page") int page
+            , @Field("target") String target);
 
     /**
      * 首页预约请求接口

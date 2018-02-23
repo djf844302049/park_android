@@ -36,7 +36,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
 
     <application
         android:name="com.anyidc.cloudpark.BaseApplication"
@@ -46,23 +45,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity">
+        <activity android:name="com.anyidc.cloudpark.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.anyidc.cloudpark.activity.MainActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.LoginActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.LoginByCodeActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.RegisterActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.SearchMapActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.MineActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CarConfirmActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CompleteBaseInfoActivity" />
-        <activity android:name="com.anyidc.cloudpark.activity.LoginActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CutImageActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AddCarActivity" />
+
+        <!--高德地图appKey配置-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="请输入您的用户Key" />
+
+        <service android:name="com.amap.api.location.APSService" />
 
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity
