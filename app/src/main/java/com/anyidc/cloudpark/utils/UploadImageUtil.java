@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.design.widget.BottomSheetDialog;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.anyidc.cloudpark.R;
@@ -76,7 +75,6 @@ public class UploadImageUtil {
 
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         File file = new File(path);
-        Log.e("path", path);
         view.setImageBitmap(bitmap);
         activity.updateImg(file);
     }
@@ -85,7 +83,7 @@ public class UploadImageUtil {
      * 头像控件点击触发的事件
      */
     public void uploadHeadPhoto() {
-        BottomSheetDialog dialog = new BottomSheetDialog(activity);
+        BottomSheetDialog dialog = new BottomSheetDialog(activity,R.style.dialog);
         dialog.setContentView(R.layout.layout_picture_choice);
         dialog.findViewById(R.id.tv_take_photo).setOnClickListener(view1 -> {
                     AndPermission.with(activity)
@@ -116,6 +114,7 @@ public class UploadImageUtil {
                     dialog.dismiss();
                 }
         );
+        dialog.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> dialog.dismiss());
         dialog.show();
     }
 

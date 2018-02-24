@@ -35,7 +35,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_bottom_line"
+                android:background="@drawable/shape_bottom_black_line"
                 android:orientation="horizontal"
                 android:paddingBottom="15dp">
 
@@ -59,7 +59,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_bottom_line"
+                android:background="@drawable/shape_bottom_black_line"
                 android:orientation="horizontal"
                 android:paddingBottom="15dp">
 

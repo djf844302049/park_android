@@ -33,6 +33,7 @@
     <string name="login">登录</string>
     <string name="complete">完成</string>
     <string name="skip">跳过</string>
+    <string name="cancel">取消</string>
     <string name="register">注册</string>
     <string name="balance">余额</string>
     <string name="deposit">押金</string>
@@ -75,7 +76,7 @@
     <string name="share_tip">请注意停车不要超出该时间段，否则需交纳超出部分N倍的金额。</string>
     <string name="order_tip">注:缴纳预约费用后才可以进行预约，不同地段预约费用\n不同，且预约费用不予退还。</string>
     <string name="take_photo">拍照</string>
-    <string name="pick_photo">从相册中选取</string>
+    <string name="pick_photo">从相册选择</string>
     <string name="sd_card_does_not_exist">内存卡不存在</string>
     <string name="new_energy_car">新能源汽车</string>
     <string name="bind_real_car_num">请绑定真实有效的车牌号</string>

@@ -14,7 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/shape_bottom_line"
+        android:background="@drawable/shape_bottom_black_line"
         android:hint="@string/input_phone_num"
         android:inputType="phone"
         android:paddingBottom="15dp" />
@@ -25,7 +25,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/shape_bottom_line"
+        android:background="@drawable/shape_bottom_black_line"
         android:orientation="horizontal"
         android:paddingBottom="15dp">
 
@@ -52,7 +52,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/shape_bottom_line"
+        android:background="@drawable/shape_bottom_black_line"
         android:hint="@string/input_register_password"
         android:inputType="textPassword"
         android:paddingBottom="15dp" />

@@ -1,11 +1,11 @@
 package com.anyidc.cloudpark.activity;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 
+import com.amap.api.maps.MapView;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.AreaAdapter;
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -13,7 +13,9 @@ import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.GridSpacingItemDecoration;
+import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.wiget.FlowLayoutManager;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView rlvHotArea;
     private RecyclerView rlvHistory;
     private List<String> hotAreaList = new ArrayList<>();
+    private List<String> searchList = new ArrayList<>();
     private AreaAdapter hotAreaAdapter;
+    private AreaAdapter searchAdapter;
+    private MapView mapView;
+    private LinearLayout llSearch;
+    private Gson gson;
     private int page = 1;
 
     @Override
@@ -38,22 +45,30 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
+        gson = new Gson();
         searchView = findViewById(R.id.sv_map);
         initSearchView();
         findViewById(R.id.tv_cancel).setOnClickListener(this);
+        findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.tv_clear_history).setOnClickListener(this);
+        llSearch = findViewById(R.id.ll_search);
+        mapView = findViewById(R.id.map_view);
         rlvHotArea = findViewById(R.id.rlv_hot_area);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
+        RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
         rlvHotArea.setLayoutManager(layoutManager);
-        int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-        rlvHotArea.addItemDecoration(new GridSpacingItemDecoration(4, space, true));
         hotAreaAdapter = new AreaAdapter(this, hotAreaList);
         rlvHotArea.setAdapter(hotAreaAdapter);
         hotAreaAdapter.setOnItemClickListener((view, position) -> search(hotAreaList.get(position)));
         hotAreaAdapter.notifyDataSetChanged();
         rlvHistory = findViewById(R.id.rlv_search_history);
-        RecyclerView.LayoutManager layoutManager2 = new GridLayoutManager(this, 4);
+        RecyclerView.LayoutManager layoutManager2 = new FlowLayoutManager();
         rlvHistory.setLayoutManager(layoutManager2);
+        List<String> historyList = SpUtils.getObject(SpUtils.SEARCHLIST, List.class);
+        if (historyList != null) {
+            searchList.addAll(historyList);
+        }
+        searchAdapter = new AreaAdapter(this, searchList);
+        rlvHistory.setAdapter(searchAdapter);
         getHotArea();
     }
 
@@ -61,9 +76,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel:
-                finish();
+
                 break;
             case R.id.tv_clear_history:
+                break;
+            case R.id.iv_back:
+                finish();
                 break;
         }
     }
@@ -73,7 +91,9 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+//                search(query);
+                searchList.add(query);
+                searchAdapter.notifyDataSetChanged();
                 return false;
             }
 
@@ -106,8 +126,15 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 , new RxObserver<BaseEntity<ParkSearchBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<ParkSearchBean> parkSearchBean) {
-
+//                        llSearch.setVisibility(View.GONE);
+//                        mapView.setVisibility(View.VISIBLE);
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy() {
+        SpUtils.setObject(SpUtils.SEARCHLIST, searchList);
+        super.onDestroy();
     }
 }

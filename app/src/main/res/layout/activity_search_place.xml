@@ -12,11 +12,18 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
+        <FrameLayout
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/img_location" />
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/img_left_arrow" />
+        </FrameLayout>
 
         <SearchView
             android:id="@+id/sv_map"
@@ -50,6 +57,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -82,9 +90,7 @@
                 android:id="@+id/rlv_search_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp" />
+                android:paddingRight="10dp" />
 
             <TextView
                 android:id="@+id/tv_clear_history"
@@ -93,6 +99,12 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/clear_history" />
         </LinearLayout>
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
     </FrameLayout>
 

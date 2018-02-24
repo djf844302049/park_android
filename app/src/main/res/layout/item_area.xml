@@ -6,6 +6,8 @@
     <TextView
         android:id="@+id/tv_area"
         style="@style/text_gray_14sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_round_stroke_gray"
         android:ellipsize="end"
         android:maxLines="1"

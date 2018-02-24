@@ -10,14 +10,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_bottom_line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/shape_bottom_gray_line"
         android:paddingBottom="10dp"
         android:paddingTop="5dp">
 
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/check_update" />
+            android:text="@string/check_update"
+            android:textColor="@color/black" />
 
         <ImageView
             style="@style/common_text"
@@ -27,14 +30,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_bottom_line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/shape_bottom_gray_line"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/give_a_mark" />
+            android:text="@string/give_a_mark"
+            android:textColor="@color/black" />
 
         <ImageView
             style="@style/common_text"
@@ -44,14 +50,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_bottom_line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/shape_bottom_gray_line"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/about_us" />
+            android:text="@string/about_us"
+            android:textColor="@color/black" />
 
         <ImageView
             style="@style/common_text"
@@ -61,13 +70,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/shape_bottom_gray_line"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/current_version" />
+            android:text="@string/current_version"
+            android:textColor="@color/black" />
 
         <TextView style="@style/text_gray_14sp" />
     </LinearLayout>
