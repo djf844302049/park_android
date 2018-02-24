@@ -11,8 +11,11 @@ import com.amap.api.location.AMapLocationListener;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.InitBean;
+import com.anyidc.cloudpark.moduel.UserInfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.LoginUtil;
+import com.anyidc.cloudpark.utils.SpUtils;
 import com.yanzhenjie.permission.AndPermission;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
@@ -52,8 +55,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             //启动定位
             mLocationClient.startLocation();
         }).start();
+        if (LoginUtil.isLogin()) {
+            getUserData();
+        }
         getInit();
-//        getData();
+        getData(0.155151515, 15.2565646564);
     }
 
     @Override
@@ -84,6 +90,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
 
+                    }
+                });
+    }
+
+    private void getUserData() {
+        getTime(Api.getDefaultService().getUserInfo(),
+                new RxObserver<BaseEntity<UserInfoBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<UserInfoBean> userInfoBean) {
+                        SpUtils.setObject(SpUtils.USERINFO, userInfoBean.getData());
                     }
                 });
     }

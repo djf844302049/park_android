@@ -24,7 +24,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="120dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:background="@color/top_blue"
@@ -33,24 +33,27 @@
                     android:paddingBottom="30dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="20dp"
                         android:src="@mipmap/ic_launcher"
+                        app:civ_border_color="@color/white"
                         app:civ_border_width="1dp" />
 
                     <TextView
                         android:id="@+id/tv_login"
-                        android:paddingLeft="@dimen/dp5"
-                        android:paddingRight="@dimen/dp5"
-                        android:paddingTop="@dimen/dp10"
-                        android:paddingBottom="@dimen/dp10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/album_sp_14"
                         android:background="@drawable/shape_transparent_round_stroke_white_bg"
-                        android:text="@string/login_or_register" />
+                        android:paddingBottom="@dimen/dp10"
+                        android:paddingLeft="@dimen/dp5"
+                        android:paddingRight="@dimen/dp5"
+                        android:paddingTop="@dimen/dp10"
+                        android:text="@string/login_or_register"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/album_sp_14" />
 
                     <View
                         android:layout_width="0dp"
@@ -60,15 +63,18 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp" />
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/img_right_arrow" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="240dp"
-                    android:layout_height="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="80dp"
-                    android:background="@color/white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="90dp"
+                    android:background="@drawable/shape_white_bg_round_3"
                     android:orientation="vertical">
 
                     <TextView
@@ -76,19 +82,20 @@
                         android:text="@string/mine_wallet" />
 
                     <TextView
+                        android:id="@+id/tv_balance"
                         style="@style/text_gray_14sp"
                         android:layout_gravity="right"
-                        android:drawablePadding="3dp"
                         android:layout_marginRight="@dimen/dp5"
+                        android:drawablePadding="3dp"
                         android:gravity="center"
-                        android:text="余额：￥20" />
+                        android:text="余额：￥0.00" />
                 </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/white"
                 android:orientation="horizontal"
                 android:padding="10dp">
@@ -140,13 +147,14 @@
                     android:text="@string/id_confirm" />
 
                 <TextView
+                    android:id="@+id/tv_id_confirm_state"
                     style="@style/text_gray_14sp"
                     android:drawablePadding="3dp"
-                    android:drawableRight="@mipmap/img_right_arrow"
-                    android:text="认证中" />
+                    android:drawableRight="@mipmap/img_right_arrow" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_usual_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -183,6 +191,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"

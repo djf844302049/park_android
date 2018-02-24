@@ -62,6 +62,9 @@
         <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CutImageActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AddCarActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.SettingActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.UsualQuestionActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.UserInfoActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

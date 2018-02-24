@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
@@ -9,6 +10,7 @@ import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
+import com.anyidc.cloudpark.moduel.UserInfoBean;
 
 import java.util.List;
 
@@ -96,7 +98,7 @@ public interface ApiService {
      * 获取基本信息接口
      */
     @GET("api/v1/user/1")
-    Observable<BaseEntity<String>> getUserInfo();
+    Observable<BaseEntity<UserInfoBean>> getUserInfo();
 
     /**
      * 基本信息提交接口
@@ -168,7 +170,7 @@ public interface ApiService {
      * 个人中心接口
      */
     @GET("api/v1/center")
-    Observable<BaseEntity<String>> center();
+    Observable<BaseEntity<CenterBean>> center();
 
     /**
      * 用户意见反馈接口

@@ -8,6 +8,7 @@
     <include layout="@layout/toolbar" />
 
     <LinearLayout
+        android:id="@+id/ll_check_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -28,6 +29,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_go_grade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -48,6 +50,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_about_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -82,7 +85,9 @@
             android:text="@string/current_version"
             android:textColor="@color/black" />
 
-        <TextView style="@style/text_gray_14sp" />
+        <TextView
+            android:id="@+id/tv_version_name"
+            style="@style/text_gray_14sp" />
     </LinearLayout>
 
 </LinearLayout>

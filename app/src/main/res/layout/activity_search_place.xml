@@ -56,49 +56,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_search"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-            <TextView
-                style="@style/text_gray_16sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="热门地区" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rlv_hot_area"
+            <LinearLayout
+                android:id="@+id/ll_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/text_color_gray" />
+                <TextView
+                    style="@style/text_gray_16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="热门地区" />
 
-            <TextView
-                style="@style/text_gray_16sp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="搜索历史" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlv_hot_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rlv_search_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/text_color_gray" />
 
-            <TextView
-                android:id="@+id/tv_clear_history"
-                style="@style/text_gray_12sp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="@string/clear_history" />
-        </LinearLayout>
+                <TextView
+                    style="@style/text_gray_16sp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="搜索历史" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlv_search_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_clear_history"
+                    style="@style/text_gray_12sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/clear_history" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
         <com.amap.api.maps.MapView
             android:id="@+id/map_view"

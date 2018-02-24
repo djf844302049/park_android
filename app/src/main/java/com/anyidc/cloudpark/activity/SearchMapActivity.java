@@ -15,7 +15,6 @@ import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,6 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private AreaAdapter searchAdapter;
     private MapView mapView;
     private LinearLayout llSearch;
-    private Gson gson;
     private int page = 1;
 
     @Override
@@ -45,7 +43,6 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
-        gson = new Gson();
         searchView = findViewById(R.id.sv_map);
         initSearchView();
         findViewById(R.id.tv_cancel).setOnClickListener(this);
@@ -56,6 +53,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         rlvHotArea = findViewById(R.id.rlv_hot_area);
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
         rlvHotArea.setLayoutManager(layoutManager);
+        rlvHotArea.setNestedScrollingEnabled(false);
         hotAreaAdapter = new AreaAdapter(this, hotAreaList);
         rlvHotArea.setAdapter(hotAreaAdapter);
         hotAreaAdapter.setOnItemClickListener((view, position) -> search(hotAreaList.get(position)));
@@ -63,12 +61,14 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         rlvHistory = findViewById(R.id.rlv_search_history);
         RecyclerView.LayoutManager layoutManager2 = new FlowLayoutManager();
         rlvHistory.setLayoutManager(layoutManager2);
+        rlvHistory.setNestedScrollingEnabled(false);
         List<String> historyList = SpUtils.getObject(SpUtils.SEARCHLIST, List.class);
         if (historyList != null) {
             searchList.addAll(historyList);
         }
         searchAdapter = new AreaAdapter(this, searchList);
         rlvHistory.setAdapter(searchAdapter);
+        searchAdapter.setOnItemClickListener((view, position) -> search(searchList.get(position)));
         getHotArea();
     }
 
@@ -79,6 +79,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
 
                 break;
             case R.id.tv_clear_history:
+                searchList.clear();
+                searchAdapter.notifyDataSetChanged();
                 break;
             case R.id.iv_back:
                 finish();
@@ -92,8 +94,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
             @Override
             public boolean onQueryTextSubmit(String query) {
 //                search(query);
-                searchList.add(query);
-                searchAdapter.notifyDataSetChanged();
+                if (!searchList.contains(query)) {
+                    searchList.add(query);
+                    searchAdapter.notifyDataSetChanged();
+                }
                 return false;
             }
 
