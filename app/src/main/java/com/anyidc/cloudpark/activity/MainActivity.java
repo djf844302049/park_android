@@ -14,6 +14,7 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.yanzhenjie.permission.AndPermission;
@@ -108,7 +109,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
-                        SpUtils.setObject(SpUtils.USERINFO, infoBean.getData());
+                        CacheData.setInfoBean(infoBean.getData());
                     }
                 });
     }

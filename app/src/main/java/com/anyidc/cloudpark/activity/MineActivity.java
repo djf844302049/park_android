@@ -10,6 +10,7 @@ import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
@@ -48,10 +49,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        InfoBean infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
-        if (infoBean != null) {
-            Glide.with(this).load(infoBean.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
-        }
+        Glide.with(this).load(CacheData.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
     }
 
     @Override

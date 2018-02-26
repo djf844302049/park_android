@@ -10,6 +10,7 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 import com.bumptech.glide.Glide;
@@ -31,7 +32,6 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private TextView tvSex;
     private UploadImageUtil imageUtil;
     private String imgUrl;
-    private InfoBean infoBean;
 
     @Override
     protected int getLayoutId() {
@@ -47,29 +47,24 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.ll_avatar).setOnClickListener(this);
         findViewById(R.id.ll_user_name).setOnClickListener(this);
         findViewById(R.id.ll_sex).setOnClickListener(this);
-        infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
-        if (infoBean != null)
-            Glide.with(this).load(infoBean.getHeader_img())
+            Glide.with(this).load(CacheData.getHeader_img())
                     .placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
-        if (infoBean != null) {
-            tvUserName.setText(infoBean.getUsername());
-            switch (infoBean.getSex()) {
-                case 1:
-                    tvSex.setText("男");
-                    break;
-                case 2:
-                    tvSex.setText("女");
-                    break;
-                default:
-                    tvSex.setText("未设置");
-                    break;
-            }
+        tvUserName.setText(CacheData.getUserName());
+        switch (CacheData.getSex()) {
+            case 1:
+                tvSex.setText("男");
+                break;
+            case 2:
+                tvSex.setText("女");
+                break;
+            default:
+                tvSex.setText("未设置");
+                break;
         }
     }
 
@@ -111,7 +106,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 , new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
-                        SpUtils.setObject(SpUtils.USERINFO, infoBean.getData());
+                        CacheData.setInfoBean(infoBean.getData());
                     }
                 });
     }

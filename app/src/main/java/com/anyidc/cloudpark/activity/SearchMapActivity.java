@@ -1,9 +1,11 @@
 package com.anyidc.cloudpark.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.amap.api.maps.MapView;
 import com.anyidc.cloudpark.R;
@@ -14,8 +16,10 @@ import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.ViewUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,6 +113,30 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         // 设置该SearchView内默认显示的提示文本
         searchView.setQueryHint(getResources().getString(R.string.search_place));
         searchView.clearFocus();
+
+        int searchPlateId = searchView.getContext().getResources()
+                .getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = searchView.findViewById(searchPlateId);
+        if (searchPlate != null) {
+            int searchTextId = searchPlate.getContext().getResources()
+                    .getIdentifier("android:id/search_src_text", null, null);
+            //文字颜色
+            TextView searchText = searchPlate.findViewById(searchTextId);
+            if (searchText != null) {
+                searchText.setTextSize(14f);
+                searchText.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
+                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.text_color_gray));
+            }
+
+            //光标颜色
+//            try {
+//                Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
+//                mCursorDrawableRes.setAccessible(true);
+//                mCursorDrawableRes.set(searchText, R.drawable.cursor_color);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+        }
     }
 
     private void getHotArea() {

@@ -13,6 +13,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
@@ -26,7 +27,6 @@ public class InfoEditActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout llMale;
     private LinearLayout llFemale;
     private EditText etUserName;
-    private InfoBean infoBean;
     private int which;
     private String userName;
     private int sex;
@@ -56,29 +56,28 @@ public class InfoEditActivity extends BaseActivity implements View.OnClickListen
         etUserName = findViewById(R.id.et_user_name);
         ivMaleCheck = findViewById(R.id.iv_male_check);
         ivFemaleCheck = findViewById(R.id.iv_female_check);
-        infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
         which = getIntent().getIntExtra("which", 0);
         switch (which) {
             case 1:
                 initTitle("设置用户名");
                 llMale.setVisibility(View.GONE);
                 llFemale.setVisibility(View.GONE);
-                etUserName.setText(infoBean.getUsername());
+                etUserName.setText(CacheData.getUserName());
                 break;
             default:
                 initTitle("设置性别");
                 etUserName.setVisibility(View.GONE);
-                if (infoBean != null) {
-                    switch (infoBean.getSex()) {
-                        case 1:
-                            ivMaleCheck.setVisibility(View.VISIBLE);
-                            sex = 1;
-                            break;
-                        case 2:
-                            ivFemaleCheck.setVisibility(View.VISIBLE);
-                            sex = 2;
-                            break;
-                    }
+                switch (CacheData.getSex()) {
+                    case 1:
+                        ivMaleCheck.setVisibility(View.VISIBLE);
+                        sex = 1;
+                        break;
+                    case 2:
+                        ivFemaleCheck.setVisibility(View.VISIBLE);
+                        sex = 2;
+                        break;
+                    default:
+                        break;
                 }
                 break;
         }
@@ -91,14 +90,14 @@ public class InfoEditActivity extends BaseActivity implements View.OnClickListen
                 switch (which) {
                     case 1:
                         userName = etUserName.getText().toString().trim();
-                        if (infoBean.getUsername().equals(userName)) {
+                        if (CacheData.getUserName().equals(userName)) {
                             finish();
                             return;
                         }
                         updateInfo(null, userName);
                         break;
                     default:
-                        if (infoBean.getSex() == sex) {
+                        if (CacheData.getSex() == sex) {
                             finish();
                             return;
                         }
@@ -124,7 +123,7 @@ public class InfoEditActivity extends BaseActivity implements View.OnClickListen
                 , new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
-                        SpUtils.setObject(SpUtils.USERINFO, infoBean.getData());
+                        CacheData.setInfoBean(infoBean.getData());
                         finish();
                     }
                 });

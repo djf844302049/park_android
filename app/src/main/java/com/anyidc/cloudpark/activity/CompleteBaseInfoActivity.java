@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 
@@ -102,7 +103,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
                 , new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
-                        SpUtils.setObject(SpUtils.USERINFO, infoBean);
+                        CacheData.setInfoBean(infoBean.getData());
                         IdentityConfirmActivity.actionStart(CompleteBaseInfoActivity.this, 1);
                     }
                 });
