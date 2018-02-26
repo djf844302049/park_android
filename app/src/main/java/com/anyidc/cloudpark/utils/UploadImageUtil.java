@@ -83,7 +83,7 @@ public class UploadImageUtil {
      * 头像控件点击触发的事件
      */
     public void uploadHeadPhoto() {
-        BottomSheetDialog dialog = new BottomSheetDialog(activity,R.style.dialog);
+        BottomSheetDialog dialog = new BottomSheetDialog(activity, R.style.dialog);
         dialog.setContentView(R.layout.layout_picture_choice);
         dialog.findViewById(R.id.tv_take_photo).setOnClickListener(view1 -> {
                     AndPermission.with(activity)

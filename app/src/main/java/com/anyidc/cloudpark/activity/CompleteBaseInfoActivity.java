@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 
 import java.io.File;
@@ -62,19 +63,22 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
         });
         btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(this);
-        imgUtil = new UploadImageUtil(this, ivAvatar);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class)
+                        .putExtra("from", 1));
                 break;
             case R.id.btn_next_step:
                 updateInfo();
                 break;
             case R.id.iv_upload_img:
+                if (imgUtil == null) {
+                    imgUtil = new UploadImageUtil(this, ivAvatar);
+                }
                 imgUtil.uploadHeadPhoto();
                 break;
         }
@@ -98,6 +102,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
                 , new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
+                        SpUtils.setObject(SpUtils.USERINFO, infoBean);
                         startActivity(new Intent(CompleteBaseInfoActivity.this, IdentityConfirmActivity.class));
                     }
                 });

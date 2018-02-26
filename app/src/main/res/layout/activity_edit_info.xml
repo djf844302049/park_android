@@ -21,18 +21,18 @@
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/avatar" />
+            android:text="@string/avatar"
+            android:textColor="@color/black" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_height="40dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:src="@mipmap/img_right_arrow" />
     </LinearLayout>
 
@@ -51,12 +51,13 @@
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/username" />
+            android:text="@string/username"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_user_name"
             style="@style/text_gray_14sp"
-            android:drawablePadding="3dp"
+            android:drawablePadding="15dp"
             android:drawableRight="@mipmap/img_right_arrow"
             android:gravity="center"
             android:text="lalala" />
@@ -78,15 +79,15 @@
         <TextView
             style="@style/text_gray_14sp"
             android:layout_weight="1"
-            android:text="@string/gender" />
+            android:text="@string/gender"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_sex"
             style="@style/text_gray_14sp"
-            android:drawablePadding="3dp"
+            android:drawablePadding="15dp"
             android:drawableRight="@mipmap/img_right_arrow"
-            android:gravity="center"
-            android:text="未设置" />
+            android:gravity="center" />
     </LinearLayout>
 
 </LinearLayout>

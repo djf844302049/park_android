@@ -45,7 +45,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.anyidc.cloudpark.activity.MainActivity">
+        <activity
+            android:name="com.anyidc.cloudpark.activity.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,6 +67,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.SettingActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UsualQuestionActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UserInfoActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.InfoEditActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

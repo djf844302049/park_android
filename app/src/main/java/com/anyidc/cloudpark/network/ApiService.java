@@ -10,7 +10,6 @@ import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
-import com.anyidc.cloudpark.moduel.UserInfoBean;
 
 import java.util.List;
 
@@ -98,7 +97,7 @@ public interface ApiService {
      * 获取基本信息接口
      */
     @GET("api/v1/user/1")
-    Observable<BaseEntity<UserInfoBean>> getUserInfo();
+    Observable<BaseEntity<InfoBean>> getUserInfo();
 
     /**
      * 基本信息提交接口
@@ -106,7 +105,7 @@ public interface ApiService {
     @POST("api/v1/baseinfo")
     @FormUrlEncoded
     Observable<BaseEntity<InfoBean>> updateInfo(@Field("header_img") String header_img
-            , @Field("sex") int sex, @Field("username") String username);
+            , @Field("sex") Integer sex, @Field("username") String username);
 
     /**
      * 身份认证申请提交接口

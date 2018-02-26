@@ -67,7 +67,8 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class)
+                        .putExtra("from", 1));
                 break;
             case R.id.iv_license_pos:
                 which = POS;
@@ -123,7 +124,8 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class));
+                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class)
+                                .putExtra("from", 1));
                     }
                 });
     }

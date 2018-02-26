@@ -1,14 +1,13 @@
 package com.anyidc.cloudpark.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
-import com.anyidc.cloudpark.moduel.UserInfoBean;
+import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.LoginUtil;
@@ -39,16 +38,18 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         tvBalance = findViewById(R.id.tv_balance);
         tvIdconState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
-        UserInfoBean infoBean = SpUtils.getObject(SpUtils.USERINFO, UserInfoBean.class);
-        Log.e("tag", infoBean + "");
         if (LoginUtil.isLogin()) {
-            if (infoBean == null) {
+            ivAvatar.setOnClickListener(this);
+        }
+        getCenterData();
+    }
 
-            } else {
-                Glide.with(this).load(infoBean.getHeader_img()).into(ivAvatar);
-                ivAvatar.setOnClickListener(this);
-            }
-            getCenterData();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InfoBean infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
+        if (infoBean != null) {
+            Glide.with(this).load(infoBean.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
         }
     }
 

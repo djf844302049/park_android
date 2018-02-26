@@ -10,8 +10,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
-import com.anyidc.cloudpark.moduel.UserInfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.LoginUtil;
@@ -63,6 +63,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int from = intent.getIntExtra("from", 0);
+        if (from != 0) {
+            getUserData();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_search_place:
@@ -96,10 +105,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void getUserData() {
         getTime(Api.getDefaultService().getUserInfo(),
-                new RxObserver<BaseEntity<UserInfoBean>>(this, true) {
+                new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity<UserInfoBean> userInfoBean) {
-                        SpUtils.setObject(SpUtils.USERINFO, userInfoBean.getData());
+                    public void onSuccess(BaseEntity<InfoBean> infoBean) {
+                        SpUtils.setObject(SpUtils.USERINFO, infoBean.getData());
                     }
                 });
     }

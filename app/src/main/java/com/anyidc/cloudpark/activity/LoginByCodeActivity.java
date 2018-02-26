@@ -78,7 +78,8 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-                        startActivity(new Intent(LoginByCodeActivity.this,MainActivity.class));
+                        startActivity(new Intent(LoginByCodeActivity.this, MainActivity.class)
+                                .putExtra("from", 1));
                     }
                 });
     }
