@@ -35,6 +35,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         initTitle("我的");
         findViewById(R.id.ll_setting).setOnClickListener(this);
         findViewById(R.id.ll_usual_question).setOnClickListener(this);
+        findViewById(R.id.ll_id_confirm).setOnClickListener(this);
         tvBalance = findViewById(R.id.tv_balance);
         tvIdconState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
@@ -64,6 +65,11 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.iv_avatar:
                 startActivity(new Intent(this, UserInfoActivity.class));
+                break;
+            case R.id.ll_id_confirm:
+                if (!"已认证".equals(tvIdconState.getText().toString())) {
+                    IdentityConfirmActivity.actionStart(this, 0);
+                }
                 break;
         }
     }

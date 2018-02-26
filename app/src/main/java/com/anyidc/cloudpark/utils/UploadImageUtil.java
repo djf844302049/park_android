@@ -3,7 +3,6 @@ package com.anyidc.cloudpark.utils;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.support.design.widget.BottomSheetDialog;
 import android.widget.ImageView;
 
@@ -14,10 +13,7 @@ import com.yanzhenjie.album.Album;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -72,7 +68,6 @@ public class UploadImageUtil {
      * 将裁剪后的图片设置到控件上并且上传图片到服务器
      */
     private void setPicToView(String path) {
-
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         File file = new File(path);
         view.setImageBitmap(bitmap);
@@ -116,24 +111,5 @@ public class UploadImageUtil {
         );
         dialog.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> dialog.dismiss());
         dialog.show();
-    }
-
-    private File bytesFile(byte[] bytes) throws IOException {
-        BufferedOutputStream bos = null;
-        FileOutputStream fos = null;
-        File file = null;
-        try {
-            file = new File(Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/", "file.JPG");
-            fos = new FileOutputStream(file);
-            bos = new BufferedOutputStream(fos);
-            bos.write(bytes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (bos != null) {
-                bos.close();
-            }
-        }
-        return file;
     }
 }

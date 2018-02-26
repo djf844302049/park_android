@@ -103,7 +103,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
                         SpUtils.setObject(SpUtils.USERINFO, infoBean);
-                        startActivity(new Intent(CompleteBaseInfoActivity.this, IdentityConfirmActivity.class));
+                        IdentityConfirmActivity.actionStart(CompleteBaseInfoActivity.this, 1);
                     }
                 });
     }

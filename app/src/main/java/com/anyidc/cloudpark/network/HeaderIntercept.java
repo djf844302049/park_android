@@ -24,9 +24,7 @@ public class HeaderIntercept implements Interceptor {
         newBuilder.addHeader("type", URLEncoder.encode("android"));
         newBuilder.addHeader("did", URLEncoder.encode((String) SpUtils.get(SpUtils.DID, "")));
         String token = (String) SpUtils.get(SpUtils.TOKEN, "");
-//            if (!TextUtils.isEmpty(token)) {
         newBuilder.addHeader("token", URLEncoder.encode(token));
-//        }
         return chain.proceed(newBuilder.build());
     }
 }

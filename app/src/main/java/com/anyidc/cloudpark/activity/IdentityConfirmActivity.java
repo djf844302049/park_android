@@ -1,11 +1,13 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
@@ -30,6 +32,7 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
     private EditText etIdNum;
     private ImageView ivIdPos;
     private ImageView ivIdNeg;
+    private TextView tvSkip;
     private Button btnNext;
     private UploadImageUtil imgUtil;
     private String idPosImgUrl;
@@ -37,6 +40,13 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
     private final int POS = 1;
     private final int NEG = 2;
     private int which;
+    private int from;
+
+    public static void actionStart(Context context, int from) {
+        Intent intent = new Intent(context, IdentityConfirmActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -54,7 +64,17 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
         ivIdNeg.setOnClickListener(this);
         btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(this);
-        findViewById(R.id.tv_skip).setOnClickListener(this);
+        tvSkip = findViewById(R.id.tv_skip);
+        from = getIntent().getIntExtra("from", 0);
+        switch (from) {
+            case 1:
+                tvSkip.setOnClickListener(this);
+                break;
+            default:
+                btnNext.setText("提交");
+                tvSkip.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override
