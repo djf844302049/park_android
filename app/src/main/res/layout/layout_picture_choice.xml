@@ -13,7 +13,8 @@
         android:background="@drawable/shape_white_bg_top_round"
         android:gravity="center"
         android:text="@string/take_photo"
-        android:textColor="@color/text_color_red" />
+        android:textColor="@color/text_color_red"
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
@@ -31,19 +32,21 @@
         android:background="@drawable/shape_white_bg_bottom_round"
         android:gravity="center"
         android:text="@string/pick_photo"
-        android:textColor="@color/text_color_light_blue" />
+        android:textColor="@color/text_color_blue"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tv_cancel"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_white_bg_round"
         android:gravity="center"
-        android:layout_marginBottom="10dp"
         android:text="@string/cancel"
-        android:textColor="@color/text_color_dark_blue" />
+        android:textColor="@color/text_color_blue"
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -177,7 +177,7 @@ public interface ApiService {
      */
     @POST("api/v1/addAdvise")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> addAdvise(@Field("content") String content, @Field("images") String images);
+    Observable<BaseEntity> addAdvise(@Field("content") String content, @Field("images") String images);
 
     /**
      * 常见问题接口

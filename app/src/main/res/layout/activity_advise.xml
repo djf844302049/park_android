@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/sv_advise"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_advise"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="@string/describe_question"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="8dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="123dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_pic_1"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/img_upload_pic" />
+
+                    <ImageView
+                        android:id="@+id/iv_pic_2"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/img_upload_pic"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/iv_pic_3"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/img_upload_pic"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_commit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/shape_bg_blue"
+                    android:text="@string/commit"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_advise_complete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_gray"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:background="@color/top_blue"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:src="@mipmap/img_bold_tick" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/question_commit_success"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_gray_16sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/dp10"
+                android:text="@string/question_commit_success_tip"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

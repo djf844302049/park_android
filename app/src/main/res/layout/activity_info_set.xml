@@ -19,16 +19,22 @@
         <TextView
             style="@style/text_gray_16sp"
             android:layout_marginLeft="15dp"
-            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp10"
+            android:drawableRight="@mipmap/img_male"
             android:text="@string/male"
             android:textColor="@color/black" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/iv_male_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/img_tick"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -44,16 +50,22 @@
         <TextView
             style="@style/text_gray_16sp"
             android:layout_marginLeft="15dp"
-            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/img_female"
             android:text="@string/female"
             android:textColor="@color/black" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/iv_female_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/img_tick"
             android:visibility="gone" />
     </LinearLayout>
 

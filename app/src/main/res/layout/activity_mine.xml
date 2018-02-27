@@ -44,7 +44,7 @@
                         android:id="@+id/tv_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="20dp"
                         android:background="@drawable/shape_transparent_round_stroke_white_bg"
                         android:paddingBottom="@dimen/dp10"
                         android:paddingLeft="@dimen/dp5"
@@ -63,12 +63,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:src="@mipmap/img_right_arrow" />
+                        android:src="@mipmap/img_right_arrow_white" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="89dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -78,13 +78,20 @@
 
                     <TextView
                         style="@style/text_gray_14sp"
-                        android:text="@string/mine_wallet" />
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="20dp"
+                        android:drawableLeft="@mipmap/img_wallet"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/mine_wallet"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tv_balance"
                         style="@style/text_gray_14sp"
                         android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginTop="10dp"
                         android:drawablePadding="3dp"
                         android:gravity="center"
                         android:text="余额：￥0.00" />
@@ -97,75 +104,94 @@
                 android:layout_marginTop="10dp"
                 android:background="@android:color/white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp">
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/img_park"
                     android:gravity="center"
-                    android:text="@string/park_record" />
+                    android:text="@string/park_record"
+                    android:textColor="@color/black" />
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/img_order_record"
                     android:gravity="center"
-                    android:text="@string/order_record" />
+                    android:text="@string/order_record"
+                    android:textColor="@color/black" />
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/img_monitor"
                     android:gravity="center"
-                    android:text="@string/car_monitor" />
+                    android:text="@string/car_monitor"
+                    android:textColor="@color/black" />
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/img_park"
                     android:gravity="center"
-                    android:text="@string/mine_car" />
+                    android:text="@string/mine_car"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_id_confirm"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="10dp"
                 android:background="@android:color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
-                    android:text="@string/id_confirm" />
+                    android:drawableLeft="@mipmap/img_id"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/id_confirm"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_id_confirm_state"
                     style="@style/text_gray_14sp"
-                    android:drawablePadding="3dp"
+                    android:drawablePadding="10dp"
                     android:drawableRight="@mipmap/img_right_arrow" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_usual_question"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
-                    android:text="@string/common_questions" />
+                    android:drawableLeft="@mipmap/img_question"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/common_questions"
+                    android:textColor="@color/black" />
 
                 <ImageView
                     style="@style/common_text"
@@ -173,17 +199,24 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_advise"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
-                    android:text="@string/advise" />
+                    android:drawableLeft="@mipmap/img_advise"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/advise"
+                    android:textColor="@color/black" />
 
                 <ImageView
                     style="@style/common_text"
@@ -193,16 +226,22 @@
             <LinearLayout
                 android:id="@+id/ll_setting"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
-                    android:text="@string/setting" />
+                    android:drawableLeft="@mipmap/img_setting"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/setting"
+                    android:textColor="@color/black" />
 
                 <ImageView
                     style="@style/common_text"

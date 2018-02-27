@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
@@ -23,6 +24,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvBalance;
     private TextView tvIdconState;
     private CircleImageView ivAvatar;
+    private ImageView ivRight;
 
     @Override
     protected int getLayoutId() {
@@ -35,9 +37,13 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.ll_setting).setOnClickListener(this);
         findViewById(R.id.ll_usual_question).setOnClickListener(this);
         findViewById(R.id.ll_id_confirm).setOnClickListener(this);
+        findViewById(R.id.ll_advise).setOnClickListener(this);
         tvBalance = findViewById(R.id.tv_balance);
         tvIdconState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
+        ivRight = findViewById(R.id.iv_right);
+        ivRight.setVisibility(View.VISIBLE);
+        ivRight.setImageResource(R.mipmap.img_mess);
         if (LoginUtil.isLogin()) {
             ivAvatar.setOnClickListener(this);
         }
@@ -64,9 +70,12 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.ll_id_confirm:
                 String state = tvIdconState.getText().toString();
-                if ("未认证".equals(state)||"审核失败".equals(state)) {
+                if ("未认证".equals(state) || "审核失败".equals(state)) {
                     startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
                 }
+                break;
+            case R.id.ll_advise:
+                startActivity(new Intent(this, AdviseActivity.class));
                 break;
         }
     }

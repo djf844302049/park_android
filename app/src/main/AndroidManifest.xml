@@ -68,6 +68,8 @@
         <activity android:name="com.anyidc.cloudpark.activity.UsualQuestionActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UserInfoActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.InfoEditActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.WebViewActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.AdviseActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data
@@ -95,6 +97,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.WebViewActivity" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

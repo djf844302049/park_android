@@ -81,5 +81,10 @@
     <string name="new_energy_car">新能源汽车</string>
     <string name="bind_real_car_num">请绑定真实有效的车牌号</string>
     <string name="confirm_add">确认添加</string>
+    <string name="commit">提交</string>
+    <string name="question_commit_success">反馈提交成功</string>
+    <string name="question_commit_success_tip">工作人员将会在第一时间评估处理，\n感谢您的支持！</string>
     <string name="clear_history">清除搜索历史</string>
+    <string name="input_advise">请输入您要反馈的问题</string>
+    <string name="describe_question">请描述您的问题</string>
 </resources>

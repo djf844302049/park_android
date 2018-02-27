@@ -10,8 +10,7 @@
     <color name="text_color_gray">#959595</color>
     <color name="text_color_black">#333333</color>
     <color name="bg_gray">#f5f5f5</color>
-    <color name="text_color_red">#E13B3C</color>
-    <color name="text_color_light_blue">#0469EF</color>
-    <color name="text_color_dark_blue">#0076FD</color>
+    <color name="text_color_red">#f92d2e</color>
+    <color name="text_color_blue">#0d80f7</color>
     <color name="sc_transparent_background">#00111111</color>
 </resources>
