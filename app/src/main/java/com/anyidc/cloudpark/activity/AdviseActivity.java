@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -35,6 +36,9 @@ public class AdviseActivity extends BaseActivity implements View.OnClickListener
     private ImageView ivPic2;
     private ImageView ivPic3;
     private EditText etQuestion;
+    private ImageView ivComplete;
+    private TextView tvComplete;
+    private TextView tvCompleteTip;
     private int which;
     private Gson gson;
     private Map<String, String> urls;
@@ -53,6 +57,12 @@ public class AdviseActivity extends BaseActivity implements View.OnClickListener
         svAdvise = findViewById(R.id.sv_advise);
         llAdviseComplete = findViewById(R.id.ll_advise_complete);
         etQuestion = findViewById(R.id.et_question);
+        ivComplete = findViewById(R.id.iv_complete);
+        ivComplete.setImageResource(R.mipmap.img_bold_tick);
+        tvComplete = findViewById(R.id.tv_complete);
+        tvComplete.setText(R.string.question_commit_success);
+        tvCompleteTip = findViewById(R.id.tv_complete_tip);
+        tvComplete.setText(R.string.question_commit_success_tip);
         ivPic1 = findViewById(R.id.iv_pic_1);
         ivPic1.setOnClickListener(this);
         ivPic2 = findViewById(R.id.iv_pic_2);

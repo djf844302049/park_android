@@ -6,6 +6,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
@@ -33,6 +36,11 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     private String licensePosImgUrl;
     private String licenseNegImgUrl;
     private UploadImageUtil imgUtil;
+    private ScrollView svCarConfirm;
+    private LinearLayout llComplete;
+    private ImageView ivComplete;
+    private TextView tvComplete;
+    private TextView tvCompleteTip;
     private String id;
     private final int POS = 1;
     private final int NEG = 2;
@@ -57,6 +65,14 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
         icLicenseNeg.setOnClickListener(this);
         btnConfirm = findViewById(R.id.btn_confirm);
         btnConfirm.setOnClickListener(this);
+        svCarConfirm = findViewById(R.id.sv_car_confirm);
+        llComplete = findViewById(R.id.ll_commit_complete);
+        ivComplete = findViewById(R.id.iv_complete);
+        ivComplete.setImageResource(R.mipmap.img_time);
+        tvComplete = findViewById(R.id.tv_complete);
+        tvComplete.setText("正在提交审核");
+        tvCompleteTip = findViewById(R.id.tv_complete_tip);
+        tvCompleteTip.setText("您的信息已提交，请耐心等待");
         findViewById(R.id.tv_skip).setOnClickListener(this);
         id = getIntent().getStringExtra("id");
         id = "6";
@@ -124,8 +140,10 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class)
-                                .putExtra("from", 1));
+//                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class)
+//                                .putExtra("from", 1));
+                        svCarConfirm.setVisibility(View.GONE);
+                        llComplete.setVisibility(View.VISIBLE);
                     }
                 });
     }

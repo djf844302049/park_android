@@ -97,46 +97,10 @@
             </LinearLayout>
         </ScrollView>
 
-        <LinearLayout
+        <include
             android:id="@+id/ll_advise_complete"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_gray"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="145dp"
-                android:background="@color/top_blue"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:src="@mipmap/img_bold_tick" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/question_commit_success"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
-            </LinearLayout>
-
-            <TextView
-                style="@style/text_gray_16sp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:lineSpacingExtra="@dimen/dp10"
-                android:text="@string/question_commit_success_tip"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
+            layout="@layout/layout_commit_complete"
+            android:visibility="gone" />
     </FrameLayout>
 
 </LinearLayout>
