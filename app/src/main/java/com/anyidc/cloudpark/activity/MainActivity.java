@@ -1,8 +1,11 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -10,20 +13,34 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LoginUtil;
-import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.wiget.VerticalTextView;
+import com.bumptech.glide.Glide;
 import com.yanzhenjie.permission.AndPermission;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.loader.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
     private AMapLocationClientOption mLocationOption = null;
+    private VerticalTextView tvMess;
+    private Banner banner;
+    private List<String> imgs = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
+    private List<String> bnUrls = new ArrayList<>();
+    private ArrayList<String> mess = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -34,6 +51,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void initData() {
         findViewById(R.id.tv_search_place).setOnClickListener(this);
         findViewById(R.id.iv_mine).setOnClickListener(this);
+        tvMess = findViewById(R.id.tv_message);
+        tvMess.setText(16.0f, 5, Color.parseColor("#959595"));
+        tvMess.setAnimTime(300);
+        tvMess.setTextStillTime(3000);
+        tvMess.setOnItemClickListener(position -> Log.e("tag", "点击了" + position));
+        banner = findViewById(R.id.bn_main);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        banner.setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                Glide.with(context).load(path).into(imageView);
+            }
+        });
+        banner.setOnBannerListener(position -> Log.e("tag", "点击了" + position));
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
@@ -61,6 +92,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
         getInit();
         getData(0.155151515, 15.2565646564);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        banner.startAutoPlay();
+        if (!tvMess.isScroll()) {
+            tvMess.startAutoScroll();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        banner.startAutoPlay();
+        tvMess.stopAutoScroll();
     }
 
     @Override
@@ -96,10 +143,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void getData(double lat, double lng) {
         getTime(Api.getDefaultService().getIndex(lat, lng)
-                , new RxObserver<BaseEntity>(this, true) {
+                , new RxObserver<BaseEntity<IndexBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity baseEntity) {
-
+                    public void onSuccess(BaseEntity<IndexBean> indexBean) {
+                        for (IndexBean.SlideBean slideBean : indexBean.getData().getSlide()) {
+                            imgs.add(slideBean.getImage());
+                            titles.add(slideBean.getTitle());
+                            bnUrls.add(slideBean.getUrl());
+                        }
+                        banner.setBannerTitles(titles);
+                        banner.setImages(imgs);
+                        banner.start();
+                        for (IndexBean.MessageBean messageBean : indexBean.getData().getMessage()) {
+                            mess.add(messageBean.getMessage());
+                        }
+                        tvMess.setTextList(mess);
+                        if (!tvMess.isScroll()) {
+                            tvMess.startAutoScroll();
+                        }
                     }
                 });
     }

@@ -4,6 +4,7 @@ import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
+import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
@@ -91,7 +92,7 @@ public interface ApiService {
      */
     @POST("api/v1/index")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> getIndex(@Field("lat") double lat, @Field("lng") double lng);
+    Observable<BaseEntity<IndexBean>> getIndex(@Field("lat") double lat, @Field("lng") double lng);
 
     /**
      * 获取基本信息接口

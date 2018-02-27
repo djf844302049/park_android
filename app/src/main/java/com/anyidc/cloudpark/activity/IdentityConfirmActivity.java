@@ -144,7 +144,15 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
                 new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-                        startActivity(new Intent(IdentityConfirmActivity.this, AddCarActivity.class));
+                        switch (from) {
+                            case 1:
+                                startActivity(new Intent(IdentityConfirmActivity.this, AddCarActivity.class));
+                                break;
+                            default:
+                                setResult(RESULT_OK);
+                                finish();
+                                break;
+                        }
                     }
                 });
     }

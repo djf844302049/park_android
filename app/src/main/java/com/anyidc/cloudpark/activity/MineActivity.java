@@ -7,12 +7,10 @@ import android.widget.TextView;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
-import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LoginUtil;
-import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -65,8 +63,9 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, UserInfoActivity.class));
                 break;
             case R.id.ll_id_confirm:
-                if (!"已认证".equals(tvIdconState.getText().toString())) {
-                    IdentityConfirmActivity.actionStart(this, 0);
+                String state = tvIdconState.getText().toString();
+                if ("未认证".equals(state)||"审核失败".equals(state)) {
+                    startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
                 }
                 break;
         }
@@ -88,8 +87,19 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                             case 2:
                                 tvIdconState.setText("审核中");
                                 break;
+                            case 3:
+                                tvIdconState.setText("未审核");
+                                break;
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && requestCode == RESULT_OK) {
+            tvIdconState.setText("认证中");
+        }
     }
 }

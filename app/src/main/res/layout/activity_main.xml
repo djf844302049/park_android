@@ -56,9 +56,9 @@
             android:orientation="vertical">
 
             <com.youth.banner.Banner
+                android:id="@+id/bn_main"
                 android:layout_width="match_parent"
-                android:layout_height="158dp"
-                android:background="#FFDC16" />
+                android:layout_height="158dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,14 +73,13 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/img_message" />
 
-                <TextView
+                <com.anyidc.cloudpark.wiget.VerticalTextView
                     android:id="@+id/tv_message"
                     style="@style/text_gray_16sp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="思明区xxx新增55个停车位" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
