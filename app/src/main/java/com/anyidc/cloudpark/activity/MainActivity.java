@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             getUserData();
         }
         getInit();
-        getData(0.155151515, 15.2565646564);
+//        getData(0.155151515, 15.2565646564);
     }
 
     @Override
