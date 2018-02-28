@@ -70,6 +70,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.InfoEditActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.WebViewActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AdviseActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.MessageCenterActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data
