@@ -33,6 +33,10 @@ public class CenterBean {
     }
 
     public IsAuthBean getIsAuth() {
+        if (isAuth == null) {
+            isAuth = new IsAuthBean();
+            isAuth.setIsAuth(3);
+        }
         return isAuth;
     }
 

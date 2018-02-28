@@ -45,8 +45,25 @@ public class VerticalTextView extends TextSwitcher implements ViewSwitcher.ViewF
     private Context mContext;
     private int currentId = -1;
     private ArrayList<String> textList;
-    private Handler handler;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case FLAG_START_AUTO_SCROLL:
+                    if (textList.size() > 0) {
+                        currentId++;
+                        setText(textList.get(currentId % textList.size()));
+                    }
+                    handler.sendEmptyMessageDelayed(FLAG_START_AUTO_SCROLL, time);
+                    break;
+                case FLAG_STOP_AUTO_SCROLL:
+                    handler.removeMessages(FLAG_START_AUTO_SCROLL);
+                    break;
+            }
+        }
+    };
     private boolean isScroll;
+    private long time;
 
     public VerticalTextView(Context context) {
         this(context, null);
@@ -56,7 +73,7 @@ public class VerticalTextView extends TextSwitcher implements ViewSwitcher.ViewF
     public VerticalTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        textList = new ArrayList<String>();
+        textList = new ArrayList<>();
     }
 
     public void setAnimTime(long animDuration) {
@@ -77,23 +94,7 @@ public class VerticalTextView extends TextSwitcher implements ViewSwitcher.ViewF
      * @param time
      */
     public void setTextStillTime(final long time) {
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case FLAG_START_AUTO_SCROLL:
-                        if (textList.size() > 0) {
-                            currentId++;
-                            setText(textList.get(currentId % textList.size()));
-                        }
-                        handler.sendEmptyMessageDelayed(FLAG_START_AUTO_SCROLL, time);
-                        break;
-                    case FLAG_STOP_AUTO_SCROLL:
-                        handler.removeMessages(FLAG_START_AUTO_SCROLL);
-                        break;
-                }
-            }
-        };
+        this.time = time;
     }
 
     /**
@@ -113,7 +114,7 @@ public class VerticalTextView extends TextSwitcher implements ViewSwitcher.ViewF
      */
     public void startAutoScroll() {
         isScroll = true;
-        handler.sendEmptyMessage(FLAG_START_AUTO_SCROLL);
+        handler.sendEmptyMessageDelayed(FLAG_START_AUTO_SCROLL, time);
     }
 
     /**

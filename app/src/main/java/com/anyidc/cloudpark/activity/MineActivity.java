@@ -25,6 +25,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvIdconState;
     private CircleImageView ivAvatar;
     private ImageView ivRight;
+    private TextView tvLogin;
 
     @Override
     protected int getLayoutId() {
@@ -38,6 +39,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.ll_usual_question).setOnClickListener(this);
         findViewById(R.id.ll_id_confirm).setOnClickListener(this);
         findViewById(R.id.ll_advise).setOnClickListener(this);
+        tvLogin = findViewById(R.id.tv_login);
+        tvLogin.setOnClickListener(this);
         tvBalance = findViewById(R.id.tv_balance);
         tvIdconState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
@@ -70,12 +73,15 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.ll_id_confirm:
                 String state = tvIdconState.getText().toString();
-                if ("未认证".equals(state) || "审核失败".equals(state)) {
+                if ("未认证".equals(state) || "认证失败".equals(state)) {
                     startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
                 }
                 break;
             case R.id.ll_advise:
                 startActivity(new Intent(this, AdviseActivity.class));
+                break;
+            case R.id.tv_login:
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
     }
@@ -97,7 +103,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                                 tvIdconState.setText("审核中");
                                 break;
                             case 3:
-                                tvIdconState.setText("未审核");
+                                tvIdconState.setText("未认证");
                                 break;
                         }
                     }
@@ -107,8 +113,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && requestCode == RESULT_OK) {
-            tvIdconState.setText("认证中");
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            tvIdconState.setText("审核中");
         }
     }
 }

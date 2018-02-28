@@ -118,6 +118,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
                         startActivity(new Intent(RegisterActivity.this, CompleteBaseInfoActivity.class));
+                        finish();
                     }
                 });
     }

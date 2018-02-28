@@ -62,7 +62,7 @@ public class AdviseActivity extends BaseActivity implements View.OnClickListener
         tvComplete = findViewById(R.id.tv_complete);
         tvComplete.setText(R.string.question_commit_success);
         tvCompleteTip = findViewById(R.id.tv_complete_tip);
-        tvComplete.setText(R.string.question_commit_success_tip);
+        tvCompleteTip.setText(R.string.question_commit_success_tip);
         ivPic1 = findViewById(R.id.iv_pic_1);
         ivPic1.setOnClickListener(this);
         ivPic2 = findViewById(R.id.iv_pic_2);
