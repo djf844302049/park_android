@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="261dp"
+        android:layout_height="129dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shape_rectangle"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_car_num"
+            style="@style/text_gray_14sp"
+            android:layout_marginTop="30dp"
+            android:text="闽DJH256"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="253dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/bg_blue"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_white_14sp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="@string/car_confirm" />
+
+            <TextView
+                android:id="@+id/tv_car_state"
+                style="@style/text_white_14sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/img_right_arrow_white"
+                android:text="@string/car_confirm" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_reference"
+        android:layout_width="281dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/iv_delete_car"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@id/view_reference"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/img_delete" />
+
+</RelativeLayout>
