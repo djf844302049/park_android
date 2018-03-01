@@ -58,6 +58,10 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="text_black_18sp" parent="common_black_text">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="text_gray_20sp" parent="common_gray_text">
         <item name="android:textSize">20sp</item>
     </style>
@@ -75,4 +79,18 @@
         <item name="android:textColor">@color/text_color_gray</item>
     </style>
 
+    <style name="common_black_text" parent="common_text">
+        <item name="android:textColor">@color/text_color_black</item>
+    </style>
+
+    <style name="gray_line_h">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_line</item>
+    </style>
+    <style name="gray_line_h_10">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/gray_line</item>
+    </style>
 </resources>

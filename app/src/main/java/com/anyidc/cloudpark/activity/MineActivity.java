@@ -50,6 +50,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         if (LoginUtil.isLogin()) {
             ivAvatar.setOnClickListener(this);
         }
+        ivRight.setOnClickListener(this);
         getCenterData();
     }
 
@@ -82,6 +83,9 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_login:
                 startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.iv_right:
+                startActivity(new Intent(this, MessageCenterActivity.class));
                 break;
         }
     }
