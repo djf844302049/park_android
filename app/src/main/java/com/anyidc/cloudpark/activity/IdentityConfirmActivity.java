@@ -146,7 +146,7 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
                     public void onSuccess(BaseEntity baseEntity) {
                         switch (from) {
                             case 1:
-                                startActivity(new Intent(IdentityConfirmActivity.this, AddCarActivity.class));
+                                AddCarActivity.actionStart(IdentityConfirmActivity.this, 1);
                                 break;
                             default:
                                 setResult(RESULT_OK);

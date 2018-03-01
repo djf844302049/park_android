@@ -22,7 +22,8 @@
                 android:id="@+id/rlv_car_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:paddingBottom="20dp" />
 
             <TextView
                 style="@style/text_gray_14sp"
@@ -38,6 +39,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_id_confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginLeft="40dp"
@@ -48,6 +50,7 @@
                     android:textSize="@dimen/text_size18" />
 
                 <Button
+                    android:id="@+id/btn_recharge_deposit"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginLeft="50dp"
@@ -60,8 +63,10 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_add_car"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginBottom="@dimen/dp30"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="25dp"

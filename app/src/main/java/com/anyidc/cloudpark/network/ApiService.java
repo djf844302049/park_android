@@ -8,6 +8,7 @@ import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
+import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
@@ -121,14 +122,14 @@ public interface ApiService {
      */
     @POST("api/v1/addMyCar")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> addCar(@Field("car_no") String carNum, @Field("new_energy") int newEnergy);
+    Observable<BaseEntity<AddCarBean>> addCar(@Field("car_no") String carNum, @Field("new_energy") int newEnergy);
 
     /**
      * 车辆认证接口
      */
     @POST("api/v1/carAuth")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> carAuth(@Field("id") String id
+    Observable<BaseEntity> carAuth(@Field("id") String id
             , @Field("license_pos") String licensePos, @Field("license_neg") String licenseNeg);
 
     /**
@@ -189,5 +190,5 @@ public interface ApiService {
      * 获取用户车辆列表接口
      */
     @GET("api/v1/getUserCars")
-    Observable<BaseEntity<String>> getUserCars();
+    Observable<BaseEntity<List<MyCarBean>>> getUserCars();
 }

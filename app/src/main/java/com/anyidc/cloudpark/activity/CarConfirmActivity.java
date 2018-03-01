@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -41,14 +42,18 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     private ImageView ivComplete;
     private TextView tvComplete;
     private TextView tvCompleteTip;
+    private TextView tvSkip;
+    private FrameLayout flLeft;
     private String id;
+    private int from;
     private final int POS = 1;
     private final int NEG = 2;
     private int which;
 
-    public static void actionStart(Context context, String id) {
+    public static void actionStart(Context context, String id, int from) {
         Intent intent = new Intent(context, CarConfirmActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("from", from);
         context.startActivity(intent);
     }
 
@@ -65,6 +70,8 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
         icLicenseNeg.setOnClickListener(this);
         btnConfirm = findViewById(R.id.btn_confirm);
         btnConfirm.setOnClickListener(this);
+        flLeft = findViewById(R.id.iv_back);
+        flLeft.setOnClickListener(this);
         svCarConfirm = findViewById(R.id.sv_car_confirm);
         llComplete = findViewById(R.id.ll_commit_complete);
         ivComplete = findViewById(R.id.iv_complete);
@@ -73,9 +80,17 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
         tvComplete.setText("正在提交审核");
         tvCompleteTip = findViewById(R.id.tv_complete_tip);
         tvCompleteTip.setText("您的信息已提交，请耐心等待");
-        findViewById(R.id.tv_skip).setOnClickListener(this);
+        tvSkip = findViewById(R.id.tv_skip);
+        tvSkip.setOnClickListener(this);
         id = getIntent().getStringExtra("id");
-        id = "6";
+        from = getIntent().getIntExtra("from", 0);
+        switch (from) {
+            case 1:
+                break;
+            default:
+                tvSkip.setVisibility(View.GONE);
+                break;
+        }
         initTitle("车辆认证");
     }
 
@@ -98,6 +113,17 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btn_confirm:
                 carAuth();
+                break;
+            case R.id.iv_back:
+                switch (from) {
+                    case 1:
+                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class)
+                                .putExtra("from", 1));
+                        break;
+                    default:
+                        finish();
+                        break;
+                }
                 break;
         }
     }
@@ -140,8 +166,6 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-//                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class)
-//                                .putExtra("from", 1));
                         svCarConfirm.setVisibility(View.GONE);
                         llComplete.setVisibility(View.VISIBLE);
                     }

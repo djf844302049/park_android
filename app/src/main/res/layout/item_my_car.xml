@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="261dp"
@@ -39,8 +39,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="12dp"
                 android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/img_right_arrow_white"
-                android:text="@string/car_confirm" />
+                android:drawableRight="@mipmap/img_right_arrow_white" />
         </LinearLayout>
 
     </LinearLayout>
@@ -58,6 +57,7 @@
         android:layout_alignRight="@id/view_reference"
         android:layout_marginLeft="@dimen/dp10"
         android:layout_marginTop="15dp"
-        android:src="@mipmap/img_delete" />
+        android:src="@mipmap/img_delete"
+        android:visibility="gone" />
 
 </RelativeLayout>

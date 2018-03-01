@@ -137,6 +137,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/tv_my_car"
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"

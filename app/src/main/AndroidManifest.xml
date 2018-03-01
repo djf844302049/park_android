@@ -39,7 +39,7 @@
 
     <application
         android:name="com.anyidc.cloudpark.BaseApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -71,6 +71,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.WebViewActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AdviseActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.MessageCenterActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.MyCarActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

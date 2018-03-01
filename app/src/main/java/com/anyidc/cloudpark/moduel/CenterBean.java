@@ -7,14 +7,24 @@ package com.anyidc.cloudpark.moduel;
 public class CenterBean {
 
     /**
+     * header_img : http://p2xsrupxn.bkt.clouddn.com/2018/02/ed444201802281051102454.png
      * user_money : 0.00
      * username : 哇哈哈
-     * isAuth : {"isAuth":2}
+     * isAuth : 1
      */
 
+    private String header_img;
     private String user_money;
     private String username;
-    private IsAuthBean isAuth;
+    private int isAuth;
+
+    public String getHeader_img() {
+        return header_img;
+    }
+
+    public void setHeader_img(String header_img) {
+        this.header_img = header_img;
+    }
 
     public String getUser_money() {
         return user_money;
@@ -32,31 +42,11 @@ public class CenterBean {
         this.username = username;
     }
 
-    public IsAuthBean getIsAuth() {
-        if (isAuth == null) {
-            isAuth = new IsAuthBean();
-            isAuth.setIsAuth(3);
-        }
+    public int getIsAuth() {
         return isAuth;
     }
 
-    public void setIsAuth(IsAuthBean isAuth) {
+    public void setIsAuth(int isAuth) {
         this.isAuth = isAuth;
-    }
-
-    public static class IsAuthBean {
-        /**
-         * isAuth : 2
-         */
-
-        private int isAuth;
-
-        public int getIsAuth() {
-            return isAuth;
-        }
-
-        public void setIsAuth(int isAuth) {
-            this.isAuth = isAuth;
-        }
     }
 }

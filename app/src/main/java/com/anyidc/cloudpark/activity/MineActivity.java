@@ -39,6 +39,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.ll_usual_question).setOnClickListener(this);
         findViewById(R.id.ll_id_confirm).setOnClickListener(this);
         findViewById(R.id.ll_advise).setOnClickListener(this);
+        findViewById(R.id.tv_my_car).setOnClickListener(this);
         tvLogin = findViewById(R.id.tv_login);
         tvLogin.setOnClickListener(this);
         tvBalance = findViewById(R.id.tv_balance);
@@ -87,6 +88,9 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
             case R.id.iv_right:
                 startActivity(new Intent(this, MessageCenterActivity.class));
                 break;
+            case R.id.tv_my_car:
+                startActivity(new Intent(this, MyCarActivity.class));
+                break;
         }
     }
 
@@ -96,7 +100,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onSuccess(BaseEntity<CenterBean> centerBean) {
                         tvBalance.setText("余额：￥" + centerBean.getData().getUser_money());
-                        switch (centerBean.getData().getIsAuth().getIsAuth()) {
+                        switch (centerBean.getData().getIsAuth()) {
                             case 0:
                                 tvIdconState.setText("认证失败");
                                 break;

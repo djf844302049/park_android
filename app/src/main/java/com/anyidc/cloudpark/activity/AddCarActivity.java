@@ -1,5 +1,7 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -36,6 +38,14 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
     private Button btnAdd;
     private int isNewEnergy;
     private List<TextView> tvList;
+    private TextView tvSkip;
+    private int from;
+
+    public static void actionStart(Context context, int from) {
+        Intent intent = new Intent(context, AddCarActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -51,6 +61,8 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
         tv5 = findViewById(R.id.tv_num_5);
         tv6 = findViewById(R.id.tv_num_6);
         tv7 = findViewById(R.id.tv_num_7);
+        tvSkip = findViewById(R.id.tv_skip);
+        tvSkip.setOnClickListener(this);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);
@@ -72,6 +84,14 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
             }
         });
         initTitle("添加车辆");
+        from = getIntent().getIntExtra("from", 0);
+        switch (from) {
+            case 1:
+                break;
+            default:
+                tvSkip.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override
@@ -110,7 +130,8 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
                 , new RxObserver<BaseEntity<AddCarBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<AddCarBean> addCarBean) {
-                        CarConfirmActivity.actionStart(AddCarActivity.this, addCarBean.getData().getId());
+                        CarConfirmActivity.actionStart(AddCarActivity.this, addCarBean.getData().getId(), from);
+                        finish();
                     }
                 });
     }
@@ -123,6 +144,13 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
 
     @Override
     public void onClick(View view) {
-        commitAddCar();
+        switch (view.getId()) {
+            case R.id.btn_confirm_add:
+                commitAddCar();
+                break;
+            case R.id.tv_skip:
+                startActivity(new Intent(this, MainActivity.class).putExtra("from", 1));
+                break;
+        }
     }
 }
