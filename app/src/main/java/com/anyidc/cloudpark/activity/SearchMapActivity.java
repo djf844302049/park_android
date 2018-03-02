@@ -8,7 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.AreaAdapter;
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -38,6 +45,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private MapView mapView;
     private LinearLayout llSearch;
     private int page = 1;
+    private AMap aMap;
 
     @Override
     protected int getLayoutId() {
@@ -48,6 +56,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mapView.onCreate(savedInstanceState);
+        aMap = mapView.getMap();
     }
 
     @Override
@@ -164,9 +173,27 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 , new RxObserver<BaseEntity<ParkSearchBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<ParkSearchBean> parkSearchBean) {
+                        ParkSearchBean data = parkSearchBean.getData();
                         llSearch.setVisibility(View.GONE);
                         mapView.setVisibility(View.VISIBLE);
                         searchView.clearFocus();
+                        LatLng latLng = new LatLng(data.getLngLat().getLat(), data.getLngLat().getLng());
+                        //设置中心点和缩放比例
+                        CameraUpdate cameraUpdate = CameraUpdateFactory
+                                .newCameraPosition(new CameraPosition(latLng, 18, 0, 30));
+                        aMap.moveCamera(cameraUpdate);
+                        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+                        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).snippet(target));
+                        List<ParkSearchBean.ParkBean> park = data.getPark();
+                        for (ParkSearchBean.ParkBean parkBean : park) {
+                            latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
+                            MarkerOptions markerOption = new MarkerOptions();
+                            markerOption.position(latLng);
+                            markerOption.draggable(false);//设置Marker可拖动
+                            markerOption.snippet(parkBean.getParking_name());
+//                            markerOption.icon(BitmapDescriptorFactory.fromView(R.mipmap.ic_launcher));
+                            aMap.addMarker(markerOption);
+                        }
                     }
                 });
     }
