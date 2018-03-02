@@ -23,6 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * Created by necer on 2017/6/28.
@@ -191,4 +192,29 @@ public interface ApiService {
      */
     @GET("api/v1/getUserCars")
     Observable<BaseEntity<List<MyCarBean>>> getUserCars();
+
+    /**
+     * 用户停车记录列表接口
+     */
+    @GET("api/v1/getOrderByUser")
+    Observable<BaseEntity> getParkRecord(@Query("page") int page, @Query("size") int size);
+
+    /**
+     * 获取用户支付设置接口
+     */
+    @GET("api/v1/paymentSetting")
+    Observable<BaseEntity> getPaySetting();
+
+    /**
+     * 获取我的钱包接口
+     */
+    @GET("api/v1/myWallet")
+    Observable<BaseEntity> getWalletInfo();
+
+    /**
+     * 获取交易明细接口
+     */
+    @GET("api/v1/getPaymentList")
+    Observable<BaseEntity> getPayList();
+
 }
