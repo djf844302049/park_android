@@ -93,9 +93,18 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
-        super.onDestroy();
-        llRoot.removeAllViews();
         webView.destroy();
+        llRoot.removeAllViews();
+        super.onDestroy();
     }
 }

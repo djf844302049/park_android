@@ -22,7 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MineActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvBalance;
-    private TextView tvIdconState;
+    private TextView tvIdConState;
     private CircleImageView ivAvatar;
     private ImageView ivRight;
     private TextView tvLogin;
@@ -43,16 +43,16 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         tvLogin = findViewById(R.id.tv_login);
         tvLogin.setOnClickListener(this);
         tvBalance = findViewById(R.id.tv_balance);
-        tvIdconState = findViewById(R.id.tv_id_confirm_state);
+        tvIdConState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
         ivRight = findViewById(R.id.iv_right);
         ivRight.setVisibility(View.VISIBLE);
         ivRight.setImageResource(R.mipmap.img_mess);
         if (LoginUtil.isLogin()) {
             ivAvatar.setOnClickListener(this);
+            getCenterData();
         }
         ivRight.setOnClickListener(this);
-        getCenterData();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, UserInfoActivity.class));
                 break;
             case R.id.ll_id_confirm:
-                String state = tvIdconState.getText().toString();
+                String state = tvIdConState.getText().toString();
                 if ("未认证".equals(state) || "认证失败".equals(state)) {
                     startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
                 }
@@ -102,16 +102,16 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                         tvBalance.setText("余额：￥" + centerBean.getData().getUser_money());
                         switch (centerBean.getData().getIsAuth()) {
                             case 0:
-                                tvIdconState.setText("认证失败");
+                                tvIdConState.setText("认证失败");
                                 break;
                             case 1:
-                                tvIdconState.setText("已认证");
+                                tvIdConState.setText("已认证");
                                 break;
                             case 2:
-                                tvIdconState.setText("审核中");
+                                tvIdConState.setText("审核中");
                                 break;
                             case 3:
-                                tvIdconState.setText("未认证");
+                                tvIdConState.setText("未认证");
                                 break;
                         }
                     }
@@ -122,7 +122,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            tvIdconState.setText("审核中");
+            tvIdConState.setText("审核中");
         }
     }
 }

@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 double longitude = aMapLocation.getLongitude();//获取经度
                 getData(latitude, longitude);
                 String city = aMapLocation.getCity();//城市信息
-                Log.e("city", "---------->>" + city);
+                Log.e("city", latitude+"---------->>" + longitude);
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"

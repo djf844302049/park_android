@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,10 +17,8 @@ import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
-import com.anyidc.cloudpark.utils.ViewUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +42,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search_place;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mapView.onCreate(savedInstanceState);
     }
 
     @Override
@@ -149,6 +154,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             hotAreaList.add(datum.getSearch_name());
                         }
                         hotAreaAdapter.notifyDataSetChanged();
+                        searchView.clearFocus();
                     }
                 });
     }
@@ -158,8 +164,9 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 , new RxObserver<BaseEntity<ParkSearchBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<ParkSearchBean> parkSearchBean) {
-//                        llSearch.setVisibility(View.GONE);
-//                        mapView.setVisibility(View.VISIBLE);
+                        llSearch.setVisibility(View.GONE);
+                        mapView.setVisibility(View.VISIBLE);
+                        searchView.clearFocus();
                     }
                 });
     }
