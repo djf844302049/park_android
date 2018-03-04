@@ -90,4 +90,9 @@
     <string name="car_confirm">车辆认证</string>
     <string name="add_car">添加车辆</string>
     <string name="my_car_tip">*已进行身份、车辆且已缴纳押金用户可以进行\n车位预约。</string>
+
+    <!--停车记录-->
+    <string name="search_stop_record">请输入停车场或地址</string>
+    <string name="area_position">区域位置</string>
+    <string name="distance_first">距离优先</string>
 </resources>

@@ -40,6 +40,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.ll_id_confirm).setOnClickListener(this);
         findViewById(R.id.ll_advise).setOnClickListener(this);
         findViewById(R.id.tv_my_car).setOnClickListener(this);
+        findViewById(R.id.tv_stop_record).setOnClickListener(this);
         tvLogin = findViewById(R.id.tv_login);
         tvLogin.setOnClickListener(this);
         tvBalance = findViewById(R.id.tv_balance);
@@ -90,6 +91,9 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_my_car:
                 startActivity(new Intent(this, MyCarActivity.class));
+                break;
+            case R.id.tv_stop_record:
+                startActivity(new Intent(this, StopRecordActivity.class));
                 break;
         }
     }

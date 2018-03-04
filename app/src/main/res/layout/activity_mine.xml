@@ -110,6 +110,7 @@
                 android:paddingTop="20dp">
 
                 <TextView
+                    android:id="@+id/tv_stop_record"
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"

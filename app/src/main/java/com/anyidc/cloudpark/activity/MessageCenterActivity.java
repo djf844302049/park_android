@@ -1,9 +1,10 @@
 package com.anyidc.cloudpark.activity;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import com.andview.refreshview.XRefreshView;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.adapter.MessageAdapter;
 
 /**
  * Created by Administrator on 2018/2/28.
@@ -12,6 +13,7 @@ import com.anyidc.cloudpark.R;
 public class MessageCenterActivity extends BaseActivity {
     private XRefreshView xRefreshView;
     private RecyclerView recyclerView;
+    private MessageAdapter adapter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_message_center;
@@ -22,6 +24,10 @@ public class MessageCenterActivity extends BaseActivity {
         initTitle("消息中心");
         xRefreshView = findViewById(R.id.my_xrefreshview);
         recyclerView = findViewById(R.id.rlv_message_list);
+        adapter = new MessageAdapter(this);
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(adapter);
         initXRefreshView();
     }
 
