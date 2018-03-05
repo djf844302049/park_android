@@ -149,7 +149,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
                 commitAddCar();
                 break;
             case R.id.tv_skip:
-                startActivity(new Intent(this, MainActivity.class).putExtra("from", 1));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
     }

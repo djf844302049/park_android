@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/bg_gray"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -35,41 +36,45 @@
             android:iconifiedByDefault="false"
             android:queryHint="@string/search_stop_record" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingTop="14dp"
+        android:orientation="horizontal"
         android:paddingBottom="6dp"
-        android:orientation="horizontal">
+        android:paddingTop="14dp">
+
         <TextView
             android:id="@+id/tv_area_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color_black"
-            android:textSize="@dimen/text_size16"
             android:layout_marginLeft="29dp"
-            android:text="@string/area_position"/>
+            android:text="@string/area_position"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size16" />
+
         <View
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/tv_distance_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color_black"
             android:layout_marginRight="29dp"
-            android:textSize="@dimen/text_size16"
-            android:text="@string/distance_first"/>
+            android:text="@string/distance_first"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size16" />
     </LinearLayout>
 
     <com.andview.refreshview.XRefreshView
         android:id="@+id/my_xrefreshview"
-        android:layout_marginTop="@dimen/dp10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp10">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_stop_record_list"
             android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private AMapLocationClientOption mLocationOption = null;
     private VerticalTextView tvMess;
     private Banner banner;
+    private TextView tvCity;
     private List<String> imgs = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
     private List<String> bnUrls = new ArrayList<>();
@@ -56,6 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         tvMess.setAnimTime(300);
         tvMess.setTextStillTime(3000);
         tvMess.setOnItemClickListener(position -> Log.e("tag", "点击了" + position));
+        tvCity = findViewById(R.id.tv_city);
         banner = findViewById(R.id.bn_main);
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         banner.setImageLoader(new ImageLoader() {
@@ -184,7 +187,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 double longitude = aMapLocation.getLongitude();//获取经度
                 getData(latitude, longitude);
                 String city = aMapLocation.getCity();//城市信息
-                Log.e("city", latitude+"---------->>" + longitude);
+                tvCity.setText(city);
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"

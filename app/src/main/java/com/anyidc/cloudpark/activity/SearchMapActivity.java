@@ -191,7 +191,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             markerOption.position(latLng);
                             markerOption.draggable(false);//设置Marker可拖动
                             markerOption.snippet(parkBean.getParking_name());
-//                            markerOption.icon(BitmapDescriptorFactory.fromView(R.mipmap.ic_launcher));
+//                            markerOption.icon(BitmapDescriptorFactory.fromView(view));
                             aMap.addMarker(markerOption);
                         }
                     }

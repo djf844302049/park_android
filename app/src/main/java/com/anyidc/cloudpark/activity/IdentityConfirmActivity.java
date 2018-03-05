@@ -81,8 +81,7 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
-                startActivity(new Intent(this, MainActivity.class)
-                        .putExtra("from", 1));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.iv_id_pos:
                 which = POS;

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -43,7 +42,6 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     private TextView tvComplete;
     private TextView tvCompleteTip;
     private TextView tvSkip;
-    private FrameLayout flLeft;
     private String id;
     private int from;
     private final int POS = 1;
@@ -70,8 +68,6 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
         icLicenseNeg.setOnClickListener(this);
         btnConfirm = findViewById(R.id.btn_confirm);
         btnConfirm.setOnClickListener(this);
-        flLeft = findViewById(R.id.iv_back);
-        flLeft.setOnClickListener(this);
         svCarConfirm = findViewById(R.id.sv_car_confirm);
         llComplete = findViewById(R.id.ll_commit_complete);
         ivComplete = findViewById(R.id.iv_complete);
@@ -98,8 +94,7 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
-                startActivity(new Intent(this, MainActivity.class)
-                        .putExtra("from", 1));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.iv_license_pos:
                 which = POS;
@@ -113,17 +108,6 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btn_confirm:
                 carAuth();
-                break;
-            case R.id.iv_back:
-                switch (from) {
-                    case 1:
-                        startActivity(new Intent(CarConfirmActivity.this, MainActivity.class)
-                                .putExtra("from", 1));
-                        break;
-                    default:
-                        finish();
-                        break;
-                }
                 break;
         }
     }

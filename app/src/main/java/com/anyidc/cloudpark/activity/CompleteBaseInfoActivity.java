@@ -69,8 +69,7 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
-                startActivity(new Intent(this, MainActivity.class)
-                        .putExtra("from", 1));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btn_next_step:
                 updateInfo();
