@@ -33,7 +33,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/8.
  */
 
-public class SearchMapActivity extends BaseActivity implements View.OnClickListener {
+public class SearchMapActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener {
 
     private SearchView searchView;
     private RecyclerView rlvHotArea;
@@ -44,6 +44,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private AreaAdapter searchAdapter;
     private MapView mapView;
     private LinearLayout llSearch;
+    private LinearLayout llMap;
     private int page = 1;
     private AMap aMap;
 
@@ -57,6 +58,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         mapView.onCreate(savedInstanceState);
         aMap = mapView.getMap();
+        aMap.setOnMarkerClickListener(this);
     }
 
     @Override
@@ -67,6 +69,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.tv_clear_history).setOnClickListener(this);
         llSearch = findViewById(R.id.ll_search);
+        llMap = findViewById(R.id.ll_map_view);
         mapView = findViewById(R.id.map_view);
         rlvHotArea = findViewById(R.id.rlv_hot_area);
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
@@ -175,7 +178,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                     public void onSuccess(BaseEntity<ParkSearchBean> parkSearchBean) {
                         ParkSearchBean data = parkSearchBean.getData();
                         llSearch.setVisibility(View.GONE);
-                        mapView.setVisibility(View.VISIBLE);
+                        llMap.setVisibility(View.VISIBLE);
                         searchView.clearFocus();
                         LatLng latLng = new LatLng(data.getLngLat().getLat(), data.getLngLat().getLng());
                         //设置中心点和缩放比例
@@ -201,6 +204,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         SpUtils.setObject(SpUtils.SEARCHLIST, searchList);
+        mapView.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
     }
 }

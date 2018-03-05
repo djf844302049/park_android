@@ -17,6 +17,7 @@ import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 
 import java.io.File;
@@ -86,15 +87,15 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
     private void updateInfo() {
         String userName = etUserName.getText().toString();
         if (TextUtils.isEmpty(imgUrl)) {
-            Toast.makeText(this, "您还未上传头像", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("您还未上传头像",Toast.LENGTH_SHORT);
             return;
         }
         if (sex == 0) {
-            Toast.makeText(this, "您还未选择性别", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("您还未选择性别",Toast.LENGTH_SHORT);
             return;
         }
         if (TextUtils.isEmpty(userName)) {
-            Toast.makeText(this, "用户名格式错误", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("用户名格式错误",Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().updateInfo(imgUrl, sex, userName)

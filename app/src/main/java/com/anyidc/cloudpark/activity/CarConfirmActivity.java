@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 
 import java.io.File;
@@ -135,15 +136,15 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
 
     private void carAuth() {
         if (TextUtils.isEmpty(licensePosImgUrl)) {
-            Toast.makeText(this, "您还未上传行驶证主页", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("您还未上传行驶证主页", Toast.LENGTH_SHORT);
             return;
         }
         if (TextUtils.isEmpty(licenseNegImgUrl)) {
-            Toast.makeText(this, "您还未上传行驶证副页", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("您还未上传行驶证副页", Toast.LENGTH_SHORT);
             return;
         }
         if (TextUtils.isEmpty(id)) {
-            Toast.makeText(this, "要认证的车辆id异常", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("要认证的车辆id异常", Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().carAuth(id, licensePosImgUrl, licenseNegImgUrl)

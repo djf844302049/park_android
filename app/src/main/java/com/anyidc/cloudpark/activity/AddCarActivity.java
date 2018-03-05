@@ -17,6 +17,7 @@ import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +124,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
     private void commitAddCar() {
         String carNum = etNum.getText().toString();
         if (TextUtils.isEmpty(carNum) || carNum.length() != 7) {
-            Toast.makeText(this, "车牌号格式不正确", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("车牌号格式不正确",Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().addCar(carNum, isNewEnergy)

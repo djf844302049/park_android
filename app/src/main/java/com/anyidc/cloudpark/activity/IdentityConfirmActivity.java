@@ -15,6 +15,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 
 import java.io.File;
@@ -124,19 +125,20 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
         String realName = etRealName.getText().toString();
         String idNum = etIdNum.getText().toString();
         if (TextUtils.isEmpty(idPosImgUrl)) {
-            Toast.makeText(this, "您还未上传手持身份证正面照", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("您还未上传手持身份证正面照", Toast.LENGTH_SHORT);
             return;
         }
         if (TextUtils.isEmpty(idPosImgUrl)) {
-            Toast.makeText(this, "您还未上传手持身份证背面照", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("您还未上传手持身份证背面照", Toast.LENGTH_SHORT);
             return;
         }
         if (TextUtils.isEmpty(realName)) {
-            Toast.makeText(this, "真实姓名格式错误", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("真实姓名格式错误", Toast.LENGTH_SHORT);
+
             return;
         }
         if (TextUtils.isEmpty(idNum)) {
-            Toast.makeText(this, "身份证号码格式错误", Toast.LENGTH_SHORT).show();
+            ToastUtil.showToast("身份证号码格式错误", Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().idConfirm(realName, idPosImgUrl, idNegImgUrl, idNum),

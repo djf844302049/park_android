@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2018/2/24.
@@ -41,7 +42,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } catch (Exception e) {
-                    Toast.makeText(this, "您的手机没有安装Android应用市场", Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToast("您的手机没有安装Android应用市场", Toast.LENGTH_SHORT);
                     e.printStackTrace();
                 }
                 break;

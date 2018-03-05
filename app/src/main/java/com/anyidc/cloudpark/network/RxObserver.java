@@ -6,6 +6,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.io.EOFException;
 import java.net.BindException;
@@ -74,6 +75,6 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
     public abstract void onSuccess(T t);
 
     public void onError(String errMsg) {
-        Toast.makeText(mContext, errMsg, Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast(errMsg,Toast.LENGTH_SHORT);
     }
 }
