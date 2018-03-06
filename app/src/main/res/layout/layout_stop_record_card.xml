@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:background="@drawable/shape_rectangle">
+
+    <TextView
+        android:id="@+id/tv_park_name"
+        style="@style/text_gray_16sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
+        android:text="湖滨北路XXX停车场"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_park_date"
+        style="@style/text_gray_16sp"
+        android:layout_below="@id/tv_park_name"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="18dp"
+        android:text="1月22日"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_park_time"
+        style="@style/text_gray_16sp"
+        android:layout_below="@id/tv_park_date"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="18dp"
+        android:text="9:00"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_park_time"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/img_car_record" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_park_price"
+            style="@style/text_gray_16sp"
+            android:text="￥20.00"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+</RelativeLayout>

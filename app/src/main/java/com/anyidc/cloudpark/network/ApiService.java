@@ -10,6 +10,7 @@ import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
+import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 
@@ -197,7 +198,7 @@ public interface ApiService {
      * 用户停车记录列表接口
      */
     @GET("api/v1/getOrderByUser")
-    Observable<BaseEntity> getParkRecord(@Query("page") int page, @Query("size") int size);
+    Observable<BaseEntity<StopRecordBean>> getParkRecord(@Query("page") int page, @Query("size") int size);
 
     /**
      * 获取用户支付设置接口

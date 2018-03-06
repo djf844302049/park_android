@@ -88,6 +88,9 @@
     <string name="input_advise">请输入您要反馈的问题</string>
     <string name="describe_question">请描述您的问题</string>
     <string name="car_confirm">车辆认证</string>
+    <string name="in_progress">进行中</string>
+    <string name="off_the_stock">已完成</string>
+    <string name="no_more_data">没有更多记录了</string>
     <string name="add_car">添加车辆</string>
     <string name="my_car_tip">*已进行身份、车辆且已缴纳押金用户可以进行\n车位预约。</string>
 
