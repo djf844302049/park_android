@@ -14,7 +14,7 @@ public class LoginUtil {
     }
 
     public static void logout() {
-        SpUtils.set(SpUtils.TOKEN, null);
+        SpUtils.set(SpUtils.TOKEN, "");
         CacheData.setInfoBean(null);
     }
 }

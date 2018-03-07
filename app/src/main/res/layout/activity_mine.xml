@@ -37,22 +37,26 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginLeft="20dp"
+                        android:src="@mipmap/ic_launcher"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="1dp" />
 
                     <TextView
                         android:id="@+id/tv_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_white_14sp"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/shape_transparent_round_stroke_white_bg"
                         android:paddingBottom="@dimen/dp10"
                         android:paddingLeft="@dimen/dp5"
                         android:paddingRight="@dimen/dp5"
                         android:paddingTop="@dimen/dp10"
-                        android:text="@string/login_or_register"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/album_sp_14" />
+                        android:text="@string/login_or_register" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        style="@style/text_white_16sp"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone" />
 
                     <View
                         android:layout_width="0dp"

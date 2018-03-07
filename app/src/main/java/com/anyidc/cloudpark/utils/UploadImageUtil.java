@@ -14,6 +14,8 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 
 import java.io.File;
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class UploadImageUtil {
     private static final int REQUEST_CODE_CAPTURE = 3;
     private static final int REQUEST_CODE_CUTTING = 2;
 
-    private BaseActivity activity;
+    private Reference<BaseActivity> reference;
     private float scale;
     private ImageView view;
     private Rationale mRationale = (context, permissions, executor) -> {
@@ -39,22 +41,22 @@ public class UploadImageUtil {
     };
 
     public UploadImageUtil(BaseActivity activity, ImageView view) {
-        this.activity = activity;
         this.view = view;
         this.scale = ((float) view.getWidth()) / view.getHeight();
+        reference=new WeakReference(activity);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CODE_PICK:
             case REQUEST_CODE_CAPTURE:
-                if (resultCode == activity.RESULT_OK) {
+                if (resultCode == reference.get().RESULT_OK) {
                     List<String> pathList = Album.parseResult(data);
-                    CutImageActivity.actionStart(activity, pathList.get(0), REQUEST_CODE_CUTTING, scale);
+                    CutImageActivity.actionStart(reference.get(), pathList.get(0), REQUEST_CODE_CUTTING, scale);
                 }
                 break;
             case REQUEST_CODE_CUTTING:
-                if (resultCode == activity.RESULT_OK) {
+                if (resultCode == reference.get().RESULT_OK) {
                     String path = data.getStringExtra("path");
                     setPicToView(path);
                 }
@@ -71,33 +73,33 @@ public class UploadImageUtil {
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         File file = new File(path);
         view.setImageBitmap(bitmap);
-        activity.updateImg(file);
+        reference.get().updateImg(file);
     }
 
     /**
      * 头像控件点击触发的事件
      */
     public void uploadHeadPhoto() {
-        BottomSheetDialog dialog = new BottomSheetDialog(activity, R.style.dialog);
+        BottomSheetDialog dialog = new BottomSheetDialog(reference.get(), R.style.dialog);
         dialog.setContentView(R.layout.layout_picture_choice);
         dialog.findViewById(R.id.tv_take_photo).setOnClickListener(view1 -> {
-                    AndPermission.with(activity)
+                    AndPermission.with(reference.get())
                             .permission(android.Manifest.permission.CAMERA
                                     , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             .rationale(mRationale)
-                            .onGranted(permissions -> Album.camera(activity).start(REQUEST_CODE_CAPTURE))
+                            .onGranted(permissions -> Album.camera(reference.get()).start(REQUEST_CODE_CAPTURE))
                             .start();
                     dialog.dismiss();
                 }
         );
         dialog.findViewById(R.id.tv_pick_photo).setOnClickListener(view1 -> {
-                    AndPermission.with(activity)
+                    AndPermission.with(reference.get())
                             .permission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                             .onGranted(permissions -> {
-                                Album.album(activity)
-                                        .toolBarColor(activity.getResources().getColor(R.color.top_blue)) // Toolbar 颜色，默认蓝色。
-                                        .statusBarColor(activity.getResources().getColor(R.color.top_blue)) // StatusBar 颜色，默认蓝色。
-                                        .navigationBarColor(activity.getResources().getColor(R.color.top_blue)) // NavigationBar 颜色，默认黑色，建议使用默认。
+                                Album.album(reference.get())
+                                        .toolBarColor(reference.get().getResources().getColor(R.color.top_blue)) // Toolbar 颜色，默认蓝色。
+                                        .statusBarColor(reference.get().getResources().getColor(R.color.top_blue)) // StatusBar 颜色，默认蓝色。
+                                        .navigationBarColor(reference.get().getResources().getColor(R.color.top_blue)) // NavigationBar 颜色，默认黑色，建议使用默认。
                                         .title("图库") // 配置title。
                                         .selectCount(1) // 最多选择几张图片。
                                         .columnCount(2) // 相册展示列数，默认是2列。

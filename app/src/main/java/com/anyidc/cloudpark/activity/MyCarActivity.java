@@ -64,6 +64,7 @@ public class MyCarActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
+        tvRight.setText("编辑");
         getCarList();
     }
 

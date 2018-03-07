@@ -218,4 +218,17 @@ public interface ApiService {
     @GET("api/v1/getPaymentList")
     Observable<BaseEntity> getPayList();
 
+    /**
+     * 用户提现接口
+     */
+    @POST("api/v1/withdrawals")
+    @FormUrlEncoded
+    Observable<BaseEntity> drawCash(@Field("amount") String amount);
+
+    /**
+     * 删除我的车辆接口
+     */
+    @POST("api/v1/delMyCar")
+    @FormUrlEncoded
+    Observable<BaseEntity> deleteCar(@Field("id") int id);
 }

@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.activity.BaseActivity;
+import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyCarBean;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
 
 import java.util.List;
 
@@ -23,10 +28,12 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarListV
     private Context context;
     private List<MyCarBean> list;
     private ItemClickListener mItemClickListener;
+    private BaseActivity activity;
 
     public CarListAdapter(Context context, List<MyCarBean> list) {
         this.context = context;
         this.list = list;
+        activity = (BaseActivity) context;
     }
 
     @Override
@@ -56,6 +63,21 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarListV
         }
         if (myCarBean.isEdit()) {
             holder.ivDelete.setVisibility(View.VISIBLE);
+            holder.ivDelete.setOnClickListener(view ->
+                    new AlertDialog.Builder(context)
+                            .setTitle("提示")
+                            .setMessage("确定要删除这个车辆吗？")
+                            .setPositiveButton("确定", (dialogInterface, i) ->
+                                    activity.getTime(Api.getDefaultService().deleteCar(myCarBean.getId())
+                                            , new RxObserver<BaseEntity>(context, true) {
+                                                @Override
+                                                public void onSuccess(BaseEntity baseEntity) {
+                                                    list.remove(position);
+                                                    notifyItemRemoved(position);
+                                                }
+                                            })
+                            ).setNegativeButton("取消", null).show()
+            );
         } else {
             holder.ivDelete.setVisibility(View.GONE);
         }

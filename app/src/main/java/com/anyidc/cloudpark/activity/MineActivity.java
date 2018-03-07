@@ -26,6 +26,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     private CircleImageView ivAvatar;
     private ImageView ivRight;
     private TextView tvLogin;
+    private TextView tvUserName;
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +44,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_stop_record).setOnClickListener(this);
         tvLogin = findViewById(R.id.tv_login);
         tvLogin.setOnClickListener(this);
+        tvUserName = findViewById(R.id.tv_user_name);
         tvBalance = findViewById(R.id.tv_balance);
         tvIdConState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
@@ -51,6 +53,9 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         ivRight.setImageResource(R.mipmap.img_mess);
         if (LoginUtil.isLogin()) {
             ivAvatar.setOnClickListener(this);
+            tvLogin.setVisibility(View.GONE);
+            tvUserName.setVisibility(View.VISIBLE);
+            tvUserName.setText(CacheData.getUserName());
             getCenterData();
         }
         ivRight.setOnClickListener(this);
@@ -59,7 +64,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        Glide.with(this).load(CacheData.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
+        if (LoginUtil.isLogin())
+            Glide.with(this).load(CacheData.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
     }
 
     @Override
@@ -75,13 +81,16 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, UserInfoActivity.class));
                 break;
             case R.id.ll_id_confirm:
-                String state = tvIdConState.getText().toString();
-                if ("未认证".equals(state) || "认证失败".equals(state)) {
-                    startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
+                if (LoginUtil.isLogin()) {
+                    String state = tvIdConState.getText().toString();
+                    if ("未认证".equals(state) || "认证失败".equals(state)) {
+                        startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
+                    }
                 }
                 break;
             case R.id.ll_advise:
-                startActivity(new Intent(this, AdviseActivity.class));
+                if (LoginUtil.isLogin())
+                    startActivity(new Intent(this, AdviseActivity.class));
                 break;
             case R.id.tv_login:
                 startActivity(new Intent(this, LoginActivity.class));
@@ -90,10 +99,12 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, MessageCenterActivity.class));
                 break;
             case R.id.tv_my_car:
-                startActivity(new Intent(this, MyCarActivity.class));
+                if (LoginUtil.isLogin())
+                    startActivity(new Intent(this, MyCarActivity.class));
                 break;
             case R.id.tv_stop_record:
-                startActivity(new Intent(this, StopRecordActivity.class));
+                if (LoginUtil.isLogin())
+                    startActivity(new Intent(this, StopRecordActivity.class));
                 break;
         }
     }
