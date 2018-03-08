@@ -9,6 +9,8 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.io.EOFException;
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 import java.net.BindException;
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -26,13 +28,12 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
 
     private boolean isShowDialog;
     private Dialog mDialog;
-    private Context mContext;
-
+    private Reference<Context> reference;
 
     public RxObserver(Context context, boolean isShowDialog) {
-        this.mContext = context;
+        reference = new WeakReference<>(context);
         this.isShowDialog = isShowDialog;
-        mDialog = new ProgressDialog(context);
+        mDialog = new ProgressDialog(reference.get());
         mDialog.setTitle("请稍后");
     }
 
@@ -58,7 +59,8 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
         if (mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        if (e instanceof EOFException || e instanceof ConnectException || e instanceof SocketException || e instanceof BindException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
+        if (e instanceof EOFException || e instanceof ConnectException || e instanceof SocketException
+                || e instanceof BindException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
             onError("网络异常，请稍后重试！");
         } else {
             onError("未知错误！");
@@ -75,6 +77,6 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
     public abstract void onSuccess(T t);
 
     public void onError(String errMsg) {
-        ToastUtil.showToast(errMsg,Toast.LENGTH_SHORT);
+        ToastUtil.showToast(errMsg, Toast.LENGTH_SHORT);
     }
 }

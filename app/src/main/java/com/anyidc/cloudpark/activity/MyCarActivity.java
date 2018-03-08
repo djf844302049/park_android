@@ -27,7 +27,6 @@ public class MyCarActivity extends BaseActivity implements View.OnClickListener 
     private CarListAdapter adapter;
     private TextView tvRight;
     private List<MyCarBean> cars = new ArrayList<>();
-    private int mPosition;
 
     @Override
     protected int getLayoutId() {
@@ -51,7 +50,6 @@ public class MyCarActivity extends BaseActivity implements View.OnClickListener 
             MyCarBean myCarBean = cars.get(position);
             if (myCarBean.getStatus() == 0 || myCarBean.getStatus() == 3) {
                 CarConfirmActivity.actionStart(MyCarActivity.this, myCarBean.getId() + "", 0);
-                mPosition = position;
             }
         });
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

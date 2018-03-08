@@ -1,11 +1,17 @@
 package com.anyidc.cloudpark.activity;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +20,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/5.
  */
 
-public class CarMonitorActivity extends BaseActivity implements TextWatcher {
+public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnClickListener {
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
@@ -46,6 +52,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
         tvList.add(tv6);
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
+        findViewById(R.id.btn_watch_camera).setOnClickListener(this);
         initTitle("车辆监控");
     }
 
@@ -73,6 +80,25 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
         for (int i = 0; i < length; i++) {
             tvList.get(i).setText(String.valueOf(chars[i]));
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        watchCamera();
+    }
+
+    private void watchCamera() {
+        String parkNum = etNum.getText().toString();
+        if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
+            return;
+        }
+        getTime(Api.getDefaultService().watchCamera(parkNum)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+
+                    }
+                });
     }
 
     @Override
