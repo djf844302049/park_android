@@ -8,6 +8,7 @@ import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
+import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
@@ -231,4 +232,36 @@ public interface ApiService {
     @POST("api/v1/delMyCar")
     @FormUrlEncoded
     Observable<BaseEntity> deleteCar(@Field("id") int id);
+
+    /**
+     * 我的消息接口
+     */
+    @GET("api/v1/getMyMessage")
+    Observable<BaseEntity<MessageBean>> getMessages(@Query("page") int page, @Query("size") int size);
+
+    /**
+     * 删除我的消息接口
+     */
+    @POST("api/v1/delUserMessage")
+    @FormUrlEncoded
+    Observable<BaseEntity> deleteMessages(@Field("delete") int delete);
+
+    /**
+     * 用户添加银行卡接口
+     */
+    @POST("api/v1/addBankCard")
+    @FormUrlEncoded
+    Observable<BaseEntity> addBankCard(@Field("bank") int bank, @Field("card") String card);
+
+    /**
+     * 获取用户银行卡接口
+     */
+    @GET("api/v1/getMyCard")
+    Observable<BaseEntity> getBankCard();
+
+    /**
+     * 删除银行卡请求接口
+     */
+    @GET("api/v1/deleteMyCard")
+    Observable<BaseEntity> deleteBankCard();
 }
