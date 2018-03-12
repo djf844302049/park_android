@@ -74,6 +74,8 @@
         <activity android:name="com.anyidc.cloudpark.activity.MyCarActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.StopRecordActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CarMonitorActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.PurseActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.TransactionDetailActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

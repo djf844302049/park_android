@@ -71,6 +71,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_my_wallet"
                     android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:layout_centerHorizontal="true"

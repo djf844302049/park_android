@@ -55,7 +55,7 @@ public class StopRecordActivity extends BaseActivity {
         tvParkTime = findViewById(R.id.tv_park_time);
         tvParkPrice = findViewById(R.id.tv_park_price);
         tvNoMoreData = findViewById(R.id.tv_tip_no_more_data);
-        adapter = new StopRecordAdapter(this, orderBeanList);
+        adapter = new StopRecordAdapter(orderBeanList);
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);

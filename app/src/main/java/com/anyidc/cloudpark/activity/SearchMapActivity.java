@@ -75,7 +75,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
         rlvHotArea.setLayoutManager(layoutManager);
         rlvHotArea.setNestedScrollingEnabled(false);
-        hotAreaAdapter = new AreaAdapter(this, hotAreaList);
+        hotAreaAdapter = new AreaAdapter(hotAreaList);
         rlvHotArea.setAdapter(hotAreaAdapter);
         hotAreaAdapter.setOnItemClickListener((view, position) -> search(hotAreaList.get(position)));
         hotAreaAdapter.notifyDataSetChanged();
@@ -87,7 +87,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         if (historyList != null) {
             searchList.addAll(historyList);
         }
-        searchAdapter = new AreaAdapter(this, searchList);
+        searchAdapter = new AreaAdapter(searchList);
         rlvHistory.setAdapter(searchAdapter);
         searchAdapter.setOnItemClickListener((view, position) -> search(searchList.get(position)));
         getHotArea();

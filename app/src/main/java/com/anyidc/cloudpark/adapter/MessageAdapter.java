@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +18,15 @@ import java.util.List;
  */
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
-    private Context mContext;
     private List<MessageBean.OrderBean> list;
 
-    public MessageAdapter(Context mContext, List<MessageBean.OrderBean> list) {
-        this.mContext = mContext;
+    public MessageAdapter(List<MessageBean.OrderBean> list) {
         this.list = list;
     }
 
     @Override
     public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.message_item_layout, null, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item_layout, null, false);
         return new MessageHolder(itemView);
     }
 

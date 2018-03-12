@@ -45,7 +45,7 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("清空");
         tvRight.setOnClickListener(this);
-        adapter = new MessageAdapter(this, messages);
+        adapter = new MessageAdapter( messages);
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
@@ -71,12 +71,14 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        new AlertDialog.Builder(this)
-                .setTitle("提示")
-                .setMessage("确定清空全部消息吗？")
-                .setPositiveButton("确定", (dialog, which) -> deleteMessages())
-                .setNegativeButton("取消", null)
-                .show();
+        if (messages.size() > 0) {
+            new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("确定清空全部消息吗？")
+                    .setPositiveButton("确定", (dialog, which) -> deleteMessages())
+                    .setNegativeButton("取消", null)
+                    .show();
+        }
     }
 
     private void getMessages() {

@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,17 +16,15 @@ import java.util.List;
 
 public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaHolder> implements View.OnClickListener {
     private List<String> list;
-    private Context context;
     private ItemClickListener mItemClickListener;
 
-    public AreaAdapter(Context context, List<String> list) {
+    public AreaAdapter(List<String> list) {
         this.list = list;
-        this.context = context;
     }
 
     @Override
     public AreaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_area, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_area, null);
         return new AreaHolder(view);
     }
 

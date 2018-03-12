@@ -14,6 +14,7 @@ import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
+import com.anyidc.cloudpark.moduel.WalletInfoBean;
 
 import java.util.List;
 
@@ -211,13 +212,13 @@ public interface ApiService {
      * 获取我的钱包接口
      */
     @GET("api/v1/myWallet")
-    Observable<BaseEntity> getWalletInfo();
+    Observable<BaseEntity<WalletInfoBean>> getWalletInfo();
 
     /**
      * 获取交易明细接口
      */
     @GET("api/v1/getPaymentList")
-    Observable<BaseEntity> getPayList();
+    Observable<BaseEntity> getPayList(@Query("page")int page,@Query("size")int size);
 
     /**
      * 用户提现接口
@@ -264,4 +265,38 @@ public interface ApiService {
      */
     @GET("api/v1/deleteMyCard")
     Observable<BaseEntity> deleteBankCard();
+
+    /**
+     * 检测用户支付密码是否设置接口
+     */
+    @POST("api/v1/checkSurplusPassword")
+    Observable<BaseEntity> isSetPayKey();
+
+    /**
+     * 用户设置支付密码接口
+     */
+    @POST("api/v1/setSurplusPassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> setPayKey(@Field("surplusPassword") String surplusPassword);
+
+    /**
+     * 判断支付密码是否正确接口
+     */
+    @POST("api/v1/confirmSurplusPassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> checkPayKey(@Field("surplusPassword") String surplusPassword);
+
+    /**
+     * 修改支付密码请求接口
+     */
+    @POST("api/v1/resetSurplusPassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> resetPayKey(@Field("surplusPassword") String surplusPassword);
+
+    /**
+     * 免密设置接口
+     */
+    @POST("api/v1/setFreePassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> setFreePay(@Field("freePassword") String freePassword);
 }
