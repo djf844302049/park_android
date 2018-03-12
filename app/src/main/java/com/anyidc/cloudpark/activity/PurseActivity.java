@@ -65,13 +65,15 @@ public class PurseActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(BaseEntity<WalletInfoBean> baseEntity) {
                         WalletInfoBean data = baseEntity.getData();
-                        tvBalance.setText(data.getUser_money());
+                        tvBalance.setText("￥" + data.getUser_money());
                         if ("0.00".equals(data.getUser_money())) {
                             tvDepositState.setText("未缴纳");
                             btnDeposit.setText("缴纳押金");
+                            btnDrawCash.setEnabled(false);
                         } else {
                             tvDepositState.setText("已缴纳");
                             btnDeposit.setText("退回押金");
+                            btnDrawCash.setEnabled(true);
                         }
                     }
                 });

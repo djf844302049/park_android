@@ -6,16 +6,16 @@
     <TextView
         android:id="@+id/tv_name_way"
         style="@style/text_gray_14sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:text="停车费 | 微信"
         android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tv_time"
-        style="@style/text_gray_14sp"
+        style="@style/text_gray_12sp"
         android:layout_below="@id/tv_name_way"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:text="2018-01-21 10:00:23" />
 
@@ -23,6 +23,7 @@
         android:id="@+id/tv_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
