@@ -13,6 +13,7 @@ import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
+import com.anyidc.cloudpark.moduel.TransactionBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
 
@@ -218,7 +219,7 @@ public interface ApiService {
      * 获取交易明细接口
      */
     @GET("api/v1/getPaymentList")
-    Observable<BaseEntity> getPayList(@Query("page")int page,@Query("size")int size);
+    Observable<BaseEntity<TransactionBean>> getPayList(@Query("page")int page, @Query("size")int size);
 
     /**
      * 用户提现接口

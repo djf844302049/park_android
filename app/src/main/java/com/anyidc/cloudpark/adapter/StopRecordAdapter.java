@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,11 +33,17 @@ public class StopRecordAdapter extends RecyclerView.Adapter<StopRecordAdapter.Re
     @Override
     public void onBindViewHolder(RecordViewHolder holder, int position) {
         StopRecordBean.OrderBean orderBean = list.get(position);
-        holder.tvOrderNum.setText("订单号："+orderBean.getOrder_sn());
+        Date parse = new Date(orderBean.getCreate_time());
+        Date parse1 = new Date(orderBean.getPay_time());
+        String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(parse);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(parse);
+        holder.tvOrderNum.setText("订单号：" + orderBean.getOrder_sn());
         holder.tvParkName.setText(orderBean.getParking_name());
-        holder.tvDateTime.setText(orderBean.getCreate_time());
-        holder.tvDate.setText(orderBean.getCreate_time());
-        holder.tvTime.setText(orderBean.getCreate_time());
+        holder.tvDateTime.setText(dateTime);
+        holder.tvDate.setText(date);
+        String duration = new SimpleDateFormat("HH:mm").format(parse) +
+                "-" + new SimpleDateFormat("HH:mm").format(parse1);
+        holder.tvTime.setText(duration);
         holder.tvPrice.setText("￥" + orderBean.getTotal_amount());
     }
 

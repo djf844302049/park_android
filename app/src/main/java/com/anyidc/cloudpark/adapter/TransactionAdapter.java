@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.TransactionBean;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/12.
  */
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
+    private List<TransactionBean.ListBean> list;
 
-    private Context context;
-
-    public TransactionAdapter(Context context) {
-        this.context = context;
+    public TransactionAdapter(List<TransactionBean.ListBean> list) {
+        this.list = list;
     }
 
     @Override
@@ -29,12 +32,30 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(TransactionViewHolder holder, int position) {
-
+        TransactionBean.ListBean listBean = list.get(position);
+        StringBuilder nameAndWay = new StringBuilder(listBean.getDesc());
+        nameAndWay.append(" | ");
+        switch (listBean.getPay_id()) {
+            case 1:
+                nameAndWay.append("支付宝");
+                break;
+            case 2:
+                nameAndWay.append("微信");
+                break;
+            case 3:
+                nameAndWay.append("银联");
+                break;
+        }
+        holder.tvNameWay.setText(nameAndWay.toString());
+        holder.tvNum.setText("￥" + listBean.getAmount());
+        Date date = new Date(listBean.getPaid_time());
+        String format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        holder.tvTime.setText(format);
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return list == null ? 0 : list.size();
     }
 
     class TransactionViewHolder extends RecyclerView.ViewHolder {

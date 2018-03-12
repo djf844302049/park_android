@@ -14,7 +14,9 @@ import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -106,8 +108,11 @@ public class StopRecordActivity extends BaseActivity {
                                 tvInPro.setVisibility(View.VISIBLE);
                                 rlInPro.setVisibility(View.VISIBLE);
                                 tvParkName.setText(orderBean.getParking_name());
-                                tvParkDate.setText(orderBean.getCreate_time());
-                                tvParkTime.setText(orderBean.getCreate_time());
+                                Date parse = new Date(orderBean.getCreate_time());
+                                String time = new SimpleDateFormat("HH:mm").format(parse);
+                                String date = new SimpleDateFormat("yyyy-MM-dd").format(parse);
+                                tvParkDate.setText(date);
+                                tvParkTime.setText(time);
                                 tvParkPrice.setText("￥" + orderBean.getTotal_amount() + "(计费中)");
                             } else {
                                 tvComplete.setVisibility(View.VISIBLE);
