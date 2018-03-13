@@ -61,6 +61,9 @@
     <style name="text_black_18sp" parent="common_black_text">
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="text_black_16sp" parent="common_black_text">
+        <item name="android:textSize">16sp</item>
+    </style>
 
     <style name="text_gray_20sp" parent="common_gray_text">
         <item name="android:textSize">20sp</item>

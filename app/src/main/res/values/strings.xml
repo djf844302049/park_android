@@ -108,4 +108,14 @@
     <string name="search_stop_record">请输入停车场或地址</string>
     <string name="area_position">区域位置</string>
     <string name="distance_first">距离优先</string>
+    <!--预约记录-->
+    <string-array name="appointment_title_array">
+        <item>进行中</item>
+        <item>已完成</item>
+    </string-array>
+    <string name="appointment_ing_tip">预约中，请耐心等待一分钟左右。</string>
+    <string name="navigation">导航</string>
+    <string name="confirm_arrive">确认到达</string>
+    <string name="cancel_appointment">取消预约</string>
+    <string name="appointment_ing_tip1">*请您于预约时间点前到达车位，否则车位不予保留。</string>
 </resources>

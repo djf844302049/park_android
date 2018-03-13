@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.githang.statusbar.StatusBarCompat;
 import com.trello.rxlifecycle2.components.RxActivity;
+import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 
 import java.io.File;
 
@@ -25,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by necer on 2017/6/29.
  */
 
-public abstract class BaseActivity<T> extends RxActivity {
+public abstract class BaseActivity<T> extends RxFragmentActivity {
     private TextView tvTitle;
     protected final String TAG = getClass().getSimpleName();
 
