@@ -38,7 +38,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarListV
 
     @Override
     public CarListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_my_car, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_item_my_car, parent, false);
         return new CarListViewHolder(view);
     }
 

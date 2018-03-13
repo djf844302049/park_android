@@ -8,11 +8,14 @@ import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
+import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
+import com.anyidc.cloudpark.moduel.TransactionBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
+import com.anyidc.cloudpark.moduel.WalletInfoBean;
 
 import java.util.List;
 
@@ -210,13 +213,13 @@ public interface ApiService {
      * 获取我的钱包接口
      */
     @GET("api/v1/myWallet")
-    Observable<BaseEntity> getWalletInfo();
+    Observable<BaseEntity<WalletInfoBean>> getWalletInfo();
 
     /**
      * 获取交易明细接口
      */
     @GET("api/v1/getPaymentList")
-    Observable<BaseEntity> getPayList();
+    Observable<BaseEntity<TransactionBean>> getPayList(@Query("page")int page, @Query("size")int size);
 
     /**
      * 用户提现接口
@@ -231,4 +234,70 @@ public interface ApiService {
     @POST("api/v1/delMyCar")
     @FormUrlEncoded
     Observable<BaseEntity> deleteCar(@Field("id") int id);
+
+    /**
+     * 我的消息接口
+     */
+    @GET("api/v1/getMyMessage")
+    Observable<BaseEntity<MessageBean>> getMessages(@Query("page") int page, @Query("size") int size);
+
+    /**
+     * 删除我的消息接口
+     */
+    @POST("api/v1/delUserMessage")
+    @FormUrlEncoded
+    Observable<BaseEntity> deleteMessages(@Field("delete") int delete);
+
+    /**
+     * 用户添加银行卡接口
+     */
+    @POST("api/v1/addBankCard")
+    @FormUrlEncoded
+    Observable<BaseEntity> addBankCard(@Field("bank") int bank, @Field("card") String card);
+
+    /**
+     * 获取用户银行卡接口
+     */
+    @GET("api/v1/getMyCard")
+    Observable<BaseEntity> getBankCard();
+
+    /**
+     * 删除银行卡请求接口
+     */
+    @GET("api/v1/deleteMyCard")
+    Observable<BaseEntity> deleteBankCard();
+
+    /**
+     * 检测用户支付密码是否设置接口
+     */
+    @POST("api/v1/checkSurplusPassword")
+    Observable<BaseEntity> isSetPayKey();
+
+    /**
+     * 用户设置支付密码接口
+     */
+    @POST("api/v1/setSurplusPassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> setPayKey(@Field("surplusPassword") String surplusPassword);
+
+    /**
+     * 判断支付密码是否正确接口
+     */
+    @POST("api/v1/confirmSurplusPassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> checkPayKey(@Field("surplusPassword") String surplusPassword);
+
+    /**
+     * 修改支付密码请求接口
+     */
+    @POST("api/v1/resetSurplusPassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> resetPayKey(@Field("surplusPassword") String surplusPassword);
+
+    /**
+     * 免密设置接口
+     */
+    @POST("api/v1/setFreePassword")
+    @FormUrlEncoded
+    Observable<BaseEntity> setFreePay(@Field("freePassword") String freePassword);
 }

@@ -57,10 +57,10 @@ public class StopRecordBean {
 
         private String order_sn;
         private String total_amount;
-        private int pay_time;
+        private long pay_time;
         private int pay_status;
-        private String create_time;
-        private int end_time;
+        private long create_time;
+        private long end_time;
         private String parking_name;
         private int fee_id;
 
@@ -80,8 +80,8 @@ public class StopRecordBean {
             this.total_amount = total_amount;
         }
 
-        public int getPay_time() {
-            return pay_time;
+        public long getPay_time() {
+            return 1000*pay_time;
         }
 
         public void setPay_time(int pay_time) {
@@ -96,19 +96,19 @@ public class StopRecordBean {
             this.pay_status = pay_status;
         }
 
-        public String getCreate_time() {
-            return create_time;
+        public long getCreate_time() {
+            return 1000*create_time;
         }
 
-        public void setCreate_time(String create_time) {
+        public void setCreate_time(long create_time) {
             this.create_time = create_time;
         }
 
-        public int getEnd_time() {
-            return end_time;
+        public long getEnd_time() {
+            return 1000*end_time;
         }
 
-        public void setEnd_time(int end_time) {
+        public void setEnd_time(long end_time) {
             this.end_time = end_time;
         }
 

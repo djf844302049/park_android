@@ -14,7 +14,9 @@ import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class StopRecordActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private TextView tvInPro;
     private TextView tvComplete;
-    private RelativeLayout rlInpro;
+    private RelativeLayout rlInPro;
     private TextView tvParkName;
     private TextView tvParkDate;
     private TextView tvParkTime;
@@ -49,13 +51,13 @@ public class StopRecordActivity extends BaseActivity {
         recyclerView = findViewById(R.id.rlv_stop_record_list);
         tvInPro = findViewById(R.id.tv_in_progress);
         tvComplete = findViewById(R.id.tv_off_the_stock);
-        rlInpro = findViewById(R.id.rl_in_progress);
+        rlInPro = findViewById(R.id.rl_in_progress);
         tvParkName = findViewById(R.id.tv_park_name);
         tvParkDate = findViewById(R.id.tv_park_date);
         tvParkTime = findViewById(R.id.tv_park_time);
         tvParkPrice = findViewById(R.id.tv_park_price);
         tvNoMoreData = findViewById(R.id.tv_tip_no_more_data);
-        adapter = new StopRecordAdapter(this, orderBeanList);
+        adapter = new StopRecordAdapter(orderBeanList);
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
@@ -71,10 +73,6 @@ public class StopRecordActivity extends BaseActivity {
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
                 page = 1;
-//                tvInPro.setVisibility(View.GONE);
-//                rlInpro.setVisibility(View.GONE);
-//                tvComplete.setVisibility(View.GONE);
-//                tvNoMoreData.setVisibility(View.GONE);
                 xRefreshView.setPullLoadEnable(true);
                 getStopRecord();
             }
@@ -108,10 +106,13 @@ public class StopRecordActivity extends BaseActivity {
                             if (orderBean.getPay_status() == 0) {
                                 isParking = true;
                                 tvInPro.setVisibility(View.VISIBLE);
-                                rlInpro.setVisibility(View.VISIBLE);
+                                rlInPro.setVisibility(View.VISIBLE);
                                 tvParkName.setText(orderBean.getParking_name());
-                                tvParkDate.setText(orderBean.getCreate_time());
-                                tvParkTime.setText(orderBean.getCreate_time());
+                                Date parse = new Date(orderBean.getCreate_time());
+                                String time = new SimpleDateFormat("HH:mm").format(parse);
+                                String date = new SimpleDateFormat("yyyy-MM-dd").format(parse);
+                                tvParkDate.setText(date);
+                                tvParkTime.setText(time);
                                 tvParkPrice.setText("￥" + orderBean.getTotal_amount() + "(计费中)");
                             } else {
                                 tvComplete.setVisibility(View.VISIBLE);
@@ -123,7 +124,7 @@ public class StopRecordActivity extends BaseActivity {
                         }
                         if (!isParking) {
                             tvInPro.setVisibility(View.GONE);
-                            rlInpro.setVisibility(View.GONE);
+                            rlInPro.setVisibility(View.GONE);
                         }
                         adapter.notifyDataSetChanged();
                     }

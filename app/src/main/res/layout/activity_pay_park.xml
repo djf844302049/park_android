@@ -2,22 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
 
     <TextView
-        style="@style/text_gray_18sp"
-        android:layout_marginTop="30dp"
-        android:text="@string/input_watch_car_monitor"
-        android:textColor="@color/black" />
+        style="@style/text_gray_16sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/input_park_num_to_pay" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="25dp">
 
         <LinearLayout
             android:id="@+id/ll_num"
@@ -90,17 +88,57 @@
             android:maxLength="6"
             android:textColor="#0000" />
 
-
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_watch_camera"
-        android:layout_width="220dp"
+        android:id="@+id/btn_go_pay"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/shape_bg_blue"
-        android:text="@string/watch"
+        android:text="@string/go_pay"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text_size16" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/gray_line_h"
+            android:layout_width="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/text_gray_16sp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/attention_tip" />
+
+        <View
+            style="@style/gray_line_h"
+            android:layout_width="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/pay_park_tip1" />
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/pay_park_tip2" />
 </LinearLayout>

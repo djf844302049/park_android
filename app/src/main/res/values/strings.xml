@@ -92,6 +92,16 @@
     <string name="off_the_stock">已完成</string>
     <string name="no_more_data">没有更多记录了</string>
     <string name="add_car">添加车辆</string>
+    <string name="go_pay">去交费</string>
+    <string name="attention_tip">注意事项</string>
+    <string name="modify_pay_key">修改支付密码</string>
+    <string name="find_back_pay_key">找回支付密码</string>
+    <string name="half_penny_without_key">小额免密</string>
+    <string name="half_penny_without_key_pay">小额免密支付</string>
+    <string name="half_penny_without_key_tip">开启后，支付无需输入密码</string>
+    <string name="pay_park_tip1">1.不同停车地点计价规则会有不同；</string>
+    <string name="pay_park_tip2">2.如遇到车位锁损坏或特殊情况，请拨打客服\n电话或者联系现场工作人员。</string>
+    <string name="input_park_num_to_pay">请输入车位编号去交费</string>
     <string name="my_car_tip">*已进行身份、车辆且已缴纳押金用户可以进行\n车位预约。</string>
 
     <!--停车记录-->

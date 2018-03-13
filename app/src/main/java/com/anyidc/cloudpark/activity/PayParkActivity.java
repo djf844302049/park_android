@@ -1,26 +1,21 @@
 package com.anyidc.cloudpark.activity;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
-import com.anyidc.cloudpark.moduel.BaseEntity;
-import com.anyidc.cloudpark.network.Api;
-import com.anyidc.cloudpark.network.RxObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/2/5.
+ * Created by Administrator on 2018/3/13.
  */
 
-public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnClickListener {
+public class PayParkActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
@@ -32,11 +27,12 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_car_monitor;
+        return R.layout.activity_pay_park;
     }
 
     @Override
     protected void initData() {
+        initTitle("停车付费");
         tv1 = findViewById(R.id.tv_num_1);
         tv2 = findViewById(R.id.tv_num_2);
         tv3 = findViewById(R.id.tv_num_3);
@@ -52,23 +48,27 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
         tvList.add(tv6);
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
-        findViewById(R.id.btn_watch_camera).setOnClickListener(this);
-        initTitle("车辆监控");
+        findViewById(R.id.btn_go_pay).setOnClickListener(this);
     }
 
     @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    public void onClick(View v) {
 
     }
 
     @Override
-    public void afterTextChanged(Editable editable) {
-        setNum(editable.toString());
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        setNum(s.toString());
     }
 
     private void setNum(String num) {
@@ -80,30 +80,5 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
         for (int i = 0; i < length; i++) {
             tvList.get(i).setText(String.valueOf(chars[i]));
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-        watchCamera();
-    }
-
-    private void watchCamera() {
-        String parkNum = etNum.getText().toString();
-        if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
-            return;
-        }
-        getTime(Api.getDefaultService().watchCamera(parkNum)
-                , new RxObserver<BaseEntity>(this, true) {
-                    @Override
-                    public void onSuccess(BaseEntity baseEntity) {
-
-                    }
-                });
-    }
-
-    @Override
-    protected void onDestroy() {
-        etNum.removeTextChangedListener(this);
-        super.onDestroy();
     }
 }

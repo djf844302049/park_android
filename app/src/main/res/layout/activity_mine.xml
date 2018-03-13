@@ -71,6 +71,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_my_wallet"
                     android:layout_width="match_parent"
                     android:layout_height="89dp"
                     android:layout_centerHorizontal="true"
@@ -133,6 +134,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/tv_car_monitor"
                     style="@style/text_gray_14sp"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
