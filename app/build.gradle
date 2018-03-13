@@ -46,13 +46,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:multidex:1.0.2'
-
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
@@ -63,29 +62,20 @@ dependencies {
     //compile "com.trello.rxlifecycle2:rxlifecycle-android:$rootProject.ext.rxlifecycle"
     implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.rxlifecycle"
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
-
-
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-
     implementation 'com.yanzhenjie:permission:2.0.0-alpha'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
     implementation 'com.youth.banner:banner:1.4.10'
-
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
-
     implementation 'com.githang:status-bar-compat:latest.integration'
     implementation 'com.android.support:design:24.2.1'
     implementation 'com.yanzhenjie:album:1.0.7'
-
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:5.0.0'
     //定位功能
@@ -95,4 +85,5 @@ dependencies {
     //Xrefreshview
     implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
     implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    implementation project(':indicator')
 }
