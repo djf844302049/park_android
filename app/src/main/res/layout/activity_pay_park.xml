@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        style="@style/text_gray_16sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/input_park_num_to_pay" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+
+        <LinearLayout
+            android:id="@+id/ll_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_num_1"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_2"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_3"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_4"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_5"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_6"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ll_num"
+            android:layout_alignLeft="@id/ll_num"
+            android:layout_alignRight="@id/ll_num"
+            android:layout_alignTop="@id/ll_num"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textColor="#0000" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_go_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shape_bg_blue"
+        android:text="@string/go_pay"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/gray_line_h"
+            android:layout_width="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/text_gray_16sp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/attention_tip" />
+
+        <View
+            style="@style/gray_line_h"
+            android:layout_width="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/pay_park_tip1" />
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/pay_park_tip2" />
+</LinearLayout>

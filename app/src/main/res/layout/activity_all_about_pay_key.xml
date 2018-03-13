@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginTop="50dp"
+        android:text="请输入支付密码"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <LinearLayout
+            android:id="@+id/ll_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_num_1"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_2"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_3"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_4"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_5"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_6"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ll_num"
+            android:layout_alignLeft="@id/ll_num"
+            android:layout_alignRight="@id/ll_num"
+            android:layout_alignTop="@id/ll_num"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:textColor="#0000" />
+
+    </RelativeLayout>
+
+</LinearLayout>
