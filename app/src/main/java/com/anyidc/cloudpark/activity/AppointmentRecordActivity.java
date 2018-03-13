@@ -60,10 +60,10 @@ public class AppointmentRecordActivity extends BaseActivity {
         AppointmentCompleteFragment appointmentCompleteFragment = new AppointmentCompleteFragment();
         fragments.add(appointmentCompleteFragment);
 
-//        BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), fragments);
-//        mViewPager.setAdapter(adapter);
-//        mViewPager.setCurrentItem(0);
-//        mViewPager.setOffscreenPageLimit(2);
+        BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), fragments);
+        mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(2);
     }
 
     private void initIndicator() {
