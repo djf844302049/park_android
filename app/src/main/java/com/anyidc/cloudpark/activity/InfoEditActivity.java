@@ -14,7 +14,6 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
-import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
  * Created by Administrator on 2018/2/26.

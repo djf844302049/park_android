@@ -3,6 +3,7 @@ package com.anyidc.cloudpark.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -34,6 +35,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
     private TextView tv5;
     private TextView tv6;
     private TextView tv7;
+    private TextView tv8;
     private EditText etNum;
     private CheckBox cbNewEnergy;
     private Button btnAdd;
@@ -62,6 +64,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
         tv5 = findViewById(R.id.tv_num_5);
         tv6 = findViewById(R.id.tv_num_6);
         tv7 = findViewById(R.id.tv_num_7);
+        tv8 = findViewById(R.id.tv_num_8);
         tvSkip = findViewById(R.id.tv_skip);
         tvSkip.setOnClickListener(this);
         tvList = new ArrayList<>();
@@ -72,6 +75,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
         tvList.add(tv5);
         tvList.add(tv6);
         tvList.add(tv7);
+        tvList.add(tv8);
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
         btnAdd = findViewById(R.id.btn_confirm_add);
@@ -80,8 +84,12 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
         cbNewEnergy.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 isNewEnergy = 1;
+                etNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+                tv8.setVisibility(View.VISIBLE);
             } else {
                 isNewEnergy = 0;
+                etNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(7)});
+                tv8.setVisibility(View.GONE);
             }
         });
         initTitle("添加车辆");
@@ -123,8 +131,9 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
 
     private void commitAddCar() {
         String carNum = etNum.getText().toString();
-        if (TextUtils.isEmpty(carNum) || carNum.length() != 7) {
-            ToastUtil.showToast("车牌号格式不正确",Toast.LENGTH_SHORT);
+        if (TextUtils.isEmpty(carNum)) {
+            if ((isNewEnergy == 0 && carNum.length() != 7) || (isNewEnergy == 1 && carNum.length() != 8))
+                ToastUtil.showToast("车牌号格式不正确", Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().addCar(carNum, isNewEnergy)

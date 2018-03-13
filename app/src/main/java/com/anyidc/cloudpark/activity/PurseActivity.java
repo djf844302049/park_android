@@ -50,6 +50,7 @@ public class PurseActivity extends BaseActivity implements View.OnClickListener 
             case R.id.btn_recharge_deposit:
                 break;
             case R.id.tv_pay_setting:
+                startActivity(new Intent(this, PaySettingActivity.class));
                 break;
             case R.id.btn_draw_cash:
                 break;

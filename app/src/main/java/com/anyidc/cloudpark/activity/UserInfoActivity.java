@@ -11,7 +11,6 @@ import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
-import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.UploadImageUtil;
 import com.bumptech.glide.Glide;
 

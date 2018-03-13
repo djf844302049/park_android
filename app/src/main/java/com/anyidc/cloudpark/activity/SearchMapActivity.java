@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -80,9 +81,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         hotAreaAdapter.setOnItemClickListener((view, position) -> search(hotAreaList.get(position)));
         hotAreaAdapter.notifyDataSetChanged();
         rlvHistory = findViewById(R.id.rlv_search_history);
-        RecyclerView.LayoutManager layoutManager2 = new FlowLayoutManager();
-        rlvHistory.setLayoutManager(layoutManager2);
-        rlvHistory.setNestedScrollingEnabled(false);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        rlvHistory.setLayoutManager(manager);
         List<String> historyList = SpUtils.getObject(SpUtils.SEARCHLIST, List.class);
         if (historyList != null) {
             searchList.addAll(historyList);
