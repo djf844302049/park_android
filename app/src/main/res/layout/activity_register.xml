@@ -11,11 +11,11 @@
         android:id="@+id/et_phone_num"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:maxLength="11"
         android:layout_marginTop="38dp"
         android:background="@color/white"
         android:hint="@string/input_phone_num"
         android:inputType="phone"
+        android:maxLength="11"
         android:paddingLeft="20dp" />
 
     <LinearLayout
@@ -52,10 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
-        android:paddingLeft="@dimen/dp20"
         android:background="@color/white"
         android:hint="@string/input_register_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:paddingLeft="@dimen/dp20" />
 
     <LinearLayout
         android:id="@+id/ll_cb"
@@ -69,6 +69,8 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:button="@drawable/selector_cb_green_gray"
             android:text="我同意《》和《》" />
     </LinearLayout>
 

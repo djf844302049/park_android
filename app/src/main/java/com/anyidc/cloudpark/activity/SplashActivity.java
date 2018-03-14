@@ -22,7 +22,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     /**
-     * 避免首次安装点击打开启动程序后，按home键返回桌面然后点击桌面图标会重新实例化入口类的activity，原因参考http://www.cnblogs.com/net168/p/5722752.html
+     * 避免首次安装点击打开启动程序后，按home键返回桌面然后点击桌面图标会重新实例化入口类的activity，
+     * 原因参考http://www.cnblogs.com/net168/p/5722752.html
      */
     private boolean avoidRenewLaunchActivity() {
         if (!this.isTaskRoot()) {
