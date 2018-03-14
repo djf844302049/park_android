@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/white">
+
+        <TextView
+            style="@style/text_gray_14sp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/draw_bank"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_bank"
+            style="@style/text_gray_14sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="20dp"
+            android:text="中国农业银行储蓄卡（3579）"
+            android:textColor="@color/top_blue" />
+
+        <TextView
+            style="@style/text_gray_14sp"
+            android:layout_alignLeft="@id/tv_bank"
+            android:layout_below="@id/tv_bank"
+            android:layout_marginTop="24dp"
+            android:text="@string/two_hours_receive" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/shape_rectangle">
+
+        <TextView
+            android:id="@+id/tv_text_draw_cash"
+            style="@style/text_black_18sp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="22dp"
+            android:text="@string/draw_num" />
+
+        <TextView
+            android:id="@+id/tv_￥"
+            style="@style/text_black_18sp"
+            android:layout_below="@id/tv_text_draw_cash"
+            android:layout_marginLeft="63dp"
+            android:layout_marginTop="22dp"
+            android:text="@string/chinese_money_symbol" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_￥"
+            android:layout_alignRight="@+id/view_line"
+            android:layout_toRightOf="@id/tv_￥"
+            android:background="@null"
+            android:textSize="@dimen/text_size18" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_￥"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/black" />
+
+        <TextView
+            style="@style/text_gray_18sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="当前账户余额100元" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/shape_bg_blue"
+        android:text="@string/draw_cash"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size18" />
+
+</LinearLayout>

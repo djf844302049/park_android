@@ -2,7 +2,9 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,7 +25,7 @@ import com.anyidc.cloudpark.utils.SpUtils;
  * Created by Administrator on 2018/2/7.
  */
 
-public class RegisterActivity extends BaseActivity implements OnClickListener {
+public class RegisterActivity extends BaseActivity implements OnClickListener, TextWatcher {
     private EditText etPhoneNum;
     private EditText etConfirmCode;
     private EditText etPassword;
@@ -48,10 +50,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
     protected void initData() {
         llCb = findViewById(R.id.ll_cb);
         etPhoneNum = findViewById(R.id.et_phone_num);
+        etPhoneNum.addTextChangedListener(this);
         etConfirmCode = findViewById(R.id.et_confirm_code);
         etPassword = findViewById(R.id.et_password);
         tvGetCode = findViewById(R.id.tv_get_code);
         tvGetCode.setOnClickListener(this);
+        tvGetCode.setEnabled(false);
         btnCommit = findViewById(R.id.btn_register);
         btnCommit.setOnClickListener(this);
         from = getIntent().getIntExtra("from", 0);
@@ -142,5 +146,30 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 //                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
                     }
                 });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (etPhoneNum.getText().toString().length() != 11) {
+            tvGetCode.setEnabled(false);
+        } else {
+            tvGetCode.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        etPhoneNum.removeTextChangedListener(this);
     }
 }

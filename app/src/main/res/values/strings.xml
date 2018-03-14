@@ -12,6 +12,7 @@
     <string name="input_new_password">请输入新密码 由6-20位数字组成</string>
     <string name="input_register_password">请输入密码 由6-20位数字组成</string>
     <string name="input_real_name">请输入您的真实姓名</string>
+    <string name="input_bank_num">请输入银行卡号</string>
     <string name="input_id_num">请输入您的身份证号</string>
     <string name="get_confirm_num">获取验证码</string>
     <string name="short_mess_confirm_login">短信验证登录</string>
@@ -98,6 +99,16 @@
     <string name="find_back_pay_key">找回支付密码</string>
     <string name="half_penny_without_key">小额免密</string>
     <string name="half_penny_without_key_pay">小额免密支付</string>
+    <string name="draw_bank">到账银行卡</string>
+    <string name="draw_num">提现金额</string>
+    <string name="bank_card_owner">持卡人</string>
+    <string name="bank_card_num">银行卡号</string>
+    <string name="bank">所在银行</string>
+    <string name="phone_num">手机号码</string>
+    <string name="chinese_money_symbol">￥</string>
+    <string name="company_name">©厦门云能信息科技有限公司</string>
+    <string name="customer_service_phone_num">客服电话：********</string>
+    <string name="two_hours_receive">2小时到账</string>
     <string name="half_penny_without_key_tip">开启后，支付无需输入密码</string>
     <string name="pay_park_tip1">1.不同停车地点计价规则会有不同；</string>
     <string name="pay_park_tip2">2.如遇到车位锁损坏或特殊情况，请拨打客服\n电话或者联系现场工作人员。</string>

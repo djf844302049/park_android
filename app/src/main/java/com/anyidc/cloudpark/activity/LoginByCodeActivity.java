@@ -1,7 +1,9 @@
 package com.anyidc.cloudpark.activity;
 
 import android.content.Intent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +20,7 @@ import com.anyidc.cloudpark.utils.SpUtils;
  * Created by Administrator on 2018/2/7.
  */
 
-public class LoginByCodeActivity extends BaseActivity implements View.OnClickListener {
+public class LoginByCodeActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
     private EditText etPhoneNum;
     private EditText etConfirmCode;
     private TextView tvGetCode;
@@ -31,11 +33,14 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initData() {
+        initTitle("短信验证码登录");
         etPhoneNum = findViewById(R.id.et_phone_num);
+        etPhoneNum.addTextChangedListener(this);
         etConfirmCode = findViewById(R.id.et_confirm_code);
         findViewById(R.id.btn_login).setOnClickListener(this);
         tvGetCode = findViewById(R.id.tv_get_code);
         tvGetCode.setOnClickListener(this);
+        tvGetCode.setEnabled(false);
     }
 
     @Override
@@ -82,5 +87,30 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                                 .putExtra("from", 1));
                     }
                 });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (etPhoneNum.getText().toString().length() == 11) {
+            tvGetCode.setEnabled(true);
+        } else {
+            tvGetCode.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        etPhoneNum.removeTextChangedListener(this);
     }
 }

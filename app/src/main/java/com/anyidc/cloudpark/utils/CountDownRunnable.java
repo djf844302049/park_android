@@ -21,7 +21,7 @@ public class CountDownRunnable implements Runnable {
     public void run() {
         if (countDownTime > 0) {
             tvGetCode.setEnabled(false);
-            tvGetCode.setText(countDownTime + "秒后重新获取");
+            tvGetCode.setText(countDownTime + "s");
             countDownTime--;
             tvGetCode.postDelayed(this, 1000);
         } else {
