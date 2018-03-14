@@ -1,5 +1,7 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,6 +14,7 @@ import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.IntentKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +30,23 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
     private TextView tv4;
     private TextView tv5;
     private TextView tv6;
+    private TextView tvTip;
+    private TextView tvConfirm;
     private EditText etNum;
     private List<TextView> tvList;
+    private int type = 0;//0表示车辆监控  1表示车位锁操作（管理员界面操作界面）
+
+
+    /**
+     *
+     * @param context
+     * @param type   0表示车辆监控  1表示车位锁操作（管理员界面操作界面）
+     */
+    public static void start(Context context,int type){
+        Intent intent = new Intent(context,CarMonitorActivity.class);
+        intent.putExtra(IntentKey.INTENT_KEY_INT,type);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -37,12 +55,16 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
 
     @Override
     protected void initData() {
+        type = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT,0);
+
         tv1 = findViewById(R.id.tv_num_1);
         tv2 = findViewById(R.id.tv_num_2);
         tv3 = findViewById(R.id.tv_num_3);
         tv4 = findViewById(R.id.tv_num_4);
         tv5 = findViewById(R.id.tv_num_5);
         tv6 = findViewById(R.id.tv_num_6);
+        tvTip = findViewById(R.id.tv_tip);
+        tvConfirm = findViewById(R.id.btn_watch_camera);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);
@@ -52,8 +74,17 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
         tvList.add(tv6);
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
-        findViewById(R.id.btn_watch_camera).setOnClickListener(this);
-        initTitle("车辆监控");
+        tvConfirm.setOnClickListener(this);
+        if(type == 0) {
+            initTitle("车辆监控");
+            tvTip.setText(R.string.input_watch_car_monitor);
+            tvConfirm.setText(R.string.watch);
+        } else {
+            initTitle("选择车位");
+            tvTip.setText(R.string.input_opt_park_num);
+            tvConfirm.setText(R.string.common_confirm);
+        }
+
     }
 
     @Override
@@ -84,7 +115,11 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
 
     @Override
     public void onClick(View view) {
-        watchCamera();
+        if(type == 0) {
+            watchCamera();
+        } else {
+            OptParkLockActivity.start(CarMonitorActivity.this);
+        }
     }
 
     private void watchCamera() {

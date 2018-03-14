@@ -79,6 +79,8 @@
         <activity android:name="com.anyidc.cloudpark.activity.TransactionDetailActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.PayParkActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.PaySettingActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.ManagerActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.OptParkLockActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data
