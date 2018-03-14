@@ -43,6 +43,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
     private List<TextView> tvList;
     private TextView tvSkip;
     private int from;
+    private String carNum;
 
     public static void actionStart(Context context, int from) {
         Intent intent = new Intent(context, AddCarActivity.class);
@@ -89,6 +90,11 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
             } else {
                 isNewEnergy = 0;
                 etNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(7)});
+                if (carNum != null && carNum.length() > 7) {
+                    String substring = carNum.substring(0, 7);
+                    etNum.setText(substring);
+                    etNum.setSelection(substring.length());
+                }
                 tv8.setVisibility(View.GONE);
             }
         });
@@ -115,6 +121,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
 
     @Override
     public void afterTextChanged(Editable editable) {
+        carNum = editable.toString();
         setNum(editable.toString());
     }
 
@@ -130,10 +137,11 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
     }
 
     private void commitAddCar() {
-        String carNum = etNum.getText().toString();
         if (TextUtils.isEmpty(carNum)) {
-            if ((isNewEnergy == 0 && carNum.length() != 7) || (isNewEnergy == 1 && carNum.length() != 8))
-                ToastUtil.showToast("车牌号格式不正确", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ((isNewEnergy == 0 && carNum.length() != 7) || (isNewEnergy == 1 && carNum.length() != 8)) {
+            ToastUtil.showToast("车牌号格式不正确", Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().addCar(carNum, isNewEnergy)

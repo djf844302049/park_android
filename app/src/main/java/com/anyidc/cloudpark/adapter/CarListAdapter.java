@@ -73,7 +73,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarListV
                                                 @Override
                                                 public void onSuccess(BaseEntity baseEntity) {
                                                     list.remove(position);
-                                                    notifyItemRemoved(position);
+                                                    notifyDataSetChanged();
                                                 }
                                             })
                             ).setNegativeButton("取消", null).show()

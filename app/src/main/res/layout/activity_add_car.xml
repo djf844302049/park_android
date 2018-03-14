@@ -114,6 +114,7 @@
             android:layout_alignRight="@id/ll_num"
             android:layout_alignTop="@id/ll_num"
             android:background="@null"
+            android:maxLength="7"
             android:cursorVisible="false"
             android:textColor="#0000" />
 

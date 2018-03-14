@@ -28,8 +28,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    signingConfigs{
-        release{
+    signingConfigs {
+        release {
             storeFile file("cloudpark.jks")
             keyAlias "CloudPark"
             keyPassword "anyidc123"

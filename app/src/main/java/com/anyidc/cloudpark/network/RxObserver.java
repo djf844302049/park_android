@@ -8,14 +8,8 @@ import android.widget.Toast;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
-import java.io.EOFException;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
-import java.net.BindException;
-import java.net.ConnectException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -47,11 +41,7 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
 
     @Override
     public final void onNext(T value) {
-        if (value.getStatus() == 1) {
-            onSuccess(value);
-        } else {
-            onError(value.getMessage());
-        }
+        onSuccess(value);
     }
 
     @Override
@@ -59,12 +49,7 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
         if (mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        if (e instanceof EOFException || e instanceof ConnectException || e instanceof SocketException
-                || e instanceof BindException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
-            onError("网络异常，请稍后重试！");
-        } else {
-            onError("未知错误！");
-        }
+        onError(e.getMessage());
     }
 
     @Override
