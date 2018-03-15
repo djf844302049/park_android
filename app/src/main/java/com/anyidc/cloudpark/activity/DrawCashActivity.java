@@ -6,14 +6,14 @@ import com.anyidc.cloudpark.R;
  * Created by Administrator on 2018/3/15.
  */
 
-public class PayWithoutKeyActivity extends BaseActivity {
+public class DrawCashActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_pay_without_key_setting;
+        return R.layout.activity_draw_cash;
     }
 
     @Override
     protected void initData() {
-        initTitle("设置小额免密");
+        initTitle("余额提现");
     }
 }

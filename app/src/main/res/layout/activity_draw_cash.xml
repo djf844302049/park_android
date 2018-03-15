@@ -17,6 +17,7 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/tv_bank_text"
             style="@style/text_gray_14sp"
             android:layout_marginLeft="17dp"
             android:layout_marginTop="20dp"
@@ -27,8 +28,12 @@
             android:id="@+id/tv_bank"
             style="@style/text_gray_14sp"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/tv_bank_text"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="中国农业银行储蓄卡（3579）"
             android:textColor="@color/top_blue" />
 
@@ -68,8 +73,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/tv_￥"
             android:layout_alignRight="@+id/view_line"
+            android:layout_marginLeft="10dp"
+            android:maxLength="10"
             android:layout_toRightOf="@id/tv_￥"
             android:background="@null"
+            android:inputType="number"
             android:textSize="@dimen/text_size18" />
 
         <View
@@ -95,7 +103,7 @@
         android:layout_height="47dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/shape_bg_blue"
         android:text="@string/draw_cash"
         android:textColor="@color/white"

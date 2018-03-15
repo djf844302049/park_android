@@ -94,21 +94,26 @@
             style="@style/text_gray_14sp" />
     </LinearLayout>
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <Button
-        android:id="@+id/btn_logout"
+    <LinearLayout
+        android:id="@+id/ll_logout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/shape_bg_blue"
-        android:text="@string/logout"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size18" />
+        android:background="@drawable/shape_bottom_gray_line"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            style="@style/text_gray_14sp"
+            android:layout_weight="1"
+            android:text="@string/logout"
+            android:textColor="@color/black" />
+
+        <ImageView
+            style="@style/common_text"
+            android:src="@mipmap/img_right_arrow" />
+    </LinearLayout>
 
 </LinearLayout>

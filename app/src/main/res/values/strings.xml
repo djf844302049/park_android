@@ -113,6 +113,7 @@
     <string name="company_name">©厦门云能信息科技有限公司</string>
     <string name="customer_service_phone_num">客服电话：********</string>
     <string name="two_hours_receive">2小时到账</string>
+    <string name="recharge_tip">余额可在“个人中心-我的钱包”中提现。</string>
     <string name="half_penny_without_key_tip">开启后，支付无需输入密码</string>
     <string name="pay_park_tip1">1.不同停车地点计价规则会有不同；</string>
     <string name="pay_park_tip2">2.如遇到车位锁损坏或特殊情况，请拨打客服\n电话或者联系现场工作人员。</string>

@@ -103,6 +103,16 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
                         }
                         adapter.notifyDataSetChanged();
                     }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        if (page == 1) {
+                            xRefreshView.stopRefresh();
+                        } else {
+                            xRefreshView.stopLoadMore();
+                        }
+                    }
                 });
 
     }

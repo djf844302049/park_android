@@ -32,6 +32,7 @@ public class PurseActivity extends BaseActivity implements View.OnClickListener 
         tvBalance = findViewById(R.id.tv_balance_num);
         tvDepositState = findViewById(R.id.tv_deposit_state);
         btnDeposit = findViewById(R.id.btn_recharge_deposit);
+        findViewById(R.id.btn_recharge_balance).setOnClickListener(this);
         btnDeposit.setOnClickListener(this);
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
@@ -48,14 +49,19 @@ public class PurseActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_recharge_deposit:
+                startActivity(new Intent(this, DepositActivity.class));
                 break;
             case R.id.tv_pay_setting:
                 startActivity(new Intent(this, PaySettingActivity.class));
                 break;
             case R.id.btn_draw_cash:
+                startActivity(new Intent(this, DrawCashActivity.class));
                 break;
             case R.id.tv_right:
                 startActivity(new Intent(this, TransactionDetailActivity.class));
+                break;
+            case R.id.btn_recharge_balance:
+                startActivity(new Intent(this, RechargeActivity.class));
                 break;
         }
     }
@@ -70,11 +76,11 @@ public class PurseActivity extends BaseActivity implements View.OnClickListener 
                         if ("0.00".equals(data.getUser_money())) {
                             tvDepositState.setText("未缴纳");
                             btnDeposit.setText("缴纳押金");
-                            btnDrawCash.setEnabled(false);
+//                            btnDrawCash.setEnabled(false);
                         } else {
                             tvDepositState.setText("已缴纳");
                             btnDeposit.setText("退回押金");
-                            btnDrawCash.setEnabled(true);
+//                            btnDrawCash.setEnabled(true);
                         }
                     }
                 });

@@ -81,4 +81,10 @@ public class PayParkActivity extends BaseActivity implements View.OnClickListene
             tvList.get(i).setText(String.valueOf(chars[i]));
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        etNum.removeTextChangedListener(this);
+    }
 }

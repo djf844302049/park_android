@@ -177,4 +177,10 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        etNum.removeTextChangedListener(this);
+    }
 }
