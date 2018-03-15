@@ -55,10 +55,6 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         ivRight.setVisibility(View.VISIBLE);
         ivRight.setImageResource(R.mipmap.img_mess);
         if (LoginUtil.isLogin()) {
-            ivAvatar.setOnClickListener(this);
-            tvLogin.setVisibility(View.GONE);
-            tvUserName.setVisibility(View.VISIBLE);
-            tvUserName.setText(CacheData.getUserName());
             getCenterData();
         }
         ivRight.setOnClickListener(this);
@@ -67,8 +63,19 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (LoginUtil.isLogin())
+        if (LoginUtil.isLogin()) {
             Glide.with(this).load(CacheData.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
+            ivAvatar.setOnClickListener(this);
+            tvLogin.setVisibility(View.GONE);
+            tvUserName.setVisibility(View.VISIBLE);
+            tvUserName.setText(CacheData.getUserName());
+        } else {
+            ivAvatar.setImageResource(R.mipmap.ic_launcher);
+            tvIdConState.setText("");
+            ivAvatar.setOnClickListener(null);
+            tvLogin.setVisibility(View.VISIBLE);
+            tvUserName.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -99,7 +106,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.iv_right:
-                startActivity(new Intent(this, MessageCenterActivity.class));
+                if (LoginUtil.isLogin())
+                    startActivity(new Intent(this, MessageCenterActivity.class));
                 break;
             case R.id.tv_my_car:
                 if (LoginUtil.isLogin())

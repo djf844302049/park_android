@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/text_white_16sp"
+        style="@style/text_white_20sp"
         android:layout_centerInParent="true"
         android:gravity="center" />
 

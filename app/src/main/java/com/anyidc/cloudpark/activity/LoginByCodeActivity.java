@@ -1,10 +1,12 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,7 +26,15 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
     private EditText etPhoneNum;
     private EditText etConfirmCode;
     private TextView tvGetCode;
+    private Button btnLogin;
     private String phoneNum;
+    private int from;
+
+    public static void actionStart(Context context, int from) {
+        Intent intent = new Intent(context, LoginByCodeActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -33,14 +43,25 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initData() {
-        initTitle("短信验证码登录");
+        from = getIntent().getIntExtra("from", 0);
         etPhoneNum = findViewById(R.id.et_phone_num);
         etPhoneNum.addTextChangedListener(this);
         etConfirmCode = findViewById(R.id.et_confirm_code);
-        findViewById(R.id.btn_login).setOnClickListener(this);
+        btnLogin = findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(this);
         tvGetCode = findViewById(R.id.tv_get_code);
         tvGetCode.setOnClickListener(this);
         tvGetCode.setEnabled(false);
+        switch (from) {
+            case 0:
+                btnLogin.setText("登录");
+                initTitle("短信验证码登录");
+                break;
+            default:
+                btnLogin.setText("验证");
+                initTitle("身份验证");
+                break;
+        }
     }
 
     @Override
@@ -50,7 +71,14 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                 getCode();
                 break;
             case R.id.btn_login:
-                login();
+                switch (from) {
+                    case 0:
+                        login();
+                        break;
+                    default:
+                        PayKeySetActivity.actionStart(this, from);
+                        break;
+                }
                 break;
         }
     }

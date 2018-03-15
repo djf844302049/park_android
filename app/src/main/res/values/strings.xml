@@ -108,6 +108,7 @@
     <string name="bank_card_num">银行卡号</string>
     <string name="bank">所在银行</string>
     <string name="phone_num">手机号码</string>
+    <string name="logout">退出登录</string>
     <string name="chinese_money_symbol">￥</string>
     <string name="company_name">©厦门云能信息科技有限公司</string>
     <string name="customer_service_phone_num">客服电话：********</string>

@@ -8,6 +8,7 @@
     <include layout="@layout/toolbar" />
 
     <TextView
+        android:id="@+id/tv_desc"
         style="@style/text_gray_14sp"
         android:layout_marginTop="50dp"
         android:text="请输入支付密码"
@@ -85,5 +86,13 @@
             android:textColor="#0000" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_err_desc"
+        style="@style/text_gray_14sp"
+        android:layout_marginTop="10dp"
+        android:text="两次输入不一致，请重新设置"
+        android:textColor="@color/text_color_red"
+        android:visibility="gone" />
 
 </LinearLayout>

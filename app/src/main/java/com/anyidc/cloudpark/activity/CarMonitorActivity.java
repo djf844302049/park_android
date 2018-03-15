@@ -56,7 +56,6 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
     @Override
     protected void initData() {
         type = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT,0);
-
         tv1 = findViewById(R.id.tv_num_1);
         tv2 = findViewById(R.id.tv_num_2);
         tv3 = findViewById(R.id.tv_num_3);

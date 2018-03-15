@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_by_code:
-                startActivity(new Intent(this, LoginByCodeActivity.class));
+                LoginByCodeActivity.actionStart(this, 0);
                 break;
             case R.id.tv_forget_password:
                 RegisterActivity.actionStart(this, 1);

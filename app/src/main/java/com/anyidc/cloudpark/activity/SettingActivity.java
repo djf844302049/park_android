@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
@@ -26,6 +27,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.ll_check_update).setOnClickListener(this);
         findViewById(R.id.ll_go_grade).setOnClickListener(this);
         findViewById(R.id.ll_about_us).setOnClickListener(this);
+        findViewById(R.id.btn_logout).setOnClickListener(this);
         String versionName = (String) SpUtils.get(SpUtils.VERSION_NAME, "");
         ((TextView) findViewById(R.id.tv_version_name)).setText(versionName);
     }
@@ -47,6 +49,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.ll_about_us:
+                break;
+            case R.id.btn_logout:
+                LoginUtil.logout();
+                finish();
                 break;
         }
     }

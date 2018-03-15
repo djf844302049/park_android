@@ -8,6 +8,7 @@
     <include layout="@layout/toolbar" />
 
     <LinearLayout
+        android:id="@+id/ll_modify_pay_key"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -30,6 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_find_back_pay_key"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/dp1"
@@ -52,6 +54,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_pay_without_key"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/dp50"
@@ -67,6 +70,7 @@
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/tv_pay_status"
             style="@style/text_gray_14sp"
             android:layout_marginRight="15dp"
             android:drawablePadding="5dp"
