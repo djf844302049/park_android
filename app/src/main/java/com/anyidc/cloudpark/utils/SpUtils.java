@@ -26,6 +26,7 @@ public class SpUtils {
     public static final String TIME = "time";
     public static final String DID = "did";
     public static final String TOKEN = "token";
+    public static final String ISMANAGER = "isManager";
     public static final String SEARCHLIST = "searchlist";
     public static final String USERINFO = "userinfo";
 

@@ -44,7 +44,6 @@ public class CacheData {
         return infoBean.getHeader_img();
     }
 
-
     public static int getSex() {
         if (infoBean == null) {
             infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);

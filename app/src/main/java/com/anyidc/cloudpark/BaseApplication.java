@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark;
 
+import android.app.Activity;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -11,6 +12,8 @@ import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.util.ArrayList;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -19,10 +22,49 @@ import cn.jpush.android.api.JPushInterface;
 
 public class BaseApplication extends MultiDexApplication {
     public static Context appContext;
+    private static BaseApplication instance;
+
+    public static BaseApplication getInstance(){
+        return instance;
+    }
+
+    private ArrayList<Activity> activitieList = new ArrayList<>();
+
+    /**
+     * 添加一个activity
+     * @param act
+     */
+    public void addActivity(Activity act){
+        activitieList.add(act);
+    }
+
+    /**
+     * 去掉一个activity
+     * @param act
+     */
+    public void removeActivity(Activity act){
+        activitieList.remove(act);
+    }
+
+    /**
+     * 退出应用程序
+     */
+    public void exitApp(){
+        int size = activitieList.size();
+        for(int i = 0; i < size; i++){
+            Activity activity = activitieList.get(i);
+            if(activity != null && !activity.isFinishing()){
+                activity.finish();
+            }
+        }
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        if(instance == null){
+            instance = this;
+        }
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.

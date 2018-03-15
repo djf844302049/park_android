@@ -80,8 +80,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class)
-                                .putExtra("from", 1));
+                        SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
+                        if(loginRegisterBean.getData().getIs_manager() == 1){
+                            ManagerActivity.start(LoginActivity.this);
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                                    .putExtra("from", 1));
+                        }
                     }
                 });
     }

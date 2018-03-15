@@ -2,10 +2,12 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.utils.ViewUtils;
 
@@ -19,6 +21,7 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
 
     public static void start(Context context){
         Intent intent = new Intent(context,ManagerActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
     @Override
@@ -43,6 +46,15 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
         ivScan.setOnClickListener(this);
         ivUpDown.setOnClickListener(this);
         initTitle("管理主界面");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            BaseApplication.getInstance().exitApp();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

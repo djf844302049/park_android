@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.TimeBean;
@@ -34,6 +35,7 @@ public abstract class BaseActivity<T> extends RxFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BaseApplication.getInstance().addActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无ActionBar
         setContentView(getLayoutId());
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.top_blue), true);
@@ -79,6 +81,11 @@ public abstract class BaseActivity<T> extends RxFragmentActivity {
                 });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseApplication.getInstance().removeActivity(this);
+    }
 }
 
 

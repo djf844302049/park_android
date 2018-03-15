@@ -282,31 +282,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_manager"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
-
-                <TextView
-                    style="@style/text_gray_14sp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@mipmap/img_advise"
-                    android:drawablePadding="10dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/manager_opt"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    style="@style/common_text"
-                    android:src="@mipmap/img_right_arrow" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ll_setting"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
