@@ -62,6 +62,8 @@
     <string name="mine_car">我的车辆</string>
     <string name="id_confirm">身份认证</string>
     <string name="common_questions">常见问题</string>
+    <string name="my_bank_card">我的银行卡</string>
+    <string name="my_share_park">我的共享车位</string>
     <string name="manager_opt">管理员操作</string>
     <string name="advise">意见反馈</string>
     <string name="setting">设置</string>

@@ -35,7 +35,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         TransactionBean.ListBean listBean = list.get(position);
         StringBuilder nameAndWay = new StringBuilder(listBean.getDesc());
         nameAndWay.append(" | ");
-        switch (listBean.getPay_id()) {
+        switch (listBean.getPay_type()) {
             case 1:
                 nameAndWay.append("支付宝");
                 break;
@@ -44,6 +44,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 break;
             case 3:
                 nameAndWay.append("银联");
+                break;
+            case 4:
+                nameAndWay.append("余额");
                 break;
         }
         holder.tvNameWay.setText(nameAndWay.toString());

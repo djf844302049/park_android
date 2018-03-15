@@ -77,6 +77,16 @@ public class TransactionDetailActivity extends BaseActivity {
                         }
                         adapter.notifyDataSetChanged();
                     }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        if (page == 1) {
+                            xRefreshView.stopRefresh();
+                        } else {
+                            xRefreshView.stopLoadMore();
+                        }
+                    }
                 });
     }
 }

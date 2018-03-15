@@ -64,20 +64,20 @@
 
         <RadioButton
             android:id="@+id/rb_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/RadioButtonStyle"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
+            android:paddingRight="@dimen/dp60"
+            android:layout_height="match_parent"
             android:text="@string/male" />
 
         <RadioButton
             android:id="@+id/rb_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/RadioButtonStyle"
             android:layout_weight="1"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
+            android:layout_width="0dp"
+            android:paddingRight="@dimen/dp60"
+            android:layout_height="match_parent"
             android:text="@string/female" />
     </RadioGroup>
 

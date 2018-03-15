@@ -182,6 +182,56 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_my_bankcard"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/img_bankcard"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/my_bank_card"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    style="@style/common_text"
+                    android:src="@mipmap/img_right_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_share_park"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/img_share_park"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/my_share_park"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    style="@style/common_text"
+                    android:src="@mipmap/img_right_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/ll_usual_question"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -255,6 +305,7 @@
                     style="@style/common_text"
                     android:src="@mipmap/img_right_arrow" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_setting"
                 android:layout_width="match_parent"

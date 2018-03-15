@@ -70,7 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:button="@drawable/selector_cb_green_gray"
+            android:button="@null"
+            android:drawablePadding="@dimen/dp5"
+            android:drawableLeft="@drawable/selector_cb_green_gray"
             android:text="我同意《》和《》" />
     </LinearLayout>
 
