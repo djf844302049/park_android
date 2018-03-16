@@ -157,12 +157,13 @@
                         android:text="账户余额为xxx可使用" />
                 </LinearLayout>
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="11dp" />
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_cb_circle" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -207,12 +208,13 @@
                         android:text="@string/commend_al_pay" />
                 </LinearLayout>
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="11dp" />
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_cb_circle" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -257,12 +259,13 @@
                         android:text="@string/commend_wx_pay" />
                 </LinearLayout>
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="11dp" />
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_cb_circle" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -309,12 +312,13 @@
                         android:text="@string/commend_yl_pay" />
                 </LinearLayout>
 
-                <CheckBox
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="11dp" />
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_cb_circle" />
             </RelativeLayout>
 
             <LinearLayout

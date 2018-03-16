@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_black_18sp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/dp30"
+        android:text="选择到账银行卡" />
+
+    <View style="@style/gray_line_h" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_bank_card"
+        android:layout_width="match_parent"
+        android:layout_height="280dp" />
+
+</LinearLayout>

@@ -9,6 +9,7 @@
     <include layout="@layout/toolbar" />
 
     <RelativeLayout
+        android:id="@+id/rl_bank_choice"
         android:layout_width="match_parent"
         android:layout_height="101dp"
         android:layout_marginLeft="20dp"
