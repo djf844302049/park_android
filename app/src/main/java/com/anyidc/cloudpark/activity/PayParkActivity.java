@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -53,7 +54,7 @@ public class PayParkActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
+        startActivity(new Intent(this, ParkChargeActivity.class));
     }
 
     @Override

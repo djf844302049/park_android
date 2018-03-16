@@ -86,6 +86,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.RechargeActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.DepositActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.DrawCashActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.ParkChargeActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data
@@ -113,6 +114,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.ParkChargeActivity" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

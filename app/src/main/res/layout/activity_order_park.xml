@@ -204,7 +204,7 @@
                     <TextView
                         style="@style/text_gray_14sp"
                         android:layout_marginTop="3dp"
-                        android:text="账户余额为xxx可使用" />
+                        android:text="@string/commend_al_pay" />
                 </LinearLayout>
 
                 <CheckBox
@@ -254,7 +254,7 @@
                     <TextView
                         style="@style/text_gray_14sp"
                         android:layout_marginTop="3dp"
-                        android:text="账户余额为xxx可使用" />
+                        android:text="@string/commend_wx_pay" />
                 </LinearLayout>
 
                 <CheckBox
@@ -306,7 +306,7 @@
                     <TextView
                         style="@style/text_gray_14sp"
                         android:layout_marginTop="3dp"
-                        android:text="账户余额为xxx可使用" />
+                        android:text="@string/commend_yl_pay" />
                 </LinearLayout>
 
                 <CheckBox

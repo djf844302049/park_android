@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_park_charge_num"
+                style="@style/text_black_18sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:text="￥15"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/iv_help"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignBottom="@id/tv_park_charge_num"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="45dp"
+                android:src="@mipmap/img_help" />
+
+            <TextView
+                android:id="@+id/tv_park_duration"
+                style="@style/text_gray_14sp"
+                android:layout_below="@id/tv_park_charge_num"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="停车时间：10:00-10:15 停车时长：15分25秒"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_share_park"
+                style="@style/text_gray_14sp"
+                android:layout_below="@id/tv_park_duration"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="该车位为共享车位，点击右上方符号查看计费规则"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_balance_pay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_share_park"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/balance_pay"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/iv_balance_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_al_pay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/ll_balance_pay"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/ali_pay"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/iv_al_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_wx_pay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/ll_al_pay"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/wx_pay"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/iv_wx_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_pay"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/ll_wx_pay"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape_bg_blue"
+                android:text="@string/confirm_pay"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_discount"
+                style="@style/text_gray_14sp"
+                android:layout_below="@id/btn_pay"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:text="VIP不定期八折优惠 -3.00元。" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
