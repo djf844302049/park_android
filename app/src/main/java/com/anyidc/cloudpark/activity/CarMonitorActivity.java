@@ -114,18 +114,19 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
 
     @Override
     public void onClick(View view) {
-        if(type == 0) {
-            watchCamera();
-        } else {
-            OptParkLockActivity.start(CarMonitorActivity.this);
-        }
-    }
-
-    private void watchCamera() {
         String parkNum = etNum.getText().toString();
         if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
             return;
         }
+        if(type == 0) {
+            watchCamera(parkNum);
+        } else {
+            OptParkLockActivity.start(CarMonitorActivity.this,parkNum);
+        }
+    }
+
+    private void watchCamera(String parkNum) {
+
         getTime(Api.getDefaultService().watchCamera(parkNum)
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override

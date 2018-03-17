@@ -7,4 +7,5 @@ package com.anyidc.cloudpark.utils;
 public class IntentKey {
 
     public final static String INTENT_KEY_INT = "int";
+    public final static String INTENT_KEY_STRING = "string";
 }

@@ -300,4 +300,11 @@ public interface ApiService {
     @POST("api/v1/setFreePassword")
     @FormUrlEncoded
     Observable<BaseEntity> setFreePay(@Field("freePassword") String freePassword);
+
+    /**
+     * 管理员操作车位锁
+     */
+    @POST("api/v1/parkingControlByManager")
+    @FormUrlEncoded
+    Observable<BaseEntity> parkingControl(@Field("parking_sn") String parking_sn,@Field("control") String control);
 }
