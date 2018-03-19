@@ -89,6 +89,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.ParkChargeActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.BindBankCardActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.MyShareParkActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.DrawCashResultActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

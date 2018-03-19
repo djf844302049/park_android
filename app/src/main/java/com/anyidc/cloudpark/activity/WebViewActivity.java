@@ -103,8 +103,10 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        webView.destroy();
         llRoot.removeAllViews();
+        webView.clearHistory();
+        webView.removeAllViews();
+        webView.destroy();
         super.onDestroy();
     }
 }

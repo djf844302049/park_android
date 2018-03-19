@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_draw_num"
+        style="@style/text_black_18sp"
+        android:layout_marginTop="@dimen/dp45"
+        android:text="￥300" />
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginTop="@dimen/dp30"
+        android:text="可提现余额"
+        android:textSize="15sp" />
+
+    <TextView
+        style="@style/text_gray_14sp"
+        android:layout_marginTop="@dimen/dp20"
+        android:text="@string/zero_to_five_days_arrive"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp15">
+
+        <TextView
+            style="@style/text_black_18sp"
+            android:layout_weight="1"
+            android:text="提现单号2216556456456"
+            android:textSize="12sp" />
+
+        <TextView
+            style="@style/text_gray_12sp"
+            android:text="2018-01-25 11:05:09" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="11dp">
+
+        <ImageView
+            android:id="@+id/iv_num_1"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="22dp"
+            android:src="@mipmap/img_num_1" />
+
+        <View
+            android:id="@+id/line_num_1"
+            android:layout_width="2dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/iv_num_1"
+            android:layout_marginLeft="11.5dp"
+            android:background="@color/text_color_gray" />
+
+        <ImageView
+            android:id="@+id/iv_num_2"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_below="@id/line_num_1"
+            android:src="@mipmap/img_num_2" />
+
+        <View
+            android:id="@+id/line_num_2"
+            android:layout_width="2dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/iv_num_2"
+            android:layout_marginLeft="11.5dp"
+            android:background="@color/text_color_gray" />
+
+        <ImageView
+            android:id="@+id/iv_num_3"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_below="@id/line_num_2"
+            android:src="@mipmap/img_num_3" />
+
+        <TextView
+            android:id="@+id/tv_text_commit_success"
+            style="@style/text_black_16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="@dimen/dp25"
+            android:layout_toRightOf="@id/iv_num_1"
+            android:text="@string/draw_cash_commit_success" />
+
+        <TextView
+            android:id="@+id/tv_text_commit_success_tip"
+            style="@style/text_gray_14sp"
+            android:layout_alignLeft="@id/tv_text_commit_success"
+            android:layout_below="@id/tv_text_commit_success"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="@string/draw_cash_commit_success_tip"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_text_dealing"
+            style="@style/text_black_16sp"
+            android:layout_alignLeft="@id/tv_text_commit_success"
+            android:layout_below="@id/tv_text_commit_success_tip"
+            android:layout_marginTop="@dimen/dp30"
+            android:text="@string/draw_cash_dealing" />
+
+        <TextView
+            android:id="@+id/tv_text_dealing_tip"
+            style="@style/text_gray_14sp"
+            android:layout_alignStart="@+id/tv_text_draw_success"
+            android:layout_alignTop="@+id/line_num_2"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="@string/draw_cash_dealing_tip"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_text_draw_success"
+            style="@style/text_black_16sp"
+            android:layout_alignLeft="@id/tv_text_commit_success"
+            android:layout_below="@id/tv_text_dealing_tip"
+            android:layout_marginTop="@dimen/dp30"
+            android:text="@string/draw_cash_success" />
+
+        <TextView
+            style="@style/text_gray_14sp"
+            android:layout_alignLeft="@id/tv_text_commit_success"
+            android:layout_below="@id/tv_text_draw_success"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="@string/draw_cash_success_tip"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</LinearLayout>
