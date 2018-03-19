@@ -299,7 +299,7 @@ public interface ApiService {
      */
     @POST("api/v1/setFreePassword")
     @FormUrlEncoded
-    Observable<BaseEntity> setFreePay(@Field("freePassword") String freePassword);
+    Observable<BaseEntity> setFreePay(@Field("freePassword") int freePassword);
 
     /**
      * 管理员操作车位锁

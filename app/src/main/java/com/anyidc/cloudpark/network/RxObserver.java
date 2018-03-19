@@ -30,6 +30,10 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
     private Dialog mDialog;
     private Reference<Context> reference;
 
+    private RxObserver() {
+
+    }
+
     public RxObserver(Context context, boolean isShowDialog) {
         reference = new WeakReference<>(context);
         this.isShowDialog = isShowDialog;

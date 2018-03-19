@@ -33,10 +33,10 @@ public class PaySettingActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-//        if (!isSetPayKey) {
-//            LoginByCodeActivity.actionStart(this, 1);
-//            return;
-//        }
+        if (!isSetPayKey) {
+            LoginByCodeActivity.actionStart(this, 1);
+            return;
+        }
         switch (v.getId()) {
             case R.id.ll_modify_pay_key:
                 PayKeySetActivity.actionStart(this, 2);

@@ -19,12 +19,13 @@ import com.anyidc.cloudpark.utils.ToastUtil;
  * Created by Administrator on 2018/3/14.
  */
 
-public class OptParkLockActivity extends BaseActivity implements View.OnClickListener{
-    private ImageView ivUp,ivDown;
+public class OptParkLockActivity extends BaseActivity implements View.OnClickListener {
+    private ImageView ivUp, ivDown;
     private String parkNum = "";
-    public static void start(Context context,String parkNum){
-        Intent intent = new Intent(context,OptParkLockActivity.class);
-        intent.putExtra(IntentKey.INTENT_KEY_STRING,parkNum);
+
+    public static void start(Context context, String parkNum) {
+        Intent intent = new Intent(context, OptParkLockActivity.class);
+        intent.putExtra(IntentKey.INTENT_KEY_STRING, parkNum);
         context.startActivity(intent);
     }
 
@@ -36,12 +37,14 @@ public class OptParkLockActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initData() {
         parkNum = getIntent().getStringExtra(IntentKey.INTENT_KEY_STRING);
-        if(TextUtils.isEmpty(parkNum)){
+        if (TextUtils.isEmpty(parkNum)) {
             finish();
             return;
         }
         ivUp = findViewById(R.id.iv_up);
+        ivUp.setOnClickListener(this);
         ivDown = findViewById(R.id.iv_down);
+        ivDown.setOnClickListener(this);
         initTitle("操作车位锁");
 
     }
@@ -60,11 +63,12 @@ public class OptParkLockActivity extends BaseActivity implements View.OnClickLis
 
     /**
      * 车位锁上升和下降
-     *  rise 上升 drop 下降
+     * rise 上升 drop 下降
+     *
      * @param opt
      */
-    private void optUpDown(String opt){
-        getTime(Api.getDefaultService().parkingControl(parkNum,opt)
+    private void optUpDown(String opt) {
+        getTime(Api.getDefaultService().parkingControl(parkNum, opt)
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {

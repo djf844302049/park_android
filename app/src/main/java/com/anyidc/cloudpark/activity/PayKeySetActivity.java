@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.AesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,20 +121,18 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                         tvErrDesc.setVisibility(View.GONE);
                     }
                     switch (from) {
-                        case 1:
-                        case 3:
+                        case 1://设置支付密码
+                        case 3://找回密码
                             firstInput = num;
                             tvDesc.setText("请再次输入，以确认密码");
                             etNum.setText("");
                             break;
-                        case 2:
+                        case 2://修改密码
                             preKey = num;
-                            tvDesc.setText("请设置新支付密码，用于支付验证");
-                            initTitle("新支付密码");
-                            etNum.setText("");
+                            checkPayKey();
                             break;
-                        case 4:
-                            startActivity(new Intent(this, PayWithoutKeyActivity.class));
+                        case 4://设置小额免密身份认证
+                            checkPayKey();
                             break;
                     }
                     break;
@@ -139,7 +141,7 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                         case 1:
                         case 3:
                             if (num.equals(firstInput)) {
-
+                                setPayKey();
                             } else {
                                 tvErrDesc.setVisibility(View.VISIBLE);
                                 tvDesc.setText("请设置支付密码，用于支付验证");
@@ -171,11 +173,61 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                         inputTime = 1;
                         etNum.setText("");
                     } else {
-
+                        setPayKey();
                     }
                     break;
             }
         }
+    }
+
+    private void setPayKey() {
+        String encrypt = AesUtil.encrypt(firstInput);
+        getTime(Api.getDefaultService().setPayKey(encrypt)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+
+                    }
+                });
+    }
+
+    private void resetPayKey() {
+        String encrypt = AesUtil.encrypt(firstInput);
+        getTime(Api.getDefaultService().resetPayKey(encrypt)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+
+                    }
+                });
+    }
+
+    private void checkPayKey() {
+        String encrypt = AesUtil.encrypt(preKey);
+        getTime(Api.getDefaultService().checkPayKey(encrypt)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        switch (from) {
+                            case 2:
+                                tvDesc.setText("请设置新支付密码，用于支付验证");
+                                initTitle("新支付密码");
+                                etNum.setText("");
+                                break;
+                            case 4:
+                                startActivity(new Intent(PayKeySetActivity.this, PayWithoutKeyActivity.class));
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        tvErrDesc.setText("您的支付密码错误，请确认后重新输入");
+                        tvErrDesc.setVisibility(View.VISIBLE);
+                        inputTime = 0;
+                        etNum.setText("");
+                    }
+                });
     }
 
     @Override
