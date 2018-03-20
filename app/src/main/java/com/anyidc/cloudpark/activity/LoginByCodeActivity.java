@@ -77,6 +77,7 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                         break;
                     default:
                         PayKeySetActivity.actionStart(this, from);
+                        finish();
                         break;
                 }
                 break;
@@ -112,7 +113,7 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
                         SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
                         SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
-                        if(loginRegisterBean.getData().getIs_manager() == 1){
+                        if (loginRegisterBean.getData().getIs_manager() == 1) {
                             ManagerActivity.start(LoginByCodeActivity.this);
                         } else {
                             startActivity(new Intent(LoginByCodeActivity.this, MainActivity.class)

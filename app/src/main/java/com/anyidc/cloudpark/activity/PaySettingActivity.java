@@ -28,6 +28,11 @@ public class PaySettingActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.ll_modify_pay_key).setOnClickListener(this);
         findViewById(R.id.ll_find_back_pay_key).setOnClickListener(this);
         findViewById(R.id.ll_pay_without_key).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         checkPayKey();
     }
 

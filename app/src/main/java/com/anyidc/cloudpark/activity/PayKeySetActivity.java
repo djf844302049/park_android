@@ -7,12 +7,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +143,11 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                         case 1:
                         case 3:
                             if (num.equals(firstInput)) {
-                                setPayKey();
+                                if (from == 1) {
+                                    setPayKey();
+                                } else {
+                                    resetPayKey();
+                                }
                             } else {
                                 tvErrDesc.setVisibility(View.VISIBLE);
                                 tvDesc.setText("请设置支付密码，用于支付验证");
@@ -173,7 +179,7 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                         inputTime = 1;
                         etNum.setText("");
                     } else {
-                        setPayKey();
+                        resetPayKey();
                     }
                     break;
             }
@@ -186,7 +192,8 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-
+                        ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
+                        finish();
                     }
                 });
     }
@@ -197,7 +204,8 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-
+                        ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
+                        finish();
                     }
                 });
     }
@@ -216,6 +224,7 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                                 break;
                             case 4:
                                 startActivity(new Intent(PayKeySetActivity.this, PayWithoutKeyActivity.class));
+                                finish();
                                 break;
                         }
                     }
