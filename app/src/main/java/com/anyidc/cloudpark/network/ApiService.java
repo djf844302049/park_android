@@ -219,7 +219,7 @@ public interface ApiService {
      * 获取交易明细接口
      */
     @GET("api/v1/getPaymentList")
-    Observable<BaseEntity<TransactionBean>> getPayList(@Query("page")int page, @Query("size")int size);
+    Observable<BaseEntity<TransactionBean>> getPayList(@Query("page") int page, @Query("size") int size);
 
     /**
      * 用户提现接口
@@ -283,7 +283,7 @@ public interface ApiService {
     /**
      * 判断支付密码是否正确接口
      */
-    @POST("api/v1/confirmSurplusPassword")
+    @POST("api/v1/comfirmSurplusPassword")
     @FormUrlEncoded
     Observable<BaseEntity> checkPayKey(@Field("surplusPassword") String surplusPassword);
 
@@ -306,5 +306,53 @@ public interface ApiService {
      */
     @POST("api/v1/parkingControlByManager")
     @FormUrlEncoded
-    Observable<BaseEntity> parkingControl(@Field("parking_sn") String parking_sn,@Field("control") String control);
+    Observable<BaseEntity> parkingControl(@Field("parking_sn") String parking_sn, @Field("control") String control);
+
+    /**
+     * 获取车位列表接口
+     */
+    @POST("v1.parkingLot/getList")
+    Observable<BaseEntity> getParkList(@Field("parking_id") String parking_id);
+
+    /**
+     * 获取普通车位详情接口
+     */
+    @POST("v1.parkingLot/detail")
+    Observable<BaseEntity> normalParkDetail(@Field("unit_id") String unit_id);
+
+    /**
+     * 共享车位详情接口
+     */
+    @POST("v1.parkingLot/shareDetail")
+    Observable<BaseEntity> shareParkDetail(@Field("unit_id") String unit_id);
+
+    /**
+     * 车位预约（付款）
+     * "subject"  标题
+     * "detail"   描述
+     * "money"  金额（元）
+     * "product_id" 产品ID
+     * "1"=>array("name" =>"充值",),
+     * "2"=>array("name" =>"押金"),
+     * "3"=>array("name" => "预约",),
+     * "4"=>array("name" => "结算,出库",)
+     * “pay_type” 支付类型ID "1"=>"alipay","2"=>"wxpay","3"=>"bankpay","4"=>"qianbao"
+     * “unit_id”  （预约/结算）需要  车位ID
+     */
+    @POST("api/v1.payorder/dopay")
+    Observable<BaseEntity> orderParkPay(@Field("subject") String subject, @Field("detail") String detail
+            , @Field("money") String money, @Field("product_id") int product_id
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+
+    /**
+     * 取消预约接口
+     */
+    @POST("api/v1.order/cancelAppointment")
+    Observable<BaseEntity> cancelOrder(@Field("unit_id") String unit_id);
+
+    /**
+     * 车辆到达接口
+     */
+    @POST("park.deyuelou.com")
+    Observable<BaseEntity> carArrive(@Field("unit_id") String unit_id);
 }

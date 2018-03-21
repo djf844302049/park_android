@@ -134,6 +134,7 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                             checkPayKey();
                             break;
                         case 4://设置小额免密身份认证
+                            preKey = num;
                             checkPayKey();
                             break;
                     }
