@@ -30,28 +30,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_go_grade"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/shape_bottom_gray_line"
-        android:gravity="center_vertical"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
-
-        <TextView
-            style="@style/text_gray_14sp"
-            android:layout_weight="1"
-            android:text="@string/give_a_mark"
-            android:textColor="@color/black" />
-
-        <ImageView
-            style="@style/common_text"
-            android:src="@mipmap/img_right_arrow" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ll_about_us"
         android:layout_width="match_parent"
         android:layout_height="50dp"

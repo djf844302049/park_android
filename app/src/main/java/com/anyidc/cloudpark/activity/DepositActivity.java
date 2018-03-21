@@ -20,7 +20,7 @@ public class DepositActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initData() {
-        initTitle("充值余额");
+        initTitle("缴纳押金");
         findViewById(R.id.ll_al_pay).setOnClickListener(this);
         findViewById(R.id.ll_wx_pay).setOnClickListener(this);
         ivAlPay = findViewById(R.id.iv_al_pay);

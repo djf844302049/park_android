@@ -7,6 +7,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.InitBean;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ToastUtil;
@@ -25,7 +29,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     protected void initData() {
         initTitle("设置");
         findViewById(R.id.ll_check_update).setOnClickListener(this);
-        findViewById(R.id.ll_go_grade).setOnClickListener(this);
         findViewById(R.id.ll_about_us).setOnClickListener(this);
         findViewById(R.id.ll_logout).setOnClickListener(this);
         String versionName = (String) SpUtils.get(SpUtils.VERSION_NAME, "");
@@ -36,17 +39,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_check_update:
-                break;
-            case R.id.ll_go_grade:
-                try {
-                    Uri uri = Uri.parse("market://details?id=" + getPackageName());
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    ToastUtil.showToast("您的手机没有安装Android应用市场", Toast.LENGTH_SHORT);
-                    e.printStackTrace();
-                }
+                checkUpdate();
                 break;
             case R.id.ll_about_us:
                 break;
@@ -54,6 +47,33 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 LoginUtil.logout();
                 finish();
                 break;
+        }
+    }
+
+    private void checkUpdate() {
+        getTime(Api.getDefaultService().appInit()
+                , new RxObserver<BaseEntity<InitBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<InitBean> initBean) {
+                        InitBean data = initBean.getData();
+                        if (data.getIs_update() == 0) {
+                            ToastUtil.showToast("当前已为最新版本，无需更新", Toast.LENGTH_SHORT);
+                        } else {
+                            openApplicationMarket();
+                        }
+                    }
+                });
+    }
+
+    private void openApplicationMarket() {
+        try {
+            String str = "market://details?id=" + getPackageName();
+            Intent localIntent = new Intent(Intent.ACTION_VIEW);
+            localIntent.setData(Uri.parse(str));
+            startActivity(localIntent);
+        } catch (Exception e) {
+            // 打开应用商店失败 可能是没有手机没有安装应用市场
+            e.printStackTrace();
         }
     }
 }
