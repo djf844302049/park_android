@@ -102,7 +102,6 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
                 , new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
-//                        CacheData.setInfoBean(infoBean.getData());
                         InfoBean data = infoBean.getData();
                         CacheData.getInfoBean().setHeader_img(data.getHeader_img());
                         CacheData.getInfoBean().setSex(data.getSex());

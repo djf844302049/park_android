@@ -20,7 +20,6 @@ import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.CountDownRunnable;
-import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -121,7 +120,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
                 new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
-                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+                        CacheData.setInfoBean(loginRegisterBean.getData());
                         startActivity(new Intent(RegisterActivity.this, CompleteBaseInfoActivity.class));
                         finish();
                     }
@@ -144,8 +143,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
                 new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
-                        CacheData.setInfoBean(loginRegisterBean.getData());
-//                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+//                        CacheData.setInfoBean(loginRegisterBean.getData());
                     }
                 });
     }
