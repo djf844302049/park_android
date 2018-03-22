@@ -1,22 +1,26 @@
 package com.anyidc.cloudpark.utils;
 
-import com.anyidc.cloudpark.moduel.InfoBean;
+import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 
 /**
  * Created by Administrator on 2018/2/26.
  */
 
 public class CacheData {
-    private static InfoBean infoBean = null;
+    private static LoginRegisterBean infoBean = null;
 
-    public static void setInfoBean(InfoBean newInfoBean) {
+    public static LoginRegisterBean getInfoBean() {
+        return infoBean;
+    }
+
+    public static void setInfoBean(LoginRegisterBean newInfoBean) {
         infoBean = newInfoBean;
         SpUtils.setObject(SpUtils.USERINFO, infoBean);
     }
 
     public static int getUser_id() {
         if (infoBean == null) {
-            infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
         }
         if (infoBean == null) {
             return -1;
@@ -26,7 +30,7 @@ public class CacheData {
 
     public static String getUserName() {
         if (infoBean == null) {
-            infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
         }
         if (infoBean == null) {
             return "";
@@ -36,7 +40,7 @@ public class CacheData {
 
     public static String getHeader_img() {
         if (infoBean == null) {
-            infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
         }
         if (infoBean == null) {
             return "";
@@ -46,12 +50,64 @@ public class CacheData {
 
     public static int getSex() {
         if (infoBean == null) {
-            infoBean = SpUtils.getObject(SpUtils.USERINFO, InfoBean.class);
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
         }
         if (infoBean == null) {
             return -1;
         }
         return infoBean.getSex();
+    }
+
+    /**
+     * 获取是否设置支付密码
+     * 0->未设置 1->已设置
+     *
+     * @return
+     */
+    public static int getSurplusPassword() {
+        if (infoBean == null) {
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
+        }
+        if (infoBean == null) {
+            return -1;
+        }
+        return infoBean.getSurplus_password();
+    }
+
+    public static String getToken() {
+        if (infoBean == null) {
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
+        }
+        if (infoBean == null) {
+            return "";
+        }
+        return infoBean.getToken();
+    }
+
+    /**
+     * 是否开启小额免密
+     * 0->未开启  1->开启
+     *
+     * @return
+     */
+    public static int isFreePay() {
+        if (infoBean == null) {
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
+        }
+        if (infoBean == null) {
+            return -1;
+        }
+        return infoBean.getFree_password();
+    }
+
+    public static int getIsManager() {
+        if (infoBean == null) {
+            infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
+        }
+        if (infoBean == null) {
+            return -1;
+        }
+        return infoBean.getIs_manager();
     }
 
 }

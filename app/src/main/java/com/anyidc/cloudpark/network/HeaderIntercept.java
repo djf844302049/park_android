@@ -1,6 +1,7 @@
 package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.utils.AesUtil;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.SpUtils;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class HeaderIntercept implements Interceptor {
         newBuilder.addHeader("version", URLEncoder.encode(String.valueOf(SpUtils.get(SpUtils.VERSION_CODE, 0))));
         newBuilder.addHeader("type", URLEncoder.encode("android"));
         newBuilder.addHeader("did", URLEncoder.encode((String) SpUtils.get(SpUtils.DID, "")));
-        String token = (String) SpUtils.get(SpUtils.TOKEN, "");
+        String token = CacheData.getToken();
         newBuilder.addHeader("token", URLEncoder.encode(token));
         return chain.proceed(newBuilder.build());
     }

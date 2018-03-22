@@ -5,7 +5,6 @@ import android.os.Handler;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.utils.CacheData;
-import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
  * Created by Administrator on 2018/3/14.
@@ -43,10 +42,10 @@ public class SplashActivity extends BaseActivity {
 
     private void start() {
         new Handler().postDelayed(() -> {
-            int isManager = (Integer) SpUtils.get(SpUtils.ISMANAGER,0);
-            if( isManager == 1) {
+            int isManager = CacheData.getIsManager();
+            if (isManager == 1) {
                 ManagerActivity.start(SplashActivity.this);
-            }else {
+            } else {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
 

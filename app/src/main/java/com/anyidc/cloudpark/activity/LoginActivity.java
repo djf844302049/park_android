@@ -12,7 +12,7 @@ import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
-import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.CacheData;
 
 /**
  * Created by Administrator on 2018/2/6.
@@ -45,7 +45,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
-        SpUtils.set(SpUtils.TOKEN, "");
+        CacheData.setInfoBean(null);
     }
 
     @Override
@@ -79,9 +79,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 , new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
-                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-                        SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
-                        if(loginRegisterBean.getData().getIs_manager() == 1){
+//                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+//                        SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
+                        CacheData.setInfoBean(loginRegisterBean.getData());
+                        if (CacheData.getIsManager() == 1) {
                             ManagerActivity.start(LoginActivity.this);
                         } else {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class)

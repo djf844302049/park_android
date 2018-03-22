@@ -18,6 +18,7 @@ import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.CountDownRunnable;
 import com.anyidc.cloudpark.utils.SpUtils;
 
@@ -143,6 +144,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
                 new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
+                        CacheData.setInfoBean(loginRegisterBean.getData());
 //                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
                     }
                 });

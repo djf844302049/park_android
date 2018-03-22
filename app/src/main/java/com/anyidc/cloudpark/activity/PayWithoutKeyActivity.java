@@ -6,6 +6,7 @@ import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 
 /**
  * Created by Administrator on 2018/3/15.
@@ -23,6 +24,7 @@ public class PayWithoutKeyActivity extends BaseActivity {
     protected void initData() {
         initTitle("设置小额免密");
         Switch mSwitch = findViewById(R.id.switch_pay_without_key);
+        mSwitch.setChecked(CacheData.isFreePay() == 1);
         mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 freePassword = 1;
@@ -38,7 +40,7 @@ public class PayWithoutKeyActivity extends BaseActivity {
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-
+                        CacheData.getInfoBean().setFree_password(freePassword);
                     }
                 });
     }

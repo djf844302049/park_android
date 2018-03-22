@@ -14,6 +14,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -193,6 +194,7 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
+                        CacheData.getInfoBean().setSurplus_password(1);
                         ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
                         finish();
                     }

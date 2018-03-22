@@ -2,11 +2,11 @@ package com.anyidc.cloudpark.activity;
 
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
-import com.anyidc.cloudpark.moduel.BaseEntity;
-import com.anyidc.cloudpark.network.Api;
-import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2018/3/13.
@@ -33,7 +33,16 @@ public class PaySettingActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        checkPayKey();
+        int freePay = CacheData.isFreePay();
+        isSetPayKey = CacheData.getSurplusPassword() == 1;
+        if (!isSetPayKey) {
+            ToastUtil.showToast("您还未设置支付密码", Toast.LENGTH_SHORT);
+        }
+        if (freePay == 1) {
+            tvPayStatus.setText("已开启");
+        } else {
+            tvPayStatus.setText("未开启");
+        }
     }
 
     @Override
@@ -53,15 +62,5 @@ public class PaySettingActivity extends BaseActivity implements View.OnClickList
                 PayKeySetActivity.actionStart(this, 4);
                 break;
         }
-    }
-
-    private void checkPayKey() {
-        getTime(Api.getDefaultService().isSetPayKey()
-                , new RxObserver<BaseEntity>(this, true) {
-                    @Override
-                    public void onSuccess(BaseEntity baseEntity) {
-                        isSetPayKey = true;
-                    }
-                });
     }
 }

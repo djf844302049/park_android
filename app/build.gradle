@@ -30,6 +30,7 @@ android {
 
     signingConfigs {
         release {
+            //配置签名文件信息
             def propsFile = rootProject.file('keystore.properties')
             if (propsFile.exists()) {
                 def props = new Properties()
@@ -47,6 +48,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+        }
+    }
+
+    //改变输出apk文件名称
+    applicationVariants.all { variant ->
+        def newName = "云能智能停车"
+        variant.outputs.all { output ->
+            newName += "-v" + defaultConfig.versionName
+            if (variant.buildType.name == "release") {
+                newName += "-release.apk"
+            } else {
+                newName += ".apk"
+            }
+            if (!output.zipAlign) {
+                newName = newName.replace(".apk", "-unaligned.apk")
+            }
+            outputFileName=newName
         }
     }
 }

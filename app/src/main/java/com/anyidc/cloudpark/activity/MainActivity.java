@@ -15,12 +15,9 @@ import com.amap.api.location.AMapLocationListener;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.IndexBean;
-import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.CacheData;
-import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.wiget.VerticalTextView;
 import com.bumptech.glide.Glide;
 import com.yanzhenjie.permission.AndPermission;
@@ -91,9 +88,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             //启动定位
             mLocationClient.startLocation();
         }).start();
-        if (LoginUtil.isLogin()) {
-            getUserData();
-        }
         getInit();
 //        getData(0.155151515, 15.2565646564);
     }
@@ -112,15 +106,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onStop();
         banner.startAutoPlay();
         tvMess.stopAutoScroll();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        int from = intent.getIntExtra("from", 0);
-        if (from != 0) {
-            getUserData();
-        }
     }
 
     @Override
@@ -168,16 +153,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         if (!tvMess.isScroll()) {
                             tvMess.startAutoScroll();
                         }
-                    }
-                });
-    }
-
-    private void getUserData() {
-        getTime(Api.getDefaultService().getUserInfo(),
-                new RxObserver<BaseEntity<InfoBean>>(this, true) {
-                    @Override
-                    public void onSuccess(BaseEntity<InfoBean> infoBean) {
-                        CacheData.setInfoBean(infoBean.getData());
                     }
                 });
     }

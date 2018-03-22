@@ -15,8 +15,8 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.CountDownRunnable;
-import com.anyidc.cloudpark.utils.SpUtils;
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -111,9 +111,10 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                 , new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
-                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-                        SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
-                        if (loginRegisterBean.getData().getIs_manager() == 1) {
+//                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
+//                        SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
+                        CacheData.setInfoBean(loginRegisterBean.getData());
+                        if (CacheData.getIsManager() == 1) {
                             ManagerActivity.start(LoginByCodeActivity.this);
                         } else {
                             startActivity(new Intent(LoginByCodeActivity.this, MainActivity.class)

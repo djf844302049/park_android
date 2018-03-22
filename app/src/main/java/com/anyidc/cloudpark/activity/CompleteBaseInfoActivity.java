@@ -87,22 +87,26 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
     private void updateInfo() {
         String userName = etUserName.getText().toString();
         if (TextUtils.isEmpty(imgUrl)) {
-            ToastUtil.showToast("您还未上传头像",Toast.LENGTH_SHORT);
+            ToastUtil.showToast("您还未上传头像", Toast.LENGTH_SHORT);
             return;
         }
         if (sex == 0) {
-            ToastUtil.showToast("您还未选择性别",Toast.LENGTH_SHORT);
+            ToastUtil.showToast("您还未选择性别", Toast.LENGTH_SHORT);
             return;
         }
         if (TextUtils.isEmpty(userName)) {
-            ToastUtil.showToast("用户名格式错误",Toast.LENGTH_SHORT);
+            ToastUtil.showToast("用户名格式错误", Toast.LENGTH_SHORT);
             return;
         }
         getTime(Api.getDefaultService().updateInfo(imgUrl, sex, userName)
                 , new RxObserver<BaseEntity<InfoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InfoBean> infoBean) {
-                        CacheData.setInfoBean(infoBean.getData());
+//                        CacheData.setInfoBean(infoBean.getData());
+                        InfoBean data = infoBean.getData();
+                        CacheData.getInfoBean().setHeader_img(data.getHeader_img());
+                        CacheData.getInfoBean().setSex(data.getSex());
+                        CacheData.getInfoBean().setUsername(data.getUsername());
                         IdentityConfirmActivity.actionStart(CompleteBaseInfoActivity.this, 1);
                         finish();
                     }
