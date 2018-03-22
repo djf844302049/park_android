@@ -111,14 +111,11 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                 , new RxObserver<BaseEntity<LoginRegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
-//                        SpUtils.set(SpUtils.TOKEN, loginRegisterBean.getData().getToken());
-//                        SpUtils.set(SpUtils.ISMANAGER, loginRegisterBean.getData().getIs_manager());
                         CacheData.setInfoBean(loginRegisterBean.getData());
                         if (CacheData.getIsManager() == 1) {
                             ManagerActivity.start(LoginByCodeActivity.this);
                         } else {
-                            startActivity(new Intent(LoginByCodeActivity.this, MainActivity.class)
-                                    .putExtra("from", 1));
+                            startActivity(new Intent(LoginByCodeActivity.this, MainActivity.class));
                         }
                     }
                 });
