@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 checkUpdate();
                 break;
             case R.id.ll_about_us:
+                startActivity(new Intent(this, AboutUsActivity.class));
                 break;
             case R.id.ll_logout:
                 LoginUtil.logout();
@@ -59,7 +61,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         if (data.getIs_update() == 0) {
                             ToastUtil.showToast("当前已为最新版本，无需更新", Toast.LENGTH_SHORT);
                         } else {
-                            openApplicationMarket();
+                            new AlertDialog.Builder(SettingActivity.this)
+                                    .setTitle("提示")
+                                    .setMessage("云能只能停车有新版本啦，是否前往更新？")
+                                    .setPositiveButton("确定", (dialog, which) -> openApplicationMarket())
+                                    .setNegativeButton("取消", null).show();
+
                         }
                     }
                 });

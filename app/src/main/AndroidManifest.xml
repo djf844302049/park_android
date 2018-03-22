@@ -47,14 +47,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.anyidc.cloudpark.activity.SplashActivity"
-            android:launchMode="singleTask">
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.anyidc.cloudpark.activity.MainActivity" />
+        <activity
+            android:name="com.anyidc.cloudpark.activity.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.anyidc.cloudpark.activity.LoginActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.LoginByCodeActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.RegisterActivity" />
@@ -90,6 +92,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.BindBankCardActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.MyShareParkActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.DrawCashResultActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.AboutUsActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data
