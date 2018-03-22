@@ -7,4 +7,5 @@ package com.anyidc.cloudpark.moduel;
 
 public class MyShareBean {
 
+
 }
