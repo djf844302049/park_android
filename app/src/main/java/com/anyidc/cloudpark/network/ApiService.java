@@ -325,6 +325,11 @@ public interface ApiService {
      */
     @POST("v1.parkingLot/shareDetail")
     Observable<BaseEntity> shareParkDetail(@Field("unit_id") String unit_id);
+    /**
+     * 我的共享车位列表接口
+     */
+    @POST("api/v1.UserPark/myshare")
+    Observable<BaseEntity> getMyshare();
 
     /**
      * 车位预约（付款）

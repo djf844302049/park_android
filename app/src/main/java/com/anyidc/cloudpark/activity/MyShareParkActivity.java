@@ -5,6 +5,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.MyShareAdapter;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.MyCarBean;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/18.
@@ -27,5 +33,21 @@ public class MyShareParkActivity extends BaseActivity {
         recyclerView.setNestedScrollingEnabled(false);
         adapter = new MyShareAdapter(this);
         recyclerView.setAdapter(adapter);
+        getMySharePark();
+    }
+
+    private void getMySharePark(){
+        getTime(Api.getDefaultService().getMyshare()
+                , new RxObserver<BaseEntity<List<MyCarBean>>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
+//                        List<MyCarBean> data = carBean.getData();
+//                        if (data != null) {
+//                            cars.clear();
+//                            cars.addAll(data);
+//                            adapter.notifyDataSetChanged();
+//                        }
+                    }
+                });
     }
 }
