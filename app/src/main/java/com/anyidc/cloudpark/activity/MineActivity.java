@@ -45,6 +45,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_car_monitor).setOnClickListener(this);
         findViewById(R.id.ll_my_wallet).setOnClickListener(this);
         findViewById(R.id.ll_share_park).setOnClickListener(this);
+        findViewById(R.id.ll_my_bankcard).setOnClickListener(this);
         tvLogin = findViewById(R.id.tv_login);
         tvLogin.setOnClickListener(this);
         tvUserName = findViewById(R.id.tv_user_name);
@@ -127,6 +128,10 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
             case R.id.ll_share_park:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyShareParkActivity.class));
+                break;
+            case R.id.ll_my_bankcard:
+                if (LoginUtil.isLogin())
+                    startActivity(new Intent(this, MyBankCardActivity.class));
                 break;
         }
     }

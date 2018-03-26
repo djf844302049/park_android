@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BankCardBean;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ import java.util.List;
  */
 
 public class BankChoiceAdapter extends RecyclerView.Adapter<BankChoiceAdapter.BankChoiceViewHolder> implements View.OnClickListener {
-    private List<String> list;
+    private List<BankCardBean> list;
     private OnItemClickListener mItemClickListener;
 
-    public BankChoiceAdapter(List<String> list) {
+    public BankChoiceAdapter(List<BankCardBean> list) {
         this.list = list;
     }
 
@@ -31,7 +32,12 @@ public class BankChoiceAdapter extends RecyclerView.Adapter<BankChoiceAdapter.Ba
     @Override
     public void onBindViewHolder(BankChoiceViewHolder holder, int position) {
         holder.itemView.setTag(position);
-        holder.tvBank.setText(list.get(position));
+        if (position == list.size() - 1) {
+            holder.tvBank.setText("使用新卡提现");
+            return;
+        }
+        BankCardBean bankCardBean = list.get(position);
+        holder.tvBank.setText(bankCardBean.getCardInfo());
     }
 
     @Override

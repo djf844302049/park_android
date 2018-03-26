@@ -76,8 +76,7 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                         login();
                         break;
                     default:
-                        PayKeySetActivity.actionStart(this, from);
-                        finish();
+                        idConfirm();
                         break;
                 }
                 break;
@@ -99,7 +98,6 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void login() {
-        String phoneNum = etPhoneNum.getText().toString();
         if (TextUtils.isEmpty(phoneNum)) {
             return;
         }
@@ -117,6 +115,24 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
                         } else {
                             startActivity(new Intent(LoginByCodeActivity.this, MainActivity.class));
                         }
+                    }
+                });
+    }
+
+    public void idConfirm() {
+        if (TextUtils.isEmpty(phoneNum)) {
+            return;
+        }
+        String code = etConfirmCode.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            return;
+        }
+        getTime(Api.getDefaultService().idConfirm(phoneNum, code)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        PayKeySetActivity.actionStart(LoginByCodeActivity.this, from);
+                        finish();
                     }
                 });
     }

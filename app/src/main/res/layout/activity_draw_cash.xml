@@ -35,7 +35,6 @@
             android:layout_toRightOf="@id/tv_bank_text"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="中国农业银行储蓄卡（3579）"
             android:textColor="@color/top_blue" />
 
         <TextView

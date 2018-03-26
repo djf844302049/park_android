@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.BankInfoUtil;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
@@ -18,6 +21,7 @@ import com.anyidc.cloudpark.utils.ToastUtil;
 public class BindBankCardActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
     private EditText etRealName, etIdNum, etBankNum, etPhoneNum;
     private TextView tvBank;
+    private String cardNum, idNum, phoneNum, bank, realName;
 
     @Override
     protected int getLayoutId() {
@@ -38,7 +42,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
+        addBankCard();
     }
 
     @Override
@@ -64,5 +68,20 @@ public class BindBankCardActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    public void addBankCard() {
+        realName = etRealName.getText().toString();
+        idNum = etIdNum.getText().toString();
+        cardNum = etBankNum.getText().toString();
+        bank = tvBank.getText().toString();
+        phoneNum = etPhoneNum.getText().toString();
+        getTime(Api.getDefaultService().addBankCard(bank, cardNum, phoneNum, realName, idNum)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        finish();
+                    }
+                });
     }
 }

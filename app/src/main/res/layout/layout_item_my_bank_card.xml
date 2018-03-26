@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginRight="@dimen/dp10"
+    android:layout_marginTop="18dp"
+    android:background="@drawable/shape_bg_blue">
+
+    <ImageView
+        android:id="@+id/iv_bank_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10" />
+
+    <TextView
+        android:id="@+id/tv_bank"
+        style="@style/text_white_16sp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_toRightOf="@id/iv_bank_logo" />
+
+    <TextView
+        android:id="@+id/tv_bank_type"
+        style="@style/text_white_14sp"
+        android:layout_alignLeft="@id/tv_bank"
+        android:layout_below="@id/tv_bank"
+        android:layout_marginTop="@dimen/dp5" />
+
+    <TextView
+        android:id="@+id/tv_bank_num"
+        style="@style/text_white_14sp"
+        android:layout_alignLeft="@id/tv_bank"
+        android:layout_below="@id/tv_bank_type"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp10"
+        android:textSize="28sp" />
+
+</RelativeLayout>

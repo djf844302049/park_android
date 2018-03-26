@@ -1,6 +1,7 @@
 package com.anyidc.cloudpark.network;
 
 import com.anyidc.cloudpark.moduel.AddCarBean;
+import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
@@ -251,15 +252,16 @@ public interface ApiService {
     /**
      * 用户添加银行卡接口
      */
-    @POST("api/v1/addBankCard")
+    @POST("api/v1   /addBankCard")
     @FormUrlEncoded
-    Observable<BaseEntity> addBankCard(@Field("bank") int bank, @Field("card") String card);
+    Observable<BaseEntity> addBankCard(@Field("bank") String bank, @Field("card") String card
+            , @Field("mobile") String mobile, @Field("realname") String realname, @Field("sfz") String sfz);
 
     /**
      * 获取用户银行卡接口
      */
     @GET("api/v1/getMyCard")
-    Observable<BaseEntity> getBankCard();
+    Observable<BaseEntity<List<BankCardBean>>> getBankCard();
 
     /**
      * 删除银行卡请求接口
@@ -325,6 +327,7 @@ public interface ApiService {
      */
     @POST("v1.parkingLot/shareDetail")
     Observable<BaseEntity> shareParkDetail(@Field("unit_id") String unit_id);
+
     /**
      * 我的共享车位列表接口
      */
@@ -360,4 +363,26 @@ public interface ApiService {
      */
     @POST("park.deyuelou.com")
     Observable<BaseEntity> carArrive(@Field("unit_id") String unit_id);
+
+    /**
+     * 身份验证接口
+     */
+    @POST("api/v1.user/checkMobile")
+    @FormUrlEncoded
+    Observable<BaseEntity> idConfirm(@Field("mobile") String mobile, @Field("code") String code);
+
+    /**
+     * 停车场区域搜索请求接口
+     */
+    @POST("api/v1.parking/parkingSearchById")
+    @FormUrlEncoded
+    Observable<BaseEntity> searchParkById(@Field("page") int page, @Field("size") int size, @Field("area_id") int area_id);
+
+    /**
+     * 根据经纬度返回附近停车场接口
+     */
+    @POST("api/v1.parking/parkingSearchById")
+    @FormUrlEncoded
+    Observable<BaseEntity> searchParkNearby(@Field("page") int page, @Field("size") int size
+            , @Field("lat") double lat, @Field("lng") double lng);
 }

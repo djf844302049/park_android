@@ -130,6 +130,7 @@
     <string name="draw_cash_commit_success">提交成功</string>
     <string name="draw_cash_commit_success_tip">申请提交成功，请去我的个人中心查看</string>
     <string name="draw_cash_dealing">处理中</string>
+    <string name="add_bank_card">添加银行卡</string>
     <string name="draw_cash_dealing_tip">请耐心等待</string>
 
     <!--停车记录-->
