@@ -137,6 +137,9 @@
     <string name="search_stop_record">请输入停车场或地址</string>
     <string name="area_position">区域位置</string>
     <string name="distance_first">距离优先</string>
+    <!--共享车位-->
+    <string name="park_num">车位编号：%d</string>
+
     <!--预约记录-->
     <string-array name="appointment_title_array">
         <item>进行中</item>

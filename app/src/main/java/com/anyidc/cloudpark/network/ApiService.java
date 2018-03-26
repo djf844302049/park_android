@@ -10,7 +10,9 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.MessageBean;
+import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
+import com.anyidc.cloudpark.moduel.MyShareBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
@@ -331,8 +333,13 @@ public interface ApiService {
     /**
      * 我的共享车位列表接口
      */
-    @POST("api/v1.UserPark/myshare")
-    Observable<BaseEntity> getMyshare();
+    @POST("api/v1/myshare")
+    Observable<BaseEntity<MyShareBean>> getMyshare();
+    /**
+     * 我的预约记录列表接口
+     */
+    @POST("api/v1.user_park/appointment")
+    Observable<BaseEntity<MyAppointmentBean>> getAppointment();
 
     /**
      * 车位预约（付款）

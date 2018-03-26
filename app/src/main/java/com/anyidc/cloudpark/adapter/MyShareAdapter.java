@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.MyShareBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/18.
@@ -16,8 +20,17 @@ import com.anyidc.cloudpark.R;
 public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.ShareParkViewHolder>{
 
     private Context mContext;
+    private List<MyShareBean.ParkBean> dataList = new ArrayList<>();
+
     public MyShareAdapter(Context mContext){
         this.mContext = mContext;
+    }
+
+    public void updateList(List<MyShareBean.ParkBean> dataList){
+        this.dataList.clear();
+        if(dataList != null){
+            this.dataList.addAll(dataList);
+        }
     }
 
     @Override
@@ -28,12 +41,17 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
 
     @Override
     public void onBindViewHolder(ShareParkViewHolder holder, int position) {
+        MyShareBean.ParkBean parkBean = dataList.get(position);
+        if(parkBean != null){
+//            holder.tvAddress =
+            holder.tvNum.setText(String.format(mContext.getString(R.string.park_num),parkBean.getParking_id()));
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dataList.size();
     }
 
     public class ShareParkViewHolder extends RecyclerView.ViewHolder{

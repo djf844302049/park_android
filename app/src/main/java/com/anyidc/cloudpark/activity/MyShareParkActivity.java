@@ -7,6 +7,7 @@ import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.MyShareAdapter;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyCarBean;
+import com.anyidc.cloudpark.moduel.MyShareBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 
@@ -38,15 +39,14 @@ public class MyShareParkActivity extends BaseActivity {
 
     private void getMySharePark(){
         getTime(Api.getDefaultService().getMyshare()
-                , new RxObserver<BaseEntity<List<MyCarBean>>>(this, true) {
+                , new RxObserver<BaseEntity<MyShareBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
-//                        List<MyCarBean> data = carBean.getData();
-//                        if (data != null) {
-//                            cars.clear();
-//                            cars.addAll(data);
-//                            adapter.notifyDataSetChanged();
-//                        }
+                    public void onSuccess(BaseEntity<MyShareBean> shareBean) {
+                        MyShareBean data = shareBean.getData();
+                        if (data != null) {
+                            adapter.updateList(data.getList());
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }
