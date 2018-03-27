@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">云能智能停车</string>
     <string name="common_confirm">确认</string>
+    <string name="common_cancel">取消</string>
     <string name="connect_error">网络连接失败,请检查网络</string>
     <string name="connect_timeout">连接超时,请稍后再试</string>
     <string name="bad_network">服务器异常</string>
@@ -139,7 +140,8 @@
     <string name="distance_first">距离优先</string>
     <!--共享车位-->
     <string name="park_num">车位编号：%d</string>
-
+    <string name="up_lock_tip">您确认升起车位锁吗？</string>
+    <string name="down_lock_tip">您确认降下车位锁吗？</string>
     <!--预约记录-->
     <string-array name="appointment_title_array">
         <item>进行中</item>

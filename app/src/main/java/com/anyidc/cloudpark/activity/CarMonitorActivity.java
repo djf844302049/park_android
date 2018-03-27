@@ -121,7 +121,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
         if(type == 0) {
             watchCamera(parkNum);
         } else {
-            OptParkLockActivity.start(CarMonitorActivity.this,parkNum);
+            OptParkLockActivity.start(CarMonitorActivity.this,parkNum,OptParkLockActivity.FROMMANAGER);
         }
     }
 

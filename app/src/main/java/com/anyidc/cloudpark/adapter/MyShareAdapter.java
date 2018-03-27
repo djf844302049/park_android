@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.activity.OptParkLockActivity;
 import com.anyidc.cloudpark.moduel.MyShareBean;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
 
     @Override
     public void onBindViewHolder(ShareParkViewHolder holder, int position) {
-        MyShareBean.ShareParkBean shareParkBean = dataList.get(position);
+        final MyShareBean.ShareParkBean shareParkBean = dataList.get(position);
         if(shareParkBean != null){
             if(shareParkBean.getPark() != null){
                 holder.tvAddress.setText(shareParkBean.getPark().getArea_1() + " " + shareParkBean.getPark().getArea_2() + " " + shareParkBean.getPark().getArea_3() + " " + shareParkBean.getPark().getArea_4() + " " );
@@ -54,10 +55,23 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
             }else {
                 holder.tvName.setText("");
             }
+            holder.llItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toOptParkLock(shareParkBean);
+                }
+            });
 
             holder.tvNum.setText(String.format(mContext.getString(R.string.park_num), shareParkBean.getParking_id()));
         }
+    }
 
+    /**
+     * 操作车位锁
+     * @param shareParkBean
+     */
+    private void toOptParkLock(MyShareBean.ShareParkBean shareParkBean){
+        OptParkLockActivity.start(mContext,String.valueOf(shareParkBean.getParking_id()),OptParkLockActivity.FROMSHAREOWNER);
     }
 
     @Override
