@@ -75,6 +75,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.AdviseActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.MessageCenterActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.MyCarActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.MyBankCardActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.StopRecordActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CarMonitorActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.PurseActivity" />
@@ -93,7 +94,6 @@
         <activity android:name="com.anyidc.cloudpark.activity.MyShareParkActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.DrawCashResultActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AboutUsActivity" />
-        <activity android:name="com.anyidc.cloudpark.activity.MyBankCardActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

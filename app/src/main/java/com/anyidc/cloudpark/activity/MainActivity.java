@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         findViewById(R.id.tv_search_place).setOnClickListener(this);
         findViewById(R.id.iv_mine).setOnClickListener(this);
         findViewById(R.id.iv_pay_park).setOnClickListener(this);
+        findViewById(R.id.iv_search_park).setOnClickListener(this);
         tvMess = findViewById(R.id.tv_message);
         tvMess.setText(16.0f, 5, Color.parseColor("#959595"));
         tvMess.setAnimTime(300);
@@ -89,7 +90,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             mLocationClient.startLocation();
         }).start();
         getInit();
-//        getData(0.155151515, 15.2565646564);
     }
 
     @Override
@@ -119,6 +119,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.iv_pay_park:
                 startActivity(new Intent(this, PayParkActivity.class));
+                break;
+            case R.id.iv_search_park:
+                SearchMapActivity.actionStart(this, 2);
                 break;
         }
     }

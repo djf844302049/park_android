@@ -388,7 +388,7 @@ public interface ApiService {
     /**
      * 根据经纬度返回附近停车场接口
      */
-    @POST("api/v1.parking/parkingSearchById")
+    @POST("api/v1.parking/parkingSearchByRange")
     @FormUrlEncoded
     Observable<BaseEntity> searchParkNearby(@Field("page") int page, @Field("size") int size
             , @Field("lat") double lat, @Field("lng") double lng);

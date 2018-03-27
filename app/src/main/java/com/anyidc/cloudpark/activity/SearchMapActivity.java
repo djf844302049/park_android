@@ -1,14 +1,21 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -26,6 +33,7 @@ import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
+import com.yanzhenjie.permission.AndPermission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +42,12 @@ import java.util.List;
  * Created by Administrator on 2018/2/8.
  */
 
-public class SearchMapActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener {
+public class SearchMapActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMapLocationListener {
 
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    private AMapLocationClientOption mLocationOption = null;
     private SearchView searchView;
     private RecyclerView rlvHotArea;
     private RecyclerView rlvHistory;
@@ -47,7 +59,24 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout llSearch;
     private LinearLayout llMap;
     private int page = 1;
+    private int from;
     private AMap aMap;
+    private double lat;
+    private double lng;
+
+    public static void actionStart(Context context, int from) {
+        Intent intent = new Intent(context, SearchMapActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
+
+    public static void actionStart(Context context, int from, double lat, double lng) {
+        Intent intent = new Intent(context, SearchMapActivity.class);
+        intent.putExtra("from", from);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -57,9 +86,43 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果
+        mLocationOption.setOnceLocation(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
         mapView.onCreate(savedInstanceState);
         aMap = mapView.getMap();
         aMap.setOnMarkerClickListener(this);
+        from = getIntent().getIntExtra("from", 0);
+        switch (from) {
+            case 1:
+                break;
+            case 2:
+                AndPermission.with(this)
+                        .permission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .onGranted(permissions -> {
+                            //启动定位
+                            mLocationClient.startLocation();
+                        }).onDenied(permissions -> {
+                    //启动定位
+                    mLocationClient.startLocation();
+                }).start();
+                llSearch.setVisibility(View.GONE);
+                llMap.setVisibility(View.VISIBLE);
+                break;
+            default:
+                getHotArea();
+                break;
+        }
     }
 
     @Override
@@ -81,7 +144,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         hotAreaAdapter.setOnItemClickListener((view, position) -> search(hotAreaList.get(position)));
         hotAreaAdapter.notifyDataSetChanged();
         rlvHistory = findViewById(R.id.rlv_search_history);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rlvHistory.setLayoutManager(manager);
         List<String> historyList = SpUtils.getObject(SpUtils.SEARCHLIST, List.class);
         if (historyList != null) {
@@ -90,7 +153,6 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         searchAdapter = new AreaAdapter(searchList);
         rlvHistory.setAdapter(searchAdapter);
         searchAdapter.setOnItemClickListener((view, position) -> search(searchList.get(position)));
-        getHotArea();
     }
 
     @Override
@@ -171,6 +233,16 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
+    private void getNearby() {
+        getTime(Api.getDefaultService().searchParkNearby(1, 10, lat, lng),
+                new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        searchView.clearFocus();
+                    }
+                });
+    }
+
     private void search(String target) {
         getTime(Api.getDefaultService().parkingSearch(10, page, target)
                 , new RxObserver<BaseEntity<ParkSearchBean>>(this, true) {
@@ -186,7 +258,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                                 .newCameraPosition(new CameraPosition(latLng, 18, 0, 30));
                         aMap.moveCamera(cameraUpdate);
                         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
-                        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).snippet(target));
+                        aMap.addMarker(new MarkerOptions().position(latLng).snippet(target));
                         List<ParkSearchBean.ParkBean> park = data.getPark();
                         for (ParkSearchBean.ParkBean parkBean : park) {
                             latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
@@ -211,5 +283,29 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     @Override
     public boolean onMarkerClick(Marker marker) {
         return false;
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        mLocationClient.stopLocation();
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                lat = aMapLocation.getLatitude();//获取纬度
+                lng = aMapLocation.getLongitude();//获取经度
+                LatLng latLng = new LatLng(lat, lng);
+                //设置中心点和缩放比例
+                CameraUpdate cameraUpdate = CameraUpdateFactory
+                        .newCameraPosition(new CameraPosition(latLng, 18, 0, 30));
+                aMap.moveCamera(cameraUpdate);
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+                aMap.addMarker(new MarkerOptions().position(latLng).snippet("我的位置"));
+                getNearby();
+            } else {
+                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + aMapLocation.getErrorCode() + ", errInfo:"
+                        + aMapLocation.getErrorInfo());
+            }
+        }
     }
 }
