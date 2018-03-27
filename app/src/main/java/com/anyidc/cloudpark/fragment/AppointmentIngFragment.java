@@ -44,7 +44,7 @@ public class AppointmentIngFragment extends LazyBaseFragment {
 
     private void updateView(MyAppointmentBean.AppointmentBean appointmentBean){
         if(appointmentBean == null) return;
-        tvParkName.setText();
+//        tvParkName.setText();
     }
 
     @Override
