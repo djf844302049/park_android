@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         findViewById(R.id.iv_mine).setOnClickListener(this);
         findViewById(R.id.iv_pay_park).setOnClickListener(this);
         findViewById(R.id.iv_search_park).setOnClickListener(this);
+        findViewById(R.id.iv_park_order).setOnClickListener(this);
         tvMess = findViewById(R.id.tv_message);
         tvMess.setText(16.0f, 5, Color.parseColor("#959595"));
         tvMess.setAnimTime(300);
@@ -112,7 +113,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_search_place:
-                startActivity(new Intent(this, SearchMapActivity.class));
+                SearchMapActivity.actionStart(this, 0);
                 break;
             case R.id.iv_mine:
                 startActivity(new Intent(this, MineActivity.class));
@@ -122,6 +123,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.iv_search_park:
                 SearchMapActivity.actionStart(this, 2);
+                break;
+            case R.id.iv_park_order:
+                SearchMapActivity.actionStart(this, 1);
                 break;
         }
     }
