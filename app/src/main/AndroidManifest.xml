@@ -94,6 +94,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.MyShareParkActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.DrawCashResultActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AboutUsActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.AppointmentRecordActivity" />
 
         <!--高德地图appKey配置-->
         <meta-data

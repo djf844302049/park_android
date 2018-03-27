@@ -20,13 +20,13 @@ import java.util.List;
 public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.ShareParkViewHolder>{
 
     private Context mContext;
-    private List<MyShareBean.ParkBean> dataList = new ArrayList<>();
+    private List<MyShareBean.ShareParkBean> dataList = new ArrayList<>();
 
     public MyShareAdapter(Context mContext){
         this.mContext = mContext;
     }
 
-    public void updateList(List<MyShareBean.ParkBean> dataList){
+    public void updateList(List<MyShareBean.ShareParkBean> dataList){
         this.dataList.clear();
         if(dataList != null){
             this.dataList.addAll(dataList);
@@ -41,10 +41,21 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
 
     @Override
     public void onBindViewHolder(ShareParkViewHolder holder, int position) {
-        MyShareBean.ParkBean parkBean = dataList.get(position);
-        if(parkBean != null){
-//            holder.tvAddress =
-            holder.tvNum.setText(String.format(mContext.getString(R.string.park_num),parkBean.getParking_id()));
+        MyShareBean.ShareParkBean shareParkBean = dataList.get(position);
+        if(shareParkBean != null){
+            if(shareParkBean.getPark() != null){
+                holder.tvAddress.setText(shareParkBean.getPark().getArea_1() + " " + shareParkBean.getPark().getArea_2() + " " + shareParkBean.getPark().getArea_3() + " " + shareParkBean.getPark().getArea_4() + " " );
+            }else {
+                holder.tvAddress.setText("");
+            }
+
+            if(shareParkBean.getPark() != null){
+                holder.tvName.setText(shareParkBean.getPark().getParking_name());
+            }else {
+                holder.tvName.setText("");
+            }
+
+            holder.tvNum.setText(String.format(mContext.getString(R.string.park_num), shareParkBean.getParking_id()));
         }
 
     }

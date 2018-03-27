@@ -24,6 +24,7 @@ import com.ky.indicator.MagicIndicator;
 import com.ky.indicator.ScaleTransitionPagerTitleView;
 import com.ky.indicator.SimplePagerTitleView;
 import com.ky.indicator.ViewPagerHelper;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +54,7 @@ public class AppointmentRecordActivity extends BaseActivity {
     }
 
     private void initPager() {
-        ArrayList<Fragment> fragments = new ArrayList<>();
+        ArrayList<RxFragment> fragments = new ArrayList<>();
         AppointmentIngFragment appointmentIngFragment = new AppointmentIngFragment();
         fragments.add(appointmentIngFragment);
 

@@ -1,8 +1,10 @@
 package com.anyidc.cloudpark.adapter;
 
-import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.ArrayList;
 
@@ -11,15 +13,15 @@ import java.util.ArrayList;
  */
 public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<Fragment> list = new ArrayList<>();
-    public BaseFragmentAdapter(FragmentManager fm, ArrayList<Fragment> list){
+    private ArrayList<RxFragment> list = new ArrayList<>();
+    public BaseFragmentAdapter(FragmentManager fm, ArrayList<RxFragment> list){
         super(fm);
         if(list != null){
             this.list.addAll(list);
         }
     }
     @Override
-    public Fragment getItem(int i) {
+    public RxFragment getItem(int i) {
         return list.get(i);
     }
 
