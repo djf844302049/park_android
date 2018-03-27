@@ -107,6 +107,7 @@
                     android:src="@mipmap/img_pay_park" />
 
                 <ImageView
+                    android:id="@+id/iv_park_order"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

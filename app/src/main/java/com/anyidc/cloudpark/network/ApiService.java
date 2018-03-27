@@ -390,6 +390,6 @@ public interface ApiService {
      */
     @POST("api/v1.parking/parkingSearchByRange")
     @FormUrlEncoded
-    Observable<BaseEntity> searchParkNearby(@Field("page") int page, @Field("size") int size
+    Observable<BaseEntity<ParkSearchBean>> searchParkNearby(@Field("page") int page, @Field("size") int size
             , @Field("lat") double lat, @Field("lng") double lng);
 }

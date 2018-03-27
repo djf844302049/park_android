@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -58,6 +59,9 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private MapView mapView;
     private LinearLayout llSearch;
     private LinearLayout llMap;
+    private LinearLayout llParkList;
+    private TextView tvCancel;
+    private ImageView ivParkList;
     private int page = 1;
     private int from;
     private AMap aMap;
@@ -67,14 +71,6 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     public static void actionStart(Context context, int from) {
         Intent intent = new Intent(context, SearchMapActivity.class);
         intent.putExtra("from", from);
-        context.startActivity(intent);
-    }
-
-    public static void actionStart(Context context, int from, double lat, double lng) {
-        Intent intent = new Intent(context, SearchMapActivity.class);
-        intent.putExtra("from", from);
-        intent.putExtra("lat", lat);
-        intent.putExtra("lng", lng);
         context.startActivity(intent);
     }
 
@@ -105,6 +101,9 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         from = getIntent().getIntExtra("from", 0);
         switch (from) {
             case 1:
+                llSearch.setVisibility(View.GONE);
+                llMap.setVisibility(View.GONE);
+                llParkList.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 AndPermission.with(this)
@@ -117,23 +116,33 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                     mLocationClient.startLocation();
                 }).start();
                 llSearch.setVisibility(View.GONE);
+                llParkList.setVisibility(View.GONE);
                 llMap.setVisibility(View.VISIBLE);
                 break;
             default:
-                getHotArea();
+                llSearch.setVisibility(View.VISIBLE);
                 break;
         }
+        getHotArea();
     }
 
     @Override
     protected void initData() {
         searchView = findViewById(R.id.sv_map);
         initSearchView();
-        findViewById(R.id.tv_cancel).setOnClickListener(this);
-        findViewById(R.id.iv_back).setOnClickListener(this);
+        tvCancel = findViewById(R.id.tv_cancel);
+        tvCancel.setOnClickListener(this);
+        ivParkList = findViewById(R.id.iv_park_list);
+        ivParkList.setOnClickListener(this);
+        findViewById(R.id.iv_back_search).setOnClickListener(this);
+        findViewById(R.id.iv_back_map).setOnClickListener(this);
+        findViewById(R.id.iv_back_list).setOnClickListener(this);
         findViewById(R.id.tv_clear_history).setOnClickListener(this);
+        findViewById(R.id.tv_search_map).setOnClickListener(this);
+        findViewById(R.id.tv_search_list).setOnClickListener(this);
         llSearch = findViewById(R.id.ll_search);
         llMap = findViewById(R.id.ll_map_view);
+        llParkList = findViewById(R.id.ll_park_list);
         mapView = findViewById(R.id.map_view);
         rlvHotArea = findViewById(R.id.rlv_hot_area);
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
@@ -159,14 +168,28 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel:
-
+                if (from == 0) {
+                    finish();
+                } else {
+                    searchView.clearFocus();
+                    llSearch.setVisibility(View.GONE);
+                }
                 break;
             case R.id.tv_clear_history:
                 searchList.clear();
                 searchAdapter.notifyDataSetChanged();
                 break;
-            case R.id.iv_back:
+            case R.id.iv_back_search:
+            case R.id.iv_back_map:
+            case R.id.iv_back_list:
                 finish();
+                break;
+            case R.id.iv_park_list:
+                llParkList.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_search_map:
+            case R.id.tv_search_list:
+                llSearch.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -192,7 +215,6 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         // 设置该SearchView内默认显示的提示文本
         searchView.setQueryHint(getResources().getString(R.string.search_place));
         searchView.clearFocus();
-
         int searchPlateId = searchView.getContext().getResources()
                 .getIdentifier("android:id/search_plate", null, null);
         View searchPlate = searchView.findViewById(searchPlateId);
@@ -235,10 +257,20 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
 
     private void getNearby() {
         getTime(Api.getDefaultService().searchParkNearby(1, 10, lat, lng),
-                new RxObserver<BaseEntity>(this, true) {
+                new RxObserver<BaseEntity<ParkSearchBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity baseEntity) {
+                    public void onSuccess(BaseEntity<ParkSearchBean> baseEntity) {
                         searchView.clearFocus();
+                        List<ParkSearchBean.ParkBean> park = baseEntity.getData().getPark();
+                        for (ParkSearchBean.ParkBean parkBean : park) {
+                            LatLng latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
+                            MarkerOptions markerOption = new MarkerOptions();
+                            markerOption.position(latLng);
+                            markerOption.draggable(false);//设置Marker可拖动
+                            markerOption.snippet(parkBean.getParking_name());
+//                            markerOption.icon(BitmapDescriptorFactory.fromView(view));
+                            aMap.addMarker(markerOption);
+                        }
                     }
                 });
     }
@@ -250,6 +282,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                     public void onSuccess(BaseEntity<ParkSearchBean> parkSearchBean) {
                         ParkSearchBean data = parkSearchBean.getData();
                         llSearch.setVisibility(View.GONE);
+                        llParkList.setVisibility(View.GONE);
                         llMap.setVisibility(View.VISIBLE);
                         searchView.clearFocus();
                         LatLng latLng = new LatLng(data.getLngLat().getLat(), data.getLngLat().getLng());

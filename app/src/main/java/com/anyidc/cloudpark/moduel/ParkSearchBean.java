@@ -60,6 +60,8 @@ public class ParkSearchBean {
 
         private double lng;
         private double lat;
+        private int page;
+        private int size;
 
         public double getLng() {
             return lng;
@@ -75,6 +77,22 @@ public class ParkSearchBean {
 
         public void setLat(double lat) {
             this.lat = lat;
+        }
+
+        public int getPage() {
+            return page;
+        }
+
+        public void setPage(int page) {
+            this.page = page;
+        }
+
+        public int getSize() {
+            return size;
+        }
+
+        public void setSize(int size) {
+            this.size = size;
         }
     }
 

@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:id="@+id/iv_back"
+            android:id="@+id/iv_back_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp">
@@ -25,16 +25,26 @@
                 android:src="@mipmap/img_left_arrow" />
         </FrameLayout>
 
-        <SearchView
-            android:id="@+id/sv_record"
+        <TextView
+            android:id="@+id/tv_search_list"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="@dimen/dp50"
             android:layout_weight="1"
             android:background="@drawable/shape_round_white_bg"
+            android:drawableLeft="@mipmap/img_search"
+            android:drawablePadding="@dimen/dp15"
+            android:gravity="center_vertical"
             android:iconifiedByDefault="false"
-            android:queryHint="@string/search_stop_record" />
+            android:paddingLeft="@dimen/dp25"
+            android:text="@string/search_place" />
+
+        <View
+            android:layout_width="@dimen/dp40"
+            android:layout_height="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
     </LinearLayout>
 
     <LinearLayout
