@@ -1,6 +1,7 @@
 package com.anyidc.cloudpark.activity;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -76,6 +77,26 @@ public class BindBankCardActivity extends BaseActivity implements View.OnClickLi
         cardNum = etBankNum.getText().toString();
         bank = tvBank.getText().toString();
         phoneNum = etPhoneNum.getText().toString();
+        if (TextUtils.isEmpty(realName)) {
+            ToastUtil.showToast("请填写您的真实姓名", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(idNum) || idNum.length() != 15 && idNum.length() != 18) {
+            ToastUtil.showToast("请填写正确的身份证号码", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(cardNum) || cardNum.length() != 16 && cardNum.length() != 19) {
+            ToastUtil.showToast("请填写正确的银行卡号", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(bank)) {
+            ToastUtil.showToast("请填写正确的银行卡号", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(phoneNum) || phoneNum.length() != 11) {
+            ToastUtil.showToast("请填写正确的手机号码", Toast.LENGTH_SHORT);
+            return;
+        }
         getTime(Api.getDefaultService().addBankCard(bank, cardNum, phoneNum, realName, idNum)
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
