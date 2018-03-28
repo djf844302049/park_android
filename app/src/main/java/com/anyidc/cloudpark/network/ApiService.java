@@ -254,7 +254,7 @@ public interface ApiService {
     /**
      * 用户添加银行卡接口
      */
-    @POST("api/v1   /addBankCard")
+    @POST("api/v1/addBankCard")
     @FormUrlEncoded
     Observable<BaseEntity> addBankCard(@Field("bank") String bank, @Field("card") String card
             , @Field("mobile") String mobile, @Field("realname") String realname, @Field("sfz") String sfz);

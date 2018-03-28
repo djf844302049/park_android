@@ -86,7 +86,7 @@
         android:layout_marginTop="@dimen/dp10">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rlv_stop_record_list"
+            android:id="@+id/rlv_park_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white" />

@@ -85,7 +85,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnClickLi
             ToastUtil.showToast("请填写正确的身份证号码", Toast.LENGTH_SHORT);
             return;
         }
-        if (TextUtils.isEmpty(cardNum) || cardNum.length() != 16 && cardNum.length() != 19) {
+        if (TextUtils.isEmpty(cardNum) || cardNum.length() != 16 && cardNum.length() != 19 && cardNum.length() != 18) {
             ToastUtil.showToast("请填写正确的银行卡号", Toast.LENGTH_SHORT);
             return;
         }
@@ -101,6 +101,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnClickLi
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
+                        setResult(RESULT_OK);
                         finish();
                     }
                 });

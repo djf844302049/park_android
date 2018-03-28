@@ -23,6 +23,7 @@ public class MyBankCardActivity extends BaseActivity implements View.OnClickList
     private RecyclerView rlvBankCard;
     private List<BankCardBean> list = new ArrayList<>();
     private MyBankCardAdapter adapter;
+    private final int ADDBANKCARD = 999;
 
     @Override
     protected int getLayoutId() {
@@ -39,17 +40,12 @@ public class MyBankCardActivity extends BaseActivity implements View.OnClickList
         rlvBankCard.setNestedScrollingEnabled(false);
         adapter = new MyBankCardAdapter(list);
         rlvBankCard.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         getBankCardList();
     }
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(this, BindBankCardActivity.class));
+        startActivityForResult(new Intent(this, BindBankCardActivity.class),ADDBANKCARD);
     }
 
     public void getBankCardList() {
@@ -62,5 +58,15 @@ public class MyBankCardActivity extends BaseActivity implements View.OnClickList
                         adapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==ADDBANKCARD){
+            if (resultCode==RESULT_OK){
+                getBankCardList();
+            }
+        }
     }
 }
