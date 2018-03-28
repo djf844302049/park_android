@@ -36,7 +36,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkLi
         holder.tvAddress.setText(parkBean.getAddress());
         holder.tvTotalNum.setText(String.valueOf(parkBean.getNum()));
         holder.tvRemainNum.setText(String.valueOf(parkBean.getAvailable_num()));
-        holder.tvDistance.setText(parkBean.getDistance() + "km");
+        holder.tvDistance.setText("距我" + parkBean.getDistance() + "km");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.network;
 
+import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -335,6 +336,7 @@ public interface ApiService {
      */
     @POST("api/v1/myshare")
     Observable<BaseEntity<MyShareBean>> getMyshare();
+
     /**
      * 我的预约记录列表接口
      */
@@ -383,7 +385,7 @@ public interface ApiService {
      */
     @POST("api/v1.parking/parkingSearchById")
     @FormUrlEncoded
-    Observable<BaseEntity> searchParkById(@Field("page") int page, @Field("size") int size, @Field("area_id") int area_id);
+    Observable<BaseEntity<ParkSearchBean>> searchParkById(@Field("page") int page, @Field("size") int size, @Field("area_id") int area_id);
 
     /**
      * 根据经纬度返回附近停车场接口
@@ -392,4 +394,11 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseEntity<ParkSearchBean>> searchParkNearby(@Field("page") int page, @Field("size") int size
             , @Field("lat") double lat, @Field("lng") double lng);
+
+    /**
+     * 根据城市返回对应的区信息接口
+     */
+    @POST("api/v1.region/getAreaByName")
+    @FormUrlEncoded
+    Observable<BaseEntity<List<CityAreaBean>>> getAreaInfo(@Field("city") String city);
 }

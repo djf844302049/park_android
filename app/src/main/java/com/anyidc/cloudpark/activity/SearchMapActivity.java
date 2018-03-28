@@ -2,14 +2,18 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -28,6 +32,8 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.andview.refreshview.XRefreshView;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.AreaAdapter;
+import com.anyidc.cloudpark.adapter.CityAreaAdapter;
+import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.adapter.ParkListAdapter;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
@@ -35,6 +41,7 @@ import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.ViewUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
 import com.yanzhenjie.permission.AndPermission;
 
@@ -61,15 +68,21 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private List<ParkSearchBean.ParkBean> parkList = new ArrayList<>();
     private List<ParkSearchBean.ParkBean> nearbyList = new ArrayList<>();
     private List<ParkSearchBean.ParkBean> searchParkList = new ArrayList<>();
+    private List<CityAreaBean> areaBeans = new ArrayList<>();
+    private PopupWindow areaWindow;
     private AreaAdapter hotAreaAdapter;
     private AreaAdapter searchAdapter;
     private ParkListAdapter parkListAdapter;
+    private CityAreaAdapter cityAreaAdapter;
     private MapView mapView;
     private LinearLayout llSearch;
     private LinearLayout llMap;
     private LinearLayout llParkList;
     private TextView tvCancel;
+    private TextView tvArea;
+    private TextView tvNearby;
     private ImageView ivParkList;
+    private int areaId;
     private int page = 1;
     private int nearPage = 1;
     private int areaPage = 1;
@@ -79,6 +92,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private boolean nearby;
     private boolean area;
     private String target;
+    private String city;
     private int from;
     private AMap aMap;
     private double lat;
@@ -120,10 +134,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 llSearch.setVisibility(View.GONE);
                 llMap.setVisibility(View.GONE);
                 llParkList.setVisibility(View.VISIBLE);
-                location();
                 break;
             case 2:
-                location();
                 llSearch.setVisibility(View.GONE);
                 llParkList.setVisibility(View.GONE);
                 llMap.setVisibility(View.VISIBLE);
@@ -132,6 +144,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 llSearch.setVisibility(View.VISIBLE);
                 break;
         }
+        location();
         getHotArea();
     }
 
@@ -164,6 +177,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         llSearch = findViewById(R.id.ll_search);
         llMap = findViewById(R.id.ll_map_view);
         llParkList = findViewById(R.id.ll_park_list);
+        tvArea = findViewById(R.id.tv_area_position);
+        tvArea.setOnClickListener(this);
+        tvNearby = findViewById(R.id.tv_distance_first);
+        tvNearby.setOnClickListener(this);
         mapView = findViewById(R.id.map_view);
         rlvHotArea = findViewById(R.id.rlv_hot_area);
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
@@ -207,7 +224,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                     getNearby();
                 }
                 if (area) {
-
+                    getAreaParkList();
                 }
             }
         });
@@ -245,6 +262,14 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
             case R.id.tv_search_map:
             case R.id.tv_search_list:
                 llSearch.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_area_position:
+                getAreaList();
+                break;
+            case R.id.tv_distance_first:
+                parkList.clear();
+                parkList.addAll(nearbyList);
+                parkListAdapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -375,6 +400,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                         if (data.getTotal() < 10) {
                             searchLoad = false;
                         }
+                        page = data.getPage_num() + 1;
                         List<ParkSearchBean.ParkBean> park = data.getPark();
                         for (ParkSearchBean.ParkBean parkBean : park) {
                             LatLng latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
@@ -390,6 +416,65 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                         parkListAdapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    private void getAreaList() {
+        if (areaBeans.size() == 0) {
+            getTime(Api.getDefaultService().getAreaInfo(city),
+                    new RxObserver<BaseEntity<List<CityAreaBean>>>(this, true) {
+                        @Override
+                        public void onSuccess(BaseEntity<List<CityAreaBean>> baseEntity) {
+                            areaBeans.addAll(baseEntity.getData());
+                            showAreaWindow();
+                        }
+                    });
+        } else {
+            showAreaWindow();
+        }
+    }
+
+    private void getAreaParkList() {
+        area = true;
+        search = false;
+        nearby = false;
+        getTime(Api.getDefaultService().searchParkById(areaPage, 10, areaId)
+                , new RxObserver<BaseEntity<ParkSearchBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<ParkSearchBean> baseEntity) {
+                        if (areaPage == 1) {
+                            parkList.clear();
+                        }
+                        refreshView.stopLoadMore();
+                        areaPage = baseEntity.getData().getPage_num() + 1;
+                        if (baseEntity.getData().getTotal() < 10) {
+                            refreshView.setPullLoadEnable(false);
+                        }
+                        ParkSearchBean data = baseEntity.getData();
+                        parkList.addAll(data.getPark());
+                        parkListAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+    private void showAreaWindow() {
+        if (areaWindow == null) {
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_popuwindow_area, null);
+            RecyclerView rlvArea = view.findViewById(R.id.rlv_area);
+            RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+            rlvArea.setLayoutManager(manager);
+            cityAreaAdapter = new CityAreaAdapter(areaBeans);
+            cityAreaAdapter.setOnItemClickListener((view1, position) -> {
+                areaPage = 1;
+                areaId = areaBeans.get(position).getId();
+                areaWindow.dismiss();
+                getAreaParkList();
+            });
+            rlvArea.setAdapter(cityAreaAdapter);
+            areaWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            areaWindow.setOutsideTouchable(true);
+            areaWindow.setBackgroundDrawable(new BitmapDrawable());
+        }
+        areaWindow.showAsDropDown(tvArea, ViewUtils.dip2px(this, -29), ViewUtils.dip2px(this, 7));
     }
 
     @Override
@@ -411,14 +496,17 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
             if (aMapLocation.getErrorCode() == 0) {
                 lat = aMapLocation.getLatitude();//获取纬度
                 lng = aMapLocation.getLongitude();//获取经度
-                LatLng latLng = new LatLng(lat, lng);
-                //设置中心点和缩放比例
-                CameraUpdate cameraUpdate = CameraUpdateFactory
-                        .newCameraPosition(new CameraPosition(latLng, 18, 0, 30));
-                aMap.moveCamera(cameraUpdate);
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
-                aMap.addMarker(new MarkerOptions().position(latLng).snippet("我的位置"));
-                getNearby();
+                city = aMapLocation.getCity();
+                if (from != 0) {
+                    getNearby();
+                    LatLng latLng = new LatLng(lat, lng);
+                    //设置中心点和缩放比例
+                    CameraUpdate cameraUpdate = CameraUpdateFactory
+                            .newCameraPosition(new CameraPosition(latLng, 18, 0, 30));
+                    aMap.moveCamera(cameraUpdate);
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+                    aMap.addMarker(new MarkerOptions().position(latLng).snippet("我的位置"));
+                }
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"
