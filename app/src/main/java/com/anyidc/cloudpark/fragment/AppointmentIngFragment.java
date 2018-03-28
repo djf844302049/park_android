@@ -34,7 +34,7 @@ public class AppointmentIngFragment extends LazyBaseFragment {
                     @Override
                     public void onSuccess(BaseEntity<MyAppointmentBean> appointmentBean) {
                         MyAppointmentBean data = appointmentBean.getData();
-                        if (data != null && data.getList() != null) {
+                        if (data != null && data.getList() != null && data.getList().size() > 0) {
                             MyAppointmentBean.AppointmentBean bean = data.getList().get(0);
                             updateView(bean);
                         }
@@ -44,7 +44,6 @@ public class AppointmentIngFragment extends LazyBaseFragment {
 
     private void updateView(MyAppointmentBean.AppointmentBean appointmentBean){
         if(appointmentBean == null) return;
-//        tvParkName.setText();
     }
 
     @Override

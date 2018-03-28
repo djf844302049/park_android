@@ -44,6 +44,11 @@ public class MyShareBean {
         private String lock_id;
         private String fee_id;
         private String share_time;
+        /**status
+         * 1。空闲。
+         2.正在使用。
+         0.坏掉
+         */
         private int status;
         private int parking_id;
         private int positionDesc;

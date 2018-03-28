@@ -58,7 +58,9 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
             holder.llItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    toOptParkLock(shareParkBean);
+                    if(shareParkBean.getStatus() == 1) {//只有在空闲的时候才能进行操作
+                        toOptParkLock(shareParkBean);
+                    }
                 }
             });
 
