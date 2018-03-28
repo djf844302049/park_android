@@ -39,7 +39,7 @@ public class MyAppointmentBean {
         private int order_id;
         private String order_sn;
         private int parking_id;
-        private String init_id;
+        private String unit_id;
         private int user_id;
         private int pay_id;
         private String transaction_id;
@@ -51,6 +51,8 @@ public class MyAppointmentBean {
         private int product_id;
         private long update_time;
         private int status;
+        private ParkInfo park;
+
 
         public int getOrder_id() {
             return order_id;
@@ -76,12 +78,12 @@ public class MyAppointmentBean {
             this.parking_id = parking_id;
         }
 
-        public String getInit_id() {
-            return init_id;
+        public String getUnit_id() {
+            return unit_id;
         }
 
-        public void setInit_id(String init_id) {
-            this.init_id = init_id;
+        public void setUnit_id(String unit_id) {
+            this.unit_id = unit_id;
         }
 
         public int getUser_id() {
@@ -170,6 +172,14 @@ public class MyAppointmentBean {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public ParkInfo getPark() {
+            return park;
+        }
+
+        public void setPark(ParkInfo park) {
+            this.park = park;
         }
     }
 }

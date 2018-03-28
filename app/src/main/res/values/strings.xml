@@ -139,7 +139,7 @@
     <string name="area_position">区域位置</string>
     <string name="distance_first">距离优先</string>
     <!--共享车位-->
-    <string name="park_num">车位编号：%d</string>
+    <string name="park_num">车位编号：%s</string>
     <string name="up_lock_tip">您确认升起车位锁吗？</string>
     <string name="down_lock_tip">您确认降下车位锁吗？</string>
     <!--预约记录-->

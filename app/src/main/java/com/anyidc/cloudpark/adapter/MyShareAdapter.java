@@ -64,7 +64,7 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
                 }
             });
 
-            holder.tvNum.setText(String.format(mContext.getString(R.string.park_num), shareParkBean.getParking_id()));
+            holder.tvNum.setText(String.format(mContext.getString(R.string.park_num), shareParkBean.getUnit_id()));
         }
     }
 
@@ -73,7 +73,7 @@ public class MyShareAdapter extends RecyclerView.Adapter<MyShareAdapter.SharePar
      * @param shareParkBean
      */
     private void toOptParkLock(MyShareBean.ShareParkBean shareParkBean){
-        OptParkLockActivity.start(mContext,String.valueOf(shareParkBean.getParking_id()),OptParkLockActivity.FROMSHAREOWNER);
+        OptParkLockActivity.start(mContext,shareParkBean.getUnit_id(),OptParkLockActivity.FROMSHAREOWNER);
     }
 
     @Override
