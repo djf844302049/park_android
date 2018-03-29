@@ -133,6 +133,7 @@
     <string name="draw_cash_dealing">处理中</string>
     <string name="add_bank_card">添加银行卡</string>
     <string name="draw_cash_dealing_tip">请耐心等待</string>
+    <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们开启：\n\n%1$s</string>
 
     <!--停车记录-->
     <string name="search_stop_record">请输入停车场或地址</string>

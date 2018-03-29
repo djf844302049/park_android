@@ -11,7 +11,6 @@ import com.anyidc.cloudpark.activity.BaseActivity;
 import com.anyidc.cloudpark.activity.CutImageActivity;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Rationale;
 
 import java.io.File;
 import java.lang.ref.Reference;
@@ -30,20 +29,11 @@ public class UploadImageUtil {
     private Reference<BaseActivity> reference;
     private float scale;
     private ImageView view;
-    private Rationale mRationale = (context, permissions, executor) -> {
-        // 这里使用一个Dialog询问用户是否继续授权。
-
-        // 如果用户继续：
-        executor.execute();
-
-        // 如果用户中断：
-        executor.cancel();
-    };
 
     public UploadImageUtil(BaseActivity activity, ImageView view) {
         this.view = view;
         this.scale = ((float) view.getWidth()) / view.getHeight();
-        reference=new WeakReference(activity);
+        reference = new WeakReference(activity);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -86,8 +76,8 @@ public class UploadImageUtil {
                     AndPermission.with(reference.get())
                             .permission(android.Manifest.permission.CAMERA
                                     , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            .rationale(mRationale)
                             .onGranted(permissions -> Album.camera(reference.get()).start(REQUEST_CODE_CAPTURE))
+                            .onDenied(permissions -> new PermissionSetting(reference.get()).showSetting(permissions))
                             .start();
                     dialog.dismiss();
                 }
@@ -106,7 +96,7 @@ public class UploadImageUtil {
                                         .camera(false) // 是否有拍照功能。
                                         .start(REQUEST_CODE_PICK); // 999是
                             })
-                            .rationale(mRationale)
+                            .onDenied(permissions -> new PermissionSetting(reference.get()).showSetting(permissions))
                             .start();
                     dialog.dismiss();
                 }

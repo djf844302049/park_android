@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.wiget.VerticalTextView;
 import com.bumptech.glide.Glide;
 import com.yanzhenjie.permission.AndPermission;
@@ -82,13 +84,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         AndPermission.with(this)
-                .permission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permission(Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.CAMERA
+                        , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .onGranted(permissions -> {
                     //启动定位
                     mLocationClient.startLocation();
                 }).onDenied(permissions -> {
-            //启动定位
-            mLocationClient.startLocation();
+            if (permissions.contains(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                getData(0d, 0d);
+            } else {
+                mLocationClient.startLocation();
+            }
+            new PermissionSetting(MainActivity.this).showSetting(permissions);
         }).start();
         getInit();
     }

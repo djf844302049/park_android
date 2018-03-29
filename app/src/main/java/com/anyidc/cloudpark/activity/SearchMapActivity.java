@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -33,13 +34,14 @@ import com.andview.refreshview.XRefreshView;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.AreaAdapter;
 import com.anyidc.cloudpark.adapter.CityAreaAdapter;
-import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.adapter.ParkListAdapter;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ViewUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
@@ -144,19 +146,22 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 llSearch.setVisibility(View.VISIBLE);
                 break;
         }
-        location();
+        requestPermissions();
         getHotArea();
     }
 
-    private void location() {
+    private void requestPermissions() {
         AndPermission.with(this)
-                .permission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permission(android.Manifest.permission.ACCESS_COARSE_LOCATION
+                        , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .onGranted(permissions -> {
                     //启动定位
                     mLocationClient.startLocation();
                 }).onDenied(permissions -> {
-            //启动定位
-            mLocationClient.startLocation();
+            if (!permissions.contains(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                mLocationClient.startLocation();
+            }
+            new PermissionSetting(SearchMapActivity.this).showSetting(permissions);
         }).start();
     }
 
