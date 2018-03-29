@@ -19,6 +19,7 @@ import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.TransactionBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
+import com.anyidc.cloudpark.moduel.UsualQuestionBean;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
 
 import java.util.List;
@@ -193,7 +194,7 @@ public interface ApiService {
      * 常见问题接口
      */
     @GET("api/v1/getCommonQuestion")
-    Observable<BaseEntity<String>> getQuestion();
+    Observable<BaseEntity<List<UsualQuestionBean>>> getQuestion();
 
     /**
      * 获取用户车辆列表接口
@@ -334,7 +335,7 @@ public interface ApiService {
     /**
      * 我的共享车位列表接口
      */
-    @POST("api/v1/myshare")
+    @GET("api/v1.user_park/myshare")
     Observable<BaseEntity<MyShareBean>> getMyshare();
 
     /**

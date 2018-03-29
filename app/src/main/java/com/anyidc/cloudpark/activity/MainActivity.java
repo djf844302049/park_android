@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Glide.with(context).load(path).into(imageView);
             }
         });
-        banner.setOnBannerListener(position -> WebViewActivity.actionStart(MainActivity.this, bnUrls.get(position)));
+        banner.setOnBannerListener(position -> WebViewActivity.actionStart(MainActivity.this, bnUrls.get(position), 0));
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
         mLocationClient.setLocationListener(this);

@@ -29,15 +29,25 @@ public class WebViewActivity extends BaseActivity {
         return R.layout.activity_webview;
     }
 
-    public static void actionStart(Context context, String path) {
+    public static void actionStart(Context context, String path, int from) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("path", path);
+        intent.putExtra("from", from);
         context.startActivity(intent);
     }
 
     @Override
     protected void initData() {
-        initTitle("新闻资讯");
+        int from = getIntent().getIntExtra("from", 0);
+        switch (from) {
+            case 1:
+                initTitle("常见问题");
+                break;
+            default:
+                initTitle("新闻资讯");
+                break;
+        }
+
         webView = new WebView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
