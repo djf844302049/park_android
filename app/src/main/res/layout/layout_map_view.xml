@@ -55,37 +55,77 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/ll_park_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="12dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_place"
-            style="@style/text_gray_14sp"
-            android:text="万达广场(厦门湖里店)"
-            android:textSize="@dimen/text_size24" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="12dp">
 
-        <TextView
-            android:id="@+id/tv_distance"
-            style="@style/text_gray_14sp"
-            android:layout_alignBottom="@id/tv_place"
-            android:layout_alignParentRight="true"
-            android:text="距离：300km" />
+            <TextView
+                android:id="@+id/tv_place"
+                style="@style/text_black_18sp"
+                android:text="万达广场(厦门湖里店)" />
 
-        <TextView
-            style="@style/text_gray_14sp"
-            android:layout_below="@id/tv_place"
-            android:layout_marginTop="10dp"
-            android:text="厦门市湖里区仙岳路520号" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_distance"
+                style="@style/text_gray_14sp"
+                android:layout_alignBottom="@id/tv_place"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp20"
+                android:text="距离：300km" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/top_blue"
-        android:text="导航"
-        android:textColor="@color/white"
-        android:textSize="24sp" />
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/text_gray_14sp"
+                android:layout_below="@id/tv_place"
+                android:layout_marginTop="10dp"
+                android:text="厦门市湖里区仙岳路520号" />
+
+            <TextView
+                android:id="@+id/tv_park_total_num"
+                style="@style/text_gray_14sp"
+                android:layout_below="@id/tv_address"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="车位数：111" />
+
+            <TextView
+                android:id="@+id/tv_park_remain_num"
+                style="@style/text_gray_14sp"
+                android:layout_alignTop="@id/tv_park_total_num"
+                android:layout_marginLeft="@dimen/dp20"
+                android:layout_toRightOf="@id/tv_park_total_num"
+                android:text="空车位数：111" />
+
+            <TextView
+                android:id="@+id/tv_park_fee_regular"
+                style="@style/text_gray_14sp"
+                android:layout_below="@id/tv_park_total_num"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="收费标准：首4小时5元，之后2元/小时" />
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp10"
+                android:src="@mipmap/img_right_arrow" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/top_blue"
+            android:text="导航"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </LinearLayout>
 </LinearLayout>
