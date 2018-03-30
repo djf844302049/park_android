@@ -20,7 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="订单编号：A11124"
+                android:text="订单号：A11124"
                 android:id="@+id/tv_order_num"/>
             <TextView style="@style/text_gray_14sp"
                 android:text="2018-1-22 10:00:00"

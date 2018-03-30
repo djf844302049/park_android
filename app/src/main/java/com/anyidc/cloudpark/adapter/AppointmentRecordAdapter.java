@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.andview.refreshview.utils.LogUtils;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by linwenxiong on 2018/3/30.
@@ -24,6 +28,15 @@ public class AppointmentRecordAdapter extends RecyclerView.Adapter<AppointmentRe
         this.context = context;
         mInflater = LayoutInflater.from(context);
     }
+    public void clear(){
+        dataList.clear();
+    }
+
+    public void addList(List<MyAppointmentBean.AppointmentBean> list){
+        if(list != null ) {
+            dataList.addAll(list);
+        }
+    }
 
     @Override
     public AppointmentHolderView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,7 +46,42 @@ public class AppointmentRecordAdapter extends RecyclerView.Adapter<AppointmentRe
 
     @Override
     public void onBindViewHolder(AppointmentHolderView holder, int position) {
+        MyAppointmentBean.AppointmentBean appointmentBean = dataList.get(position);
+        if(appointmentBean != null){
+            holder.tvOrderNum.setText("订单号："+ appointmentBean.getOrder_sn());
+            String dateStr = stampToDate(appointmentBean.getCreate_time());
+            holder.tvCreateTime.setText(dateStr);
+            //订单日期
+            String[] dateArr = dateStr.split(" ");
+            LogUtils.e("dateStr = " + dateStr);
+            if(dateArr != null && dateArr.length > 0) {
+                holder.tvDate.setText(dateArr[0]);
+            }
+            //预约时间
+            String appointmentStr = stampToDate(appointmentBean.getCreate_time() + appointmentBean.getTimes());
+            String[] appointmentArr = appointmentStr.split(" ");
+            if(appointmentArr != null && appointmentArr.length > 1) {
+                holder.tvAppointmentTime.setText("预约时间："+ appointmentArr[1]);
+            }
+            //到达时间
+            String arriveStr = stampToDate(appointmentBean.getEnd_time());
+            String[] arriveArr = arriveStr.split(" ");
+            if(arriveArr != null && arriveArr.length > 1) {
+                holder.tvArriveTime.setText("到达时间："+ arriveArr[1]);
+            }
 
+            if(appointmentBean.getPark() != null) {
+                holder.tvParkName.setText(appointmentBean.getPark().getParking_name());
+            }
+        }
+    }
+
+    private static String stampToDate(long s){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(s * 1000);
+        res = simpleDateFormat.format(date);
+        return res;
     }
 
     @Override
@@ -42,13 +90,13 @@ public class AppointmentRecordAdapter extends RecyclerView.Adapter<AppointmentRe
     }
 
     public class AppointmentHolderView extends RecyclerView.ViewHolder{
-        private TextView tvParkNum,tvCreateTime,tvParkName,tvDate,tvAppointmentTime,tvArriveTime;
+        private TextView tvOrderNum,tvCreateTime,tvParkName,tvDate,tvAppointmentTime,tvArriveTime;
         public AppointmentHolderView(View itemView){
             super(itemView);
-            tvParkNum = itemView.findViewById(R.id.tv_order_num);
+            tvOrderNum = itemView.findViewById(R.id.tv_order_num);
             tvCreateTime = itemView.findViewById(R.id.tv_order_time);
             tvParkName = itemView.findViewById(R.id.tv_park_name);
-            tvDate = itemView.findViewById(R.id.tv_order_time);
+            tvDate = itemView.findViewById(R.id.tv_park_date);
             tvAppointmentTime = itemView.findViewById(R.id.tv_appointment_time);
             tvArriveTime = itemView.findViewById(R.id.tv_arrive_time);
         }

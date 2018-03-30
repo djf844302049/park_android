@@ -10,9 +10,13 @@ import com.andview.refreshview.XRefreshView;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.AppointmentRecordAdapter;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by linwenxiong on 2018/3/13.
@@ -22,6 +26,7 @@ public class AppointmentCompleteFragment extends LazyBaseFragment {
     private XRefreshView xRefreshView;
     private RecyclerView recyclerView;
     private AppointmentRecordAdapter adapter;
+    private int page = 1;
 
     @Override
     protected void inflaterLayout(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +35,7 @@ public class AppointmentCompleteFragment extends LazyBaseFragment {
 
     @Override
     protected void onLazyLoad() {
-
+        xRefreshView.startRefresh();
     }
 
     @Override
@@ -41,17 +46,55 @@ public class AppointmentCompleteFragment extends LazyBaseFragment {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
+        initXRefreshView();
+    }
+
+    private void initXRefreshView() {
+        xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
+            @Override
+            public void onRefresh(boolean isPullDown) {
+                page = 1;
+                xRefreshView.setPullLoadEnable(true);
+                getMyAppointmentIng();
+            }
+
+            @Override
+            public void onLoadMore(boolean isSilence) {
+                getMyAppointmentIng();
+            }
+        });
     }
 
     private void getMyAppointmentIng(){
-        getTime(Api.getDefaultService().getAppointment("0","1","1")
+        getTime(Api.getDefaultService().getAppointment("0",String.valueOf(page),"10")
                 , new RxObserver<BaseEntity<MyAppointmentBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BaseEntity<MyAppointmentBean> appointmentBean) {
                         MyAppointmentBean data = appointmentBean.getData();
-                        if (data != null && data.getList() != null && data.getList().size() > 0) {
-                            MyAppointmentBean.AppointmentBean bean = data.getList().get(0);
+                        if (data != null && data.getList() != null) {
+                            if (page == 1) {
+                                xRefreshView.stopRefresh();
+                                adapter.clear();
+                            } else {
+                                xRefreshView.stopLoadMore();
+                            }
+                            if (data.getTotal() < 10) {
+                                xRefreshView.setPullLoadEnable(false);
+                            }
+                            page = data.getPage_num() + 1;
+                            List<MyAppointmentBean.AppointmentBean> order = data.getList();
+                            adapter.addList(order);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
 
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        if (page == 1) {
+                            xRefreshView.stopRefresh();
+                        } else {
+                            xRefreshView.stopLoadMore();
                         }
                     }
                 });
