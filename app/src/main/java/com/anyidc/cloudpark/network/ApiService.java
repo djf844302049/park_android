@@ -340,9 +340,32 @@ public interface ApiService {
 
     /**
      * 我的预约记录列表接口
+     * @param status 0表示已经完成
+     * @param page 要数
+     * @param size 页面大小
+     * @return
      */
     @POST("api/v1.user_park/appointment")
-    Observable<BaseEntity<MyAppointmentBean>> getAppointment();
+    @FormUrlEncoded
+    Observable<BaseEntity<MyAppointmentBean>> getAppointment(@Field("status") String status,@Field("page") String page,@Field("size") String size);
+
+    /**
+     * 取消预约
+     * @param unitId 车位编号
+     * @return
+     */
+    @POST("api/v1.order/cancelAppointment")
+    @FormUrlEncoded
+    Observable<BaseEntity> cancelAppointment(@Field("unit_id") String unitId);
+
+    /**
+     * 车辆到达
+     * @param unitId 车位编号
+     * @return
+     */
+    @POST("api/v1.order/arrive")
+    @FormUrlEncoded
+    Observable<BaseEntity> arrive(@Field("unit_id") String unitId);
 
     /**
      * 车位预约（付款）

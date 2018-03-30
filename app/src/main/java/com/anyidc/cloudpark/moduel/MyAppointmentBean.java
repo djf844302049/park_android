@@ -52,7 +52,24 @@ public class MyAppointmentBean {
         private long update_time;
         private int status;
         private ParkInfo park;
+        private String share_time;
+        private int times;
 
+        public String getShare_time() {
+            return share_time;
+        }
+
+        public void setShare_time(String share_time) {
+            this.share_time = share_time;
+        }
+
+        public int getTimes() {
+            return times;
+        }
+
+        public void setTimes(int times) {
+            this.times = times;
+        }
 
         public int getOrder_id() {
             return order_id;

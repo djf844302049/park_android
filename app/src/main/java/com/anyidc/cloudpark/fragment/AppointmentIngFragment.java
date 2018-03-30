@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -13,7 +14,10 @@ import com.anyidc.cloudpark.moduel.MyShareBean;
 import com.anyidc.cloudpark.moduel.ParkInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 
 /**
@@ -21,8 +25,9 @@ import java.util.Timer;
  */
 
 public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener{
-    private TextView tvParkName,tvAddress,tvDistance,tvParkNum,tvTime,tvConfirm,tvCancel,tvTip;
+    private TextView tvParkName,tvAddress,tvDistance,tvParkNum,tvTime,tvConfirm,tvCancel,tvTip,tvShareTime;
     private long remain = 0;
+    private MyAppointmentBean.AppointmentBean appointmentBean = null;
     @Override
     protected void inflaterLayout(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.appointment_ing_layout,null,false);
@@ -34,7 +39,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     }
 
     private void getMyAppointmentIng(){
-        getTime(Api.getDefaultService().getAppointment()
+        getTime(Api.getDefaultService().getAppointment("1","1","1")
                 , new RxObserver<BaseEntity<MyAppointmentBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BaseEntity<MyAppointmentBean> appointmentBean) {
@@ -53,6 +58,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     }
 
     private void updateView(MyAppointmentBean.AppointmentBean appointmentBean){
+        this.appointmentBean = appointmentBean;
         if(appointmentBean == null || appointmentBean.getStatus() != 1){
             noData();
             return;
@@ -64,7 +70,15 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
             tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " " );
         }
         tvParkNum.setText(appointmentBean.getUnit_id());
+        tvTime.setText("("+stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes())+")");
         remain = System.currentTimeMillis()/1000 - appointmentBean.getCreate_time();
+        if(appointmentBean.getUnit_id().endsWith("S")){
+            layout.findViewById(R.id.ll_share).setVisibility(View.VISIBLE);
+//            tvShareTime.setText();等待接口返回数据
+        }else{
+            layout.findViewById(R.id.ll_share).setVisibility(View.GONE);
+        }
+        tvShareTime.setText((appointmentBean.getShare_time()));
         if (remain < 60) {
             tvTip.setVisibility(View.VISIBLE);
             tvTip.postDelayed(new Runnable() {
@@ -84,6 +98,14 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
 
     }
 
+
+    private static String stampToDate(long s){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(s * 1000);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
     @Override
     protected void initView() {
         tvParkName = layout.findViewById(R.id.tv_park_name);
@@ -94,6 +116,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         tvConfirm = layout.findViewById(R.id.tv_confirm);
         tvCancel = layout.findViewById(R.id.tv_cancel);
         tvTip = layout.findViewById(R.id.tv_tip);
+        tvShareTime = layout.findViewById(R.id.tv_share_time);
         tvConfirm.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
     }
@@ -102,9 +125,37 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_confirm:
+                confirmAppointment();
                 break;
             case R.id.tv_cancel:
+                concelAppointment();
                 break;
         }
+    }
+
+    private void confirmAppointment(){
+        if(appointmentBean == null){
+            return;
+        }
+        getTime(Api.getDefaultService().arrive(appointmentBean.getUnit_id())
+                , new RxObserver<BaseEntity>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        ToastUtil.showToast("预约完成", Toast.LENGTH_SHORT);
+                    }
+                });
+    }
+
+    private void concelAppointment(){
+        if(appointmentBean == null){
+            return;
+        }
+        getTime(Api.getDefaultService().cancelAppointment(appointmentBean.getUnit_id())
+                , new RxObserver<BaseEntity>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        ToastUtil.showToast("取消成功", Toast.LENGTH_SHORT);
+                    }
+                });
     }
 }
