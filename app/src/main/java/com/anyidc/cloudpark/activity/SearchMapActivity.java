@@ -23,6 +23,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
@@ -47,6 +48,7 @@ import com.anyidc.cloudpark.utils.ViewUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
 import com.yanzhenjie.permission.AndPermission;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,13 +79,9 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private ParkListAdapter parkListAdapter;
     private CityAreaAdapter cityAreaAdapter;
     private MapView mapView;
-    private LinearLayout llSearch;
-    private LinearLayout llMap;
-    private LinearLayout llParkList;
-    private TextView tvCancel;
-    private TextView tvArea;
-    private TextView tvNearby;
-    private ImageView ivParkList;
+    private LinearLayout llSearch, llParkMess, llMap, llParkList;
+    private TextView tvCancel, tvArea, tvNearby, tvParkName, tvParkAddress, tvParkTotalNum, tvParkRemainNum, tvParkFeeRegu, tvDistance;
+    private ImageView ivParkList, ivArrow;
     private int areaId;
     private int page = 1;
     private int nearPage = 1;
@@ -141,6 +139,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 llSearch.setVisibility(View.GONE);
                 llParkList.setVisibility(View.GONE);
                 llMap.setVisibility(View.VISIBLE);
+                llParkMess.setVisibility(View.GONE);
                 break;
             default:
                 llSearch.setVisibility(View.VISIBLE);
@@ -182,6 +181,15 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         llSearch = findViewById(R.id.ll_search);
         llMap = findViewById(R.id.ll_map_view);
         llParkList = findViewById(R.id.ll_park_list);
+        llParkMess = findViewById(R.id.ll_park_message);
+        tvParkName = findViewById(R.id.tv_place);
+        tvParkAddress = findViewById(R.id.tv_address);
+        tvDistance = findViewById(R.id.tv_distance);
+        tvParkTotalNum = findViewById(R.id.tv_park_total_num);
+        tvParkRemainNum = findViewById(R.id.tv_park_remain_num);
+        tvParkFeeRegu = findViewById(R.id.tv_park_fee_regular);
+        ivArrow = findViewById(R.id.iv_arrow);
+        findViewById(R.id.btn_navigation).setOnClickListener(this);
         tvArea = findViewById(R.id.tv_area_position);
         tvArea.setOnClickListener(this);
         tvNearby = findViewById(R.id.tv_distance_first);
@@ -276,6 +284,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 parkList.addAll(nearbyList);
                 parkListAdapter.notifyDataSetChanged();
                 break;
+            case R.id.btn_navigation:
+                break;
         }
     }
 
@@ -364,7 +374,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             markerOption.draggable(false);//设置Marker可拖动
                             markerOption.snippet(parkBean.getParking_name());
 //                            markerOption.icon(BitmapDescriptorFactory.fromView(view));
-                            aMap.addMarker(markerOption);
+                            Marker marker = aMap.addMarker(markerOption);
+                            marker.setObject(parkBean);
                         }
                         nearbyList.addAll(park);
                         parkList.clear();
@@ -389,6 +400,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                         llSearch.setVisibility(View.GONE);
                         llParkList.setVisibility(View.GONE);
                         llMap.setVisibility(View.VISIBLE);
+                        tvParkTotalNum.setVisibility(View.GONE);
+                        tvParkRemainNum.setVisibility(View.GONE);
+                        tvParkFeeRegu.setVisibility(View.GONE);
+                        ivArrow.setVisibility(View.GONE);
+                        llParkMess.setVisibility(View.VISIBLE);
                         searchView.clearFocus();
                         if (page == 1) {
                             aMap.clear();
@@ -401,6 +417,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             aMap.moveCamera(cameraUpdate);
                             aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
                             aMap.addMarker(new MarkerOptions().position(latLng).snippet(target));
+                            tvParkName.setText(target);
+                            float distance = AMapUtils.calculateLineDistance(latLng, new LatLng(lat, lng)) / 1000;
+                            DecimalFormat format = new DecimalFormat("0.00");
+                            String dis = format.format(distance) + "km";
+                            tvDistance.setText("距离：" + dis);
+                            tvParkAddress.setText(target);
                         }
                         if (data.getTotal() < 10) {
                             searchLoad = false;
@@ -414,7 +436,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             markerOption.draggable(false);//设置Marker可拖动
                             markerOption.snippet(parkBean.getParking_name());
 //                            markerOption.icon(BitmapDescriptorFactory.fromView(view));
-                            aMap.addMarker(markerOption);
+                            Marker marker = aMap.addMarker(markerOption);
+                            marker.setObject(parkBean);
                         }
                         parkList.clear();
                         parkList.addAll(park);
@@ -491,6 +514,20 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        if (marker.getObject() instanceof ParkSearchBean.ParkBean) {
+            ParkSearchBean.ParkBean parkBean = (ParkSearchBean.ParkBean) marker.getObject();
+            llParkMess.setVisibility(View.VISIBLE);
+            tvParkTotalNum.setVisibility(View.VISIBLE);
+            tvParkRemainNum.setVisibility(View.VISIBLE);
+            tvParkFeeRegu.setVisibility(View.VISIBLE);
+            ivArrow.setVisibility(View.VISIBLE);
+            tvParkName.setText(parkBean.getParking_name());
+            tvDistance.setText("距离：" + parkBean.getDistance() + "km");
+            tvParkAddress.setText(parkBean.getAddress());
+            tvParkTotalNum.setText("车位数：" + parkBean.getNum());
+            tvParkRemainNum.setText("空车位数：" + parkBean.getAvailable_num());
+//        tvParkName.setText();收费规则
+        }
         return false;
     }
 
