@@ -96,7 +96,7 @@ public class BaseEntityConverterFactory extends Converter.Factory {
             BaseEntity entity = gson.fromJson(response, BaseEntity.class);
             if (entity.getStatus() != 1) {
                 value.close();
-                throw new ApiException(entity.getStatus(),entity.getMessage());
+                throw new ApiException(entity.getStatus(), entity.getMessage());
             }
 
             MediaType contentType = value.contentType();
