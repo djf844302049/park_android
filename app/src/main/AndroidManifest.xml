@@ -96,6 +96,21 @@
         <activity android:name="com.anyidc.cloudpark.activity.AboutUsActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AppointmentRecordActivity" />
 
+        <!--支付宝相关配置-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <!--高德地图appKey配置-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

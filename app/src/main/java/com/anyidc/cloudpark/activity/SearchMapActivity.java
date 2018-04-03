@@ -203,7 +203,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         rlvHotArea.setAdapter(hotAreaAdapter);
         hotAreaAdapter.setOnItemClickListener((view, position) -> {
             page = 1;
-            search(hotAreaList.get(position));
+            target = hotAreaList.get(position);
+            search(target);
         });
         hotAreaAdapter.notifyDataSetChanged();
         rlvHistory = findViewById(R.id.rlv_search_history);
@@ -217,7 +218,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         rlvHistory.setAdapter(searchAdapter);
         searchAdapter.setOnItemClickListener((view, position) -> {
             page = 1;
-            search(searchList.get(position));
+            target = searchList.get(position);
+            search(target);
         });
         rlvPark = findViewById(R.id.rlv_park_list);
         RecyclerView.LayoutManager manager1 = new LinearLayoutManager(this);
@@ -295,7 +297,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
             @Override
             public boolean onQueryTextSubmit(String query) {
                 page = 1;
-//                search(query);
+                target = query;
+                search(target);
                 if (!searchList.contains(query)) {
                     searchList.add(query);
                     searchAdapter.notifyDataSetChanged();
