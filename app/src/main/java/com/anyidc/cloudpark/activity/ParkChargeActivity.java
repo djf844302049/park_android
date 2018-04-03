@@ -40,19 +40,19 @@ public class ParkChargeActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_balance_pay:
-                ivBalancePay.setVisibility(View.VISIBLE);
-                ivAlPay.setVisibility(View.GONE);
-                ivWxPay.setVisibility(View.GONE);
+                ivBalancePay.setImageResource(R.drawable.ic_checked);
+                ivAlPay.setImageResource(R.drawable.ic_message_check);
+                ivWxPay.setImageResource(R.drawable.ic_message_check);
                 break;
             case R.id.ll_al_pay:
-                ivBalancePay.setVisibility(View.GONE);
-                ivAlPay.setVisibility(View.VISIBLE);
-                ivWxPay.setVisibility(View.GONE);
+                ivBalancePay.setImageResource(R.drawable.ic_message_check);
+                ivAlPay.setImageResource(R.drawable.ic_checked);
+                ivWxPay.setImageResource(R.drawable.ic_message_check);
                 break;
             case R.id.ll_wx_pay:
-                ivBalancePay.setVisibility(View.GONE);
-                ivAlPay.setVisibility(View.GONE);
-                ivWxPay.setVisibility(View.VISIBLE);
+                ivBalancePay.setImageResource(R.drawable.ic_message_check);
+                ivAlPay.setImageResource(R.drawable.ic_message_check);
+                ivWxPay.setImageResource(R.drawable.ic_checked);
                 break;
             case R.id.btn_pay:
                 break;

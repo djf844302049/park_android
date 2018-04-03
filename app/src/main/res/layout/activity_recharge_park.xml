@@ -65,6 +65,9 @@
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/ic_account"
+                    android:drawablePadding="@dimen/dp5"
+                    android:gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="@string/balance_pay"
                     android:textColor="@color/black" />
@@ -74,8 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/img_big_tick"
-                    android:visibility="gone" />
+                    android:src="@drawable/ic_message_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -90,6 +92,9 @@
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/ic_zhifubao"
+                    android:drawablePadding="@dimen/dp5"
+                    android:gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="@string/ali_pay"
                     android:textColor="@color/black" />
@@ -99,8 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/img_big_tick"
-                    android:visibility="gone" />
+                    android:src="@drawable/ic_message_check" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,6 +119,9 @@
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/ic_weixin"
+                    android:drawablePadding="@dimen/dp5"
+                    android:gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="@string/wx_pay"
                     android:textColor="@color/black" />
@@ -124,8 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/img_big_tick"
-                    android:visibility="gone" />
+                    android:src="@drawable/ic_message_check" />
             </LinearLayout>
 
             <Button
