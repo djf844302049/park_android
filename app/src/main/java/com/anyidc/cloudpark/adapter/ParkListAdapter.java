@@ -15,9 +15,10 @@ import java.util.List;
  * Created by Administrator on 2018/3/28.
  */
 
-public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkListViewHolder> {
+public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkListViewHolder> implements View.OnClickListener {
 
     private List<ParkSearchBean.ParkBean> list;
+    private OnItemClickListener mOnItemClickListener;
 
     public ParkListAdapter(List<ParkSearchBean.ParkBean> list) {
         this.list = list;
@@ -31,6 +32,7 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkLi
 
     @Override
     public void onBindViewHolder(ParkListViewHolder holder, int position) {
+        holder.itemView.setTag(position);
         ParkSearchBean.ParkBean parkBean = list.get(position);
         holder.tvParkName.setText(parkBean.getParking_name());
         holder.tvAddress.setText(parkBean.getAddress());
@@ -44,6 +46,17 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkLi
         return list == null ? 0 : list.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onClick(v, (Integer) v.getTag());
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
     class ParkListViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvParkName, tvAddress, tvTotalNum, tvRemainNum, tvDistance;
@@ -55,6 +68,11 @@ public class ParkListAdapter extends RecyclerView.Adapter<ParkListAdapter.ParkLi
             tvTotalNum = itemView.findViewById(R.id.tv_total_num);
             tvRemainNum = itemView.findViewById(R.id.tv_remain_num);
             tvDistance = itemView.findViewById(R.id.tv_distance);
+            itemView.setOnClickListener(ParkListAdapter.this);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClick(View view, int position);
     }
 }

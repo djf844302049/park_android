@@ -95,6 +95,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.DrawCashResultActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AboutUsActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AppointmentRecordActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.SelectUnitParkActivity" />
 
         <!--支付宝相关配置-->
         <activity
