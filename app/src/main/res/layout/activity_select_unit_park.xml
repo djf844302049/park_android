@@ -4,56 +4,21 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <include
         android:id="@+id/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/top_blue"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/iv_back_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="18dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/img_left_arrow" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size14" />
-
-        <ImageView
-            android:id="@+id/iv_park_list"
-            android:layout_width="@dimen/dp30"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/img_park_list" />
-    </LinearLayout>
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_bar"
+        android:layout_below="@id/title_bar"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/dp40"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp40">
 
             <HorizontalScrollView
                 android:layout_width="match_parent"

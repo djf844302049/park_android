@@ -84,6 +84,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout llSearch, llParkMess, llMap, llParkList;
     private TextView tvCancel, tvArea, tvNearby, tvParkName, tvParkAddress, tvParkTotalNum, tvParkRemainNum, tvParkFeeRegu, tvDistance;
     private ImageView ivParkList, ivArrow;
+    private ParkSearchBean.ParkBean parkBean;
     private int areaId;
     private int page = 1;
     private int nearPage = 1;
@@ -232,7 +233,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         rlvPark.setLayoutManager(manager1);
         parkListAdapter = new ParkListAdapter(parkList);
         parkListAdapter.setOnItemClickListener((view, position) -> {
-            startActivity(new Intent(SearchMapActivity.this, SelectUnitParkActivity.class));
+            ParkSearchBean.ParkBean parkBean = parkList.get(position);
+            SelectUnitParkActivity.actionStart(SearchMapActivity.this, String.valueOf(parkBean.getParking_id()));
         });
         rlvPark.setAdapter(parkListAdapter);
         refreshView = findViewById(R.id.my_xrefreshview);
@@ -298,7 +300,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
             case R.id.btn_navigation:
                 break;
             case R.id.rl_park_detail:
-                startActivity(new Intent(this, SelectUnitParkActivity.class));
+                if (parkBean == null) {
+                    return;
+                }
+                SelectUnitParkActivity.actionStart(this, String.valueOf(parkBean.getParking_id()));
                 break;
         }
     }
@@ -530,7 +535,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.getObject() instanceof ParkSearchBean.ParkBean) {
-            ParkSearchBean.ParkBean parkBean = (ParkSearchBean.ParkBean) marker.getObject();
+            parkBean = (ParkSearchBean.ParkBean) marker.getObject();
             llParkMess.setVisibility(View.VISIBLE);
             tvParkTotalNum.setVisibility(View.VISIBLE);
             tvParkRemainNum.setVisibility(View.VISIBLE);

@@ -317,7 +317,8 @@ public interface ApiService {
     /**
      * 获取车位列表接口
      */
-    @POST("v1.parkingLot/getList")
+    @POST("api/v1.parking_lot/getList")
+    @FormUrlEncoded
     Observable<BaseEntity> getParkList(@Field("parking_id") String parking_id);
 
     /**
@@ -340,17 +341,19 @@ public interface ApiService {
 
     /**
      * 我的预约记录列表接口
+     *
      * @param status 0表示已经完成
-     * @param page 要数
-     * @param size 页面大小
+     * @param page   要数
+     * @param size   页面大小
      * @return
      */
     @POST("api/v1.user_park/appointment")
     @FormUrlEncoded
-    Observable<BaseEntity<MyAppointmentBean>> getAppointment(@Field("status") String status,@Field("page") String page,@Field("size") String size);
+    Observable<BaseEntity<MyAppointmentBean>> getAppointment(@Field("status") String status, @Field("page") String page, @Field("size") String size);
 
     /**
      * 取消预约
+     *
      * @param unitId 车位编号
      * @return
      */
@@ -360,6 +363,7 @@ public interface ApiService {
 
     /**
      * 车辆到达
+     *
      * @param unitId 车位编号
      * @return
      */
@@ -380,8 +384,9 @@ public interface ApiService {
      * “pay_type” 支付类型ID "1"=>"alipay","2"=>"wxpay","3"=>"bankpay","4"=>"qianbao"
      * “unit_id”  （预约/结算）需要  车位ID
      */
-    @POST("api/v1.payorder/dopay")
-    Observable<BaseEntity> orderParkPay(@Field("subject") String subject, @Field("detail") String detail
+    @POST("api/v1.pay_order/dopay")
+    @FormUrlEncoded
+    Observable<BaseEntity> doPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
             , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
 
