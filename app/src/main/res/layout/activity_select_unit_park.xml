@@ -109,17 +109,55 @@
                 android:paddingTop="@dimen/dp5"
                 android:paddingBottom="@dimen/dp5"
                 android:text="车位信息"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size14"
-                android:textColor="@color/text_color_gray"
-                android:id="@+id/tv_unit_info"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingRight="@dimen/dp10"
-                android:paddingTop="@dimen/dp5"
-                android:paddingBottom="@dimen/dp5"
-                android:text="共有111个车位，剩余空车位50个"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size14"
+                    android:textColor="@color/text_color_gray"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingBottom="@dimen/dp5"
+                    android:text="共有"/>
+                <TextView
+                    android:id="@+id/tv_unit_total_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size14"
+                    android:textColor="@color/text_color_gray"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingBottom="@dimen/dp5"
+                    android:text="111"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size14"
+                    android:textColor="@color/text_color_gray"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingBottom="@dimen/dp5"
+                    android:text="剩余空车位"/>
+                <TextView
+                    android:id="@+id/tv_unit_remain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size14"
+                    android:textColor="@color/text_color_blue"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingBottom="@dimen/dp5"
+                    android:text="50"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size14"
+                    android:textColor="@color/text_color_gray"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingBottom="@dimen/dp5"
+                    android:text="个"/>
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"

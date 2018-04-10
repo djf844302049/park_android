@@ -225,6 +225,13 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         RecyclerView.LayoutManager manager1 = new LinearLayoutManager(this);
         rlvPark.setLayoutManager(manager1);
         parkListAdapter = new ParkListAdapter(parkList);
+        parkListAdapter.setOnItemClickListener(new ParkListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ParkSearchBean.ParkBean parkBean = parkListAdapter.getPark(position);
+                SelectUnitParkActivity.start(SearchMapActivity.this,String.valueOf(parkBean.getParking_id()));
+            }
+        });
         rlvPark.setAdapter(parkListAdapter);
         refreshView = findViewById(R.id.my_xrefreshview);
         refreshView.setPullRefreshEnable(false);

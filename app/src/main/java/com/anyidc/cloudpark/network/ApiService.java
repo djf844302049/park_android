@@ -14,6 +14,7 @@ import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.MyShareBean;
+import com.anyidc.cloudpark.moduel.ParkDetailBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
@@ -425,4 +426,11 @@ public interface ApiService {
     @POST("api/v1.region/getAreaByName")
     @FormUrlEncoded
     Observable<BaseEntity<List<CityAreaBean>>> getAreaInfo(@Field("city") String city);
+
+    /**
+     * 获取车场详情
+     */
+    @POST("api/v1/getList/testadmin/zwp")
+    @FormUrlEncoded
+    Observable<BaseEntity<ParkDetailBean>> getParkDetail(@Field("parking_id") String parking_id);
 }

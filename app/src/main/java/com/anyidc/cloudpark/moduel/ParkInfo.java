@@ -31,6 +31,45 @@ public class ParkInfo {
     private String area_2;
     private String area_3;
     private String area_4;
+    private FeeInfo fee;
+    public class FeeInfo{
+        private int first_time;
+        private int money;
+        private int hourly;
+        private int max;
+
+        public int getFirst_time() {
+            return first_time;
+        }
+
+        public void setFirst_time(int first_time) {
+            this.first_time = first_time;
+        }
+
+        public int getMoney() {
+            return money;
+        }
+
+        public void setMoney(int money) {
+            this.money = money;
+        }
+
+        public int getHourly() {
+            return hourly;
+        }
+
+        public void setHourly(int hourly) {
+            this.hourly = hourly;
+        }
+
+        public int getMax() {
+            return max;
+        }
+
+        public void setMax(int max) {
+            this.max = max;
+        }
+    }
 
     public int getParking_id() {
         return parking_id;
@@ -238,5 +277,13 @@ public class ParkInfo {
 
     public void setArea_4(String area_4) {
         this.area_4 = area_4;
+    }
+
+    public FeeInfo getFee() {
+        return fee;
+    }
+
+    public void setFee(FeeInfo fee) {
+        this.fee = fee;
     }
 }
