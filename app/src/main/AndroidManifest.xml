@@ -96,6 +96,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.AboutUsActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AppointmentRecordActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.SelectUnitParkActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.PayResultActivity" />
 
         <!--支付宝相关配置-->
         <activity
@@ -104,7 +105,7 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        
+
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

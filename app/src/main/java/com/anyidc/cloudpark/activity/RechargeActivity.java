@@ -109,6 +109,7 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
                     PayTask alipay = new PayTask(RechargeActivity.this);
                     Map<String, String> result = alipay.payV2(orderInfo, true);
                     Message msg = new Message();
+                    result.put("num", String.valueOf(rechargeNum));
                     msg.what = AlPayResultHandler.SDK_PAY_FLAG;
                     msg.obj = result;
                     mHandler.sendMessage(msg);
