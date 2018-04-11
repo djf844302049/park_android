@@ -182,6 +182,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.tv_clear_history).setOnClickListener(this);
         findViewById(R.id.tv_search_map).setOnClickListener(this);
         findViewById(R.id.tv_search_list).setOnClickListener(this);
+        findViewById(R.id.tv_list_cancel).setOnClickListener(this);
         rlParkDetail = findViewById(R.id.rl_park_detail);
         rlParkDetail.setOnClickListener(this);
         rlParkDetail.setEnabled(false);
@@ -409,6 +410,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void search(String target) {
+        from = 4;
         this.target = target;
         nearby = false;
         search = true;
