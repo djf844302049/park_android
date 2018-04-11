@@ -1,19 +1,27 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alipay.sdk.app.PayTask;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.RechargeAdapter;
+import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.RechargeBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.AlPayResultHandler;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/3/15.
@@ -26,6 +34,8 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
     private ImageView ivAlPay, ivWxPay;
     private int prePosition;
     private int rechargeNum;
+    private AlPayResultHandler mHandler;
+    private WeakReference<Context> weakReference;
     private int[] nums = {10, 20, 30, 100, 200, 500};
     private int payType;
 
@@ -61,6 +71,8 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
             adapter.notifyItemChanged(prePosition);
             prePosition = position;
         });
+        weakReference = new WeakReference<>(this);
+        mHandler = new AlPayResultHandler(weakReference.get());
     }
 
     @Override
@@ -89,11 +101,23 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
         if (payType == 0) {
             return;
         }
-        getTime(Api.getDefaultService().doPay("充值", "余额充值", String.valueOf(rechargeNum)
-                , 1, payType, null), new RxObserver<BaseEntity>(this, true) {
+        getTime(Api.getDefaultService().alPay("充值", "余额充值", String.valueOf(0.01)
+                , 1, payType, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
             @Override
-            public void onSuccess(BaseEntity baseEntity) {
-
+            public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
+                Runnable payRunnable = () -> {
+                    String orderInfo = baseEntity.getData().getCallback().getOrderInfo();
+                    Log.e("tag", orderInfo);
+                    PayTask alipay = new PayTask(RechargeActivity.this);
+                    Map<String, String> result = alipay.payV2(orderInfo, true);
+                    Message msg = new Message();
+                    msg.what = AlPayResultHandler.SDK_PAY_FLAG;
+                    msg.obj = result;
+                    mHandler.sendMessage(msg);
+                };
+                // 必须异步调用
+                Thread payThread = new Thread(payRunnable);
+                payThread.start();
             }
         });
     }

@@ -113,15 +113,16 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/text_color_gray"
+                    android:paddingBottom="@dimen/dp5"
                     android:paddingLeft="@dimen/dp10"
                     android:paddingTop="@dimen/dp5"
-                    android:paddingBottom="@dimen/dp5"
-                    android:text="共有"/>
+                    android:text="共有"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size14" />
                 <TextView
                     android:id="@+id/tv_unit_total_num"
                     android:layout_width="wrap_content"

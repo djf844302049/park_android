@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.network;
 
+import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BankCardBean;
@@ -318,7 +319,7 @@ public interface ApiService {
     /**
      * 获取车位列表接口
      */
-    @POST("api/v1.parking_lot/getList")
+    @POST("api/v1/getList")
     @FormUrlEncoded
     Observable<BaseEntity> getParkList(@Field("parking_id") String parking_id);
 
@@ -385,9 +386,19 @@ public interface ApiService {
      * “pay_type” 支付类型ID "1"=>"alipay","2"=>"wxpay","3"=>"bankpay","4"=>"qianbao"
      * “unit_id”  （预约/结算）需要  车位ID
      */
-    @POST("api/v1.pay_order/dopay")
+    @POST("api/v1/dopay")
     @FormUrlEncoded
     Observable<BaseEntity> doPay(@Field("subject") String subject, @Field("detail") String detail
+            , @Field("money") String money, @Field("product_id") int product_id
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+
+
+    /**
+     *支付宝支付接口
+     */
+    @POST("api/v1/dopay")
+    @FormUrlEncoded
+    Observable<BaseEntity<AlPayBean>> alPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
             , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
 
