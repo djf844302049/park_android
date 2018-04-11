@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.moduel;
 
-import com.anyidc.cloudpark.utils.SignUtils;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
