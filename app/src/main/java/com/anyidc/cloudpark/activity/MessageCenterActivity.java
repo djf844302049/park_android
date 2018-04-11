@@ -45,7 +45,7 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("清空");
         tvRight.setOnClickListener(this);
-        adapter = new MessageAdapter( messages);
+        adapter = new MessageAdapter(messages);
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
@@ -93,13 +93,13 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
                         } else {
                             xRefreshView.stopLoadMore();
                         }
-                        if (data.getTotal() < 10) {
-                            xRefreshView.setPullLoadEnable(false);
-                        }
-                        page = data.getPage_num() + 1;
+                        page++;
                         List<MessageBean.OrderBean> order = data.getOrder();
                         if (order != null) {
                             messages.addAll(order);
+                            if (order.size() < 10) {
+                                xRefreshView.setPullLoadEnable(false);
+                            }
                         }
                         adapter.notifyDataSetChanged();
                     }

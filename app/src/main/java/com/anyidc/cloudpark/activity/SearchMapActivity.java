@@ -389,12 +389,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                     public void onSuccess(BaseEntity<ParkSearchBean> baseEntity) {
                         refreshView.stopLoadMore();
                         searchView.clearFocus();
-                        nearPage = baseEntity.getData().getPage_num() + 1;
-                        if (baseEntity.getData().getTotal() < 10) {
+                        nearPage++;
+                        List<ParkSearchBean.ParkBean> park = baseEntity.getData().getPark();
+                        if (park.size() < 10) {
                             nearbyLoad = false;
                             refreshView.setPullLoadEnable(false);
                         }
-                        List<ParkSearchBean.ParkBean> park = baseEntity.getData().getPark();
                         for (ParkSearchBean.ParkBean parkBean : park) {
                             LatLng latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
                             MarkerOptions markerOption = new MarkerOptions();
@@ -453,11 +453,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             tvDistance.setText("距离：" + dis);
                             tvParkAddress.setText(target);
                         }
-                        if (data.getTotal() < 10) {
+                        page++;
+                        List<ParkSearchBean.ParkBean> park = data.getPark();
+                        if (park.size() < 10) {
                             searchLoad = false;
                         }
-                        page = data.getPage_num() + 1;
-                        List<ParkSearchBean.ParkBean> park = data.getPark();
                         for (ParkSearchBean.ParkBean parkBean : park) {
                             LatLng latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
                             MarkerOptions markerOption = new MarkerOptions();
@@ -502,11 +502,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             parkList.clear();
                         }
                         refreshView.stopLoadMore();
-                        areaPage = baseEntity.getData().getPage_num() + 1;
-                        if (baseEntity.getData().getTotal() < 10) {
+                        areaPage++;
+                        ParkSearchBean data = baseEntity.getData();
+                        if (data.getPark().size() < 10) {
                             refreshView.setPullLoadEnable(false);
                         }
-                        ParkSearchBean data = baseEntity.getData();
                         parkList.addAll(data.getPark());
                         parkListAdapter.notifyDataSetChanged();
                     }

@@ -92,15 +92,15 @@ public class StopRecordActivity extends BaseActivity {
                         } else {
                             xRefreshView.stopLoadMore();
                         }
-                        if (recordBean.getData().getTotal() < 10) {
+                        page++;
+                        List<StopRecordBean.OrderBean> order = recordBean.getData().getOrder();
+                        if (order.size() < 10) {
                             tvNoMoreData.setVisibility(View.VISIBLE);
                             xRefreshView.setPullLoadEnable(false);
                         } else {
                             tvNoMoreData.setVisibility(View.GONE);
                             xRefreshView.setPullLoadEnable(true);
                         }
-                        page = recordBean.getData().getPage_num() + 1;
-                        List<StopRecordBean.OrderBean> order = recordBean.getData().getOrder();
                         for (StopRecordBean.OrderBean orderBean : order) {
                             //未支付
                             if (orderBean.getPay_status() == 0) {

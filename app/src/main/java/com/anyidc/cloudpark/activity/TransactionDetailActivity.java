@@ -67,11 +67,11 @@ public class TransactionDetailActivity extends BaseActivity {
                         } else {
                             xRefreshView.stopLoadMore();
                         }
-                        page = data.getPage_num() + 1;
-                        if (data.getTotal() < 10) {
+                        page++;
+                        List<TransactionBean.ListBean> beans = data.getList();
+                        if (beans.size() < 10) {
                             xRefreshView.setPullLoadEnable(false);
                         }
-                        List<TransactionBean.ListBean> beans = data.getList();
                         if (beans != null) {
                             list.addAll(beans);
                         }
