@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.network;
 
+import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BankCardBean;
@@ -14,6 +15,7 @@ import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.MyShareBean;
+import com.anyidc.cloudpark.moduel.ParkDetailBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
@@ -317,7 +319,8 @@ public interface ApiService {
     /**
      * 获取车位列表接口
      */
-    @POST("v1.parkingLot/getList")
+    @POST("api/v1/getList")
+    @FormUrlEncoded
     Observable<BaseEntity> getParkList(@Field("parking_id") String parking_id);
 
     /**
@@ -340,17 +343,19 @@ public interface ApiService {
 
     /**
      * 我的预约记录列表接口
+     *
      * @param status 0表示已经完成
-     * @param page 要数
-     * @param size 页面大小
+     * @param page   要数
+     * @param size   页面大小
      * @return
      */
     @POST("api/v1.user_park/appointment")
     @FormUrlEncoded
-    Observable<BaseEntity<MyAppointmentBean>> getAppointment(@Field("status") String status,@Field("page") String page,@Field("size") String size);
+    Observable<BaseEntity<MyAppointmentBean>> getAppointment(@Field("status") String status, @Field("page") String page, @Field("size") String size);
 
     /**
      * 取消预约
+     *
      * @param unitId 车位编号
      * @return
      */
@@ -360,6 +365,7 @@ public interface ApiService {
 
     /**
      * 车辆到达
+     *
      * @param unitId 车位编号
      * @return
      */
@@ -380,8 +386,19 @@ public interface ApiService {
      * “pay_type” 支付类型ID "1"=>"alipay","2"=>"wxpay","3"=>"bankpay","4"=>"qianbao"
      * “unit_id”  （预约/结算）需要  车位ID
      */
-    @POST("api/v1.payorder/dopay")
-    Observable<BaseEntity> orderParkPay(@Field("subject") String subject, @Field("detail") String detail
+    @POST("api/v1/dopay")
+    @FormUrlEncoded
+    Observable<BaseEntity> doPay(@Field("subject") String subject, @Field("detail") String detail
+            , @Field("money") String money, @Field("product_id") int product_id
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+
+
+    /**
+     *支付宝支付接口
+     */
+    @POST("api/v1/dopay")
+    @FormUrlEncoded
+    Observable<BaseEntity<AlPayBean>> alPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
             , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
 
@@ -425,4 +442,11 @@ public interface ApiService {
     @POST("api/v1.region/getAreaByName")
     @FormUrlEncoded
     Observable<BaseEntity<List<CityAreaBean>>> getAreaInfo(@Field("city") String city);
+
+    /**
+     * 获取车场详情
+     */
+    @POST("api/v1/getList/testadmin/zwp")
+    @FormUrlEncoded
+    Observable<BaseEntity<ParkDetailBean>> getParkDetail(@Field("parking_id") String parking_id);
 }

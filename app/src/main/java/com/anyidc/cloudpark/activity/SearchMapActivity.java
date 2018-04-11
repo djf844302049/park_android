@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -67,6 +68,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView rlvHistory;
     private RecyclerView rlvPark;
     private XRefreshView refreshView;
+    private RelativeLayout rlParkDetail;
     private List<String> hotAreaList = new ArrayList<>();
     private List<String> searchList = new ArrayList<>();
     private List<ParkSearchBean.ParkBean> parkList = new ArrayList<>();
@@ -82,6 +84,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout llSearch, llParkMess, llMap, llParkList;
     private TextView tvCancel, tvArea, tvNearby, tvParkName, tvParkAddress, tvParkTotalNum, tvParkRemainNum, tvParkFeeRegu, tvDistance;
     private ImageView ivParkList, ivArrow;
+    private ParkSearchBean.ParkBean parkBean;
     private int areaId;
     private int page = 1;
     private int nearPage = 1;
@@ -93,6 +96,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     private boolean area;
     private String target;
     private String city;
+    private String dis;
     private int from;
     private AMap aMap;
     private double lat;
@@ -178,6 +182,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.tv_clear_history).setOnClickListener(this);
         findViewById(R.id.tv_search_map).setOnClickListener(this);
         findViewById(R.id.tv_search_list).setOnClickListener(this);
+        findViewById(R.id.tv_list_cancel).setOnClickListener(this);
+        rlParkDetail = findViewById(R.id.rl_park_detail);
+        rlParkDetail.setOnClickListener(this);
+        rlParkDetail.setEnabled(false);
         llSearch = findViewById(R.id.ll_search);
         llMap = findViewById(R.id.ll_map_view);
         llParkList = findViewById(R.id.ll_park_list);
@@ -225,6 +233,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         RecyclerView.LayoutManager manager1 = new LinearLayoutManager(this);
         rlvPark.setLayoutManager(manager1);
         parkListAdapter = new ParkListAdapter(parkList);
+        parkListAdapter.setOnItemClickListener((view, position) -> {
+            ParkSearchBean.ParkBean parkBean = parkList.get(position);
+            SelectUnitParkActivity.start(SearchMapActivity.this, String.valueOf(parkBean.getParking_id()));
+        });
         rlvPark.setAdapter(parkListAdapter);
         refreshView = findViewById(R.id.my_xrefreshview);
         refreshView.setPullRefreshEnable(false);
@@ -287,6 +299,15 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 parkListAdapter.notifyDataSetChanged();
                 break;
             case R.id.btn_navigation:
+                break;
+            case R.id.rl_park_detail:
+                if (parkBean == null) {
+                    return;
+                }
+                SelectUnitParkActivity.start(this, String.valueOf(parkBean.getParking_id()));
+                break;
+            case R.id.tv_list_cancel:
+                llParkList.setVisibility(View.GONE);
                 break;
         }
     }
@@ -389,6 +410,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void search(String target) {
+        from = 4;
         this.target = target;
         nearby = false;
         search = true;
@@ -423,7 +445,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             tvParkName.setText(target);
                             float distance = AMapUtils.calculateLineDistance(latLng, new LatLng(lat, lng)) / 1000;
                             DecimalFormat format = new DecimalFormat("0.00");
-                            String dis = format.format(distance) + "km";
+                            dis = format.format(distance) + "km";
                             tvDistance.setText("距离：" + dis);
                             tvParkAddress.setText(target);
                         }
@@ -518,7 +540,7 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.getObject() instanceof ParkSearchBean.ParkBean) {
-            ParkSearchBean.ParkBean parkBean = (ParkSearchBean.ParkBean) marker.getObject();
+            parkBean = (ParkSearchBean.ParkBean) marker.getObject();
             llParkMess.setVisibility(View.VISIBLE);
             tvParkTotalNum.setVisibility(View.VISIBLE);
             tvParkRemainNum.setVisibility(View.VISIBLE);
@@ -530,6 +552,20 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
             tvParkTotalNum.setText("车位数：" + parkBean.getNum());
             tvParkRemainNum.setText("空车位数：" + parkBean.getAvailable_num());
 //        tvParkName.setText();收费规则
+            rlParkDetail.setEnabled(true);
+        } else {
+            if ("我的位置".equals(marker.getSnippet())) {
+                llParkMess.setVisibility(View.GONE);
+                return false;
+            }
+            tvParkTotalNum.setVisibility(View.GONE);
+            tvParkRemainNum.setVisibility(View.GONE);
+            tvParkFeeRegu.setVisibility(View.GONE);
+            ivArrow.setVisibility(View.GONE);
+            tvParkName.setText(target);
+            tvDistance.setText("距离：" + dis);
+            tvParkAddress.setText(target);
+            rlParkDetail.setEnabled(false);
         }
         return false;
     }

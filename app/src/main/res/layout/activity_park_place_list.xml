@@ -39,11 +39,14 @@
             android:paddingLeft="@dimen/dp25"
             android:text="@string/search_place" />
 
-        <View
+        <TextView
+            android:id="@+id/tv_list_cancel"
+            style="@style/text_white_16sp"
             android:layout_width="@dimen/dp40"
-            android:layout_height="0dp"
+            android:gravity="center"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:text="取消" />
 
     </LinearLayout>
 
