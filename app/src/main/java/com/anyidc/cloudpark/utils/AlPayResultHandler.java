@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.moduel.PayResult;
@@ -31,6 +32,7 @@ public class AlPayResultHandler extends Handler {
                 /**
                  对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
                  */
+                Log.e("tag", payResult.getMemo() + "-----------------" + payResult.getResult() + "------------" + payResult.getResultStatus());
                 String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                 String resultStatus = payResult.getResultStatus();
                 // 判断resultStatus 为9000则代表支付成功

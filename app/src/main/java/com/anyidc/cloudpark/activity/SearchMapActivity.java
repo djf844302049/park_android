@@ -307,6 +307,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 SelectUnitParkActivity.start(this, String.valueOf(parkBean.getParking_id()));
                 break;
             case R.id.tv_list_cancel:
+                if (from == 1) {
+                    finish();
+                    return;
+                }
                 llParkList.setVisibility(View.GONE);
                 break;
         }

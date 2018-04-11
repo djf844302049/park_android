@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -106,8 +105,7 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
                 Runnable payRunnable = () -> {
-                    String orderInfo = baseEntity.getData().getCallback().getOrderInfo();
-                    Log.e("tag", orderInfo);
+                    String orderInfo = baseEntity.getData().getCallback();
                     PayTask alipay = new PayTask(RechargeActivity.this);
                     Map<String, String> result = alipay.payV2(orderInfo, true);
                     Message msg = new Message();
