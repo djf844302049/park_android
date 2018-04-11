@@ -58,7 +58,7 @@ public class AppointmentRecordAdapter extends RecyclerView.Adapter<AppointmentRe
                 holder.tvDate.setText(dateArr[0]);
             }
             //预约时间
-            String appointmentStr = stampToDate(appointmentBean.getCreate_time() + appointmentBean.getTimes());
+            String appointmentStr = stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes());
             String[] appointmentArr = appointmentStr.split(" ");
             if(appointmentArr != null && appointmentArr.length > 1) {
                 holder.tvAppointmentTime.setText("预约时间："+ appointmentArr[1]);
