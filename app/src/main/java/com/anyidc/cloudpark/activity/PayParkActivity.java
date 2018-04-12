@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/13.
  */
 
-public class PayParkActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
+public class PayParkActivity extends BaseActivity implements TextWatcher {
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
@@ -49,11 +49,12 @@ public class PayParkActivity extends BaseActivity implements View.OnClickListene
         tvList.add(tv6);
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
-        findViewById(R.id.btn_go_pay).setOnClickListener(this);
+        findViewById(R.id.btn_go_pay).setOnClickListener(clickListener);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         startActivity(new Intent(this, ParkChargeActivity.class));
     }
 

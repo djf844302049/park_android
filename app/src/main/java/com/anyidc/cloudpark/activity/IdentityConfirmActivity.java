@@ -28,7 +28,7 @@ import okhttp3.RequestBody;
  * Created by Administrator on 2018/2/22.
  */
 
-public class IdentityConfirmActivity extends BaseActivity implements View.OnClickListener {
+public class IdentityConfirmActivity extends BaseActivity {
     private EditText etRealName;
     private EditText etIdNum;
     private ImageView ivIdPos;
@@ -60,16 +60,16 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
         etRealName = findViewById(R.id.et_real_name);
         etIdNum = findViewById(R.id.et_id_num);
         ivIdPos = findViewById(R.id.iv_id_pos);
-        ivIdPos.setOnClickListener(this);
+        ivIdPos.setOnClickListener(clickListener);
         ivIdNeg = findViewById(R.id.iv_id_neg);
-        ivIdNeg.setOnClickListener(this);
+        ivIdNeg.setOnClickListener(clickListener);
         btnNext = findViewById(R.id.btn_next_step);
-        btnNext.setOnClickListener(this);
+        btnNext.setOnClickListener(clickListener);
         tvSkip = findViewById(R.id.tv_skip);
         from = getIntent().getIntExtra("from", 0);
         switch (from) {
             case 1:
-                tvSkip.setOnClickListener(this);
+                tvSkip.setOnClickListener(clickListener);
                 break;
             default:
                 btnNext.setText("提交");
@@ -79,7 +79,8 @@ public class IdentityConfirmActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));

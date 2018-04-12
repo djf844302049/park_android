@@ -11,7 +11,7 @@ import com.anyidc.cloudpark.R;
  * Created by Administrator on 2018/4/11.
  */
 
-public class PayResultActivity extends BaseActivity implements View.OnClickListener {
+public class PayResultActivity extends BaseActivity {
     private TextView tvRight, tvPayResult, tvPayTip;
 
     public static void actionStart(Context context, int result, String num) {
@@ -46,12 +46,13 @@ public class PayResultActivity extends BaseActivity implements View.OnClickListe
                 tvPayTip.setText("支付失败，请返回支付界面\n重新进行支付。");
                 break;
         }
-        tvRight.setOnClickListener(this);
-        findViewById(R.id.tv_go_center).setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
+        findViewById(R.id.tv_go_center).setOnClickListener(clickListener);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.tv_right:
                 finish();

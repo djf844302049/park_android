@@ -20,7 +20,7 @@ import com.anyidc.cloudpark.utils.ToastUtil;
  * Created by Administrator on 2018/2/24.
  */
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener {
+public class SettingActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_setting;
@@ -29,15 +29,16 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initData() {
         initTitle("设置");
-        findViewById(R.id.ll_check_update).setOnClickListener(this);
-        findViewById(R.id.ll_about_us).setOnClickListener(this);
-        findViewById(R.id.ll_logout).setOnClickListener(this);
+        findViewById(R.id.ll_check_update).setOnClickListener(clickListener);
+        findViewById(R.id.ll_about_us).setOnClickListener(clickListener);
+        findViewById(R.id.ll_logout).setOnClickListener(clickListener);
         String versionName = (String) SpUtils.get(SpUtils.VERSION_NAME, "");
         ((TextView) findViewById(R.id.tv_version_name)).setText(versionName);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.ll_check_update:
                 checkUpdate();

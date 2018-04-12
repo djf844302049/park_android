@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/26.
  */
 
-public class MyBankCardActivity extends BaseActivity implements View.OnClickListener {
+public class MyBankCardActivity extends BaseActivity {
     private RecyclerView rlvBankCard;
     private List<BankCardBean> list = new ArrayList<>();
     private MyBankCardAdapter adapter;
@@ -34,7 +34,7 @@ public class MyBankCardActivity extends BaseActivity implements View.OnClickList
     protected void initData() {
         initTitle("银行卡");
         rlvBankCard = findViewById(R.id.rlv_bank_card);
-        findViewById(R.id.tv_add_bank).setOnClickListener(this);
+        findViewById(R.id.tv_add_bank).setOnClickListener(clickListener);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvBankCard.setLayoutManager(manager);
         rlvBankCard.setNestedScrollingEnabled(false);
@@ -44,7 +44,8 @@ public class MyBankCardActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         startActivityForResult(new Intent(this, BindBankCardActivity.class),ADDBANKCARD);
     }
 

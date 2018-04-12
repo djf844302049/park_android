@@ -30,7 +30,7 @@ import com.youth.banner.loader.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
+public class MainActivity extends BaseActivity implements AMapLocationListener {
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
@@ -50,11 +50,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initData() {
-        findViewById(R.id.tv_search_place).setOnClickListener(this);
-        findViewById(R.id.iv_mine).setOnClickListener(this);
-        findViewById(R.id.iv_pay_park).setOnClickListener(this);
-        findViewById(R.id.iv_search_park).setOnClickListener(this);
-        findViewById(R.id.iv_park_order).setOnClickListener(this);
+        findViewById(R.id.tv_search_place).setOnClickListener(clickListener);
+        findViewById(R.id.iv_mine).setOnClickListener(clickListener);
+        findViewById(R.id.iv_pay_park).setOnClickListener(clickListener);
+        findViewById(R.id.iv_search_park).setOnClickListener(clickListener);
+        findViewById(R.id.iv_park_order).setOnClickListener(clickListener);
         tvMess = findViewById(R.id.tv_message);
         tvMess.setText(16.0f, 5, Color.parseColor("#959595"));
         tvMess.setAnimTime(300);
@@ -118,7 +118,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_search_place:
                 SearchMapActivity.actionStart(this, 0);

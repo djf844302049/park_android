@@ -2,8 +2,8 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -13,9 +13,10 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
+import com.anyidc.cloudpark.utils.OnCheckDoubleClick;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.githang.statusbar.StatusBarCompat;
-import com.trello.rxlifecycle2.components.RxActivity;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 
 import java.io.File;
@@ -28,9 +29,10 @@ import io.reactivex.schedulers.Schedulers;
  * Created by necer on 2017/6/29.
  */
 
-public abstract class BaseActivity<T> extends RxFragmentActivity {
+public abstract class BaseActivity<T> extends RxFragmentActivity implements OnCheckDoubleClick {
     private TextView tvTitle;
     protected final String TAG = getClass().getSimpleName();
+    protected CheckDoubleClickListener clickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,9 @@ public abstract class BaseActivity<T> extends RxFragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无ActionBar
         setContentView(getLayoutId());
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.top_blue), true);
+        clickListener = new CheckDoubleClickListener(this);
         try {
-            findViewById(R.id.iv_back).setOnClickListener(view -> finish());
+            findViewById(R.id.iv_back).setOnClickListener(clickListener);
             tvTitle = findViewById(R.id.tv_title);
         } catch (Exception e) {
             Log.e(TAG, "控件不存在！！！");
@@ -79,6 +82,14 @@ public abstract class BaseActivity<T> extends RxFragmentActivity {
                                 .subscribeWith(observer);
                     }
                 });
+    }
+
+    @Override
+    public void onCheckDoubleClick(View view) {
+        if (view.getId() == R.id.iv_back) {
+            finish();
+            return;
+        }
     }
 
     @Override

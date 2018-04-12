@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +24,7 @@ import com.anyidc.cloudpark.utils.CountDownRunnable;
  * Created by Administrator on 2018/2/7.
  */
 
-public class RegisterActivity extends BaseActivity implements OnClickListener, TextWatcher {
+public class RegisterActivity extends BaseActivity implements TextWatcher {
     private EditText etPhoneNum;
     private EditText etConfirmCode;
     private EditText etPassword;
@@ -54,10 +53,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
         etConfirmCode = findViewById(R.id.et_confirm_code);
         etPassword = findViewById(R.id.et_password);
         tvGetCode = findViewById(R.id.tv_get_code);
-        tvGetCode.setOnClickListener(this);
+        tvGetCode.setOnClickListener(clickListener);
         tvGetCode.setEnabled(false);
         btnCommit = findViewById(R.id.btn_register);
-        btnCommit.setOnClickListener(this);
+        btnCommit.setOnClickListener(clickListener);
         from = getIntent().getIntExtra("from", 0);
         switch (from) {
             case 1:
@@ -72,7 +71,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, T
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_get_code:
                 getCode();

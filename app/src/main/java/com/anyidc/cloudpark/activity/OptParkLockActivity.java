@@ -20,7 +20,7 @@ import com.anyidc.cloudpark.utils.ToastUtil;
  * Created by Administrator on 2018/3/14.
  */
 
-public class OptParkLockActivity extends BaseActivity implements View.OnClickListener {
+public class OptParkLockActivity extends BaseActivity {
     private ImageView ivUp, ivDown;
     private String parkNum = "";
     private int fromType = 2;
@@ -49,15 +49,16 @@ public class OptParkLockActivity extends BaseActivity implements View.OnClickLis
             return;
         }
         ivUp = findViewById(R.id.iv_up);
-        ivUp.setOnClickListener(this);
+        ivUp.setOnClickListener(clickListener);
         ivDown = findViewById(R.id.iv_down);
-        ivDown.setOnClickListener(this);
+        ivDown.setOnClickListener(clickListener);
         initTitle("操作车位锁");
 
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.iv_up:
                 showConfirmdialog(getString(R.string.up_lock_tip),"rise");

@@ -16,7 +16,7 @@ import com.anyidc.cloudpark.utils.ViewUtils;
  * Created by Administrator on 2018/3/14.
  */
 
-public class ManagerActivity extends BaseActivity implements View.OnClickListener{
+public class ManagerActivity extends BaseActivity{
     private ImageView ivScan,ivUpDown;
 
     public static void start(Context context){
@@ -43,8 +43,8 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
         lp1.height = lp1.width * 509 / 1040;
         ivUpDown.setLayoutParams(lp1);
 
-        ivScan.setOnClickListener(this);
-        ivUpDown.setOnClickListener(this);
+        ivScan.setOnClickListener(clickListener);
+        ivUpDown.setOnClickListener(clickListener);
         initTitle("管理主界面");
     }
 
@@ -58,7 +58,8 @@ public class ManagerActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()){
             case R.id.iv_scan:
                 CarMonitorActivity.start(ManagerActivity.this,0);

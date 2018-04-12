@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/28.
  */
 
-public class MessageCenterActivity extends BaseActivity implements View.OnClickListener {
+public class MessageCenterActivity extends BaseActivity {
     private XRefreshView xRefreshView;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
@@ -44,7 +44,7 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("清空");
-        tvRight.setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
         adapter = new MessageAdapter(messages);
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
@@ -70,7 +70,8 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         if (messages.size() > 0) {
             new AlertDialog.Builder(this)
                     .setTitle("提示")

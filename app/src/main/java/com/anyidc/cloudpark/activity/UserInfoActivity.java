@@ -25,7 +25,7 @@ import okhttp3.RequestBody;
  * Created by Administrator on 2018/2/24.
  */
 
-public class UserInfoActivity extends BaseActivity implements View.OnClickListener {
+public class UserInfoActivity extends BaseActivity {
     private CircleImageView ivAvatar;
     private TextView tvUserName;
     private TextView tvSex;
@@ -43,9 +43,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         ivAvatar = findViewById(R.id.iv_avatar);
         tvUserName = findViewById(R.id.tv_user_name);
         tvSex = findViewById(R.id.tv_sex);
-        findViewById(R.id.ll_avatar).setOnClickListener(this);
-        findViewById(R.id.ll_user_name).setOnClickListener(this);
-        findViewById(R.id.ll_sex).setOnClickListener(this);
+        findViewById(R.id.ll_avatar).setOnClickListener(clickListener);
+        findViewById(R.id.ll_user_name).setOnClickListener(clickListener);
+        findViewById(R.id.ll_sex).setOnClickListener(clickListener);
             Glide.with(this).load(CacheData.getHeader_img())
                     .placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
     }
@@ -68,7 +68,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.ll_avatar:
                 if (imageUtil == null) {

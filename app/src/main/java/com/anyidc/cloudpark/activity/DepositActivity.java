@@ -9,7 +9,7 @@ import com.anyidc.cloudpark.R;
  * Created by Administrator on 2018/3/15.
  */
 
-public class DepositActivity extends BaseActivity implements View.OnClickListener {
+public class DepositActivity extends BaseActivity {
 
     private ImageView ivAlPay, ivWxPay;
 
@@ -21,14 +21,15 @@ public class DepositActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initData() {
         initTitle("缴纳押金");
-        findViewById(R.id.ll_al_pay).setOnClickListener(this);
-        findViewById(R.id.ll_wx_pay).setOnClickListener(this);
+        findViewById(R.id.ll_al_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_wx_pay).setOnClickListener(clickListener);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.ll_al_pay:
                 ivAlPay.setVisibility(View.VISIBLE);

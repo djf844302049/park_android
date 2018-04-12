@@ -57,7 +57,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/8.
  */
 
-public class SearchMapActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMapLocationListener {
+public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClickListener, AMapLocationListener {
 
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
@@ -173,18 +173,18 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         searchView = findViewById(R.id.sv_map);
         initSearchView();
         tvCancel = findViewById(R.id.tv_cancel);
-        tvCancel.setOnClickListener(this);
+        tvCancel.setOnClickListener(clickListener);
         ivParkList = findViewById(R.id.iv_park_list);
-        ivParkList.setOnClickListener(this);
-        findViewById(R.id.iv_back_search).setOnClickListener(this);
-        findViewById(R.id.iv_back_map).setOnClickListener(this);
-        findViewById(R.id.iv_back_list).setOnClickListener(this);
-        findViewById(R.id.tv_clear_history).setOnClickListener(this);
-        findViewById(R.id.tv_search_map).setOnClickListener(this);
-        findViewById(R.id.tv_search_list).setOnClickListener(this);
-        findViewById(R.id.tv_list_cancel).setOnClickListener(this);
+        ivParkList.setOnClickListener(clickListener);
+        findViewById(R.id.iv_back_search).setOnClickListener(clickListener);
+        findViewById(R.id.iv_back_map).setOnClickListener(clickListener);
+        findViewById(R.id.iv_back_list).setOnClickListener(clickListener);
+        findViewById(R.id.tv_clear_history).setOnClickListener(clickListener);
+        findViewById(R.id.tv_search_map).setOnClickListener(clickListener);
+        findViewById(R.id.tv_search_list).setOnClickListener(clickListener);
+        findViewById(R.id.tv_list_cancel).setOnClickListener(clickListener);
         rlParkDetail = findViewById(R.id.rl_park_detail);
-        rlParkDetail.setOnClickListener(this);
+        rlParkDetail.setOnClickListener(clickListener);
         rlParkDetail.setEnabled(false);
         llSearch = findViewById(R.id.ll_search);
         llMap = findViewById(R.id.ll_map_view);
@@ -197,11 +197,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         tvParkRemainNum = findViewById(R.id.tv_park_remain_num);
         tvParkFeeRegu = findViewById(R.id.tv_park_fee_regular);
         ivArrow = findViewById(R.id.iv_arrow);
-        findViewById(R.id.btn_navigation).setOnClickListener(this);
+        findViewById(R.id.btn_navigation).setOnClickListener(clickListener);
         tvArea = findViewById(R.id.tv_area_position);
-        tvArea.setOnClickListener(this);
+        tvArea.setOnClickListener(clickListener);
         tvNearby = findViewById(R.id.tv_distance_first);
-        tvNearby.setOnClickListener(this);
+        tvNearby.setOnClickListener(clickListener);
         mapView = findViewById(R.id.map_view);
         rlvHotArea = findViewById(R.id.rlv_hot_area);
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
@@ -258,7 +258,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_cancel:
                 if (from == 0) {

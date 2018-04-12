@@ -29,7 +29,7 @@ import java.util.Map;
  * Created by Administrator on 2018/3/15.
  */
 
-public class RechargeActivity extends BaseActivity implements View.OnClickListener {
+public class RechargeActivity extends BaseActivity{
     private RecyclerView rlv;
     private RechargeAdapter adapter;
     private List<RechargeBean> list = new ArrayList<>();
@@ -50,9 +50,9 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
     protected void initData() {
         initTitle("充值余额");
         rlv = findViewById(R.id.rlv_recharge);
-        findViewById(R.id.ll_al_pay).setOnClickListener(this);
-        findViewById(R.id.ll_wx_pay).setOnClickListener(this);
-        findViewById(R.id.btn_confirm_pay).setOnClickListener(this);
+        findViewById(R.id.ll_al_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_wx_pay).setOnClickListener(clickListener);
+        findViewById(R.id.btn_confirm_pay).setOnClickListener(clickListener);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
         for (int num : nums) {
@@ -78,7 +78,8 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.ll_al_pay:
                 ivAlPay.setVisibility(View.VISIBLE);

@@ -19,7 +19,7 @@ import com.anyidc.cloudpark.utils.ToastUtil;
  * Created by Administrator on 2018/3/16.
  */
 
-public class BindBankCardActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
+public class BindBankCardActivity extends BaseActivity implements TextWatcher {
     private EditText etRealName, etIdNum, etBankNum, etPhoneNum;
     private TextView tvBank;
     private String cardNum, idNum, phoneNum, bank, realName;
@@ -38,11 +38,12 @@ public class BindBankCardActivity extends BaseActivity implements View.OnClickLi
         etBankNum.addTextChangedListener(this);
         etPhoneNum = findViewById(R.id.et_phone_num);
         tvBank = findViewById(R.id.tv_bank);
-        findViewById(R.id.btn_next_step).setOnClickListener(this);
+        findViewById(R.id.btn_next_step).setOnClickListener(clickListener);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         addBankCard();
     }
 

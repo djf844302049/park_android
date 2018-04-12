@@ -10,7 +10,7 @@ import com.anyidc.cloudpark.R;
  * Created by Administrator on 2018/3/16.
  */
 
-public class ParkChargeActivity extends BaseActivity implements View.OnClickListener {
+public class ParkChargeActivity extends BaseActivity {
     private TextView tvChargeNum, tvParkDuration, tvSharePark, tvDiscount;
     private ImageView ivHelp, ivBalancePay, ivAlPay, ivWxPay;
 
@@ -30,14 +30,15 @@ public class ParkChargeActivity extends BaseActivity implements View.OnClickList
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
         ivBalancePay = findViewById(R.id.iv_balance_pay);
-        findViewById(R.id.btn_pay).setOnClickListener(this);
-        findViewById(R.id.ll_balance_pay).setOnClickListener(this);
-        findViewById(R.id.ll_al_pay).setOnClickListener(this);
-        findViewById(R.id.ll_wx_pay).setOnClickListener(this);
+        findViewById(R.id.btn_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_balance_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_al_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_wx_pay).setOnClickListener(clickListener);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
+        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.ll_balance_pay:
                 ivBalancePay.setImageResource(R.drawable.ic_checked);
