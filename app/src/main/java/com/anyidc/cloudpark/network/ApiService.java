@@ -1,11 +1,11 @@
 package com.anyidc.cloudpark.network;
 
-import com.anyidc.cloudpark.moduel.AlPayBean;
-import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.moduel.AddCarBean;
+import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
+import com.anyidc.cloudpark.moduel.CityAreaBean;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
@@ -23,6 +23,7 @@ import com.anyidc.cloudpark.moduel.TransactionBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.moduel.UsualQuestionBean;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
+import com.anyidc.cloudpark.moduel.WxPayBean;
 
 import java.util.List;
 
@@ -394,11 +395,20 @@ public interface ApiService {
 
 
     /**
-     *支付宝支付接口
+     * 支付宝支付接口
      */
     @POST("api/v1/dopay")
     @FormUrlEncoded
     Observable<BaseEntity<AlPayBean>> alPay(@Field("subject") String subject, @Field("detail") String detail
+            , @Field("money") String money, @Field("product_id") int product_id
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+
+    /**
+     * 微信支付接口
+     */
+    @POST("api/v1/dopay")
+    @FormUrlEncoded
+    Observable<BaseEntity<WxPayBean>> wxPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
             , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
 

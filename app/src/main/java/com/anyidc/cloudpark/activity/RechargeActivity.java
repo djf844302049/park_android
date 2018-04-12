@@ -13,9 +13,12 @@ import com.anyidc.cloudpark.adapter.RechargeAdapter;
 import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.RechargeBean;
+import com.anyidc.cloudpark.moduel.WxPayBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AlPayResultHandler;
+import com.anyidc.cloudpark.utils.WxPayHelper;
+import com.anyidc.cloudpark.wxapi.WXPayEntryActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -97,27 +100,39 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
         if (rechargeNum == 0) {
             return;
         }
-        if (payType == 0) {
-            return;
+        switch (payType) {
+            case 1:
+                getTime(Api.getDefaultService().alPay("充值", "余额充值", String.valueOf(0.01)
+                        , 1, payType, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
+                        Runnable payRunnable = () -> {
+                            String orderInfo = baseEntity.getData().getCallback();
+                            PayTask alipay = new PayTask(RechargeActivity.this);
+                            Map<String, String> result = alipay.payV2(orderInfo, true);
+                            Message msg = new Message();
+                            result.put("num", String.valueOf(rechargeNum));
+                            msg.what = AlPayResultHandler.SDK_PAY_FLAG;
+                            msg.obj = result;
+                            mHandler.sendMessage(msg);
+                        };
+                        // 必须异步调用
+                        Thread payThread = new Thread(payRunnable);
+                        payThread.start();
+                    }
+                });
+                break;
+            case 2:
+                getTime(Api.getDefaultService().wxPay("充值", "余额充值", String.valueOf(0.01)
+                        , 1, payType, null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
+                        WXPayEntryActivity.setNum(String.valueOf(rechargeNum));
+                        WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
+                        WxPayHelper.getInstance().WexPay(callback);
+                    }
+                });
+                break;
         }
-        getTime(Api.getDefaultService().alPay("充值", "余额充值", String.valueOf(0.01)
-                , 1, payType, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
-            @Override
-            public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
-                Runnable payRunnable = () -> {
-                    String orderInfo = baseEntity.getData().getCallback();
-                    PayTask alipay = new PayTask(RechargeActivity.this);
-                    Map<String, String> result = alipay.payV2(orderInfo, true);
-                    Message msg = new Message();
-                    result.put("num", String.valueOf(rechargeNum));
-                    msg.what = AlPayResultHandler.SDK_PAY_FLAG;
-                    msg.obj = result;
-                    mHandler.sendMessage(msg);
-                };
-                // 必须异步调用
-                Thread payThread = new Thread(payRunnable);
-                payThread.start();
-            }
-        });
     }
 }
