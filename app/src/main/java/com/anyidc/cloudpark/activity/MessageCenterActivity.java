@@ -71,7 +71,6 @@ public class MessageCenterActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         if (messages.size() > 0) {
             new AlertDialog.Builder(this)
                     .setTitle("提示")

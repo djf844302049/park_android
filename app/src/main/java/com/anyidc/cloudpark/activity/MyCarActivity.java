@@ -83,7 +83,6 @@ public class MyCarActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.btn_id_confirm:
                 break;

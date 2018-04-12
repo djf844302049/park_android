@@ -38,7 +38,6 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.ll_check_update:
                 checkUpdate();

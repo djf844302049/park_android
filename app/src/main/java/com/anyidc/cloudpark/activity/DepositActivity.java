@@ -21,24 +21,16 @@ public class DepositActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("缴纳押金");
-        findViewById(R.id.ll_al_pay).setOnClickListener(clickListener);
-        findViewById(R.id.ll_wx_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
+            ivAlPay.setVisibility(View.VISIBLE);
+            ivWxPay.setVisibility(View.GONE);
+        });
+        findViewById(R.id.ll_wx_pay).setOnClickListener(v -> {
+            ivAlPay.setVisibility(View.GONE);
+            ivWxPay.setVisibility(View.VISIBLE);
+        });
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
     }
 
-    @Override
-    public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
-        switch (v.getId()) {
-            case R.id.ll_al_pay:
-                ivAlPay.setVisibility(View.VISIBLE);
-                ivWxPay.setVisibility(View.GONE);
-                break;
-            case R.id.ll_wx_pay:
-                ivAlPay.setVisibility(View.GONE);
-                ivWxPay.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
 }

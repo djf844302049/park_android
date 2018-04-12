@@ -29,7 +29,7 @@ import java.util.Map;
  * Created by Administrator on 2018/3/15.
  */
 
-public class RechargeActivity extends BaseActivity{
+public class RechargeActivity extends BaseActivity {
     private RecyclerView rlv;
     private RechargeAdapter adapter;
     private List<RechargeBean> list = new ArrayList<>();
@@ -50,8 +50,16 @@ public class RechargeActivity extends BaseActivity{
     protected void initData() {
         initTitle("充值余额");
         rlv = findViewById(R.id.rlv_recharge);
-        findViewById(R.id.ll_al_pay).setOnClickListener(clickListener);
-        findViewById(R.id.ll_wx_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
+            ivAlPay.setVisibility(View.VISIBLE);
+            ivWxPay.setVisibility(View.GONE);
+            payType = 1;
+        });
+        findViewById(R.id.ll_wx_pay).setOnClickListener(v -> {
+            ivAlPay.setVisibility(View.GONE);
+            ivWxPay.setVisibility(View.VISIBLE);
+            payType = 2;
+        });
         findViewById(R.id.btn_confirm_pay).setOnClickListener(clickListener);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
@@ -79,18 +87,7 @@ public class RechargeActivity extends BaseActivity{
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         switch (v.getId()) {
-            case R.id.ll_al_pay:
-                ivAlPay.setVisibility(View.VISIBLE);
-                ivWxPay.setVisibility(View.GONE);
-                payType = 1;
-                break;
-            case R.id.ll_wx_pay:
-                ivAlPay.setVisibility(View.GONE);
-                ivWxPay.setVisibility(View.VISIBLE);
-                payType = 2;
-                break;
             case R.id.btn_confirm_pay:
                 recharge();
                 break;

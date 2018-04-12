@@ -43,7 +43,6 @@ public class BindBankCardActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         addBankCard();
     }
 

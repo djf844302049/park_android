@@ -84,7 +84,6 @@ public class InfoEditActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_right:
                 switch (which) {

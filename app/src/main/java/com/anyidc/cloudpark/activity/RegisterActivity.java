@@ -72,7 +72,6 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_get_code:
                 getCode();

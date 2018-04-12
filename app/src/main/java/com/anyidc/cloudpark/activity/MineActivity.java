@@ -84,7 +84,6 @@ public class MineActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.ll_setting:
                 startActivity(new Intent(this, SettingActivity.class));

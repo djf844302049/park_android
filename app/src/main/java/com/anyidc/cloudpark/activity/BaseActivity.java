@@ -43,7 +43,7 @@ public abstract class BaseActivity<T> extends RxFragmentActivity implements OnCh
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.top_blue), true);
         clickListener = new CheckDoubleClickListener(this);
         try {
-            findViewById(R.id.iv_back).setOnClickListener(clickListener);
+            findViewById(R.id.iv_back).setOnClickListener(new CheckDoubleClickListener(view -> finish()));
             tvTitle = findViewById(R.id.tv_title);
         } catch (Exception e) {
             Log.e(TAG, "控件不存在！！！");
@@ -86,10 +86,7 @@ public abstract class BaseActivity<T> extends RxFragmentActivity implements OnCh
 
     @Override
     public void onCheckDoubleClick(View view) {
-        if (view.getId() == R.id.iv_back) {
-            finish();
-            return;
-        }
+
     }
 
     @Override

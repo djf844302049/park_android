@@ -52,7 +52,6 @@ public class PayResultActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.tv_right:
                 finish();

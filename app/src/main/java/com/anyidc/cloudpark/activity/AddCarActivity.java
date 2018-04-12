@@ -164,7 +164,6 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.btn_confirm_add:
                 commitAddCar();

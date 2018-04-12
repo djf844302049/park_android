@@ -31,30 +31,26 @@ public class ParkChargeActivity extends BaseActivity {
         ivWxPay = findViewById(R.id.iv_wx_pay);
         ivBalancePay = findViewById(R.id.iv_balance_pay);
         findViewById(R.id.btn_pay).setOnClickListener(clickListener);
-        findViewById(R.id.ll_balance_pay).setOnClickListener(clickListener);
-        findViewById(R.id.ll_al_pay).setOnClickListener(clickListener);
-        findViewById(R.id.ll_wx_pay).setOnClickListener(clickListener);
+        findViewById(R.id.ll_balance_pay).setOnClickListener(v -> {
+            ivBalancePay.setImageResource(R.drawable.ic_checked);
+            ivAlPay.setImageResource(R.drawable.ic_message_check);
+            ivWxPay.setImageResource(R.drawable.ic_message_check);
+        });
+        findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
+            ivBalancePay.setImageResource(R.drawable.ic_message_check);
+            ivAlPay.setImageResource(R.drawable.ic_checked);
+            ivWxPay.setImageResource(R.drawable.ic_message_check);
+        });
+        findViewById(R.id.ll_wx_pay).setOnClickListener(v -> {
+            ivBalancePay.setImageResource(R.drawable.ic_message_check);
+            ivAlPay.setImageResource(R.drawable.ic_message_check);
+            ivWxPay.setImageResource(R.drawable.ic_checked);
+        });
     }
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         switch (v.getId()) {
-            case R.id.ll_balance_pay:
-                ivBalancePay.setImageResource(R.drawable.ic_checked);
-                ivAlPay.setImageResource(R.drawable.ic_message_check);
-                ivWxPay.setImageResource(R.drawable.ic_message_check);
-                break;
-            case R.id.ll_al_pay:
-                ivBalancePay.setImageResource(R.drawable.ic_message_check);
-                ivAlPay.setImageResource(R.drawable.ic_checked);
-                ivWxPay.setImageResource(R.drawable.ic_message_check);
-                break;
-            case R.id.ll_wx_pay:
-                ivBalancePay.setImageResource(R.drawable.ic_message_check);
-                ivAlPay.setImageResource(R.drawable.ic_message_check);
-                ivWxPay.setImageResource(R.drawable.ic_checked);
-                break;
             case R.id.btn_pay:
                 break;
         }

@@ -47,7 +47,6 @@ public class PurseActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.btn_recharge_deposit:
                 if ("缴纳押金".equals(btnDeposit.getText().toString().trim()))

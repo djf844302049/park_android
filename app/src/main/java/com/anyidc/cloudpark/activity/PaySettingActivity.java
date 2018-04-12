@@ -47,7 +47,6 @@ public class PaySettingActivity extends BaseActivity{
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         if (!isSetPayKey) {
             LoginByCodeActivity.actionStart(this, 1);
             return;

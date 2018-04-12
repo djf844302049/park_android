@@ -67,7 +67,6 @@ public class CompleteBaseInfoActivity extends BaseActivity  {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));

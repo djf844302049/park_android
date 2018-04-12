@@ -54,7 +54,6 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         startActivity(new Intent(this, ParkChargeActivity.class));
     }
 

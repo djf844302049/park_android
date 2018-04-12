@@ -58,7 +58,6 @@ public class OptParkLockActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.iv_up:
                 showConfirmdialog(getString(R.string.up_lock_tip),"rise");

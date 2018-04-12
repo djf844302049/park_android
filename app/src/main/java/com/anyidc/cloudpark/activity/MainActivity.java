@@ -119,7 +119,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_search_place:
                 SearchMapActivity.actionStart(this, 0);

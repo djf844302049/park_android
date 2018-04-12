@@ -113,7 +113,6 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         String parkNum = etNum.getText().toString();
         if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
             return;

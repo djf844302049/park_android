@@ -48,7 +48,6 @@ public class CutImageActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         Bitmap bitmap = clipLayout.clip();
         String fileName = "file.png";
         String path = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + fileName;

@@ -45,7 +45,6 @@ public class MyBankCardActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         startActivityForResult(new Intent(this, BindBankCardActivity.class),ADDBANKCARD);
     }
 

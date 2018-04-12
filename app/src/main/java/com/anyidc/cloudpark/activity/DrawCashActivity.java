@@ -63,7 +63,6 @@ public class DrawCashActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        super.onCheckDoubleClick(v);
         switch (v.getId()) {
             case R.id.rl_bank_choice:
                 getBankCardList();

@@ -59,7 +59,6 @@ public class ManagerActivity extends BaseActivity{
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()){
             case R.id.iv_scan:
                 CarMonitorActivity.start(ManagerActivity.this,0);

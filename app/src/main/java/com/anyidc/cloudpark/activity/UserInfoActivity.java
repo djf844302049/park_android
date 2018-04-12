@@ -69,7 +69,6 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     public void onCheckDoubleClick(View view) {
-        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.ll_avatar:
                 if (imageUtil == null) {
