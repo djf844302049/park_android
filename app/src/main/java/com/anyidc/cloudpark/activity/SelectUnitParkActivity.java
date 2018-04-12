@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.ItemClickListener;
 import com.anyidc.cloudpark.adapter.ParkUnitNumAdapter;
@@ -33,7 +45,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2018/4/3.
  */
 
-public class SelectUnitParkActivity extends BaseActivity implements View.OnClickListener{
+public class SelectUnitParkActivity extends BaseActivity implements View.OnClickListener,AMapLocationListener {
     private String id;
 
     private TextView tvTitle,tvAddress,tvDistance,tvTotal,tvRemain;
@@ -49,6 +61,12 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
 
     private ParkUnitNumAdapter parkUnitNumAdapter;
     private ShareParkUnitAdapter shareParkUnitAdapter;
+
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
+    private double lat = 0;
+    private double lng = 0;
+
     public static void start(Context context,String id){
         Intent intent = new Intent(context,SelectUnitParkActivity.class);
         intent.putExtra("id",id);
@@ -79,6 +97,20 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         tvCarAuth.setOnClickListener(this);
         tvPay.setOnClickListener(this);
         getParkDetial();
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+        //初始化AMapLocationClientOption对象
+        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果
+        mLocationOption.setOnceLocation(false);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        mLocationClient.startLocation();
     }
 
     @Override
@@ -105,6 +137,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                         dataList = data.getList();
                         shareList = data.getSharelist();
                         updateView();
+                        updateDistance();
                     }
                 });
     }
@@ -177,5 +210,30 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             recyclerView.setAdapter(parkUnitNumAdapter);
         }
 
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                lat = aMapLocation.getLatitude();//获取纬度
+                lng = aMapLocation.getLongitude();//获取经度
+                updateDistance();
+            } else {
+                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + aMapLocation.getErrorCode() + ", errInfo:"
+                        + aMapLocation.getErrorInfo());
+            }
+        }
+    }
+
+    private void updateDistance(){
+        if(lat != 0 && lng != 0 && parkInfo != null){
+            LatLng latLng = new LatLng(lat,lng);
+            LatLng latLng1 = new LatLng(Double.parseDouble(parkInfo.getLat()),Double.parseDouble(parkInfo.getLng()));
+            float distance = AMapUtils.calculateLineDistance(latLng,latLng1);
+            tvDistance.setText(distance + "km");
+        }
     }
 }
