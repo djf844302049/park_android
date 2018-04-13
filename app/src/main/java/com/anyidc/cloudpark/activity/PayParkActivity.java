@@ -1,7 +1,7 @@
 package com.anyidc.cloudpark.activity;
 
-import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +25,7 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
     private TextView tv6;
     private EditText etNum;
     private List<TextView> tvList;
+    private String unitId;
 
     @Override
     protected int getLayoutId() {
@@ -54,7 +55,10 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        startActivity(new Intent(this, ParkChargeActivity.class));
+        if (TextUtils.isEmpty(unitId) || unitId.length() != 6) {
+            return;
+        }
+        ParkChargeActivity.actionStart(this, unitId);
     }
 
     @Override
@@ -69,6 +73,7 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
+        unitId = s.toString();
         setNum(s.toString());
     }
 

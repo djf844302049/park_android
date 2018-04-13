@@ -87,7 +87,6 @@ public class CacheData {
     /**
      * 是否开启小额免密
      * 0->未开启  1->开启
-     *
      * @return
      */
     public static int isFreePay() {

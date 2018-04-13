@@ -84,7 +84,6 @@
             android:layout_alignTop="@id/ll_num"
             android:background="@null"
             android:cursorVisible="false"
-            android:inputType="number"
             android:maxLength="6"
             android:textColor="#0000" />
 

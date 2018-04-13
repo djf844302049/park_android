@@ -23,7 +23,6 @@
                 style="@style/text_black_18sp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
-                android:text="￥15"
                 android:textSize="20sp" />
 
             <ImageView
@@ -41,7 +40,6 @@
                 android:layout_below="@id/tv_park_charge_num"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                android:text="停车时间：10:00-10:15    停车时长：15分25秒"
                 android:textSize="15sp" />
 
             <TextView
