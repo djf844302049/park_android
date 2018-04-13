@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.MyShareBean;
 import com.anyidc.cloudpark.moduel.ParkDetailBean;
+import com.anyidc.cloudpark.moduel.ParkInfoBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
@@ -413,6 +414,15 @@ public interface ApiService {
             , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
 
     /**
+     * 余额支付接口
+     */
+    @POST("api/v1/dopay")
+    @FormUrlEncoded
+    Observable<BaseEntity> balancePay(@Field("subject") String subject, @Field("detail") String detail
+            , @Field("money") String money, @Field("product_id") int product_id
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+
+    /**
      * 取消预约接口
      */
     @POST("api/v1.order/cancelAppointment")
@@ -459,4 +469,11 @@ public interface ApiService {
     @POST("api/v1/getList/testadmin/zwp")
     @FormUrlEncoded
     Observable<BaseEntity<ParkDetailBean>> getParkDetail(@Field("parking_id") String parking_id);
+
+    /**
+     * 查询车位订单详情
+     */
+    @POST("api/v1.Parking_lot/getUnitOrder")
+    @FormUrlEncoded
+    Observable<BaseEntity<ParkInfoBean>> getParkOrderInfo(@Field("unit_id") String unit_id);
 }

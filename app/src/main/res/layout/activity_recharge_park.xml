@@ -23,7 +23,6 @@
                 style="@style/text_black_18sp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
-                android:text="￥15"
                 android:textSize="20sp" />
 
             <ImageView
@@ -41,7 +40,6 @@
                 android:layout_below="@id/tv_park_charge_num"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                android:text="停车时间：10:00-10:15    停车时长：15分25秒"
                 android:textSize="15sp" />
 
             <TextView
@@ -54,48 +52,21 @@
                 android:textSize="15sp" />
 
             <LinearLayout
-                android:id="@+id/ll_balance_pay"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/tv_share_park"
-                android:layout_marginTop="30dp"
-                android:background="@color/white"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/text_gray_14sp"
-                    android:layout_marginLeft="20dp"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="@dimen/dp5"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/balance_pay"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/iv_balance_pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_message_check" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ll_al_pay"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/ll_balance_pay"
-                android:layout_marginTop="@dimen/dp1"
+                android:layout_below="@id/tv_share_park"
+                android:layout_marginTop="@dimen/dp30"
                 android:background="@color/white"
                 android:gravity="center_vertical">
 
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/ic_zhifubao"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
-                    android:layout_weight="1"
                     android:text="@string/ali_pay"
                     android:textColor="@color/black" />
 
@@ -119,10 +90,10 @@
                 <TextView
                     style="@style/text_gray_14sp"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/ic_weixin"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
-                    android:layout_weight="1"
                     android:text="@string/wx_pay"
                     android:textColor="@color/black" />
 
@@ -134,11 +105,38 @@
                     android:src="@drawable/ic_message_check" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_balance_pay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/ll_wx_pay"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_gray_14sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_account"
+                    android:drawablePadding="@dimen/dp5"
+                    android:gravity="center_vertical"
+                    android:text="@string/balance_pay"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/iv_balance_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_message_check" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_pay"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@id/ll_wx_pay"
+                android:layout_below="@id/ll_balance_pay"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="50dp"
