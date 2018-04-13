@@ -67,22 +67,22 @@ public class ParkChargeActivity extends BaseActivity {
         findViewById(R.id.btn_pay).setOnClickListener(clickListener);
         llBalancePay = findViewById(R.id.ll_balance_pay);
         llBalancePay.setOnClickListener(v -> {
-            ivBalancePay.setImageResource(R.drawable.ic_checked);
-            ivAlPay.setImageResource(R.drawable.ic_message_check);
-            ivWxPay.setImageResource(R.drawable.ic_message_check);
+            ivBalancePay.setVisibility(View.VISIBLE);
+            ivAlPay.setVisibility(View.GONE);
+            ivWxPay.setVisibility(View.GONE);
             payType = 4;
         });
         findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
             payType = 1;
-            ivBalancePay.setImageResource(R.drawable.ic_message_check);
-            ivAlPay.setImageResource(R.drawable.ic_checked);
-            ivWxPay.setImageResource(R.drawable.ic_message_check);
+            ivBalancePay.setVisibility(View.GONE);
+            ivAlPay.setVisibility(View.VISIBLE);
+            ivWxPay.setVisibility(View.GONE);
         });
         findViewById(R.id.ll_wx_pay).setOnClickListener(v -> {
             payType = 2;
-            ivBalancePay.setImageResource(R.drawable.ic_message_check);
-            ivAlPay.setImageResource(R.drawable.ic_message_check);
-            ivWxPay.setImageResource(R.drawable.ic_checked);
+            ivBalancePay.setVisibility(View.GONE);
+            ivAlPay.setVisibility(View.GONE);
+            ivWxPay.setVisibility(View.VISIBLE);
         });
         weakReference = new WeakReference<>(this);
         mHandler = new AlPayResultHandler(weakReference.get());

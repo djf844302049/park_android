@@ -61,10 +61,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    style="@style/text_gray_14sp"
+                    style="@style/text_gray_16sp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_zhifubao"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
                     android:text="@string/ali_pay"
@@ -74,8 +73,9 @@
                     android:id="@+id/iv_al_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_message_check" />
+                    android:src="@mipmap/img_big_tick" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,10 +88,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    style="@style/text_gray_14sp"
+                    style="@style/text_gray_16sp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_weixin"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
                     android:text="@string/wx_pay"
@@ -102,7 +101,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_message_check" />
+                    android:visibility="gone"
+                    android:src="@mipmap/img_big_tick" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,10 +115,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    style="@style/text_gray_14sp"
+                    style="@style/text_gray_16sp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_account"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
                     android:text="@string/balance_pay"
@@ -128,8 +127,9 @@
                     android:id="@+id/iv_balance_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_message_check" />
+                    android:src="@mipmap/img_big_tick" />
             </LinearLayout>
 
             <Button
