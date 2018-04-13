@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
@@ -17,6 +18,8 @@ import com.anyidc.cloudpark.moduel.WxPayBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AlPayResultHandler;
+import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.WxPayHelper;
 import com.anyidc.cloudpark.wxapi.WXPayEntryActivity;
 
@@ -33,6 +36,7 @@ public class ParkChargeActivity extends BaseActivity {
     private String unitId;
     private AlPayResultHandler mHandler;
     private WeakReference<Context> weakReference;
+    private LinearLayout llBalancePay;
     private String rechargeNum;
     private int payType;
 
@@ -61,7 +65,8 @@ public class ParkChargeActivity extends BaseActivity {
         ivWxPay = findViewById(R.id.iv_wx_pay);
         ivBalancePay = findViewById(R.id.iv_balance_pay);
         findViewById(R.id.btn_pay).setOnClickListener(clickListener);
-        findViewById(R.id.ll_balance_pay).setOnClickListener(v -> {
+        llBalancePay = findViewById(R.id.ll_balance_pay);
+        llBalancePay.setOnClickListener(v -> {
             ivBalancePay.setImageResource(R.drawable.ic_checked);
             ivAlPay.setImageResource(R.drawable.ic_message_check);
             ivWxPay.setImageResource(R.drawable.ic_message_check);
@@ -81,6 +86,9 @@ public class ParkChargeActivity extends BaseActivity {
         });
         weakReference = new WeakReference<>(this);
         mHandler = new AlPayResultHandler(weakReference.get());
+        if (!LoginUtil.isLogin()) {
+            llBalancePay.setVisibility(View.GONE);
+        }
     }
 
     private void getParkInfo() {
@@ -144,14 +152,22 @@ public class ParkChargeActivity extends BaseActivity {
                 });
                 break;
             case 4:
-                getTime(Api.getDefaultService().balancePay("付费", "停车付费", String.valueOf(rechargeNum)
-                        , 4, payType, unitId), new RxObserver<BaseEntity>(this, true) {
-                    @Override
-                    public void onSuccess(BaseEntity baseEntity) {
+                if (CacheData.isFreePay() == 1) {
+                    balancePay();
+                }else {
 
-                    }
-                });
+                }
                 break;
         }
+    }
+
+    private void balancePay() {
+        getTime(Api.getDefaultService().balancePay("付费", "停车付费", String.valueOf(rechargeNum)
+                , 4, payType, unitId), new RxObserver<BaseEntity>(this, true) {
+            @Override
+            public void onSuccess(BaseEntity baseEntity) {
+
+            }
+        });
     }
 }
