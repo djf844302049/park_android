@@ -39,6 +39,7 @@ import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.ViewUtils;
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -233,7 +234,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             LatLng latLng = new LatLng(lat,lng);
             LatLng latLng1 = new LatLng(Double.parseDouble(parkInfo.getLat()),Double.parseDouble(parkInfo.getLng()));
             float distance = AMapUtils.calculateLineDistance(latLng,latLng1);
-            tvDistance.setText(distance + "km");
+            DecimalFormat  fnum  =  new DecimalFormat("##0.00");
+            String dd =fnum.format(distance);
+            tvDistance.setText(dd + "km");
         }
     }
 }
