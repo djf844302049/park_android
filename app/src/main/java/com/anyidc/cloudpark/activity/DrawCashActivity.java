@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/15.
  */
 
-public class DrawCashActivity extends BaseActivity implements View.OnClickListener {
+public class DrawCashActivity extends BaseActivity {
     private BottomSheetDialog dialog;
     private RecyclerView rlvBank;
     private BankChoiceAdapter adapter;
@@ -56,13 +56,13 @@ public class DrawCashActivity extends BaseActivity implements View.OnClickListen
             }
             tvBankCard.setText(list.get(position).getCardInfo());
         });
-        findViewById(R.id.rl_bank_choice).setOnClickListener(this);
-        findViewById(R.id.btn_draw_cash).setOnClickListener(this);
+        findViewById(R.id.rl_bank_choice).setOnClickListener(clickListener);
+        findViewById(R.id.btn_draw_cash).setOnClickListener(clickListener);
     }
 
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
         switch (v.getId()) {
             case R.id.rl_bank_choice:
                 getBankCardList();

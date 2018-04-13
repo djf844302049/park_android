@@ -18,7 +18,7 @@ import com.anyidc.cloudpark.utils.CacheData;
  * Created by Administrator on 2018/2/6.
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity {
     private EditText etPhoneNum;
     private EditText etPassword;
     private TextView tvRight;
@@ -36,10 +36,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText(getResources().getString(R.string.register));
-        tvRight.setOnClickListener(this);
-        findViewById(R.id.tv_login_by_code).setOnClickListener(this);
-        findViewById(R.id.tv_forget_password).setOnClickListener(this);
-        findViewById(R.id.btn_login).setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
+        findViewById(R.id.tv_login_by_code).setOnClickListener(clickListener);
+        findViewById(R.id.tv_forget_password).setOnClickListener(clickListener);
+        findViewById(R.id.btn_login).setOnClickListener(clickListener);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_by_code:
                 LoginByCodeActivity.actionStart(this, 0);

@@ -3,7 +3,6 @@ package com.anyidc.cloudpark.activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,7 +29,7 @@ import okhttp3.RequestBody;
  * Created by Administrator on 2018/2/22.
  */
 
-public class CompleteBaseInfoActivity extends BaseActivity implements OnClickListener {
+public class CompleteBaseInfoActivity extends BaseActivity  {
     private ImageView ivAvatar;
     private EditText etUserName;
     private RadioGroup rbGender;
@@ -47,9 +46,9 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
     @Override
     protected void initData() {
         initTitle("基本信息");
-        findViewById(R.id.tv_skip).setOnClickListener(this);
+        findViewById(R.id.tv_skip).setOnClickListener(clickListener);
         ivAvatar = findViewById(R.id.iv_upload_img);
-        ivAvatar.setOnClickListener(this);
+        ivAvatar.setOnClickListener(clickListener);
         etUserName = findViewById(R.id.et_user_name);
         rbGender = findViewById(R.id.rg_gender);
         rbGender.setOnCheckedChangeListener((radioGroup, i) -> {
@@ -63,11 +62,11 @@ public class CompleteBaseInfoActivity extends BaseActivity implements OnClickLis
             }
         });
         btnNext = findViewById(R.id.btn_next_step);
-        btnNext.setOnClickListener(this);
+        btnNext.setOnClickListener(clickListener);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));

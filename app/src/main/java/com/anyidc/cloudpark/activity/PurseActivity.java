@@ -15,7 +15,7 @@ import com.anyidc.cloudpark.network.RxObserver;
  * Created by Administrator on 2018/3/12.
  */
 
-public class PurseActivity extends BaseActivity implements View.OnClickListener {
+public class PurseActivity extends BaseActivity {
     private TextView tvBalance;
     private TextView tvDepositState;
     private Button btnDeposit;
@@ -32,21 +32,21 @@ public class PurseActivity extends BaseActivity implements View.OnClickListener 
         tvBalance = findViewById(R.id.tv_balance_num);
         tvDepositState = findViewById(R.id.tv_deposit_state);
         btnDeposit = findViewById(R.id.btn_recharge_deposit);
-        findViewById(R.id.btn_recharge_balance).setOnClickListener(this);
-        btnDeposit.setOnClickListener(this);
+        findViewById(R.id.btn_recharge_balance).setOnClickListener(clickListener);
+        btnDeposit.setOnClickListener(clickListener);
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("交易明细");
-        tvRight.setOnClickListener(this);
-        findViewById(R.id.tv_pay_setting).setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
+        findViewById(R.id.tv_pay_setting).setOnClickListener(clickListener);
         btnDrawCash = findViewById(R.id.btn_draw_cash);
-        btnDrawCash.setOnClickListener(this);
+        btnDrawCash.setOnClickListener(clickListener);
         initTitle("我的钱包");
         getWalletInfo();
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
         switch (v.getId()) {
             case R.id.btn_recharge_deposit:
                 if ("缴纳押金".equals(btnDeposit.getText().toString().trim()))

@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/5.
  */
 
-public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnClickListener {
+public class CarMonitorActivity extends BaseActivity implements TextWatcher {
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
@@ -73,7 +72,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
         tvList.add(tv6);
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
-        tvConfirm.setOnClickListener(this);
+        tvConfirm.setOnClickListener(clickListener);
         if(type == 0) {
             initTitle("车辆监控");
             tvTip.setText(R.string.input_watch_car_monitor);
@@ -113,7 +112,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher, OnC
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         String parkNum = etNum.getText().toString();
         if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
             return;

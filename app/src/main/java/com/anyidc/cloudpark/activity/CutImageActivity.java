@@ -15,7 +15,7 @@ import com.anyidc.cloudpark.wiget.clip.ClipImageLayout;
  * Created by swallow on 2018/2/22.
  */
 
-public class CutImageActivity extends BaseActivity implements View.OnClickListener {
+public class CutImageActivity extends BaseActivity {
 
     private ClipImageLayout clipLayout;
 
@@ -38,7 +38,7 @@ public class CutImageActivity extends BaseActivity implements View.OnClickListen
         TextView tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("完成");
-        tvRight.setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
         String path = getIntent().getStringExtra("path");
         float scale = getIntent().getFloatExtra("scale", 1.0f);
         clipLayout.setScale(scale);
@@ -47,7 +47,7 @@ public class CutImageActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         Bitmap bitmap = clipLayout.clip();
         String fileName = "file.png";
         String path = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + fileName;

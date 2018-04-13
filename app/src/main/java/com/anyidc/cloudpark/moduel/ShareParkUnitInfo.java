@@ -17,6 +17,7 @@ public class ShareParkUnitInfo {
     private int bank_card;
     private String order_sn;
     private int frozen_time;
+    private ShareFeeInfo fee;
 
     public class ShareFeeInfo{
         private int first_time;
@@ -160,5 +161,13 @@ public class ShareParkUnitInfo {
 
     public void setFrozen_time(int frozen_time) {
         this.frozen_time = frozen_time;
+    }
+
+    public ShareFeeInfo getFee() {
+        return fee;
+    }
+
+    public void setFee(ShareFeeInfo fee) {
+        this.fee = fee;
     }
 }

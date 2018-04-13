@@ -22,7 +22,7 @@ import com.anyidc.cloudpark.utils.CountDownRunnable;
  * Created by Administrator on 2018/2/7.
  */
 
-public class LoginByCodeActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
+public class LoginByCodeActivity extends BaseActivity implements TextWatcher {
     private EditText etPhoneNum;
     private EditText etConfirmCode;
     private TextView tvGetCode;
@@ -48,9 +48,9 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
         etPhoneNum.addTextChangedListener(this);
         etConfirmCode = findViewById(R.id.et_confirm_code);
         btnLogin = findViewById(R.id.btn_login);
-        btnLogin.setOnClickListener(this);
+        btnLogin.setOnClickListener(clickListener);
         tvGetCode = findViewById(R.id.tv_get_code);
-        tvGetCode.setOnClickListener(this);
+        tvGetCode.setOnClickListener(clickListener);
         tvGetCode.setEnabled(false);
         switch (from) {
             case 0:
@@ -65,7 +65,7 @@ public class LoginByCodeActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
                 getCode();

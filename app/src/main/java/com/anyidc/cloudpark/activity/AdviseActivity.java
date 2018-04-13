@@ -29,7 +29,7 @@ import okhttp3.RequestBody;
  * Created by Administrator on 2018/2/27.
  */
 
-public class AdviseActivity extends BaseActivity implements View.OnClickListener {
+public class AdviseActivity extends BaseActivity{
     private ScrollView svAdvise;
     private LinearLayout llAdviseComplete;
     private ImageView ivPic1;
@@ -64,16 +64,16 @@ public class AdviseActivity extends BaseActivity implements View.OnClickListener
         tvCompleteTip = findViewById(R.id.tv_complete_tip);
         tvCompleteTip.setText(R.string.question_commit_success_tip);
         ivPic1 = findViewById(R.id.iv_pic_1);
-        ivPic1.setOnClickListener(this);
+        ivPic1.setOnClickListener(clickListener);
         ivPic2 = findViewById(R.id.iv_pic_2);
-        ivPic2.setOnClickListener(this);
+        ivPic2.setOnClickListener(clickListener);
         ivPic3 = findViewById(R.id.iv_pic_3);
-        ivPic3.setOnClickListener(this);
-        findViewById(R.id.btn_commit).setOnClickListener(this);
+        ivPic3.setOnClickListener(clickListener);
+        findViewById(R.id.btn_commit).setOnClickListener(clickListener);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.iv_pic_1:
                 which = 1;

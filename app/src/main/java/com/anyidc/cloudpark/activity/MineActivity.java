@@ -11,6 +11,7 @@ import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.bumptech.glide.Glide;
 
@@ -20,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 2018/2/11.
  */
 
-public class MineActivity extends BaseActivity implements View.OnClickListener {
+public class MineActivity extends BaseActivity {
     private TextView tvBalance;
     private TextView tvIdConState;
     private CircleImageView ivAvatar;
@@ -36,19 +37,20 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         initTitle("我的");
-        findViewById(R.id.ll_setting).setOnClickListener(this);
-        findViewById(R.id.ll_usual_question).setOnClickListener(this);
-        findViewById(R.id.ll_id_confirm).setOnClickListener(this);
-        findViewById(R.id.ll_advise).setOnClickListener(this);
-        findViewById(R.id.tv_my_car).setOnClickListener(this);
-        findViewById(R.id.tv_stop_record).setOnClickListener(this);
-        findViewById(R.id.tv_car_monitor).setOnClickListener(this);
-        findViewById(R.id.ll_my_wallet).setOnClickListener(this);
-        findViewById(R.id.ll_share_park).setOnClickListener(this);
-        findViewById(R.id.ll_my_bankcard).setOnClickListener(this);
-        findViewById(R.id.tv_appointment_record).setOnClickListener(this);
+        clickListener = new CheckDoubleClickListener(this);
+        findViewById(R.id.ll_setting).setOnClickListener(clickListener);
+        findViewById(R.id.ll_usual_question).setOnClickListener(clickListener);
+        findViewById(R.id.ll_id_confirm).setOnClickListener(clickListener);
+        findViewById(R.id.ll_advise).setOnClickListener(clickListener);
+        findViewById(R.id.tv_my_car).setOnClickListener(clickListener);
+        findViewById(R.id.tv_stop_record).setOnClickListener(clickListener);
+        findViewById(R.id.tv_car_monitor).setOnClickListener(clickListener);
+        findViewById(R.id.ll_my_wallet).setOnClickListener(clickListener);
+        findViewById(R.id.ll_share_park).setOnClickListener(clickListener);
+        findViewById(R.id.ll_my_bankcard).setOnClickListener(clickListener);
+        findViewById(R.id.tv_appointment_record).setOnClickListener(clickListener);
         tvLogin = findViewById(R.id.tv_login);
-        tvLogin.setOnClickListener(this);
+        tvLogin.setOnClickListener(clickListener);
         tvUserName = findViewById(R.id.tv_user_name);
         tvBalance = findViewById(R.id.tv_balance);
         tvIdConState = findViewById(R.id.tv_id_confirm_state);
@@ -59,7 +61,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         if (LoginUtil.isLogin()) {
             getCenterData();
         }
-        ivRight.setOnClickListener(this);
+        ivRight.setOnClickListener(clickListener);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
         super.onResume();
         if (LoginUtil.isLogin()) {
             Glide.with(this).load(CacheData.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
-            ivAvatar.setOnClickListener(this);
+            ivAvatar.setOnClickListener(clickListener);
             tvLogin.setVisibility(View.GONE);
             tvUserName.setVisibility(View.VISIBLE);
             tvUserName.setText(CacheData.getUserName());
@@ -81,7 +83,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.ll_setting:
                 startActivity(new Intent(this, SettingActivity.class));

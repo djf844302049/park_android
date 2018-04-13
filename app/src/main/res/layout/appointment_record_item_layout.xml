@@ -3,6 +3,7 @@
     android:padding="@dimen/dp10"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/ll_item"
         android:padding="@dimen/dp5"
@@ -10,28 +11,36 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:orientation="horizontal"
             android:padding="5dp">
-            <TextView style="@style/text_gray_14sp"
+
+            <TextView
+                style="@style/text_gray_14sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="订单号：A11124"
-                android:id="@+id/tv_order_num"/>
-            <TextView style="@style/text_gray_14sp"
+                android:id="@+id/tv_order_num" />
+
+            <TextView
+                style="@style/text_gray_14sp"
                 android:text="2018-1-22 10:00:00"
-                android:id="@+id/tv_order_time"/>
+                android:id="@+id/tv_order_time" />
         </LinearLayout>
-        <View style="@style/gray_line_h"/>
+
+        <View style="@style/gray_line_h" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,12 +48,14 @@
                 android:textColor="#060606"
                 android:textSize="14sp"
                 android:text="XXX停车场"
-                android:id="@+id/tv_park_name"/>
+                android:id="@+id/tv_park_name" />
+
             <RelativeLayout
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tv_doc1"
                     android:layout_width="wrap_content"
@@ -55,7 +66,8 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:textSize="14sp"
-                    android:text="."/>
+                    android:text="." />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,13 +77,15 @@
                     android:textSize="14sp"
                     android:text="1月22日"
                     android:layout_toRightOf="@+id/tv_doc1"
-                    android:id="@+id/tv_park_date"/>
+                    android:id="@+id/tv_park_date" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/tv_doc2"
                     android:layout_width="wrap_content"
@@ -82,7 +96,8 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:textSize="14sp"
-                    android:text="."/>
+                    android:text="." />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,7 +107,8 @@
                     android:textSize="14sp"
                     android:text="预约时间：1月22日"
                     android:layout_toRightOf="@+id/tv_doc2"
-                    android:id="@+id/tv_appointment_time"/>
+                    android:id="@+id/tv_appointment_time" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,7 +119,7 @@
                     android:gravity="right"
                     android:text="到达时间：1月22日"
                     android:layout_toRightOf="@+id/tv_appointment_time"
-                    android:id="@+id/tv_arrive_time"/>
+                    android:id="@+id/tv_arrive_time" />
             </RelativeLayout>
 
         </LinearLayout>

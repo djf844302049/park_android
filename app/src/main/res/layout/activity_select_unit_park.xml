@@ -43,7 +43,7 @@
     <ScrollView
         android:scrollbars="none"
         android:layout_below="@+id/title_bar"
-        android:paddingBottom="@dimen/dp20"
+        android:paddingBottom="@dimen/dp40"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -64,6 +64,8 @@
             </HorizontalScrollView>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_unit_list"
+                android:padding="@dimen/dp10"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp200">
 

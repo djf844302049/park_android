@@ -57,7 +57,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/8.
  */
 
-public class SearchMapActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMapLocationListener {
+public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClickListener, AMapLocationListener {
 
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
@@ -173,18 +173,18 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         searchView = findViewById(R.id.sv_map);
         initSearchView();
         tvCancel = findViewById(R.id.tv_cancel);
-        tvCancel.setOnClickListener(this);
+        tvCancel.setOnClickListener(clickListener);
         ivParkList = findViewById(R.id.iv_park_list);
-        ivParkList.setOnClickListener(this);
-        findViewById(R.id.iv_back_search).setOnClickListener(this);
-        findViewById(R.id.iv_back_map).setOnClickListener(this);
-        findViewById(R.id.iv_back_list).setOnClickListener(this);
-        findViewById(R.id.tv_clear_history).setOnClickListener(this);
-        findViewById(R.id.tv_search_map).setOnClickListener(this);
-        findViewById(R.id.tv_search_list).setOnClickListener(this);
-        findViewById(R.id.tv_list_cancel).setOnClickListener(this);
+        ivParkList.setOnClickListener(clickListener);
+        findViewById(R.id.iv_back_search).setOnClickListener(clickListener);
+        findViewById(R.id.iv_back_map).setOnClickListener(clickListener);
+        findViewById(R.id.iv_back_list).setOnClickListener(clickListener);
+        findViewById(R.id.tv_clear_history).setOnClickListener(clickListener);
+        findViewById(R.id.tv_search_map).setOnClickListener(clickListener);
+        findViewById(R.id.tv_search_list).setOnClickListener(clickListener);
+        findViewById(R.id.tv_list_cancel).setOnClickListener(clickListener);
         rlParkDetail = findViewById(R.id.rl_park_detail);
-        rlParkDetail.setOnClickListener(this);
+        rlParkDetail.setOnClickListener(clickListener);
         rlParkDetail.setEnabled(false);
         llSearch = findViewById(R.id.ll_search);
         llMap = findViewById(R.id.ll_map_view);
@@ -197,11 +197,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
         tvParkRemainNum = findViewById(R.id.tv_park_remain_num);
         tvParkFeeRegu = findViewById(R.id.tv_park_fee_regular);
         ivArrow = findViewById(R.id.iv_arrow);
-        findViewById(R.id.btn_navigation).setOnClickListener(this);
+        findViewById(R.id.btn_navigation).setOnClickListener(clickListener);
         tvArea = findViewById(R.id.tv_area_position);
-        tvArea.setOnClickListener(this);
+        tvArea.setOnClickListener(clickListener);
         tvNearby = findViewById(R.id.tv_distance_first);
-        tvNearby.setOnClickListener(this);
+        tvNearby.setOnClickListener(clickListener);
         mapView = findViewById(R.id.map_view);
         rlvHotArea = findViewById(R.id.rlv_hot_area);
         RecyclerView.LayoutManager layoutManager = new FlowLayoutManager();
@@ -258,7 +258,8 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
+        super.onCheckDoubleClick(view);
         switch (view.getId()) {
             case R.id.tv_cancel:
                 if (from == 0) {
@@ -307,6 +308,10 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                 SelectUnitParkActivity.start(this, String.valueOf(parkBean.getParking_id()));
                 break;
             case R.id.tv_list_cancel:
+                if (from == 1) {
+                    finish();
+                    return;
+                }
                 llParkList.setVisibility(View.GONE);
                 break;
         }
@@ -385,12 +390,12 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                     public void onSuccess(BaseEntity<ParkSearchBean> baseEntity) {
                         refreshView.stopLoadMore();
                         searchView.clearFocus();
-                        nearPage = baseEntity.getData().getPage_num() + 1;
-                        if (baseEntity.getData().getTotal() < 10) {
+                        nearPage++;
+                        List<ParkSearchBean.ParkBean> park = baseEntity.getData().getPark();
+                        if (park.size() < 10) {
                             nearbyLoad = false;
                             refreshView.setPullLoadEnable(false);
                         }
-                        List<ParkSearchBean.ParkBean> park = baseEntity.getData().getPark();
                         for (ParkSearchBean.ParkBean parkBean : park) {
                             LatLng latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
                             MarkerOptions markerOption = new MarkerOptions();
@@ -449,11 +454,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             tvDistance.setText("距离：" + dis);
                             tvParkAddress.setText(target);
                         }
-                        if (data.getTotal() < 10) {
+                        page++;
+                        List<ParkSearchBean.ParkBean> park = data.getPark();
+                        if (park.size() < 10) {
                             searchLoad = false;
                         }
-                        page = data.getPage_num() + 1;
-                        List<ParkSearchBean.ParkBean> park = data.getPark();
                         for (ParkSearchBean.ParkBean parkBean : park) {
                             LatLng latLng = new LatLng(parkBean.getLat(), parkBean.getLng());
                             MarkerOptions markerOption = new MarkerOptions();
@@ -498,11 +503,11 @@ public class SearchMapActivity extends BaseActivity implements View.OnClickListe
                             parkList.clear();
                         }
                         refreshView.stopLoadMore();
-                        areaPage = baseEntity.getData().getPage_num() + 1;
-                        if (baseEntity.getData().getTotal() < 10) {
+                        areaPage++;
+                        ParkSearchBean data = baseEntity.getData();
+                        if (data.getPark().size() < 10) {
                             refreshView.setPullLoadEnable(false);
                         }
-                        ParkSearchBean data = baseEntity.getData();
                         parkList.addAll(data.getPark());
                         parkListAdapter.notifyDataSetChanged();
                     }

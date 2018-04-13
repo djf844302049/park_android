@@ -19,7 +19,7 @@ import com.anyidc.cloudpark.utils.CacheData;
  * Created by Administrator on 2018/2/26.
  */
 
-public class InfoEditActivity extends BaseActivity implements View.OnClickListener {
+public class InfoEditActivity extends BaseActivity {
     private TextView tvRight;
     private ImageView ivMaleCheck;
     private ImageView ivFemaleCheck;
@@ -47,11 +47,11 @@ public class InfoEditActivity extends BaseActivity implements View.OnClickListen
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("完成");
-        tvRight.setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
         llMale = findViewById(R.id.ll_male);
-        llMale.setOnClickListener(this);
+        llMale.setOnClickListener(clickListener);
         llFemale = findViewById(R.id.ll_female);
-        llFemale.setOnClickListener(this);
+        llFemale.setOnClickListener(clickListener);
         etUserName = findViewById(R.id.et_user_name);
         ivMaleCheck = findViewById(R.id.iv_male_check);
         ivFemaleCheck = findViewById(R.id.iv_female_check);
@@ -83,7 +83,7 @@ public class InfoEditActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.tv_right:
                 switch (which) {

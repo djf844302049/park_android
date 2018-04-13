@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/1.
  */
 
-public class MyCarActivity extends BaseActivity implements View.OnClickListener {
+public class MyCarActivity extends BaseActivity {
     private RecyclerView rlvCars;
     private Button btnIdConfirm;
     private Button btnPaiDeposite;
@@ -38,13 +38,13 @@ public class MyCarActivity extends BaseActivity implements View.OnClickListener 
         initTitle("我的车辆");
         rlvCars = findViewById(R.id.rlv_car_list);
         btnIdConfirm = findViewById(R.id.btn_id_confirm);
-        btnIdConfirm.setOnClickListener(this);
+        btnIdConfirm.setOnClickListener(clickListener);
         btnPaiDeposite = findViewById(R.id.btn_recharge_deposit);
-        btnPaiDeposite.setOnClickListener(this);
+        btnPaiDeposite.setOnClickListener(clickListener);
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("编辑");
-        tvRight.setOnClickListener(this);
+        tvRight.setOnClickListener(clickListener);
         adapter = new CarListAdapter(this, cars);
         adapter.setOnItemClickListener((view, position) -> {
             MyCarBean myCarBean = cars.get(position);
@@ -56,7 +56,7 @@ public class MyCarActivity extends BaseActivity implements View.OnClickListener 
         rlvCars.setLayoutManager(manager);
         rlvCars.setNestedScrollingEnabled(false);
         rlvCars.setAdapter(adapter);
-        findViewById(R.id.btn_add_car).setOnClickListener(this);
+        findViewById(R.id.btn_add_car).setOnClickListener(clickListener);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MyCarActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.btn_id_confirm:
                 break;

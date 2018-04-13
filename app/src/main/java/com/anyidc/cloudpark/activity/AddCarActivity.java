@@ -18,6 +18,7 @@ import com.anyidc.cloudpark.moduel.AddCarBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by Administrator on 2018/2/23.
  */
 
-public class AddCarActivity extends BaseActivity implements TextWatcher, View.OnClickListener {
+public class AddCarActivity extends BaseActivity implements TextWatcher {
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
@@ -58,6 +59,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
 
     @Override
     protected void initData() {
+        clickListener = new CheckDoubleClickListener(this);
         tv1 = findViewById(R.id.tv_num_1);
         tv2 = findViewById(R.id.tv_num_2);
         tv3 = findViewById(R.id.tv_num_3);
@@ -67,7 +69,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
         tv7 = findViewById(R.id.tv_num_7);
         tv8 = findViewById(R.id.tv_num_8);
         tvSkip = findViewById(R.id.tv_skip);
-        tvSkip.setOnClickListener(this);
+        tvSkip.setOnClickListener(clickListener);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);
@@ -80,7 +82,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
         etNum = findViewById(R.id.et_num);
         etNum.addTextChangedListener(this);
         btnAdd = findViewById(R.id.btn_confirm_add);
-        btnAdd.setOnClickListener(this);
+        btnAdd.setOnClickListener(clickListener);
         cbNewEnergy = findViewById(R.id.cb_new_energy_car);
         cbNewEnergy.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
@@ -161,7 +163,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher, View.On
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.btn_confirm_add:
                 commitAddCar();

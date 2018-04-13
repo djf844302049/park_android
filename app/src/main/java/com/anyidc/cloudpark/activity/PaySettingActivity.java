@@ -12,7 +12,7 @@ import com.anyidc.cloudpark.utils.ToastUtil;
  * Created by Administrator on 2018/3/13.
  */
 
-public class PaySettingActivity extends BaseActivity implements View.OnClickListener {
+public class PaySettingActivity extends BaseActivity{
     private TextView tvPayStatus;
     private boolean isSetPayKey;
 
@@ -25,9 +25,9 @@ public class PaySettingActivity extends BaseActivity implements View.OnClickList
     protected void initData() {
         initTitle("支付设置");
         tvPayStatus = findViewById(R.id.tv_pay_status);
-        findViewById(R.id.ll_modify_pay_key).setOnClickListener(this);
-        findViewById(R.id.ll_find_back_pay_key).setOnClickListener(this);
-        findViewById(R.id.ll_pay_without_key).setOnClickListener(this);
+        findViewById(R.id.ll_modify_pay_key).setOnClickListener(clickListener);
+        findViewById(R.id.ll_find_back_pay_key).setOnClickListener(clickListener);
+        findViewById(R.id.ll_pay_without_key).setOnClickListener(clickListener);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class PaySettingActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckDoubleClick(View v) {
         if (!isSetPayKey) {
             LoginByCodeActivity.actionStart(this, 1);
             return;

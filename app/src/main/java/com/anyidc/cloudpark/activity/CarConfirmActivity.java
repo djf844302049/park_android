@@ -29,7 +29,7 @@ import okhttp3.RequestBody;
  * Created by Administrator on 2018/2/23.
  */
 
-public class CarConfirmActivity extends BaseActivity implements View.OnClickListener {
+public class CarConfirmActivity extends BaseActivity {
 
     private ImageView icLicensePos;
     private ImageView icLicenseNeg;
@@ -64,11 +64,11 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initData() {
         icLicensePos = findViewById(R.id.iv_license_pos);
-        icLicensePos.setOnClickListener(this);
+        icLicensePos.setOnClickListener(clickListener);
         icLicenseNeg = findViewById(R.id.iv_license_neg);
-        icLicenseNeg.setOnClickListener(this);
+        icLicenseNeg.setOnClickListener(clickListener);
         btnConfirm = findViewById(R.id.btn_confirm);
-        btnConfirm.setOnClickListener(this);
+        btnConfirm.setOnClickListener(clickListener);
         svCarConfirm = findViewById(R.id.sv_car_confirm);
         llComplete = findViewById(R.id.ll_commit_complete);
         ivComplete = findViewById(R.id.iv_complete);
@@ -78,7 +78,7 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
         tvCompleteTip = findViewById(R.id.tv_complete_tip);
         tvCompleteTip.setText("您的信息已提交，请耐心等待");
         tvSkip = findViewById(R.id.tv_skip);
-        tvSkip.setOnClickListener(this);
+        tvSkip.setOnClickListener(clickListener);
         id = getIntent().getStringExtra("id");
         from = getIntent().getIntExtra("from", 0);
         switch (from) {
@@ -92,7 +92,7 @@ public class CarConfirmActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));
