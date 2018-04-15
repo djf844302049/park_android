@@ -58,8 +58,7 @@ public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.
     @Override
     public void onClick(View view) {
         int position = (Integer)view.getTag();
-        ParkUnitInfoBean unitInfoBean = dataList.get(position);
-        if(unitInfoBean != null && unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0 && itemClickListener != null){
+        if(itemClickListener != null){
             itemClickListener.onItemClick(view,position);
         }
     }

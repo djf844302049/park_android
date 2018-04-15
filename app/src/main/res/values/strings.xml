@@ -154,5 +154,8 @@
     <string name="confirm_arrive">确认到达</string>
     <string name="cancel_appointment">取消预约</string>
     <string name="appointment_ing_tip1">*请您于预约时间点前到达车位，否则车位不予保留。</string>
-
+    <!--选择车位-->
+    <string name="unit_num">车位编号：</string>
+    <string name="appointmented_time">被预约时间：</string>
+    <string name="p_fee">停车费：</string>
 </resources>

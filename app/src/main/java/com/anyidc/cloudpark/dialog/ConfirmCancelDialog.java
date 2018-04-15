@@ -30,7 +30,7 @@ public class ConfirmCancelDialog extends BaseDialog implements View.OnClickListe
     }
 
     private void initView(){
-        View view = LayoutInflater.from(mContext).inflate(R.layout.confirm_dialog_layout,null,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.confirm_cancel_dialog_layout,null,false);
         setContentView(view);
         tvTitle = view.findViewById(R.id.tv_dialog_title);
         tvContent = view.findViewById(R.id.tv_dialog_content);

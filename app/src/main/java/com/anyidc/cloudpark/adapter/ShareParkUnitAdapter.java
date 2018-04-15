@@ -56,8 +56,7 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
     @Override
     public void onClick(View view) {
         int position = (Integer)view.getTag();
-        ShareParkUnitInfo shareParkUnitInfo = sharelist.get(position);
-        if(shareParkUnitInfo != null && shareParkUnitInfo.getStatus() == 1 && shareParkUnitInfo.getFrozen_time() == 0 && itemClickListener != null){
+        if(itemClickListener != null){
             itemClickListener.onItemClick(view,position);
         }
     }

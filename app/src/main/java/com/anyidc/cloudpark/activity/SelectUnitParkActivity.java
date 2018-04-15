@@ -28,6 +28,7 @@ import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.ItemClickListener;
 import com.anyidc.cloudpark.adapter.ParkUnitNumAdapter;
 import com.anyidc.cloudpark.adapter.ShareParkUnitAdapter;
+import com.anyidc.cloudpark.dialog.SelectUnitParkDialog;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.ParkDetailBean;
 import com.anyidc.cloudpark.moduel.ParkInfo;
@@ -67,6 +68,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private AMapLocationClient mLocationClient = null;
     private double lat = 0;
     private double lng = 0;
+
+    private SelectUnitParkDialog selectUnitParkDialog;
 
     public static void start(Context context,String id){
         Intent intent = new Intent(context,SelectUnitParkActivity.class);
@@ -188,7 +191,14 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             shareParkUnitAdapter.setOnItemClickListener(new ItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-
+                    ShareParkUnitInfo shareParkUnitInfo = shareList.get(position);
+                    if(shareParkUnitInfo != null && shareParkUnitInfo.getStatus() == 1 && shareParkUnitInfo.getFrozen_time() == 0){
+                        showDialog(shareParkUnitInfo.getUnit_id(),"该车位为共享车位，可进行预约","","",String.valueOf(shareParkUnitInfo.getFee().getMoney()));
+                    }else if(shareParkUnitInfo.getStatus() == 2){
+                        showDialog(shareParkUnitInfo.getUnit_id(),"该车位已有车辆驶入","","",String.valueOf(shareParkUnitInfo.getFee().getMoney()));
+                    }else{
+                        showDialog(shareParkUnitInfo.getUnit_id(),"该车位为共享车位且已被预约","","",String.valueOf(shareParkUnitInfo.getFee().getMoney()));
+                    }
                 }
             });
             recyclerView.setAdapter(shareParkUnitAdapter);
@@ -205,12 +215,29 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             parkUnitNumAdapter.setOnItemClickListener(new ItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-
+                    ParkUnitInfoBean unitInfoBean = dataList.get(position);
+                    String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时"+parkInfo.getFee().getMoney()+"元,之后"+parkInfo.getFee().getHourly()+"元/小时";
+                    if(unitInfoBean != null && unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
+                        showDialog(unitInfoBean.getUnit_id(),"该车位可进行预约","","",feeStr);
+                    }else if(unitInfoBean.getStatus() == 2){
+                        showDialog(unitInfoBean.getUnit_id(),"该车位已有车辆驶入","","",feeStr);
+                    }else{
+                        showDialog(unitInfoBean.getUnit_id(),"该车位已被预约","","",feeStr);
+                    }
                 }
             });
             recyclerView.setAdapter(parkUnitNumAdapter);
         }
 
+    }
+
+    private void showDialog(String unitNum,String des,String shareTime,String appointmentTime,String pFee){
+        if(selectUnitParkDialog == null){
+            selectUnitParkDialog = new SelectUnitParkDialog(SelectUnitParkActivity.this,unitNum,des,shareTime,appointmentTime,pFee);
+        }else{
+            selectUnitParkDialog.setText(unitNum,des,shareTime,appointmentTime,pFee);
+        }
+        selectUnitParkDialog.show();
     }
 
     @Override

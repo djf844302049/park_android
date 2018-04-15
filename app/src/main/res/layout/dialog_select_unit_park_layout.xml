@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_round_white_bg"
+    android:padding="@dimen/dp10"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView style="@style/text_gray_16sp"
+            android:text="@string/unit_num"/>
+        <TextView style="@style/text_gray_16sp"
+            android:id="@+id/tv_unit_num"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_unit_status_des"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size20"/>
+    <LinearLayout
+        android:id="@+id/ll_share_time"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp10"
+        android:paddingBottom="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView style="@style/text_gray_16sp"
+            android:text="共享时间段："/>
+        <TextView style="@style/text_gray_16sp"
+            android:id="@+id/tv_share_time"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_appointment_time"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView style="@style/text_gray_16sp"
+            android:text="@string/appointmented_time"/>
+        <TextView style="@style/text_gray_16sp"
+            android:id="@+id/tv_appointment_time"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_p_fee"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView style="@style/text_gray_16sp"
+            android:text="@string/p_fee"/>
+        <TextView style="@style/text_gray_16sp"
+            android:id="@+id/tv_p_fee"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dp15"
+        android:text="@string/common_confirm"
+        android:background="@color/bg_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size16" />
+
+</LinearLayout>
