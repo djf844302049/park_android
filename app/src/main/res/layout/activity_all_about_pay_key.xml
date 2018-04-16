@@ -32,42 +32,48 @@
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:background="@drawable/shape_rectangle"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_num_2"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:background="@drawable/shape_rectangle"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_num_3"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:background="@drawable/shape_rectangle"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_num_4"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:background="@drawable/shape_rectangle"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_num_5"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:background="@drawable/shape_rectangle"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tv_num_6"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:background="@drawable/shape_rectangle"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLines="1" />
 
         </LinearLayout>
 
@@ -83,6 +89,7 @@
             android:cursorVisible="false"
             android:inputType="numberPassword"
             android:maxLength="6"
+            android:maxLines="1"
             android:textColor="#0000" />
 
     </RelativeLayout>

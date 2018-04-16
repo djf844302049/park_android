@@ -75,6 +75,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/dp10"
         android:background="@color/white"
+        android:inputType="text"
+        android:maxLines="1"
         android:paddingLeft="15dp" />
 
 </LinearLayout>
