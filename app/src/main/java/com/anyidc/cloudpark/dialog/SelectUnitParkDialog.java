@@ -44,6 +44,10 @@ public class SelectUnitParkDialog extends BaseDialog {
     }
 
     private void updateView(){
+
+        tvUnitNum.setText(unitNum);
+        tvDes.setText(des);
+
         if(TextUtils.isEmpty(shareTime)){
             llShareTime.setVisibility(View.GONE);
         }else{

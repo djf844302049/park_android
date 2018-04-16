@@ -30,14 +30,6 @@
             android:textSize="@dimen/text_size14"
             android:layout_weight="1"
             android:gravity="center" />
-
-        <ImageView
-            android:id="@+id/iv_park_list"
-            android:layout_width="@dimen/dp30"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/img_park_list" />
     </LinearLayout>
 
     <ScrollView

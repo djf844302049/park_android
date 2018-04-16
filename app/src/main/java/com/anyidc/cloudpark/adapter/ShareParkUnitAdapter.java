@@ -1,14 +1,17 @@
 package com.anyidc.cloudpark.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.ParkUnitInfoBean;
 import com.anyidc.cloudpark.moduel.ShareParkUnitInfo;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
     private LayoutInflater mInflater;
     private ArrayList<ShareParkUnitInfo> sharelist;
     private ItemClickListener itemClickListener;
+    private int selectPos = -1;
     public ShareParkUnitAdapter(Context context,ArrayList<ShareParkUnitInfo> dataList){
         this.context = context;
         mInflater = LayoutInflater.from(context);
@@ -45,6 +49,11 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
             holder.tvFee.setText("停车费：¥"+shareParkUnitInfo.getFee().getMoney());
             holder.itemView.setOnClickListener(this);
             holder.ivCheck.setOnClickListener(this);
+            if(selectPos == position) {
+                holder.ivCheck.setImageResource(R.mipmap.img_cb_rect_select);
+            }else{
+                holder.ivCheck.setImageResource(R.mipmap.img_cb_rect_normal);
+            }
         }
     }
 
@@ -56,9 +65,18 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
     @Override
     public void onClick(View view) {
         int position = (Integer)view.getTag();
-        if(itemClickListener != null){
-            itemClickListener.onItemClick(view,position);
+        if(selectPos == position){
+            selectPos = -1;
+        }else {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(view, position);
+            }
         }
+        ShareParkUnitInfo shareParkUnitInfo = sharelist.get(position);
+        if(shareParkUnitInfo != null && shareParkUnitInfo.getStatus() == 1 && shareParkUnitInfo.getFrozen_time() == 0){
+            selectPos = position;
+        }
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(ItemClickListener itemClickListener){
@@ -68,7 +86,7 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
     public class ShareParkUnitHolderView extends RecyclerView.ViewHolder{
         private TextView tvNum,tvShareTime,tvFee;
         private ImageView ivCheck;
-
+        private RelativeLayout rlParent;
         public ShareParkUnitHolderView(View itemView){
             super(itemView);
             tvNum = itemView.findViewById(R.id.tv_unit_num);

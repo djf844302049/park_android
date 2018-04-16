@@ -24,6 +24,7 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
+import com.andview.refreshview.utils.LogUtils;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.ItemClickListener;
 import com.anyidc.cloudpark.adapter.ParkUnitNumAdapter;
@@ -194,6 +195,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     ShareParkUnitInfo shareParkUnitInfo = shareList.get(position);
                     if(shareParkUnitInfo != null && shareParkUnitInfo.getStatus() == 1 && shareParkUnitInfo.getFrozen_time() == 0){
                         showDialog(shareParkUnitInfo.getUnit_id(),"该车位为共享车位，可进行预约","","",String.valueOf(shareParkUnitInfo.getFee().getMoney()));
+                        updateAppointBtn();
                     }else if(shareParkUnitInfo.getStatus() == 2){
                         showDialog(shareParkUnitInfo.getUnit_id(),"该车位已有车辆驶入","","",String.valueOf(shareParkUnitInfo.getFee().getMoney()));
                     }else{
@@ -219,6 +221,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时"+parkInfo.getFee().getMoney()+"元,之后"+parkInfo.getFee().getHourly()+"元/小时";
                     if(unitInfoBean != null && unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
                         showDialog(unitInfoBean.getUnit_id(),"该车位可进行预约","","",feeStr);
+                        updateAppointBtn();
                     }else if(unitInfoBean.getStatus() == 2){
                         showDialog(unitInfoBean.getUnit_id(),"该车位已有车辆驶入","","",feeStr);
                     }else{
@@ -228,6 +231,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             });
             recyclerView.setAdapter(parkUnitNumAdapter);
         }
+    }
+
+    private void updateAppointBtn(){
 
     }
 
