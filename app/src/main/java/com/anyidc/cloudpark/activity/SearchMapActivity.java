@@ -43,6 +43,7 @@ import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ViewUtils;
@@ -235,6 +236,10 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
         parkListAdapter = new ParkListAdapter(parkList);
         parkListAdapter.setOnItemClickListener((view, position) -> {
             ParkSearchBean.ParkBean parkBean = parkList.get(position);
+            if (!LoginUtil.isLogin()){
+                startActivity(new Intent(this, LoginActivity.class));
+                return;
+            }
             SelectUnitParkActivity.start(SearchMapActivity.this, String.valueOf(parkBean.getParking_id()));
         });
         rlvPark.setAdapter(parkListAdapter);
