@@ -83,6 +83,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private boolean hasDeposit = false;//是否缴纳押金
     private boolean hasCar = false;//是否经过车辆认证
     private String selectUnitId = "";
+    private boolean isShare = false;
+    private ParkUnitInfoBean selectParkUnitInfoBean;
+    private ShareParkUnitInfo selectShareParkUnitInfo;
 
     public static void start(Context context,String id){
         Intent intent = new Intent(context,SelectUnitParkActivity.class);
@@ -192,6 +195,11 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         switch (view.getId()){
             case R.id.tv_appointment:
                 if(hasCar && hasCertification && hasDeposit && !TextUtils.isEmpty(selectUnitId)){
+                    if(isShare){
+                        PayAppointmentActivity.start(this,parkInfo.getParking_name(),selectShareParkUnitInfo.getUnit_id(),selectShareParkUnitInfo.getShare_time());
+                    }else {
+                        PayAppointmentActivity.start(this,parkInfo.getParking_name(),selectParkUnitInfoBean.getUnit_id(),"");
+                    }
 
                 }else if(!hasCertification){
                     ToastUtil.showToast("您还未进行身份认证",Toast.LENGTH_SHORT);
@@ -280,6 +288,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     ShareParkUnitInfo shareParkUnitInfo = shareList.get(position);
                     if(shareParkUnitInfo != null && shareParkUnitInfo.getStatus() == 1 && shareParkUnitInfo.getFrozen_time() == 0){
                         selectUnitId = shareParkUnitInfo.getUnit_id();
+                        isShare = true;
+                        selectShareParkUnitInfo = shareParkUnitInfo;
                         showDialog(shareParkUnitInfo.getUnit_id(),"该车位为共享车位，可进行预约","","",String.valueOf(shareParkUnitInfo.getFee().getMoney()));
                         updateAppointBtn();
                     }else if(shareParkUnitInfo.getStatus() == 2){
@@ -308,6 +318,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     if(unitInfoBean != null && unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
                         showDialog(unitInfoBean.getUnit_id(),"该车位可进行预约","","",feeStr);
                         selectUnitId = unitInfoBean.getUnit_id();
+                        isShare = false;
+                        selectParkUnitInfoBean = unitInfoBean;
                         updateAppointBtn();
                     }else if(unitInfoBean.getStatus() == 2){
                         showDialog(unitInfoBean.getUnit_id(),"该车位已有车辆驶入","","",feeStr);

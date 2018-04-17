@@ -37,6 +37,14 @@
         <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
     </style>
 
+    <style name="dialog_textview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size14</item>
+        <item name="android:padding">@dimen/dp15</item>
+        <item name="android:textColor">@color/text_color_black</item>
+    </style>
+
     <!--文本样式-->
     <style name="text_white_12sp" parent="common_white_text">
         <item name="android:textSize">12sp</item>

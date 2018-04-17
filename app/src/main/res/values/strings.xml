@@ -81,6 +81,7 @@
     <string name="share_time">共享时间：</string>
     <string name="balance_pay">账户余额支付</string>
     <string name="confirm_pay_5">确认支付￥5</string>
+    <string name="confirm_pay_10">确认支付￥10</string>
     <string name="share_tip">请注意停车不要超出该时间段，否则需交纳超出部分N倍的金额。</string>
     <string name="order_tip">注:缴纳预约费用后才可以进行预约，不同地段预约费用\n不同，且预约费用不予退还。</string>
     <string name="take_photo">拍照</string>
