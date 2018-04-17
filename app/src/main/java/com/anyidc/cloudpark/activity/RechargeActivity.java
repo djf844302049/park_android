@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.activity;
 
-import android.content.Context;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +19,6 @@ import com.anyidc.cloudpark.utils.AlPayResultHandler;
 import com.anyidc.cloudpark.utils.WxPayHelper;
 import com.anyidc.cloudpark.wxapi.WXPayEntryActivity;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +35,6 @@ public class RechargeActivity extends BaseActivity {
     private int prePosition;
     private int rechargeNum;
     private AlPayResultHandler mHandler;
-    private WeakReference<Context> weakReference;
     private int[] nums = {10, 20, 30, 100, 200, 500};
     private int payType;
 
@@ -81,8 +78,7 @@ public class RechargeActivity extends BaseActivity {
             adapter.notifyItemChanged(prePosition);
             prePosition = position;
         });
-        weakReference = new WeakReference<>(this);
-        mHandler = new AlPayResultHandler(weakReference.get());
+        mHandler = new AlPayResultHandler(this);
     }
 
     @Override

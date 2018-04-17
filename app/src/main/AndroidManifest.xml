@@ -97,6 +97,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.AppointmentRecordActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.SelectUnitParkActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.PayResultActivity" />
+        <activity android:name="com.anyidc.cloudpark.activity.PayAppointmentActivity" />
 
         <!--微信支付回调Activity-->
         <activity

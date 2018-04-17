@@ -23,7 +23,6 @@ import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.WxPayHelper;
 import com.anyidc.cloudpark.wxapi.WXPayEntryActivity;
 
-import java.lang.ref.WeakReference;
 import java.util.Map;
 
 /**
@@ -35,7 +34,6 @@ public class ParkChargeActivity extends BaseActivity {
     private ImageView ivHelp, ivBalancePay, ivAlPay, ivWxPay;
     private String unitId;
     private AlPayResultHandler mHandler;
-    private WeakReference<Context> weakReference;
     private LinearLayout llBalancePay;
     private String rechargeNum;
     private int payType;
@@ -84,8 +82,7 @@ public class ParkChargeActivity extends BaseActivity {
             ivAlPay.setVisibility(View.GONE);
             ivWxPay.setVisibility(View.VISIBLE);
         });
-        weakReference = new WeakReference<>(this);
-        mHandler = new AlPayResultHandler(weakReference.get());
+        mHandler = new AlPayResultHandler(this);
         if (!LoginUtil.isLogin()) {
             llBalancePay.setVisibility(View.GONE);
         }

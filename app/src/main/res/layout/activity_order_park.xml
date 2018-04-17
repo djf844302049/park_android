@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_park_name"
                 style="@style/common_text"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
@@ -41,6 +42,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_unit_num"
                     style="@style/common_text"
                     android:gravity="center"
                     android:text="XXX"
@@ -49,8 +51,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/ll_appointment_time"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/dp10"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
@@ -65,15 +69,25 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_appointment_time"
                     style="@style/common_text"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:text="(16:00)"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/img_right_arrow"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_share_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -90,6 +104,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_share_time"
                     style="@style/common_text"
                     android:gravity="center"
                     android:text="21:00-24:00"
@@ -98,6 +113,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_share_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -158,6 +174,7 @@
                 </LinearLayout>
 
                 <RadioButton
+                    android:id="@+id/rb_account_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -209,6 +226,7 @@
                 </LinearLayout>
 
                 <RadioButton
+                    android:id="@+id/rb_zhifubao_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -260,6 +278,7 @@
                 </LinearLayout>
 
                 <RadioButton
+                    android:id="@+id/rb_weixin_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -313,6 +332,7 @@
                 </LinearLayout>
 
                 <RadioButton
+                    android:id="@+id/rb_yinlian_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
