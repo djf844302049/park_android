@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.anyidc.cloudpark.activity.PayResultActivity;
 import com.anyidc.cloudpark.moduel.PayResult;
 
+import java.lang.ref.WeakReference;
 import java.util.Map;
 
 /**
@@ -16,10 +17,10 @@ import java.util.Map;
 
 public class AlPayResultHandler extends Handler {
     public static final int SDK_PAY_FLAG = 1;
-    private Context context;
+    private WeakReference<Context> context;
 
     public AlPayResultHandler(Context context) {
-        this.context = context;
+        this.context = new WeakReference<>(context);
     }
 
     @Override
@@ -35,10 +36,10 @@ public class AlPayResultHandler extends Handler {
                 // 判断resultStatus 为9000则代表支付成功
                 if (TextUtils.equals(resultStatus, "9000")) {
                     // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                    PayResultActivity.actionStart(context,1,payResult.getNum());
+                    PayResultActivity.actionStart(context.get(), 1, payResult.getNum());
                 } else {
                     // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                    PayResultActivity.actionStart(context,2,payResult.getNum());
+                    PayResultActivity.actionStart(context.get(), 2, payResult.getNum());
                 }
                 break;
             }
