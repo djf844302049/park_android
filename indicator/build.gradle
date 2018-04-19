@@ -20,6 +20,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'com.android.support:appcompat-v7:' + rootProject.ext.supportVersion
-    compileOnly 'com.android.support:support-v4:' + rootProject.ext.supportVersion
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile "com.android.support:support-v4:$rootProject.ext.supportVersion"
 }
