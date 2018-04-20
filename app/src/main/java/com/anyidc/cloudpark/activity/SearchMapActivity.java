@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -46,10 +47,13 @@ import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.ViewUtils;
 import com.anyidc.cloudpark.wiget.FlowLayoutManager;
 import com.yanzhenjie.permission.AndPermission;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +102,11 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
     private String target;
     private String city;
     private String dis;
+    private String targetPlace;
+    private double targetLat;
+    private double targetLng;
+    private double searchLat;
+    private double searchLng;
     private int from;
     private AMap aMap;
     private double lat;
@@ -236,7 +245,7 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
         parkListAdapter = new ParkListAdapter(parkList);
         parkListAdapter.setOnItemClickListener((view, position) -> {
             ParkSearchBean.ParkBean parkBean = parkList.get(position);
-            if (!LoginUtil.isLogin()){
+            if (!LoginUtil.isLogin()) {
                 startActivity(new Intent(this, LoginActivity.class));
                 return;
             }
@@ -305,6 +314,7 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                 parkListAdapter.notifyDataSetChanged();
                 break;
             case R.id.btn_navigation:
+                jumpToMap();
                 break;
             case R.id.rl_park_detail:
                 if (parkBean == null) {
@@ -445,7 +455,12 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                             aMap.clear();
                             searchLoad = true;
                             searchParkList.clear();
-                            LatLng latLng = new LatLng(data.getLngLat().getLat(), data.getLngLat().getLng());
+                            searchLat = data.getLngLat().getLat();
+                            searchLng = data.getLngLat().getLng();
+                            targetPlace = target;
+                            targetLat = searchLat;
+                            targetLng = searchLng;
+                            LatLng latLng = new LatLng(searchLat, searchLng);
                             //设置中心点和缩放比例
                             CameraUpdate cameraUpdate = CameraUpdateFactory
                                     .newCameraPosition(new CameraPosition(latLng, 18, 0, 30));
@@ -563,6 +578,9 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
             tvParkRemainNum.setText("空车位数：" + parkBean.getAvailable_num());
 //        tvParkName.setText();收费规则
             rlParkDetail.setEnabled(true);
+            targetPlace = marker.getSnippet();
+            targetLat = parkBean.getLat();
+            targetLng = parkBean.getLng();
         } else {
             if ("我的位置".equals(marker.getSnippet())) {
                 llParkMess.setVisibility(View.GONE);
@@ -576,6 +594,9 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
             tvDistance.setText("距离：" + dis);
             tvParkAddress.setText(target);
             rlParkDetail.setEnabled(false);
+            targetPlace = target;
+            targetLat = searchLat;
+            targetLng = searchLng;
         }
         return false;
     }
@@ -605,5 +626,23 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                         + aMapLocation.getErrorInfo());
             }
         }
+    }
+
+    private void jumpToMap() {
+        try {
+            Intent intent = Intent.getIntent("androidamap://viewMap?sourceApplication=我的位置&poiname=" + targetPlace +
+                    "&lat=" + targetLat + "&lon=" + targetLng);
+            if (isInstallMap("com.autonavi.minimap")) {
+                startActivity(intent); //启动调用
+            } else {
+                ToastUtil.showToast("您没有安装高德地图客户端", Toast.LENGTH_SHORT);
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isInstallMap(String packageName) {
+        return new File("/data/data/" + packageName).exists();
     }
 }
