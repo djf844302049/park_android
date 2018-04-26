@@ -69,6 +69,7 @@
             android:text="@string/chinese_money_symbol" />
 
         <EditText
+            android:id="@+id/et_draw_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/tv_￥"
@@ -76,7 +77,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/tv_￥"
             android:background="@null"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:maxLength="10"
             android:textSize="@dimen/text_size18" />
 
@@ -91,11 +92,11 @@
             android:background="@color/black" />
 
         <TextView
+            android:id="@+id/tv_remain_balance"
             style="@style/text_gray_18sp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="当前账户余额100元" />
+            android:layout_marginBottom="20dp" />
     </RelativeLayout>
 
     <Button

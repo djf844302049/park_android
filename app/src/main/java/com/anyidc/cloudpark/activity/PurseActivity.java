@@ -22,6 +22,7 @@ public class PurseActivity extends BaseActivity {
     private Button btnDeposit;
     private Button btnDrawCash;
     private TextView tvRight;
+    private String balance;
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +44,11 @@ public class PurseActivity extends BaseActivity {
         btnDrawCash = findViewById(R.id.btn_draw_cash);
         btnDrawCash.setOnClickListener(clickListener);
         initTitle("我的钱包");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getWalletInfo();
     }
 
@@ -60,7 +66,7 @@ public class PurseActivity extends BaseActivity {
                 startActivity(new Intent(this, PaySettingActivity.class));
                 break;
             case R.id.btn_draw_cash:
-                startActivity(new Intent(this, DrawCashActivity.class));
+                DrawCashActivity.actionStart(this, balance);
                 break;
             case R.id.tv_right:
                 startActivity(new Intent(this, TransactionDetailActivity.class));
@@ -87,7 +93,8 @@ public class PurseActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseEntity<WalletInfoBean> baseEntity) {
                         WalletInfoBean data = baseEntity.getData();
-                        tvBalance.setText("￥" + data.getUser_money());
+                        balance = data.getUser_money();
+                        tvBalance.setText("￥" + balance);
                         if ("0.00".equals(data.getDeposit())) {
                             tvDepositState.setText("未缴纳");
                             btnDeposit.setText("缴纳押金");

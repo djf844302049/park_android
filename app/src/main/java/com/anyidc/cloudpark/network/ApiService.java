@@ -6,6 +6,7 @@ import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.moduel.CityAreaBean;
+import com.anyidc.cloudpark.moduel.DrawCashBean;
 import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
@@ -229,13 +230,6 @@ public interface ApiService {
      */
     @GET("api/v1/getPaymentList")
     Observable<BaseEntity<TransactionBean>> getPayList(@Query("page") int page, @Query("size") int size);
-
-    /**
-     * 用户提现接口
-     */
-    @POST("api/v1/withdrawals")
-    @FormUrlEncoded
-    Observable<BaseEntity> drawCash(@Field("amount") String amount);
 
     /**
      * 删除我的车辆接口
@@ -476,4 +470,18 @@ public interface ApiService {
     @POST("api/v1.Parking_lot/getUnitOrder")
     @FormUrlEncoded
     Observable<BaseEntity<ParkInfoBean>> getParkOrderInfo(@Field("unit_id") String unit_id);
+
+    /**
+     * 提现
+     */
+    @POST("api/v1.order/tixian")
+    @FormUrlEncoded
+    Observable<BaseEntity<DrawCashBean>> drawCash(@Field("money") String money, @Field("bank_id") String bank_id);
+
+    /**
+     * 退押金
+     */
+    @POST("api/v1.order/tuiyajin")
+    @FormUrlEncoded
+    Observable<BaseEntity> drawDeposit(@Field("bank_id") String bank_id);
 }
