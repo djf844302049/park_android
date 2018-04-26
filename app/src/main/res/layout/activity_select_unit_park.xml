@@ -54,6 +54,15 @@
 
                 </LinearLayout>
             </HorizontalScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/text_size14"
+                android:textColor="@color/gray"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp10"
+                android:text="选择预约车位"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_unit_list"
                 android:padding="@dimen/dp10"
