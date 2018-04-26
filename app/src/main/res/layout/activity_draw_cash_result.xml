@@ -11,8 +11,7 @@
     <TextView
         android:id="@+id/tv_draw_num"
         style="@style/text_black_18sp"
-        android:layout_marginTop="@dimen/dp45"
-        android:text="￥300" />
+        android:layout_marginTop="@dimen/dp45" />
 
 
     <TextView
@@ -29,14 +28,14 @@
         android:padding="@dimen/dp15">
 
         <TextView
+            android:id="@+id/tv_draw_sn"
             style="@style/text_black_18sp"
             android:layout_weight="1"
-            android:text="提现单号2216556456456"
             android:textSize="12sp" />
 
         <TextView
-            style="@style/text_gray_12sp"
-            android:text="2018-01-25 11:05:09" />
+            android:id="@+id/tv_draw_date"
+            style="@style/text_gray_12sp" />
     </LinearLayout>
 
     <RelativeLayout

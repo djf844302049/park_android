@@ -28,6 +28,7 @@ public class MineActivity extends BaseActivity {
     private ImageView ivRight;
     private TextView tvLogin;
     private TextView tvUserName;
+    private final int PURSE = 100;
 
     @Override
     protected int getLayoutId() {
@@ -76,6 +77,7 @@ public class MineActivity extends BaseActivity {
         } else {
             ivAvatar.setImageResource(R.mipmap.ic_launcher);
             tvIdConState.setText("");
+            tvBalance.setText("余额：￥0.00");
             ivAvatar.setOnClickListener(null);
             tvLogin.setVisibility(View.VISIBLE);
             tvUserName.setVisibility(View.GONE);
@@ -126,7 +128,7 @@ public class MineActivity extends BaseActivity {
                 break;
             case R.id.ll_my_wallet:
                 if (LoginUtil.isLogin())
-                    startActivity(new Intent(this, PurseActivity.class));
+                    startActivityForResult(new Intent(this, PurseActivity.class), PURSE);
                 break;
             case R.id.ll_share_park:
                 if (LoginUtil.isLogin())
@@ -172,6 +174,9 @@ public class MineActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             tvIdConState.setText("审核中");
+        }
+        if (requestCode == PURSE) {
+            getCenterData();
         }
     }
 }

@@ -7,12 +7,14 @@ package com.anyidc.cloudpark.moduel;
 public class BankCardBean {
 
     /**
+     * bank_id : 13
      * bank : 建设银行-借记卡
      * card : 6236681930007058298
      */
 
     private String bank;
     private String card;
+    private String bank_id;
 
     public String getBank() {
         return bank;
@@ -54,5 +56,13 @@ public class BankCardBean {
 
     public String getCardLastNums() {
         return card.substring(card.length() - 4);
+    }
+
+    public String getBank_id() {
+        return bank_id;
+    }
+
+    public void setBank_id(String bank_id) {
+        this.bank_id = bank_id;
     }
 }
