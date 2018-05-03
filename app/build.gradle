@@ -64,7 +64,7 @@ android {
             if (!output.zipAlign) {
                 newName = newName.replace(".apk", "-unaligned.apk")
             }
-            outputFileName=newName
+            outputFileName = newName
         }
     }
 }
@@ -90,8 +90,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.yanzhenjie:permission:2.0.0-alpha'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugApi 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
