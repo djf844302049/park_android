@@ -58,7 +58,7 @@ public class DrawCashActivity extends BaseActivity {
         reference = new WeakReference<>(this);
         dialog = new BottomSheetDialog(reference.get());
         dialog.setContentView(R.layout.dialog_bankcard_picker);
-        rlvBank = dialog.findViewById(R.id.rlv_bank_card);
+        rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvBank.setLayoutManager(manager);
         adapter = new BankChoiceAdapter(list);

@@ -40,6 +40,6 @@ ext {
     retrofit2Version = '2.2.0'
     rxlifecycle = '2.1.0'
     gsonVersion = '2.8.0'
-    supportVersion = "26.1.0"
+    supportVersion = "25.3.1"
 }
 
