@@ -28,7 +28,7 @@ public class WxPayHelper {
 
     }
 
-    IWXAPI msgApi = null;
+    public static IWXAPI msgApi = null;
 
     public void WexPay(WxPayBean.CallbackBean info) {
         if (msgApi == null) {

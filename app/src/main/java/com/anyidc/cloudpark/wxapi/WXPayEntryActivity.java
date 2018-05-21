@@ -5,22 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.anyidc.cloudpark.activity.PayResultActivity;
+import com.anyidc.cloudpark.utils.WxPayHelper;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
-    private IWXAPI api;
     private static String num;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        api = WXAPIFactory.createWXAPI(this, "wx8ba55aca60034fdf");
-        api.handleIntent(getIntent(), this);
+        if (WxPayHelper.msgApi == null) {
+            return;
+        }
+        WxPayHelper.msgApi.handleIntent(getIntent(), this);
     }
 
     public static void setNum(String nums) {
@@ -31,7 +31,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        api.handleIntent(intent, this);
+        WxPayHelper.msgApi.handleIntent(intent, this);
     }
 
     @Override
