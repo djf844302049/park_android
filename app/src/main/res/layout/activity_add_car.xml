@@ -171,7 +171,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:keyBackground="@android:color/white"
-        android:keyTextColor="#5E5E5E"
+        android:keyTextColor="@color/black"
         android:keyTextSize="18sp"
         android:labelTextSize="18sp"
         android:paddingTop="2dp"
