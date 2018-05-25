@@ -38,15 +38,15 @@ public class ColorKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             } else if (key.codes[0] == -9) {//ABC按钮可点
-                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_letter_nomorl);
+                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_letter_enable);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             } else if (key.codes[0] == -10) {//省按钮可点
-                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_province_nomorl);
+                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_province_enable);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             } else if (key.codes[0] == -11) {//ABC按钮不可点
-                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_letter_enable);
+                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_letter_nomorl);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             } else if (key.codes[0] == -12) {//隐藏按钮
@@ -54,7 +54,7 @@ public class ColorKeyboardView extends KeyboardView {
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             } else if (key.codes[0] == -13) {//省按钮不可点
-                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_province_enable);
+                Drawable dr = getContext().getResources().getDrawable(R.drawable.img_province_nomorl);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
