@@ -89,6 +89,7 @@
     <string name="sd_card_does_not_exist">内存卡不存在</string>
     <string name="new_energy_car">新能源汽车</string>
     <string name="bind_real_car_num">请绑定真实有效的车牌号</string>
+    <string name="input_complete_info">请输入完整信息</string>
     <string name="confirm_add">确认添加</string>
     <string name="commit">提交</string>
     <string name="question_commit_success">反馈提交成功</string>

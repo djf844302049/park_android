@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/top"
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/tv_tip"
         style="@style/text_gray_18sp"
+        android:layout_below="@id/top"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="@string/input_watch_car_monitor"
         android:textColor="@color/black" />
 
     <RelativeLayout
+        android:id="@+id/rl_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tip"
         android:layout_marginTop="15dp">
 
         <LinearLayout
@@ -105,10 +111,28 @@
         android:id="@+id/btn_watch_camera"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rl_num"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/shape_bg_blue"
         android:text="@string/watch"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-</LinearLayout>
+    <com.anyidc.cloudpark.wiget.ColorKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F0EFF4"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@android:color/white"
+        android:keyTextColor="#5E5E5E"
+        android:keyTextSize="18sp"
+        android:labelTextSize="18sp"
+        android:paddingTop="2dp"
+        android:shadowColor="#ffffff"
+        android:visibility="gone" />
+
+</RelativeLayout>

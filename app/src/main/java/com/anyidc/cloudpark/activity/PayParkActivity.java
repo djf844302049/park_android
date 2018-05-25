@@ -1,13 +1,16 @@
 package com.anyidc.cloudpark.activity;
 
+import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.utils.LicenseKeyboardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +29,14 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
     private EditText etNum;
     private List<TextView> tvList;
     private String unitId;
+    private LicenseKeyboardUtil keyboardUtil;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_pay_park;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initData() {
         initTitle("停车付费");
@@ -49,8 +54,18 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
         tvList.add(tv5);
         tvList.add(tv6);
         etNum = findViewById(R.id.et_num);
+        keyboardUtil = new LicenseKeyboardUtil(PayParkActivity.this, etNum, 0);
         etNum.addTextChangedListener(this);
+        etNum.setOnTouchListener((v, event) -> {
+            keyboardUtil.showKeyboard();
+            return false;
+        });
         findViewById(R.id.btn_go_pay).setOnClickListener(clickListener);
+        findViewById(R.id.rl_root).setOnClickListener(v -> {
+            if (keyboardUtil.isShow()) {
+                keyboardUtil.hideKeyboard();
+            }
+        });
     }
 
     @Override
@@ -86,6 +101,18 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
         for (int i = 0; i < length; i++) {
             tvList.get(i).setText(String.valueOf(chars[i]));
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (keyboardUtil.isShow()) {
+                keyboardUtil.hideKeyboard();
+            } else {
+                finish();
+            }
+        }
+        return false;
     }
 
     @Override

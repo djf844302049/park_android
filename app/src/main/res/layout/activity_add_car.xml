@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/top"
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/tv_skip"
         style="@style/text_gray_16sp"
-        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/top"
         android:layout_marginRight="16dp"
         android:layout_marginTop="18dp"
         android:drawablePadding="3dp"
@@ -20,121 +23,125 @@
         android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/tv_text"
         style="@style/text_gray_18sp"
+        android:layout_below="@id/tv_skip"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/bind_real_car_num"
         android:textColor="@color/black" />
 
-    <RelativeLayout
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="15dp">-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/ll_num"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_1"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_2"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_3"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_4"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_5"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_6"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_7"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_num_8"-->
+    <!--android:layout_width="33dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:background="@drawable/shape_rectangle"-->
+    <!--android:gravity="center"-->
+    <!--android:maxLines="1"-->
+    <!--android:visibility="gone" />-->
+
+    <!--</LinearLayout>-->
+
+    <EditText
+        android:id="@+id/et_num"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        android:layout_height="44dp"
+        android:layout_below="@id/tv_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_round_stroke_blue"
+        android:cursorVisible="false"
+        android:gravity="center"
+        android:hint="@string/input_complete_info"
+        android:inputType="text"
+        android:maxLength="7"
+        android:maxLines="1" />
 
-        <LinearLayout
-            android:id="@+id/ll_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_num_1"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_2"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_3"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_4"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_5"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_6"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_7"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tv_num_8"
-                android:layout_width="33dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/shape_rectangle"
-                android:gravity="center"
-                android:maxLines="1"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/et_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/ll_num"
-            android:layout_alignLeft="@id/ll_num"
-            android:layout_alignRight="@id/ll_num"
-            android:layout_alignTop="@id/ll_num"
-            android:inputType="text"
-            android:background="@null"
-            android:cursorVisible="false"
-            android:maxLength="7"
-            android:maxLines="1"
-            android:textColor="#0000" />
-
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <CheckBox
         android:id="@+id/cb_new_energy_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/et_num"
         android:layout_marginRight="32dp"
         android:layout_marginTop="20dp"
         android:button="@null"
@@ -147,11 +154,27 @@
         android:id="@+id/btn_confirm_add"
         android:layout_width="220dp"
         android:layout_height="47dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/cb_new_energy_car"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:background="@drawable/shape_bg_blue"
         android:text="@string/confirm_add"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-</LinearLayout>
+    <com.anyidc.cloudpark.wiget.ColorKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F0EFF4"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@android:color/white"
+        android:keyTextColor="#5E5E5E"
+        android:keyTextSize="18sp"
+        android:labelTextSize="18sp"
+        android:paddingTop="2dp"
+        android:shadowColor="#ffffff"
+        android:visibility="gone" />
+</RelativeLayout>

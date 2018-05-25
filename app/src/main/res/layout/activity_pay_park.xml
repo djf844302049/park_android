@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/top"
+        layout="@layout/toolbar" />
 
     <TextView
+        android:id="@+id/tv_text"
         style="@style/text_gray_16sp"
+        android:layout_below="@id/top"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="35dp"
         android:text="@string/input_park_num_to_pay" />
 
     <RelativeLayout
+        android:id="@+id/rl_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_text"
         android:layout_marginTop="25dp">
 
         <LinearLayout
@@ -95,6 +101,7 @@
         android:id="@+id/btn_go_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rl_et"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="25dp"
@@ -104,8 +111,10 @@
         android:textSize="@dimen/text_size16" />
 
     <LinearLayout
+        android:id="@+id/ll_attention"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btn_go_pay"
         android:layout_marginTop="35dp"
         android:gravity="center"
         android:orientation="horizontal">
@@ -131,15 +140,36 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_tip1"
         style="@style/text_gray_14sp"
+        android:layout_below="@id/ll_attention"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="25dp"
         android:text="@string/pay_park_tip1" />
 
     <TextView
+        android:id="@+id/tv_tip2"
         style="@style/text_gray_14sp"
+        android:layout_below="@id/tv_tip1"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="25dp"
         android:lineSpacingExtra="3dp"
         android:text="@string/pay_park_tip2" />
-</LinearLayout>
+
+    <com.anyidc.cloudpark.wiget.ColorKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F0EFF4"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@android:color/white"
+        android:keyTextColor="#5E5E5E"
+        android:keyTextSize="18sp"
+        android:labelTextSize="18sp"
+        android:paddingTop="2dp"
+        android:shadowColor="#ffffff"
+        android:visibility="gone" />
+
+</RelativeLayout>
