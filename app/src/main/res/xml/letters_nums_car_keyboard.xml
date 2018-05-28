@@ -3,7 +3,7 @@
     <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
         android:horizontalGap="4px"
         android:keyHeight="8%p"
-        android:keyWidth="8.7%p"
+        android:keyWidth="8.6%p"
         android:verticalGap="4px">
         <Row>
             <Key
@@ -40,6 +40,7 @@
             <Key
                 android:codes="-3"
                 android:keyEdgeFlags="right"
+                android:isRepeatable="true"
                 android:keyIcon="@drawable/keyboard_delete" />
         </Row>
         <Row>
