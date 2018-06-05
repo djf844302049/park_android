@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -86,6 +87,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private boolean isShare = false;
     private ParkUnitInfoBean selectParkUnitInfoBean;
     private ShareParkUnitInfo selectShareParkUnitInfo;
+    private TextView tvNull,tvApointment,tvParked;
+    private TextView[] tvArr = new TextView[3];
 
     public static void start(Context context,String id){
         Intent intent = new Intent(context,SelectUnitParkActivity.class);
@@ -101,6 +104,12 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     protected void initData() {
         id = getIntent().getStringExtra("id");
         initTitle("选择车位");
+        tvNull = findViewById(R.id.tv_null);
+        tvApointment = findViewById(R.id.tv_has_appointment);
+        tvParked = findViewById(R.id.tv_has_parked);
+        tvArr[0] = tvNull;
+        tvArr[1] = tvApointment;
+        tvArr[2] = tvParked;
         tvTitle = findViewById(R.id.tv_parking_name);
         tvAddress = findViewById(R.id.tv_parking_address);
         tvDistance = findViewById(R.id.tv_parking_distance);
@@ -117,6 +126,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         tvIdAuth.setOnClickListener(this);
         tvCarAuth.setOnClickListener(this);
         tvPay.setOnClickListener(this);
+        tvNull.setOnClickListener(this);
+        tvApointment.setOnClickListener(this);
+        tvParked.setOnClickListener(this);
         getParkDetial();
         getCenterData();
         getWalletInfo();
@@ -222,6 +234,27 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     startActivity(new Intent(this, DepositActivity.class));
                 }
                 break;
+            case R.id.tv_null:
+                changeTitleBg(0);
+                break;
+            case R.id.tv_has_appointment:
+                changeTitleBg(1);
+                break;
+            case R.id.tv_has_parked:
+                changeTitleBg(2);
+                break;
+        }
+    }
+
+    private void changeTitleBg(int pos){
+        for(int i = 0; i < tvArr.length ;i++){
+            if(i == pos ) {
+                tvArr[i].setTextColor(ContextCompat.getColor(this,R.color.white));
+                tvArr[i].setBackgroundColor(ContextCompat.getColor(this,R.color.bg_blue));
+            }else{
+                tvArr[i].setTextColor(ContextCompat.getColor(this,R.color.bg_blue));
+                tvArr[i].setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+            }
         }
     }
 
