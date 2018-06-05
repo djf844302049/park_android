@@ -3,9 +3,12 @@ package com.anyidc.cloudpark.network;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
+import com.anyidc.cloudpark.activity.LoginActivity;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.io.EOFException;
@@ -29,12 +32,14 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
     private boolean isShowDialog;
     private Dialog mDialog;
     private Reference<Context> reference;
+    private Context mContext;
 
     private RxObserver() {
 
     }
 
     public RxObserver(Context context, boolean isShowDialog) {
+        mContext = context;
         reference = new WeakReference<>(context);
         this.isShowDialog = isShowDialog;
         mDialog = new ProgressDialog(reference.get());
@@ -64,6 +69,12 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
                 || e instanceof BindException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
             onError("网络异常，请稍后重试！");
         } else if (e instanceof ApiException) {
+            switch (((ApiException) e).getErrCode()) {
+                case -99:
+                    LoginUtil.logout();
+                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                    break;
+            }
             onError(e.getMessage());
         } else {
             onError("未知错误！");
