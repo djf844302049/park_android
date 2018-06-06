@@ -1,51 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/top_blue"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/iv_back_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="18dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/img_left_arrow" />
-        </FrameLayout>
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size14"
-            android:layout_weight="1"
-            android:gravity="center" />
-    </LinearLayout>
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/toolbar" />
 
     <ScrollView
-        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/title_bar"
         android:paddingBottom="@dimen/dp40"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <HorizontalScrollView
-                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
                 <LinearLayout
                     android:id="@+id/ll_image"
                     android:layout_width="match_parent"
@@ -54,110 +33,124 @@
 
                 </LinearLayout>
             </HorizontalScrollView>
+
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_margin="@dimen/dp10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp10"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_null"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/white"
-                    android:paddingTop="@dimen/dp10"
+                    android:layout_weight="1"
                     android:background="@color/bg_blue"
+                    android:gravity="center"
                     android:paddingBottom="@dimen/dp10"
-                    android:text="空车位"/>
+                    android:paddingTop="@dimen/dp10"
+                    android:text="空车位"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size14" />
+
                 <View
                     android:layout_width="1dp"
-                    android:background="@color/bg_blue"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_blue" />
+
                 <TextView
                     android:id="@+id/tv_has_appointment"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/bg_blue"
-                    android:paddingTop="@dimen/dp10"
+                    android:layout_weight="1"
                     android:background="@color/white"
+                    android:gravity="center"
                     android:paddingBottom="@dimen/dp10"
-                    android:text="已预约车位"/>
+                    android:paddingTop="@dimen/dp10"
+                    android:text="已预约车位"
+                    android:textColor="@color/bg_blue"
+                    android:textSize="@dimen/text_size14" />
+
                 <View
                     android:layout_width="1dp"
-                    android:background="@color/bg_blue"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_blue" />
+
                 <TextView
                     android:id="@+id/tv_has_parked"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/bg_blue"
-                    android:paddingTop="@dimen/dp10"
+                    android:layout_weight="1"
                     android:background="@color/white"
+                    android:gravity="center"
                     android:paddingBottom="@dimen/dp10"
-                    android:text="已停车位"/>
+                    android:paddingTop="@dimen/dp10"
+                    android:text="已停车位"
+                    android:textColor="@color/bg_blue"
+                    android:textSize="@dimen/text_size14" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_unit_list"
-                android:padding="@dimen/dp10"
-                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp200">
+                android:layout_height="@dimen/dp200"
+                android:padding="@dimen/dp10"
+                android:scrollbars="vertical">
 
             </android.support.v7.widget.RecyclerView>
-            <TextView style="@style/text_black_16sp"
+
+            <TextView
                 android:id="@+id/tv_parking_name"
+                style="@style/text_black_16sp"
+                android:paddingBottom="@dimen/dp5"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
                 android:paddingTop="@dimen/dp5"
-                android:paddingBottom="@dimen/dp5"
-                android:text="XXX停车场"/>
+                android:text="XXX停车场" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:textColor="@color/text_color_gray"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tv_parking_address"
-                    android:paddingLeft="@dimen/dp10"
-                    android:paddingRight="@dimen/dp10"
-                    android:paddingTop="@dimen/dp5"
-                    android:paddingBottom="@dimen/dp5"
-                    android:text="厦门海沧阿罗海"/>
-                <TextView
-                    android:textColor="@color/text_color_gray"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_parking_distance"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/dp5"
                     android:paddingLeft="@dimen/dp10"
                     android:paddingRight="@dimen/dp10"
                     android:paddingTop="@dimen/dp5"
+                    android:text="厦门海沧阿罗海"
+                    android:textColor="@color/text_color_gray" />
+
+                <TextView
+                    android:id="@+id/tv_parking_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:paddingBottom="@dimen/dp5"
-                    android:text="距离：10km"/>
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingTop="@dimen/dp5"
+                    android:text="距离：10km"
+                    android:textColor="@color/text_color_gray" />
             </LinearLayout>
-            <TextView style="@style/text_black_16sp"
+
+            <TextView
+                style="@style/text_black_16sp"
+                android:paddingBottom="@dimen/dp5"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
                 android:paddingTop="@dimen/dp5"
-                android:paddingBottom="@dimen/dp5"
-                android:text="车位信息"/>
+                android:text="车位信息" />
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,138 +161,153 @@
                     android:text="共有"
                     android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size14" />
+
                 <TextView
                     android:id="@+id/tv_unit_total_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/text_color_gray"
-                    android:paddingTop="@dimen/dp5"
                     android:paddingBottom="@dimen/dp5"
-                    android:text="111"/>
+                    android:paddingTop="@dimen/dp5"
+                    android:text="111"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size14" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/text_color_gray"
-                    android:paddingTop="@dimen/dp5"
                     android:paddingBottom="@dimen/dp5"
-                    android:text="剩余空车位"/>
+                    android:paddingTop="@dimen/dp5"
+                    android:text="剩余空车位"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size14" />
+
                 <TextView
                     android:id="@+id/tv_unit_remain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/text_color_blue"
-                    android:paddingTop="@dimen/dp5"
                     android:paddingBottom="@dimen/dp5"
-                    android:text="50"/>
+                    android:paddingTop="@dimen/dp5"
+                    android:text="50"
+                    android:textColor="@color/text_color_blue"
+                    android:textSize="@dimen/text_size14" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size14"
-                    android:textColor="@color/text_color_gray"
-                    android:paddingTop="@dimen/dp5"
                     android:paddingBottom="@dimen/dp5"
-                    android:text="个"/>
+                    android:paddingTop="@dimen/dp5"
+                    android:text="个"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size14" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/gray_line"/>
+                android:background="@color/gray_line" />
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView style="@style/text_black_16sp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:paddingBottom="@dimen/dp5"
                     android:paddingLeft="@dimen/dp10"
                     android:paddingTop="@dimen/dp5"
+                    android:text="收费标准" />
+
+                <TextView
+                    style="@style/text_gray_16sp"
                     android:paddingBottom="@dimen/dp5"
-                    android:text="收费标准"/>
-                <TextView style="@style/text_gray_16sp"
                     android:paddingRight="@dimen/dp10"
                     android:paddingTop="@dimen/dp5"
-                    android:paddingBottom="@dimen/dp5"
-                    android:text="（实时计算）"/>
+                    android:text="（实时计算）" />
             </LinearLayout>
+
             <TextView
+                android:id="@+id/tv_unit_fee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size14"
-                android:textColor="@color/text_color_gray"
-                android:id="@+id/tv_unit_fee"
+                android:paddingBottom="@dimen/dp5"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
                 android:paddingTop="@dimen/dp5"
-                android:paddingBottom="@dimen/dp5"
-                android:text="收费标准：首个小时4元，之后2元/小时"/>
+                android:text="收费标准：首个小时4元，之后2元/小时"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size14" />
+
             <TextView
+                android:id="@+id/tv_appointment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size14"
-                android:background="@color/gray_line"
+                android:layout_marginBottom="24dp"
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10"
                 android:layout_marginTop="24dp"
+                android:background="@color/gray_line"
                 android:gravity="center"
-                android:layout_marginBottom="24dp"
-                android:textColor="@color/white"
-                android:id="@+id/tv_appointment"
+                android:paddingBottom="@dimen/dp10"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
                 android:paddingTop="@dimen/dp10"
-                android:paddingBottom="@dimen/dp10"
-                android:text="预约停车"/>
+                android:text="预约停车"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size14" />
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/ll_bottom"
-        android:paddingRight="@dimen/dp10"
-        android:paddingLeft="@dimen/dp10"
-        android:paddingBottom="@dimen/dp10"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10">
+
         <TextView
             android:id="@+id/tv_id_certification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/shape_bg_blue"
             android:gravity="center"
             android:paddingBottom="@dimen/dp10"
             android:paddingTop="@dimen/dp10"
-            android:layout_width="0dp"
             android:text="@string/id_confirm"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_size16"
             android:textColor="@color/white"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/text_size16" />
+
         <TextView
             android:id="@+id/tv_car_certification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_weight="1"
             android:background="@drawable/shape_bg_blue"
             android:gravity="center"
             android:paddingBottom="@dimen/dp10"
             android:paddingTop="@dimen/dp10"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_width="0dp"
             android:text="@string/car_confirm"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_size16"
             android:textColor="@color/white"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/text_size16" />
+
         <TextView
             android:id="@+id/tv_recharge_deposit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_weight="1"
             android:background="@drawable/shape_bg_blue"
             android:gravity="center"
             android:paddingBottom="@dimen/dp10"
             android:paddingTop="@dimen/dp10"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_width="0dp"
             android:text="@string/recharge_deposit"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_size16"
             android:textColor="@color/white"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/text_size16" />
     </LinearLayout>
 
 </RelativeLayout>

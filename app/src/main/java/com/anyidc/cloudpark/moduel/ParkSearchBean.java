@@ -100,7 +100,7 @@ public class ParkSearchBean {
         /**
          * parking_id : 4
          * parking_name : 东屿停车场
-         * type : 0
+         * type : 0为附近停车场，1为云能停车场，2为共享停车场
          * num : 70
          * province : 205
          * city : 203

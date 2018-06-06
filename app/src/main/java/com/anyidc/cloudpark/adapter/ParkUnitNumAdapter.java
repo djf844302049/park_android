@@ -10,9 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
-import com.anyidc.cloudpark.moduel.ParkUnitInfoBean;
+import com.anyidc.cloudpark.moduel.ParkDetailBean;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 选择车位，自营车场的车位编码迭代器
@@ -22,10 +22,10 @@ import java.util.ArrayList;
 public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.UnitNumHolderView> implements View.OnClickListener{
     private Context context;
     private LayoutInflater mInflater;
-    private ArrayList<ParkUnitInfoBean> dataList;
+    private List<ParkDetailBean.UseArrBean> dataList;
     private ItemClickListener itemClickListener;
     private int selectPos = -1;
-    public ParkUnitNumAdapter(Context context,ArrayList<ParkUnitInfoBean> dataList){
+    public ParkUnitNumAdapter(Context context,List<ParkDetailBean.UseArrBean> dataList){
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.dataList = dataList;
@@ -39,7 +39,7 @@ public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.
 
     @Override
     public void onBindViewHolder(UnitNumHolderView holder, int position) {
-        ParkUnitInfoBean unitInfoBean = dataList.get(position);
+        ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
         if(unitInfoBean != null) {
             holder.itemView.setTag(position);
             holder.tvNum.setText(unitInfoBean.getUnit_id());
@@ -72,7 +72,7 @@ public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.
                 itemClickListener.onItemClick(view,position);
             }
         }
-        ParkUnitInfoBean unitInfoBean = dataList.get(position);
+        ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
         if(unitInfoBean != null && unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
             selectPos = position;
         }
