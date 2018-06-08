@@ -88,7 +88,6 @@ public class OptParkLockActivity extends BaseActivity {
                 confirmCancelDialog.setEtVisibility(View.GONE);
                 break;
             case FROMMANAGER:
-
                 confirmCancelDialog = new ConfirmCancelDialog(this, "请输入操作原因", "", getString(R.string.common_confirm), getString(R.string.common_cancel));
                 confirmCancelDialog.setEtVisibility(View.VISIBLE);
                 getOptReasons();

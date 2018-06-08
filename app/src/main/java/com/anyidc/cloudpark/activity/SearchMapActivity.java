@@ -427,12 +427,12 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                                 case 1://云能停车场
                                     tvMark.setBackgroundResource(R.mipmap.img_yunneng_park);
                                     tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.bg_blue));
-                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    tvMark.setText(parkBean.getAvailable_num() > 99 ? "99+" : String.valueOf(parkBean.getAvailable_num()));
                                     break;
                                 case 2://共享停车场
                                     tvMark.setBackgroundResource(R.mipmap.img_share_logo);
                                     tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.white));
-                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    tvMark.setText(parkBean.getAvailable_num() > 99 ? "99+" : String.valueOf(parkBean.getAvailable_num()));
                                     break;
                             }
                             markerOption.icon(BitmapDescriptorFactory.fromView(inflate));
@@ -512,12 +512,12 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                                 case 1://云能停车场
                                     tvMark.setBackgroundResource(R.mipmap.img_yunneng_park);
                                     tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.bg_blue));
-                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    tvMark.setText(parkBean.getAvailable_num() > 99 ? "99+" : String.valueOf(parkBean.getAvailable_num()));
                                     break;
                                 case 2://共享停车场
                                     tvMark.setBackgroundResource(R.mipmap.img_share_logo);
                                     tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.white));
-                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    tvMark.setText(parkBean.getAvailable_num() > 99 ? "99+" : String.valueOf(parkBean.getAvailable_num()));
                                     break;
                             }
                             markerOption.icon(BitmapDescriptorFactory.fromView(inflate));
