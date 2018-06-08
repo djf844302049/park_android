@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -48,13 +47,15 @@ public class PayAppointmentActivity extends BaseActivity {
     private int orderNum;
     private Button btnPay;
     private int payType = 0;//1支付宝 2微信 3银联 4账号
+    private String carId;
 
-    public static void start(Context context, String parkName, String unitNum, String shareTime, int payNum) {
+    public static void start(Context context, String parkName, String unitNum, String shareTime, int payNum, String carId) {
         Intent intent = new Intent(context, PayAppointmentActivity.class);
         intent.putExtra("parkName", parkName);
         intent.putExtra("unitNum", unitNum);
         intent.putExtra("shareTime", shareTime);
         intent.putExtra("payNum", payNum);
+        intent.putExtra("carId", carId);
         context.startActivity(intent);
     }
 
@@ -130,6 +131,7 @@ public class PayAppointmentActivity extends BaseActivity {
         unitNum = intent.getStringExtra("unitNum");
         shareTime = intent.getStringExtra("shareTime");
         payNum = intent.getIntExtra("payNum", 0);
+        carId = intent.getStringExtra("carId");
         if (TextUtils.isEmpty(shareTime)) {
             llShareTime.setVisibility(View.GONE);
             llShareTip.setVisibility(View.GONE);
@@ -173,11 +175,10 @@ public class PayAppointmentActivity extends BaseActivity {
      * 支付
      */
     private void toPay() {
-        Log.e("tag", "点击了啊.....");
         switch (payType) {
             case 1:
                 getTime(Api.getDefaultService().alPay("预约", "预约付款", String.valueOf(orderNum)
-                        , 3, payType, unitNum), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
+                        , 3, payType, unitNum, carId), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
                         Runnable payRunnable = () -> {
@@ -198,7 +199,7 @@ public class PayAppointmentActivity extends BaseActivity {
                 break;
             case 2:
                 getTime(Api.getDefaultService().wxPay("预约", "预约付款", String.valueOf(payNum)
-                        , 3, payType, unitNum), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
+                        , 3, payType, unitNum, carId), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(payNum));
@@ -217,7 +218,7 @@ public class PayAppointmentActivity extends BaseActivity {
 
     private void balancePay() {
         getTime(Api.getDefaultService().balancePay("预约", "预约付款", String.valueOf(payNum)
-                , 3, payType, unitNum), new RxObserver<BaseEntity>(this, true) {
+                , 3, payType, unitNum, carId), new RxObserver<BaseEntity>(this, true) {
             @Override
             public void onSuccess(BaseEntity baseEntity) {
 

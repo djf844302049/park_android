@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
-import com.anyidc.cloudpark.moduel.MyShareBean;
 import com.anyidc.cloudpark.moduel.ParkInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
@@ -18,19 +17,19 @@ import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
 
 /**
  * Created by linwenxiong on 2018/3/13.
  */
 
-public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener{
-    private TextView tvParkName,tvAddress,tvDistance,tvParkNum,tvTime,tvConfirm,tvCancel,tvTip,tvShareTime;
+public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener {
+    private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime;
     private long remain = 0;
     private MyAppointmentBean.AppointmentBean appointmentBean = null;
+
     @Override
     protected void inflaterLayout(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.appointment_ing_layout,null,false);
+        layout = inflater.inflate(R.layout.appointment_ing_layout, null, false);
     }
 
     @Override
@@ -38,8 +37,8 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         getMyAppointmentIng();
     }
 
-    private void getMyAppointmentIng(){
-        getTime(Api.getDefaultService().getAppointment("1","1","1")
+    private void getMyAppointmentIng() {
+        getTime(Api.getDefaultService().getAppointment("1", "1", "1")
                 , new RxObserver<BaseEntity<MyAppointmentBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BaseEntity<MyAppointmentBean> appointmentBean) {
@@ -47,35 +46,37 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                         if (data != null && data.getList() != null && data.getList().size() > 0) {
                             MyAppointmentBean.AppointmentBean bean = data.getList().get(0);
                             updateView(bean);
+                        } else {
+                            noData();
                         }
                     }
                 });
     }
 
-    private void noData(){
+    private void noData() {
         layout.findViewById(R.id.ll_content).setVisibility(View.GONE);
         tvTip.setText("您暂时没有正在进行中的预约!");
     }
 
-    private void updateView(MyAppointmentBean.AppointmentBean appointmentBean){
+    private void updateView(MyAppointmentBean.AppointmentBean appointmentBean) {
         this.appointmentBean = appointmentBean;
-        if(appointmentBean == null || appointmentBean.getStatus() != 1){
+        if (appointmentBean == null || appointmentBean.getStatus() != 1) {
             noData();
             return;
         }
         layout.findViewById(R.id.ll_content).setVisibility(View.VISIBLE);
-        if(appointmentBean.getPark() != null) {
+        if (appointmentBean.getPark() != null) {
             ParkInfo parkInfo = appointmentBean.getPark();
             tvParkName.setText(parkInfo.getParking_name());
-            tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " " );
+            tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
         }
         tvParkNum.setText(appointmentBean.getUnit_id());
-        tvTime.setText("("+stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes())+")");
-        remain = System.currentTimeMillis()/1000 - appointmentBean.getCreate_time();
-        if(appointmentBean.getUnit_id().endsWith("S")){
+        tvTime.setText("(" + stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes()) + ")");
+        remain = System.currentTimeMillis() / 1000 - appointmentBean.getCreate_time();
+        if (appointmentBean.getUnit_id().endsWith("S")) {
             layout.findViewById(R.id.ll_share).setVisibility(View.VISIBLE);
 //            tvShareTime.setText();等待接口返回数据
-        }else{
+        } else {
             layout.findViewById(R.id.ll_share).setVisibility(View.GONE);
         }
         tvShareTime.setText((appointmentBean.getShare_time()));
@@ -85,27 +86,28 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                 @Override
                 public void run() {
                     remain--;
-                    if(remain <= 0){
+                    if (remain <= 0) {
                         getMyAppointmentIng();
-                    }else {
-                        tvTip.postDelayed(this,1000);
+                    } else {
+                        tvTip.postDelayed(this, 1000);
                     }
                 }
-            },1000);
-        }else{
+            }, 1000);
+        } else {
             tvTip.setVisibility(View.GONE);
         }
 
     }
 
 
-    private static String stampToDate(long s){
+    private static String stampToDate(long s) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(s * 1000);
         res = simpleDateFormat.format(date);
         return res;
     }
+
     @Override
     protected void initView() {
         tvParkName = layout.findViewById(R.id.tv_park_name);
@@ -123,7 +125,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_confirm:
                 confirmAppointment();
                 break;
@@ -133,8 +135,8 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         }
     }
 
-    private void confirmAppointment(){
-        if(appointmentBean == null){
+    private void confirmAppointment() {
+        if (appointmentBean == null) {
             return;
         }
         getTime(Api.getDefaultService().arrive(appointmentBean.getUnit_id())
@@ -146,8 +148,8 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                 });
     }
 
-    private void concelAppointment(){
-        if(appointmentBean == null){
+    private void concelAppointment() {
+        if (appointmentBean == null) {
             return;
         }
         getTime(Api.getDefaultService().cancelAppointment(appointmentBean.getUnit_id())

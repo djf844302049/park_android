@@ -97,7 +97,7 @@ public class RechargeActivity extends BaseActivity {
         switch (payType) {
             case 1:
                 getTime(Api.getDefaultService().alPay("充值", "余额充值", String.valueOf(0.01)
-                        , 1, payType, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
+                        , 1, payType, null, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
                         Runnable payRunnable = () -> {
@@ -118,7 +118,7 @@ public class RechargeActivity extends BaseActivity {
                 break;
             case 2:
                 getTime(Api.getDefaultService().wxPay("充值", "余额充值", String.valueOf(0.01)
-                        , 1, payType, null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
+                        , 1, payType, null,null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(rechargeNum));

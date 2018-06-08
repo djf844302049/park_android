@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.moduel.OptReasonBean;
 
 import java.util.List;
 
-public class ReasonsAdapter extends RecyclerView.Adapter<ReasonsAdapter.ReasonViewHolder> {
-    private List<String> reasons;
+public class ReasonsAdapter extends RecyclerView.Adapter<ReasonsAdapter.ReasonViewHolder> implements View.OnClickListener {
+    private List<OptReasonBean> reasons;
+    private ItemClickListener mItemClickListener;
 
-    public ReasonsAdapter(List<String> reasons) {
+    public ReasonsAdapter(List<OptReasonBean> reasons) {
         this.reasons = reasons;
     }
 
@@ -25,12 +27,21 @@ public class ReasonsAdapter extends RecyclerView.Adapter<ReasonsAdapter.ReasonVi
 
     @Override
     public void onBindViewHolder(ReasonViewHolder holder, int position) {
-        holder.tvReason.setText(reasons.get(position));
+        holder.itemView.setTag(position);
+        holder.tvReason.setText(reasons.get(position).getReason_name());
     }
 
     @Override
     public int getItemCount() {
         return reasons == null ? 0 : reasons.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        if (mItemClickListener != null) {
+            mItemClickListener.onItemClick(v, position);
+        }
     }
 
     class ReasonViewHolder extends RecyclerView.ViewHolder {
@@ -39,6 +50,15 @@ public class ReasonsAdapter extends RecyclerView.Adapter<ReasonsAdapter.ReasonVi
         public ReasonViewHolder(View itemView) {
             super(itemView);
             tvReason = itemView.findViewById(R.id.tv_bottom_choice);
+            itemView.setOnClickListener(ReasonsAdapter.this);
         }
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(ItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 }

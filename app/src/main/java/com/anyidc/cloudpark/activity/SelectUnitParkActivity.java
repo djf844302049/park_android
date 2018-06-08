@@ -2,8 +2,10 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +23,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.adapter.CarChoiceAdapter;
 import com.anyidc.cloudpark.adapter.ParkUnitNumAdapter;
 import com.anyidc.cloudpark.adapter.ShareParkUnitAdapter;
 import com.anyidc.cloudpark.dialog.SelectUnitParkDialog;
@@ -78,6 +81,11 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private TextView tvNull, tvApointment, tvParked;
     private TextView[] tvArr = new TextView[3];
     private int type;
+    private BottomSheetDialog dialog;
+    private RecyclerView rlvCars;
+    private CarChoiceAdapter adapter;
+    private List<MyCarBean> carList = new ArrayList<>();
+    private String carId;
 
     public static void start(Context context, String id) {
         Intent intent = new Intent(context, SelectUnitParkActivity.class);
@@ -119,6 +127,20 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         tvNull.setOnClickListener(this);
         tvApointment.setOnClickListener(this);
         tvParked.setOnClickListener(this);
+        dialog = new BottomSheetDialog(this);
+        dialog.setContentView(R.layout.dialog_bankcard_picker);
+        rlvCars = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
+        TextView tvTitle = (TextView) dialog.findViewById(R.id.tv_title);
+        tvTitle.setText("请选择需要预约的车辆");
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        rlvCars.setLayoutManager(manager);
+        adapter = new CarChoiceAdapter(carList);
+        rlvCars.setAdapter(adapter);
+        adapter.setOnItemClickListener((view, position) -> {
+            carId = String.valueOf(carList.get(position).getId());
+            PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "", parkInfo.getAppointment_money(), carId);
+            dialog.dismiss();
+        });
         getParkDetial();
         getCenterData();
         getWalletInfo();
@@ -144,9 +166,10 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 , new RxObserver<BaseEntity<List<MyCarBean>>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
-                        List<MyCarBean> data = carBean.getData();
-                        if (data != null && data.size() > 0) {
+                        if (carBean.getData() != null && carBean.getData().size() > 0) {
+                            carList.addAll(carBean.getData());
                             hasCar = true;
+                            adapter.notifyDataSetChanged();
                         }
                         updateAppointBtn();
                     }
@@ -197,11 +220,12 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
+                dialog.show();
 //                if (hasCar && hasCertification && hasDeposit && !TextUtils.isEmpty(selectUnitId)) {
 //                    if (isShare) {
 //                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectShareParkUnitInfo.getUnit_id(), selectShareParkUnitInfo.getShare_time(),parkInfo.getAppointment_money());
 //                    } else {
-                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "",parkInfo.getAppointment_money());
+//                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "",parkInfo.getAppointment_money());
 //                    }
 //
 //                } else if (!hasCertification) {

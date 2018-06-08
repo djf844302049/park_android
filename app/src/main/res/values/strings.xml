@@ -115,7 +115,7 @@
     <string name="logout">退出登录</string>
     <string name="chinese_money_symbol">￥</string>
     <string name="company_name">©厦门云能信息科技有限公司</string>
-    <string name="customer_service_phone_num">客服电话：********</string>
+    <string name="customer_service_phone_num">客服电话：0592-2932522</string>
     <string name="two_hours_receive">2小时到账</string>
     <string name="recharge_tip">余额可在“个人中心-我的钱包”中提现。</string>
     <string name="half_penny_without_key_tip">开启后，支付无需输入密码</string>

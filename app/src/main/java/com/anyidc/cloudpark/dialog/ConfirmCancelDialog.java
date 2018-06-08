@@ -99,6 +99,10 @@ public class ConfirmCancelDialog extends BaseDialog implements View.OnClickListe
         return et.getText().toString().trim();
     }
 
+    public void clearEtContent() {
+        et.setText("");
+    }
+
     public void setClickListener(ClickListener listener) {
         this.listener = listener;
     }

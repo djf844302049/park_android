@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.MyShareBean;
+import com.anyidc.cloudpark.moduel.OptReasonBean;
 import com.anyidc.cloudpark.moduel.ParkDetailBean;
 import com.anyidc.cloudpark.moduel.ParkInfoBean;
 import com.anyidc.cloudpark.moduel.ParkSearchBean;
@@ -310,7 +311,8 @@ public interface ApiService {
      */
     @POST("api/v1/parkingControlByManager")
     @FormUrlEncoded
-    Observable<BaseEntity> parkingControl(@Field("parking_sn") String parking_sn, @Field("control") String control);
+    Observable<BaseEntity> parkingControl(@Field("parking_sn") String parking_sn, @Field("control") String control
+            , @Field("reason_code") String reason_code, @Field("reason_note") String reason_note);
 
     /**
      * 获取车位列表接口
@@ -386,7 +388,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseEntity> doPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
-            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id, @Field("car_id") String car_id);
 
 
     /**
@@ -396,7 +398,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseEntity<AlPayBean>> alPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
-            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id, @Field("car_id") String car_id);
 
     /**
      * 微信支付接口
@@ -405,7 +407,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseEntity<WxPayBean>> wxPay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
-            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id, @Field("car_id") String car_id);
 
     /**
      * 余额支付接口
@@ -414,7 +416,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseEntity> balancePay(@Field("subject") String subject, @Field("detail") String detail
             , @Field("money") String money, @Field("product_id") int product_id
-            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id);
+            , @Field("pay_type") int pay_type, @Field("unit_id") String unit_id, @Field("car_id") String car_id);
 
     /**
      * 取消预约接口
@@ -484,4 +486,10 @@ public interface ApiService {
     @POST("api/v1.order/tuiyajin")
     @FormUrlEncoded
     Observable<BaseEntity> drawDeposit(@Field("bank_id") String bank_id);
+
+    /**
+     * 操作车位锁原因
+     */
+    @POST("/api/v1/parkingControlReason")
+    Observable<BaseEntity<List<OptReasonBean>>> optReason();
 }
