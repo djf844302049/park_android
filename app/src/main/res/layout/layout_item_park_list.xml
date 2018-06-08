@@ -17,14 +17,23 @@
         <TextView
             android:id="@+id/tv_park_name"
             style="@style/text_black_18sp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="****停车场" />
+
+        <ImageView
+            android:id="@+id/iv_share_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/img_share_list" />
 
         <TextView
             android:id="@+id/tv_distance"
             style="@style/text_gray_14sp"
+            android:layout_weight="1"
+            android:gravity="right"
             android:text="距离我10km" />
     </LinearLayout>
 
@@ -79,7 +88,8 @@
             android:textColor="#0081d8" />
     </LinearLayout>
 
-    <View style="@style/gray_line_h"
-        android:layout_marginTop="@dimen/dp10"/>
+    <View
+        style="@style/gray_line_h"
+        android:layout_marginTop="@dimen/dp10" />
 </LinearLayout>
 

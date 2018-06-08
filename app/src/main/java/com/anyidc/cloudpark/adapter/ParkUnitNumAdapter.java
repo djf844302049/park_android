@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
@@ -19,13 +18,15 @@ import java.util.List;
  * Created by Administrator on 2018/4/11.
  */
 
-public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.UnitNumHolderView> implements View.OnClickListener{
+public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.UnitNumHolderView> implements View.OnClickListener {
     private Context context;
     private LayoutInflater mInflater;
     private List<ParkDetailBean.UseArrBean> dataList;
     private ItemClickListener itemClickListener;
     private int selectPos = -1;
-    public ParkUnitNumAdapter(Context context,List<ParkDetailBean.UseArrBean> dataList){
+    private int type;
+
+    public ParkUnitNumAdapter(Context context, List<ParkDetailBean.UseArrBean> dataList) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.dataList = dataList;
@@ -33,64 +34,84 @@ public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.
 
     @Override
     public UnitNumHolderView onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.unit_num_item_layout,null,false);
+        View itemView = mInflater.inflate(R.layout.unit_num_item_layout, parent, false);
         return new UnitNumHolderView(itemView);
     }
 
     @Override
     public void onBindViewHolder(UnitNumHolderView holder, int position) {
         ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
-        if(unitInfoBean != null) {
+        if (unitInfoBean != null) {
             holder.itemView.setTag(position);
             holder.tvNum.setText(unitInfoBean.getUnit_id());
-            if(unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
-                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context,R.color.white));
-            }else{
-                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_line));
+//            if(unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
+//                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context,R.color.white));
+//            }else{
+//                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_line));
+//            }
+            if (type != 0) {
+                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+                holder.tvNum.setSelected(false);
+                return;
+            }
+            if (selectPos == -1) {
+                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+                holder.tvNum.setSelected(false);
             }
             holder.itemView.setOnClickListener(this);
-            if(selectPos == position){
-                holder.rlParent.setBackgroundColor(ContextCompat.getColor(context,R.color.text_color_red));
-            }else{
-                holder.rlParent.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_line));
+            if (selectPos == position) {
+//                holder.rlParent.setBackgroundColor(ContextCompat.getColor(context,R.color.text_color_red));
+                holder.tvNum.setSelected(true);
+                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.bg_blue));
+            } else {
+//                holder.rlParent.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_line));
+                holder.tvNum.setSelected(false);
+                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
             }
         }
     }
 
     @Override
     public int getItemCount() {
-        return dataList == null?0:dataList.size();
+        return dataList == null ? 0 : dataList.size();
     }
 
     @Override
     public void onClick(View view) {
-        int position = (Integer)view.getTag();
-        if(selectPos == position){
+        int position = (Integer) view.getTag();
+        if (selectPos == position) {
             selectPos = -1;
-        }else{
-            if(itemClickListener != null){
-                itemClickListener.onItemClick(view,position);
+        } else {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(view, position);
             }
         }
-        ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
-        if(unitInfoBean != null && unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
-            selectPos = position;
+        if (type != 0) {
+            return;
         }
+        selectPos = position;
         notifyDataSetChanged();
     }
 
-    public void setOnItemClickListener(ItemClickListener itemClickListener){
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
+    public void setSelectPos(int pos) {
+        selectPos = pos;
+    }
 
-    public class UnitNumHolderView extends RecyclerView.ViewHolder{
+    public void setType(int type) {
+        this.type = type;
+    }
+
+
+    public class UnitNumHolderView extends RecyclerView.ViewHolder {
         private TextView tvNum;
-        private RelativeLayout rlParent;
-        public UnitNumHolderView(View itemView){
+
+        public UnitNumHolderView(View itemView) {
             super(itemView);
             tvNum = itemView.findViewById(R.id.tv_unit_num);
-            rlParent = itemView.findViewById(R.id.rl_parent);
         }
     }
 

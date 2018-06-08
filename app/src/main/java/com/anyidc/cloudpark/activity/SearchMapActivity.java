@@ -29,6 +29,7 @@ import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
@@ -311,7 +312,7 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
             case R.id.tv_distance_first:
                 parkList.clear();
                 parkList.addAll(nearbyList);
-                parkListAdapter.notifyDataSetChanged();
+                parkListAdapter.notifyDataChanged();
                 break;
             case R.id.btn_navigation:
                 jumpToMap();
@@ -417,14 +418,31 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                             markerOption.position(latLng);
                             markerOption.draggable(false);//设置Marker可拖动
                             markerOption.snippet(parkBean.getParking_name());
-//                            markerOption.icon(BitmapDescriptorFactory.fromView(view));
+                            View inflate = LayoutInflater.from(SearchMapActivity.this).inflate(R.layout.layout_map_mark, null);
+                            TextView tvMark = inflate.findViewById(R.id.tv_mark);
+                            switch (parkBean.getType()) {
+                                case 0://附近停车场
+                                    tvMark.setBackgroundResource(R.mipmap.img_other_park);
+                                    break;
+                                case 1://云能停车场
+                                    tvMark.setBackgroundResource(R.mipmap.img_yunneng_park);
+                                    tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.bg_blue));
+                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    break;
+                                case 2://共享停车场
+                                    tvMark.setBackgroundResource(R.mipmap.img_share_logo);
+                                    tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.white));
+                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    break;
+                            }
+                            markerOption.icon(BitmapDescriptorFactory.fromView(inflate));
                             Marker marker = aMap.addMarker(markerOption);
                             marker.setObject(parkBean);
                         }
                         nearbyList.addAll(park);
                         parkList.clear();
                         parkList.addAll(nearbyList);
-                        parkListAdapter.notifyDataSetChanged();
+                        parkListAdapter.notifyDataChanged();
                     }
                 });
     }
@@ -485,13 +503,30 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                             markerOption.position(latLng);
                             markerOption.draggable(false);//设置Marker可拖动
                             markerOption.snippet(parkBean.getParking_name());
-//                            markerOption.icon(BitmapDescriptorFactory.fromView(view));
+                            View inflate = LayoutInflater.from(SearchMapActivity.this).inflate(R.layout.layout_map_mark, null);
+                            TextView tvMark = inflate.findViewById(R.id.tv_mark);
+                            switch (parkBean.getType()) {
+                                case 0://附近停车场
+                                    tvMark.setBackgroundResource(R.mipmap.img_other_park);
+                                    break;
+                                case 1://云能停车场
+                                    tvMark.setBackgroundResource(R.mipmap.img_yunneng_park);
+                                    tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.bg_blue));
+                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    break;
+                                case 2://共享停车场
+                                    tvMark.setBackgroundResource(R.mipmap.img_share_logo);
+                                    tvMark.setTextColor(ContextCompat.getColor(SearchMapActivity.this, R.color.white));
+                                    tvMark.setText(String.valueOf(parkBean.getAvailable_num()));
+                                    break;
+                            }
+                            markerOption.icon(BitmapDescriptorFactory.fromView(inflate));
                             Marker marker = aMap.addMarker(markerOption);
                             marker.setObject(parkBean);
                         }
                         parkList.clear();
                         parkList.addAll(park);
-                        parkListAdapter.notifyDataSetChanged();
+                        parkListAdapter.notifyDataChanged();
                     }
                 });
     }
@@ -529,7 +564,7 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                             refreshView.setPullLoadEnable(false);
                         }
                         parkList.addAll(data.getPark());
-                        parkListAdapter.notifyDataSetChanged();
+                        parkListAdapter.notifyDataChanged();
                     }
                 });
     }
@@ -572,17 +607,31 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
         if (marker.getObject() instanceof ParkSearchBean.ParkBean) {
             parkBean = (ParkSearchBean.ParkBean) marker.getObject();
             llParkMess.setVisibility(View.VISIBLE);
-            tvParkTotalNum.setVisibility(View.VISIBLE);
-            tvParkRemainNum.setVisibility(View.VISIBLE);
-            tvParkFeeRegu.setVisibility(View.VISIBLE);
-            ivArrow.setVisibility(View.VISIBLE);
-            tvParkName.setText(parkBean.getParking_name());
-            tvDistance.setText("距离：" + parkBean.getDistance() + "km");
-            tvParkAddress.setText(parkBean.getAddress());
-            tvParkTotalNum.setText("车位数：" + parkBean.getNum());
-            tvParkRemainNum.setText("空车位数：" + parkBean.getAvailable_num());
+            switch (parkBean.getType()) {
+                case 0:
+                    tvParkTotalNum.setVisibility(View.GONE);
+                    tvParkRemainNum.setVisibility(View.GONE);
+                    tvParkFeeRegu.setVisibility(View.GONE);
+                    ivArrow.setVisibility(View.GONE);
+                    tvParkName.setText(parkBean.getParking_name());
+                    tvDistance.setText("距离：" + parkBean.getDistance() + "km");
+                    tvParkAddress.setText(parkBean.getAddress());
+                    rlParkDetail.setEnabled(false);
+                    break;
+                default:
+                    tvParkTotalNum.setVisibility(View.VISIBLE);
+                    tvParkRemainNum.setVisibility(View.VISIBLE);
+                    tvParkFeeRegu.setVisibility(View.VISIBLE);
+                    ivArrow.setVisibility(View.VISIBLE);
+                    tvParkName.setText(parkBean.getParking_name());
+                    tvDistance.setText("距离：" + parkBean.getDistance() + "km");
+                    tvParkAddress.setText(parkBean.getAddress());
+                    tvParkTotalNum.setText("车位数：" + parkBean.getNum());
+                    tvParkRemainNum.setText("空车位数：" + parkBean.getAvailable_num());
 //        tvParkName.setText();收费规则
-            rlParkDetail.setEnabled(true);
+                    rlParkDetail.setEnabled(true);
+                    break;
+            }
             targetPlace = marker.getSnippet();
             targetLat = parkBean.getLat();
             targetLng = parkBean.getLng();

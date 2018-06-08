@@ -71,8 +71,8 @@ public class UploadImageUtil {
      */
     public void uploadHeadPhoto() {
         BottomSheetDialog dialog = new BottomSheetDialog(reference.get(), R.style.dialog);
-        dialog.setContentView(R.layout.layout_picture_choice);
-        dialog.findViewById(R.id.tv_take_photo).setOnClickListener(view1 -> {
+        dialog.setContentView(R.layout.layout_bottom_choice);
+        dialog.findViewById(R.id.tv_ahead).setOnClickListener(view1 -> {
                     AndPermission.with(reference.get())
                             .permission(android.Manifest.permission.CAMERA
                                     , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -82,7 +82,7 @@ public class UploadImageUtil {
                     dialog.dismiss();
                 }
         );
-        dialog.findViewById(R.id.tv_pick_photo).setOnClickListener(view1 -> {
+        dialog.findViewById(R.id.tv_bottom).setOnClickListener(view1 -> {
                     AndPermission.with(reference.get())
                             .permission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                             .onGranted(permissions -> {

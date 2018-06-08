@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -33,7 +32,6 @@ import com.anyidc.cloudpark.moduel.ShareParkUnitInfo;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.ViewUtils;
 import com.bumptech.glide.Glide;
 
@@ -199,22 +197,22 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
-                if (hasCar && hasCertification && hasDeposit && !TextUtils.isEmpty(selectUnitId)) {
-                    if (isShare) {
-                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectShareParkUnitInfo.getUnit_id(), selectShareParkUnitInfo.getShare_time());
-                    } else {
-                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "");
-                    }
-
-                } else if (!hasCertification) {
-                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
-                } else if (!hasCar) {
-                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
-                } else if (!hasDeposit) {
-                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
-                } else {
-                    ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
-                }
+//                if (hasCar && hasCertification && hasDeposit && !TextUtils.isEmpty(selectUnitId)) {
+//                    if (isShare) {
+//                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectShareParkUnitInfo.getUnit_id(), selectShareParkUnitInfo.getShare_time(),parkInfo.getAppointment_money());
+//                    } else {
+                        PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "",parkInfo.getAppointment_money());
+//                    }
+//
+//                } else if (!hasCertification) {
+//                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
+//                } else if (!hasCar) {
+//                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
+//                } else if (!hasDeposit) {
+//                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
+//                } else {
+//                    ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
+//                }
                 break;
             case R.id.tv_id_certification:
                 startActivityForResult(new Intent(this, IdentityConfirmActivity.class).putExtra("from", 0), 1);
@@ -230,16 +228,21 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             case R.id.tv_null:
                 changeTitleBg(0);
                 dataList.addAll(freeList);
+                parkUnitNumAdapter.setType(0);
                 parkUnitNumAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_has_appointment:
                 changeTitleBg(1);
                 dataList.addAll(busyList);
+                parkUnitNumAdapter.setType(1);
+                parkUnitNumAdapter.setSelectPos(-1);
                 parkUnitNumAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_has_parked:
                 changeTitleBg(2);
                 dataList.addAll(usingList);
+                parkUnitNumAdapter.setType(1);
+                parkUnitNumAdapter.setSelectPos(-1);
                 parkUnitNumAdapter.notifyDataSetChanged();
                 break;
         }
@@ -372,7 +375,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         if (hasCar && hasCertification && hasDeposit && !TextUtils.isEmpty(selectUnitId)) {
             tvAppointment.setBackgroundResource(R.drawable.shape_bg_blue);
         } else {
-            tvAppointment.setBackgroundResource(R.color.bg_gray);
+            tvAppointment.setBackgroundResource(R.drawable.shape_bg_gray);
         }
     }
 
