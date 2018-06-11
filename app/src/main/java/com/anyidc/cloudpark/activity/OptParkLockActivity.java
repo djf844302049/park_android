@@ -81,7 +81,7 @@ public class OptParkLockActivity extends BaseActivity {
         bottomSheetDialog.findViewById(R.id.tv_cancel).setOnClickListener(v -> bottomSheetDialog.dismiss());
         tvHead.setText("请选择升起原因");
         parkNum = getIntent().getStringExtra(IntentKey.INTENT_KEY_STRING);
-        fromType = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 2);
+//        fromType = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 2);
         switch (fromType) {
             case FROMSHAREOWNER:
                 confirmCancelDialog = new ConfirmCancelDialog(this, "提示", "您确定要操作车位锁吗？", getString(R.string.common_confirm), getString(R.string.common_cancel));

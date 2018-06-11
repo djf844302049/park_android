@@ -94,14 +94,14 @@ public class PurseActivity extends BaseActivity {
                         WalletInfoBean data = baseEntity.getData();
                         balance = data.getUser_money();
                         tvBalance.setText("￥" + balance);
-                        if ("0.00".equals(data.getDeposit())) {
-                            tvDepositState.setText("未缴纳");
-                            btnDeposit.setText("缴纳押金");
-//                            btnDrawCash.setEnabled(false);
-                        } else {
+                        if (data.getDeposit_flag() == 1) {
                             tvDepositState.setText("已缴纳");
                             btnDeposit.setText("退回押金");
 //                            btnDrawCash.setEnabled(true);
+                        } else {
+                            tvDepositState.setText("未缴纳");
+                            btnDeposit.setText("缴纳押金");
+//                            btnDrawCash.setEnabled(false);
                         }
                     }
                 });

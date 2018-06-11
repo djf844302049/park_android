@@ -7,12 +7,14 @@ package com.anyidc.cloudpark.moduel;
 public class WalletInfoBean {
 
     /**
-     * user_money : 0.00
+     * user_money : 430.01
      * deposit : 0.00
+     * deposit_flag : 0
      */
 
     private String user_money;
     private String deposit;
+    private int deposit_flag;
 
     public String getUser_money() {
         return user_money;
@@ -28,5 +30,13 @@ public class WalletInfoBean {
 
     public void setDeposit(String deposit) {
         this.deposit = deposit;
+    }
+
+    public int getDeposit_flag() {
+        return deposit_flag;
+    }
+
+    public void setDeposit_flag(int deposit_flag) {
+        this.deposit_flag = deposit_flag;
     }
 }

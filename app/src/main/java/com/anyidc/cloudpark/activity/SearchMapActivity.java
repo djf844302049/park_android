@@ -310,9 +310,13 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                 getAreaList();
                 break;
             case R.id.tv_distance_first:
-                parkList.clear();
-                parkList.addAll(nearbyList);
-                parkListAdapter.notifyDataChanged();
+                if (nearbyList.size()==0){
+                    getNearby();
+                }else {
+                    parkList.clear();
+                    parkList.addAll(nearbyList);
+                    parkListAdapter.notifyDataChanged();
+                }
                 break;
             case R.id.btn_navigation:
                 jumpToMap();

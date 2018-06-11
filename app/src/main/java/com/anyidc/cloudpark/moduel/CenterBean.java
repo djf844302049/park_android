@@ -7,16 +7,20 @@ package com.anyidc.cloudpark.moduel;
 public class CenterBean {
 
     /**
-     * header_img : http://p2xsrupxn.bkt.clouddn.com/2018/02/ed444201802281051102454.png
-     * user_money : 0.00
+     * header_img : http://p2xsrupxn.bkt.clouddn.com/2018/03/74e02201803221728109019.png
+     * user_money : 430.01
      * username : 哇哈哈
      * isAuth : 1
+     * deposit_flag : 0
+     * car_auth : 0
      */
 
     private String header_img;
     private String user_money;
     private String username;
     private int isAuth;
+    private int deposit_flag;
+    private int car_auth;
 
     public String getHeader_img() {
         return header_img;
@@ -48,5 +52,21 @@ public class CenterBean {
 
     public void setIsAuth(int isAuth) {
         this.isAuth = isAuth;
+    }
+
+    public int getDeposit_flag() {
+        return deposit_flag;
+    }
+
+    public void setDeposit_flag(int deposit_flag) {
+        this.deposit_flag = deposit_flag;
+    }
+
+    public int getCar_auth() {
+        return car_auth;
+    }
+
+    public void setCar_auth(int car_auth) {
+        this.car_auth = car_auth;
     }
 }
