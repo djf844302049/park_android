@@ -192,6 +192,16 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
+                if (bean.getIsAuth() != 1) {
+                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
+                    return;
+                } else if (bean.getCar_auth() != 1) {
+                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
+                    return;
+                } else if (bean.getDeposit_flag() != 1) {
+                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
+                    return;
+                }
                 if (TextUtils.isEmpty(selectUnitId)) {
                     ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
                     return;
@@ -360,16 +370,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
 
     private void updateAppointBtn() {
         if (bean != null && bean.getCar_auth() == 1 && bean.getIsAuth() == 1 && bean.getDeposit_flag() == 1 && !TextUtils.isEmpty(selectUnitId)) {
-            tvAppointment.setEnabled(true);
+            tvAppointment.setBackgroundResource(R.drawable.shape_bg_blue);
         } else {
-            tvAppointment.setEnabled(false);
-            if (bean.getIsAuth() != 1) {
-                ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
-            } else if (bean.getCar_auth() != 1) {
-                ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
-            } else if (bean.getDeposit_flag() != 1) {
-                ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
-            }
+            tvAppointment.setBackgroundResource(R.drawable.shape_bg_gray);
         }
     }
 
