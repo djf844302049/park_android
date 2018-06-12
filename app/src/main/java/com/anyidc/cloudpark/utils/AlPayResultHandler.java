@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +38,7 @@ public class AlPayResultHandler extends Handler {
                 if (TextUtils.equals(resultStatus, "9000")) {
                     // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                     PayResultActivity.actionStart(context.get(), 1, payResult.getNum());
+                    ((Activity) context.get()).finish();
                 } else {
                     // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                     PayResultActivity.actionStart(context.get(), 2, payResult.getNum());

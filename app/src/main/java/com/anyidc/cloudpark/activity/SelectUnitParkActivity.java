@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -35,7 +34,6 @@ import com.anyidc.cloudpark.moduel.ParkDetailBean;
 import com.anyidc.cloudpark.moduel.ShareParkUnitInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.ViewUtils;
 import com.bumptech.glide.Glide;
 
@@ -140,6 +138,10 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
             PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "", parkInfo.getAppointment_money(), carId);
             dialog.dismiss();
         });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        parkUnitNumAdapter = new ParkUnitNumAdapter(this, dataList);
+        recyclerView.setAdapter(parkUnitNumAdapter);
         getParkDetial();
         getCenterData();
         mLocationClient = new AMapLocationClient(getApplicationContext());
@@ -165,9 +167,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
                         if (carBean.getData() != null && carBean.getData().size() > 0) {
                             for (MyCarBean myCarBean : carBean.getData()) {
-                                if (myCarBean.getStatus() == 2) {
-                                    carList.add(myCarBean);
-                                }
+//                                if (myCarBean.getStatus() == 2) {
+                                carList.add(myCarBean);
+//                                }
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -183,6 +185,17 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     @Override
                     public void onSuccess(BaseEntity<CenterBean> centerBean) {
                         bean = centerBean.getData();
+                        if (bean.getIsAuth() == 1) {
+                            tvIdAuth.setEnabled(false);
+                        }
+                        if (bean.getCar_auth() == 1) {
+                            tvCarAuth.setEnabled(false);
+                            return;
+                        }
+                        if (bean.getDeposit_flag() == 1) {
+                            tvPay.setEnabled(false);
+                            return;
+                        }
                         updateAppointBtn();
                     }
                 });
@@ -192,20 +205,20 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
-                if (bean.getIsAuth() != 1) {
-                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
-                    return;
-                } else if (bean.getCar_auth() != 1) {
-                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
-                    return;
-                } else if (bean.getDeposit_flag() != 1) {
-                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
-                    return;
-                }
-                if (TextUtils.isEmpty(selectUnitId)) {
-                    ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
-                    return;
-                }
+//                if (bean.getIsAuth() != 1) {
+//                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
+//                    return;
+//                } else if (bean.getCar_auth() != 1) {
+//                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
+//                    return;
+//                } else if (bean.getDeposit_flag() != 1) {
+//                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(selectUnitId)) {
+//                    ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
+//                    return;
+//                }
                 if (carList.size() > 0) {
                     dialog.show();
                 } else {
@@ -310,7 +323,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         tvTitle.setText(parkInfo.getParking_name());
         tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
         tvTotal.setText(String.valueOf(parkInfo.getNum()));
-        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getHourly() + "元/小时");
+        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时");
         initRealImage();
         //共享停车场
 //        if (parkInfo.getType() == 1) {
@@ -344,12 +357,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
 //        } else {
         llImage.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        parkUnitNumAdapter = new ParkUnitNumAdapter(this, dataList);
         parkUnitNumAdapter.setOnItemClickListener((view, position) -> {
             ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
-            String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getHourly() + "元/小时";
+            String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时";
             switch (type) {
                 case 0:
                     selectUnitId = unitInfoBean.getUnit_id();
@@ -357,14 +367,13 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     selectParkUnitInfoBean = unitInfoBean;
                     break;
                 case 1:
-                    showDialog(unitInfoBean.getUnit_id(), "该车位已有车辆驶入", "", "", feeStr);
+                    showDialog(unitInfoBean.getUnit_id(), "该车位已被预约", "", "", feeStr);
                     break;
                 case 2:
-                    showDialog(unitInfoBean.getUnit_id(), "该车位已被预约", "", "", feeStr);
+                    showDialog(unitInfoBean.getUnit_id(), "该车位已有车辆驶入", "", "", feeStr);
                     break;
             }
         });
-        recyclerView.setAdapter(parkUnitNumAdapter);
 //        }
     }
 

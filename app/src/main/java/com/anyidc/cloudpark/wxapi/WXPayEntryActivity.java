@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private static String num;
+    private static Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onReq(BaseReq req) {
     }
 
+    public static void setActivity(Activity activity) {
+        mActivity = activity;
+    }
+
     @Override
     public void onResp(BaseResp resp) {
         switch (resp.errCode) {
             case 0:
+                if (mActivity != null) {
+                    mActivity.finish();
+                }
                 PayResultActivity.actionStart(this, 1, num);
                 break;
             case -1://失败
@@ -49,6 +57,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 PayResultActivity.actionStart(this, 2, null);
                 break;
         }
+        mActivity = null;
         finish();
     }
 }

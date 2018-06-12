@@ -118,7 +118,7 @@ public class ParkChargeActivity extends BaseActivity {
         switch (payType) {
             case 1:
                 getTime(Api.getDefaultService().alPay("付费", "停车付费", String.valueOf(rechargeNum)
-                        , 4, payType, unitId,null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
+                        , 4, payType, unitId, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
                         Runnable payRunnable = () -> {
@@ -139,19 +139,20 @@ public class ParkChargeActivity extends BaseActivity {
                 break;
             case 2:
                 getTime(Api.getDefaultService().wxPay("付费", "停车付费", String.valueOf(rechargeNum)
-                        , 4, payType, unitId,null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
+                        , 4, payType, unitId, null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(rechargeNum));
                         WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
                         WxPayHelper.getInstance().WexPay(callback);
+                        WXPayEntryActivity.setActivity(ParkChargeActivity.this);
                     }
                 });
                 break;
             case 4:
                 if (CacheData.isFreePay() == 1) {
                     balancePay();
-                }else {
+                } else {
 
                 }
                 break;
@@ -160,7 +161,7 @@ public class ParkChargeActivity extends BaseActivity {
 
     private void balancePay() {
         getTime(Api.getDefaultService().balancePay("付费", "停车付费", String.valueOf(rechargeNum)
-                , 4, payType, unitId,null), new RxObserver<BaseEntity>(this, true) {
+                , 4, payType, unitId, null), new RxObserver<BaseEntity>(this, true) {
             @Override
             public void onSuccess(BaseEntity baseEntity) {
 

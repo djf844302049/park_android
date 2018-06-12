@@ -141,7 +141,8 @@
                         android:id="@+id/tv_tip1"
                         style="@style/text_gray_16sp"
                         android:paddingBottom="22dp"
-                        android:paddingLeft="17dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
                         android:text="@string/appointment_ing_tip1" />
 
                 </LinearLayout>

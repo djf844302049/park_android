@@ -357,7 +357,7 @@ public interface ApiService {
      * @param unitId 车位编号
      * @return
      */
-    @POST("api/v1.order/cancelAppointment")
+    @POST("api/v1/cancelAppointment")
     @FormUrlEncoded
     Observable<BaseEntity> cancelAppointment(@Field("unit_id") String unitId);
 
@@ -367,7 +367,7 @@ public interface ApiService {
      * @param unitId 车位编号
      * @return
      */
-    @POST("api/v1.order/arrive")
+    @POST("api/v1/arrive")
     @FormUrlEncoded
     Observable<BaseEntity> arrive(@Field("unit_id") String unitId);
 

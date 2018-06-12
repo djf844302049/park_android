@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,7 +26,7 @@ import java.util.Date;
  */
 
 public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener {
-    private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime;
+    private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime, tvNavigation;
     private long remain = 0;
     private MyAppointmentBean.AppointmentBean appointmentBean = null;
 
@@ -119,8 +122,10 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         tvCancel = layout.findViewById(R.id.tv_cancel);
         tvTip = layout.findViewById(R.id.tv_tip);
         tvShareTime = layout.findViewById(R.id.tv_share_time);
+        tvNavigation = layout.findViewById(R.id.tv_navigation);
         tvConfirm.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
+        tvNavigation.setOnClickListener(this);
     }
 
     @Override
@@ -131,6 +136,9 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                 break;
             case R.id.tv_cancel:
                 concelAppointment();
+                break;
+            case R.id.tv_navigation:
+                jumpToMap();
                 break;
         }
     }
@@ -144,6 +152,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
                         ToastUtil.showToast("预约完成", Toast.LENGTH_SHORT);
+                        noData();
                     }
                 });
     }
@@ -157,7 +166,26 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
                         ToastUtil.showToast("取消成功", Toast.LENGTH_SHORT);
+                        noData();
                     }
                 });
+    }
+
+    private void jumpToMap() {
+        try {
+            Intent intent = Intent.getIntent("androidamap://viewMap?sourceApplication=我的位置&poiname=" + appointmentBean.getPark().getAddress() +
+                    "&lat=" + appointmentBean.getPark().getLat() + "&lon=" + appointmentBean.getPark().getLng());
+            if (isInstallMap("com.autonavi.minimap")) {
+                startActivity(intent); //启动调用
+            } else {
+                ToastUtil.showToast("您没有安装高德地图客户端", Toast.LENGTH_SHORT);
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isInstallMap(String packageName) {
+        return new File("/data/data/" + packageName).exists();
     }
 }

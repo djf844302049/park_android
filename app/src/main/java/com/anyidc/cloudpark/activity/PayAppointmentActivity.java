@@ -131,6 +131,7 @@ public class PayAppointmentActivity extends BaseActivity {
         unitNum = intent.getStringExtra("unitNum");
         shareTime = intent.getStringExtra("shareTime");
         payNum = intent.getIntExtra("payNum", 0);
+        orderNum = payNum;
         carId = intent.getStringExtra("carId");
         if (TextUtils.isEmpty(shareTime)) {
             llShareTime.setVisibility(View.GONE);
@@ -198,13 +199,14 @@ public class PayAppointmentActivity extends BaseActivity {
                 });
                 break;
             case 2:
-                getTime(Api.getDefaultService().wxPay("预约", "预约付款", String.valueOf(payNum)
+                getTime(Api.getDefaultService().wxPay("预约", "预约付款", String.valueOf(orderNum)
                         , 3, payType, unitNum, carId), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(payNum));
                         WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
                         WxPayHelper.getInstance().WexPay(callback);
+                        WXPayEntryActivity.setActivity(PayAppointmentActivity.this);
                     }
                 });
                 break;
@@ -217,7 +219,7 @@ public class PayAppointmentActivity extends BaseActivity {
     }
 
     private void balancePay() {
-        getTime(Api.getDefaultService().balancePay("预约", "预约付款", String.valueOf(payNum)
+        getTime(Api.getDefaultService().balancePay("预约", "预约付款", String.valueOf(orderNum)
                 , 3, payType, unitNum, carId), new RxObserver<BaseEntity>(this, true) {
             @Override
             public void onSuccess(BaseEntity baseEntity) {

@@ -55,7 +55,7 @@ public class DepositActivity extends BaseActivity {
         switch (payType) {
             case 1:
                 getTime(Api.getDefaultService().alPay("缴纳押金", "缴纳押金", String.valueOf(0.01)
-                        , 2, payType, null,null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
+                        , 2, payType, null, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
                         Runnable payRunnable = () -> {
@@ -76,12 +76,13 @@ public class DepositActivity extends BaseActivity {
                 break;
             case 2:
                 getTime(Api.getDefaultService().wxPay("缴纳押金", "缴纳押金", String.valueOf(0.01)
-                        , 2, payType, null,null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
+                        , 2, payType, null, null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(0.01));
                         WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
                         WxPayHelper.getInstance().WexPay(callback);
+                        WXPayEntryActivity.setActivity(DepositActivity.this);
                     }
                 });
                 break;
