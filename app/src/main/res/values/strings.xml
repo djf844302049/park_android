@@ -10,6 +10,7 @@
     <string name="response_return_error">服务器返回数据失败</string>
     <string name="input_phone_num">请输入手机号码</string>
     <string name="input_password">请输入登录密码</string>
+    <string name="input_pay_key">请输入支付密码</string>
     <string name="input_confirm_num">请输入短信验证码</string>
     <string name="input_new_password">请输入新密码 由6-20位数字组成</string>
     <string name="input_register_password">请输入密码 由6-20位数字组成</string>

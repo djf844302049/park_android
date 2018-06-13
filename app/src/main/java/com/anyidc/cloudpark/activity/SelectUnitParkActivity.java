@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -34,6 +35,7 @@ import com.anyidc.cloudpark.moduel.ParkDetailBean;
 import com.anyidc.cloudpark.moduel.ShareParkUnitInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.utils.ViewUtils;
 import com.bumptech.glide.Glide;
 
@@ -83,6 +85,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private CarChoiceAdapter adapter;
     private List<MyCarBean> carList = new ArrayList<>();
     private String carId;
+    public static int REQUETCODE = 999;
 
     public static void start(Context context, String id) {
         Intent intent = new Intent(context, SelectUnitParkActivity.class);
@@ -142,7 +145,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         recyclerView.setLayoutManager(gridLayoutManager);
         parkUnitNumAdapter = new ParkUnitNumAdapter(this, dataList);
         recyclerView.setAdapter(parkUnitNumAdapter);
-        getParkDetial();
         getCenterData();
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
@@ -158,6 +160,12 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         mLocationClient.startLocation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getParkDetial();
     }
 
     private void getCarList() {
@@ -215,10 +223,10 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
 //                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
 //                    return;
 //                }
-//                if (TextUtils.isEmpty(selectUnitId)) {
-//                    ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
-//                    return;
-//                }
+                if (TextUtils.isEmpty(selectUnitId)) {
+                    ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
+                    return;
+                }
                 if (carList.size() > 0) {
                     dialog.show();
                 } else {
@@ -237,12 +245,14 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 }
                 break;
             case R.id.tv_null:
+                selectUnitId = null;
                 changeTitleBg(0);
                 dataList.addAll(freeList);
                 parkUnitNumAdapter.setType(0);
                 parkUnitNumAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_has_appointment:
+                selectUnitId = null;
                 changeTitleBg(1);
                 dataList.addAll(busyList);
                 parkUnitNumAdapter.setType(1);
@@ -250,6 +260,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 parkUnitNumAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_has_parked:
+                selectUnitId = null;
                 changeTitleBg(2);
                 dataList.addAll(usingList);
                 parkUnitNumAdapter.setType(1);
@@ -280,12 +291,20 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     public void onSuccess(BaseEntity<ParkDetailBean> parkDetailBean) {
                         ParkDetailBean data = parkDetailBean.getData();
                         parkInfo = data.getPark();
-                        if (data.getFree_arr() != null)
+                        if (data.getFree_arr() != null) {
+                            freeList.clear();
                             freeList.addAll(data.getFree_arr());
-                        if (data.getUse_arr() != null)
+                        }
+                        if (data.getUse_arr() != null) {
+                            usingList.clear();
                             usingList.addAll(data.getUse_arr());
-                        if (data.getBusy_arr() != null)
+                        }
+                        if (data.getBusy_arr() != null) {
+                            busyList.clear();
                             busyList.addAll(data.getBusy_arr());
+                        }
+                        selectUnitId = null;
+                        dataList.clear();
                         dataList.addAll(freeList);
                         updateView();
                         updateDistance();
@@ -374,6 +393,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     break;
             }
         });
+        parkUnitNumAdapter.setType(0);
+        parkUnitNumAdapter.setSelectPos(-1);
+        parkUnitNumAdapter.notifyDataSetChanged();
 //        }
     }
 

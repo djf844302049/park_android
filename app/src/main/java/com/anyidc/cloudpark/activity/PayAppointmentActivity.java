@@ -3,36 +3,45 @@ package com.anyidc.cloudpark.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.dialog.BaseDialog;
 import com.anyidc.cloudpark.dialog.SelectDialog;
 import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.WxPayBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.AlPayResultHandler;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
 import com.anyidc.cloudpark.utils.FiveMinuCountDownRunnable;
 import com.anyidc.cloudpark.utils.WxPayHelper;
 import com.anyidc.cloudpark.wxapi.WXPayEntryActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by linwenxiong on 2018/4/17.
  */
 
-public class PayAppointmentActivity extends BaseActivity {
+public class PayAppointmentActivity extends BaseActivity implements TextWatcher {
 
     private TextView tvTitle, tvUnitNum, tvShareTime;
     private LinearLayout llShareTip, llShareTime;
@@ -48,6 +57,16 @@ public class PayAppointmentActivity extends BaseActivity {
     private Button btnPay;
     private int payType = 0;//1支付宝 2微信 3银联 4账号
     private String carId;
+    private BaseDialog payDialog;
+    private TextView tv1;
+    private TextView tv2;
+    private TextView tv3;
+    private TextView tv4;
+    private TextView tv5;
+    private TextView tv6;
+    private EditText etNum;
+    private List<TextView> tvList;
+    private String payKey;
 
     public static void start(Context context, String parkName, String unitNum, String shareTime, int payNum, String carId) {
         Intent intent = new Intent(context, PayAppointmentActivity.class);
@@ -116,10 +135,29 @@ public class PayAppointmentActivity extends BaseActivity {
             rbWXPay.setChecked(true);
         });
         clickListener = new CheckDoubleClickListener(this);
-//        rbAccountPay.setOnClickListener(clickListener);
-//        rbZFBPay.setOnClickListener(clickListener);
-//        rbWXPay.setOnClickListener(clickListener);
-//        rbYLPay.setOnClickListener(clickListener);
+        payDialog = new BaseDialog(this);
+        Window window = payDialog.getWindow();
+        window.requestFeature(Window.FEATURE_NO_TITLE);
+        payDialog.setContentView(R.layout.dialog_input_pay_key);
+        tv1 = payDialog.findViewById(R.id.tv_num_1);
+        tv2 = payDialog.findViewById(R.id.tv_num_2);
+        tv3 = payDialog.findViewById(R.id.tv_num_3);
+        tv4 = payDialog.findViewById(R.id.tv_num_4);
+        tv5 = payDialog.findViewById(R.id.tv_num_5);
+        tv6 = payDialog.findViewById(R.id.tv_num_6);
+        tvList = new ArrayList<>();
+        tvList.add(tv1);
+        tvList.add(tv2);
+        tvList.add(tv3);
+        tvList.add(tv4);
+        tvList.add(tv5);
+        tvList.add(tv6);
+        etNum = payDialog.findViewById(R.id.et_num);
+        etNum.addTextChangedListener(this);
+        payDialog.findViewById(R.id.img_cancel).setOnClickListener(v -> {
+            payDialog.dismiss();
+            etNum.setText("");
+        });
         btnPay.setOnClickListener(clickListener);
         updateView();
         mHandler = new AlPayResultHandler(this);
@@ -213,7 +251,11 @@ public class PayAppointmentActivity extends BaseActivity {
             case 3:
                 break;
             case 4:
-                balancePay();
+                if (CacheData.isFreePay() == 1) {//开启小额免密支付
+                    balancePay();
+                } else {
+                    payDialog.show();
+                }
                 break;
         }
     }
@@ -223,30 +265,56 @@ public class PayAppointmentActivity extends BaseActivity {
                 , 3, payType, unitNum, carId), new RxObserver<BaseEntity>(this, true) {
             @Override
             public void onSuccess(BaseEntity baseEntity) {
+                PayResultActivity.actionStart(PayAppointmentActivity.this, 1, String.valueOf(orderNum));
+                PayAppointmentActivity.this.finish();
+            }
 
+            @Override
+            public void onError(String errMsg) {
+                PayResultActivity.actionStart(PayAppointmentActivity.this, 2, String.valueOf(orderNum));
             }
         });
     }
 
-    private void showTimeDialog() {
-        if (selectDialog == null) {
-            selectDialog = new SelectDialog(this);
-            selectDialog.setOnItemSelectListener(new SelectDialog.OnItemSelectListener() {
-                @Override
-                public void itemSelectListener(int position, String name) {
-                    if (position == 0) {
-                        payNum = 5;
-                    } else {
-                        payNum = 10;
-                    }
-                }
-            });
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        setNum(s.toString());
+    }
+
+    private void setNum(String num) {
+        char[] chars = num.toCharArray();
+        int length = chars.length;
+        for (TextView textView : tvList) {
+            textView.setText("");
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String[] items = new String[2];
-        items[0] = sdf.format(System.currentTimeMillis() + 1800000);
-        items[1] = sdf.format(System.currentTimeMillis() + 3600000);
-        selectDialog.setItem(items);
-        selectDialog.show();
+        for (int i = 0; i < length; i++) {
+            tvList.get(i).setText("●");
+        }
+        if (length == 6) {
+            payKey = num;
+            payDialog.dismiss();
+            checkPayKey();
+        }
+    }
+
+    private void checkPayKey() {
+        String encrypt = AesUtil.encrypt(payKey);
+        getTime(Api.getDefaultService().checkPayKey(encrypt)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        balancePay();
+                    }
+                });
     }
 }

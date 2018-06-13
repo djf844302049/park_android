@@ -47,6 +47,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                     public void onSuccess(BaseEntity<MyAppointmentBean> appointmentBean) {
                         MyAppointmentBean data = appointmentBean.getData();
                         if (data != null && data.getList() != null && data.getList().size() > 0) {
+                            layout.findViewById(R.id.ll_content).setVisibility(View.VISIBLE);
                             MyAppointmentBean.AppointmentBean bean = data.getList().get(0);
                             updateView(bean);
                         } else {
@@ -58,10 +59,12 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
 
     private void noData() {
         layout.findViewById(R.id.ll_content).setVisibility(View.GONE);
+        tvTip.setVisibility(View.VISIBLE);
         tvTip.setText("您暂时没有正在进行中的预约!");
     }
 
     private void updateView(MyAppointmentBean.AppointmentBean appointmentBean) {
+        tvTip.setVisibility(View.GONE);
         this.appointmentBean = appointmentBean;
         if (appointmentBean == null || appointmentBean.getStatus() != 1) {
             noData();
@@ -126,6 +129,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         tvConfirm.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
         tvNavigation.setOnClickListener(this);
+        noData();
     }
 
     @Override

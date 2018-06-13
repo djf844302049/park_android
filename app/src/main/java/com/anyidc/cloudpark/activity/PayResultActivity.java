@@ -58,8 +58,10 @@ public class PayResultActivity extends BaseActivity {
                 break;
             case R.id.tv_go_center:
                 Intent intent = new Intent(this, MineActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+
+                finish();
                 break;
         }
     }

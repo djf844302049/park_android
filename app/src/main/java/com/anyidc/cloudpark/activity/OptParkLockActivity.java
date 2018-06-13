@@ -172,7 +172,7 @@ public class OptParkLockActivity extends BaseActivity {
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
-                        ToastUtil.showToast("操作成功", Toast.LENGTH_SHORT);
+                        ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
                     }
                 });
     }
