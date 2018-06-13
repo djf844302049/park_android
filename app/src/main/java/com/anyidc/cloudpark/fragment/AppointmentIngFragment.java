@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener {
     private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime, tvNavigation;
-    private long remain = 0;
+//    private long remain = 0;
     private MyAppointmentBean.AppointmentBean appointmentBean = null;
 
     @Override
@@ -64,7 +64,6 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     }
 
     private void updateView(MyAppointmentBean.AppointmentBean appointmentBean) {
-        tvTip.setVisibility(View.GONE);
         this.appointmentBean = appointmentBean;
         if (appointmentBean == null || appointmentBean.getStatus() != 1) {
             noData();
@@ -73,12 +72,13 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         layout.findViewById(R.id.ll_content).setVisibility(View.VISIBLE);
         if (appointmentBean.getPark() != null) {
             ParkInfo parkInfo = appointmentBean.getPark();
+            tvTip.setVisibility(View.GONE);
             tvParkName.setText(parkInfo.getParking_name());
             tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
         }
         tvParkNum.setText(appointmentBean.getUnit_id());
         tvTime.setText("(" + stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes()) + ")");
-        remain = System.currentTimeMillis() / 1000 - appointmentBean.getCreate_time();
+//        remain = System.currentTimeMillis() / 1000 - appointmentBean.getCreate_time();
         if (appointmentBean.getUnit_id().endsWith("S")) {
             layout.findViewById(R.id.ll_share).setVisibility(View.VISIBLE);
 //            tvShareTime.setText();等待接口返回数据
@@ -86,22 +86,22 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
             layout.findViewById(R.id.ll_share).setVisibility(View.GONE);
         }
         tvShareTime.setText((appointmentBean.getShare_time()));
-        if (remain < 60) {
-            tvTip.setVisibility(View.VISIBLE);
-            tvTip.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    remain--;
-                    if (remain <= 0) {
-                        getMyAppointmentIng();
-                    } else {
-                        tvTip.postDelayed(this, 1000);
-                    }
-                }
-            }, 1000);
-        } else {
-            tvTip.setVisibility(View.GONE);
-        }
+//        if (remain < 60) {
+//            tvTip.setVisibility(View.VISIBLE);
+//            tvTip.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    remain--;
+//                    if (remain <= 0) {
+//                        getMyAppointmentIng();
+//                    } else {
+//                        tvTip.postDelayed(this, 1000);
+//                    }
+//                }
+//            }, 1000);
+//        } else {
+//            tvTip.setVisibility(View.GONE);
+//        }
 
     }
 
