@@ -2,10 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
@@ -39,6 +36,7 @@ public class AppointmentRecordActivity extends BaseActivity {
     private ViewPager mViewPager;
     private String[] TITLE = new String[2];
     private List<String> mDataList;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_appointment_record;
@@ -47,8 +45,8 @@ public class AppointmentRecordActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("预约记录");
-        mIndicator =  findViewById(R.id.magic_indicator_my_appointment);
-        mViewPager =  findViewById(R.id.vp_my_appointment);
+        mIndicator = findViewById(R.id.magic_indicator_my_appointment);
+        mViewPager = findViewById(R.id.vp_my_appointment);
         initIndicator();
         initPager();
     }
@@ -84,12 +82,7 @@ public class AppointmentRecordActivity extends BaseActivity {
                 simplePagerTitleView.setTextSize(16);
                 simplePagerTitleView.setNormalColor(getResources().getColor(R.color.white));
                 simplePagerTitleView.setSelectedColor(getResources().getColor(R.color.white));
-                simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mViewPager.setCurrentItem(index);
-                    }
-                });
+                simplePagerTitleView.setOnClickListener(v -> mViewPager.setCurrentItem(index));
 
                 return simplePagerTitleView;
             }
@@ -110,7 +103,7 @@ public class AppointmentRecordActivity extends BaseActivity {
         titleContainer.setDividerDrawable(new ColorDrawable() {
             @Override
             public int getIntrinsicWidth() {
-                return ViewUtils.dip2px(AppointmentRecordActivity.this,ViewUtils.dip2px(AppointmentRecordActivity.this,20));
+                return ViewUtils.dip2px(AppointmentRecordActivity.this, ViewUtils.dip2px(AppointmentRecordActivity.this, 20));
             }
         });
         ViewPagerHelper.bind(mIndicator, mViewPager);
