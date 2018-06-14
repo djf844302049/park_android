@@ -2,22 +2,27 @@ package com.anyidc.cloudpark.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.ParkInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,8 +32,9 @@ import java.util.Date;
 
 public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener {
     private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime, tvNavigation;
-//    private long remain = 0;
+    //    private long remain = 0;
     private MyAppointmentBean.AppointmentBean appointmentBean = null;
+    private ParkInfo parkInfo;
 
     @Override
     protected void inflaterLayout(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                         if (data != null && data.getList() != null && data.getList().size() > 0) {
                             layout.findViewById(R.id.ll_content).setVisibility(View.VISIBLE);
                             MyAppointmentBean.AppointmentBean bean = data.getList().get(0);
+                            parkInfo = bean.getPark();
                             updateView(bean);
                         } else {
                             noData();
@@ -75,6 +82,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
             tvTip.setVisibility(View.GONE);
             tvParkName.setText(parkInfo.getParking_name());
             tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
+            updateDistance();
         }
         tvParkNum.setText(appointmentBean.getUnit_id());
         tvTime.setText("(" + stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes()) + ")");
@@ -139,7 +147,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                 confirmAppointment();
                 break;
             case R.id.tv_cancel:
-                concelAppointment();
+                cancelAppointment();
                 break;
             case R.id.tv_navigation:
                 jumpToMap();
@@ -161,7 +169,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                 });
     }
 
-    private void concelAppointment() {
+    private void cancelAppointment() {
         if (appointmentBean == null) {
             return;
         }
@@ -173,6 +181,19 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                         noData();
                     }
                 });
+    }
+
+    private void updateDistance() {
+        String lat = (String) SpUtils.get(SpUtils.MYLATITUDE, "");
+        String lng = (String) SpUtils.get(SpUtils.MYLONGITUDE, "");
+        if (!TextUtils.isEmpty(lat) && !TextUtils.isEmpty(lng) && parkInfo != null) {
+            LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+            LatLng latLng1 = new LatLng(Double.parseDouble(parkInfo.getLat()), Double.parseDouble(parkInfo.getLng()));
+            float distance = AMapUtils.calculateLineDistance(latLng, latLng1) / 1000;
+            DecimalFormat fNum = new DecimalFormat("##0.00");
+            String dd = fNum.format(distance);
+            tvDistance.setText(dd + "km");
+        }
     }
 
     private void jumpToMap() {

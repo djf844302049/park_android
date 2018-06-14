@@ -666,6 +666,8 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
             if (aMapLocation.getErrorCode() == 0) {
                 lat = aMapLocation.getLatitude();//获取纬度
                 lng = aMapLocation.getLongitude();//获取经度
+                SpUtils.set(SpUtils.MYLATITUDE,String.valueOf(lat));
+                SpUtils.set(SpUtils.MYLONGITUDE,String.valueOf(lng));
                 city = aMapLocation.getCity();
                 if (from != 0) {
                     getNearby();
