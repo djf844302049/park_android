@@ -1,14 +1,19 @@
 package com.anyidc.cloudpark.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.anyidc.cloudpark.R;
@@ -17,8 +22,9 @@ import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.ParkInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.utils.ToastUtil;
+import com.yanzhenjie.permission.AndPermission;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -30,11 +36,17 @@ import java.util.Date;
  * Created by linwenxiong on 2018/3/13.
  */
 
-public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener {
+public class AppointmentIngFragment extends LazyBaseFragment implements View.OnClickListener, AMapLocationListener {
     private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime, tvNavigation;
     //    private long remain = 0;
     private MyAppointmentBean.AppointmentBean appointmentBean = null;
     private ParkInfo parkInfo;
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    private AMapLocationClientOption mLocationOption = null;
+    private double lat;
+    private double lng;
 
     @Override
     protected void inflaterLayout(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +55,36 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
 
     @Override
     protected void onLazyLoad() {
+        mLocationClient = new AMapLocationClient(getActivity().getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果
+        mLocationOption.setOnceLocation(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        requestPermissions();
         getMyAppointmentIng();
+    }
+
+    private void requestPermissions() {
+        AndPermission.with(this)
+                .permission(android.Manifest.permission.ACCESS_COARSE_LOCATION
+                        , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .onGranted(permissions -> {
+                    //启动定位
+                    mLocationClient.startLocation();
+                }).onDenied(permissions -> {
+            if (!permissions.contains(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                mLocationClient.startLocation();
+            }
+            new PermissionSetting(this.getActivity()).showSetting(permissions);
+        }).start();
     }
 
     private void getMyAppointmentIng() {
@@ -184,10 +225,8 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     }
 
     private void updateDistance() {
-        String lat = (String) SpUtils.get(SpUtils.MYLATITUDE, "");
-        String lng = (String) SpUtils.get(SpUtils.MYLONGITUDE, "");
-        if (!TextUtils.isEmpty(lat) && !TextUtils.isEmpty(lng) && parkInfo != null) {
-            LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+        if (lat != 0 && lng != 0 && parkInfo != null) {
+            LatLng latLng = new LatLng(lat, lng);
             LatLng latLng1 = new LatLng(Double.parseDouble(parkInfo.getLat()), Double.parseDouble(parkInfo.getLng()));
             float distance = AMapUtils.calculateLineDistance(latLng, latLng1) / 1000;
             DecimalFormat fNum = new DecimalFormat("##0.00");
@@ -212,5 +251,21 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
 
     private boolean isInstallMap(String packageName) {
         return new File("/data/data/" + packageName).exists();
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        mLocationClient.stopLocation();
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                lat = aMapLocation.getLatitude();//获取纬度
+                lng = aMapLocation.getLongitude();//获取经度
+            } else {
+                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + aMapLocation.getErrorCode() + ", errInfo:"
+                        + aMapLocation.getErrorInfo());
+            }
+        }
     }
 }
