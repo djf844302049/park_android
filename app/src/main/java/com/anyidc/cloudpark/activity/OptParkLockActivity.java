@@ -32,9 +32,9 @@ import java.util.List;
 public class OptParkLockActivity extends BaseActivity {
     private ImageView ivUp, ivDown;
     private String parkNum = "";
-    private int fromType = 2;
-    public static final int FROMSHAREOWNER = 1;
-    public static final int FROMMANAGER = 2;
+    private int fromType = 1;
+    public static final int FROMMANAGER = 1;
+    public static final int FROMSHAREOWNER = 2;
     private ConfirmCancelDialog confirmCancelDialog;
     private BottomSheetDialog bottomSheetDialog;
     private TextView tvHead;
@@ -81,18 +81,8 @@ public class OptParkLockActivity extends BaseActivity {
         bottomSheetDialog.findViewById(R.id.tv_cancel).setOnClickListener(v -> bottomSheetDialog.dismiss());
         tvHead.setText("请选择升起原因");
         parkNum = getIntent().getStringExtra(IntentKey.INTENT_KEY_STRING);
-//        fromType = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 2);
-        switch (fromType) {
-            case FROMSHAREOWNER:
-                confirmCancelDialog = new ConfirmCancelDialog(this, "提示", "您确定要操作车位锁吗？", getString(R.string.common_confirm), getString(R.string.common_cancel));
-                confirmCancelDialog.setEtVisibility(View.GONE);
-                break;
-            case FROMMANAGER:
-                confirmCancelDialog = new ConfirmCancelDialog(this, "请输入操作原因", "", getString(R.string.common_confirm), getString(R.string.common_cancel));
-                confirmCancelDialog.setEtVisibility(View.VISIBLE);
-                getOptReasons();
-                break;
-        }
+        fromType = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 2);
+        getOptReasons();
         if (TextUtils.isEmpty(parkNum)) {
             finish();
             return;
@@ -109,29 +99,14 @@ public class OptParkLockActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_up:
                 opt = "rise";
-                switch (fromType) {
-                    case FROMSHAREOWNER:
-                        showConfirmdialog();
-                        break;
-                    case FROMMANAGER:
-                        tvHead.setText("请选择升起原因");
-                        bottomSheetDialog.show();
-                        break;
+                tvHead.setText("请选择升起原因");
+                bottomSheetDialog.show();
 
-                }
                 break;
             case R.id.iv_down:
                 opt = "drop";
-                switch (fromType) {
-                    case FROMSHAREOWNER:
-                        showConfirmdialog();
-                        break;
-                    case FROMMANAGER:
-                        tvHead.setText("请选择降下原因");
-                        bottomSheetDialog.show();
-                        break;
-
-                }
+                tvHead.setText("请选择降下原因");
+                bottomSheetDialog.show();
                 break;
         }
     }
@@ -140,15 +115,10 @@ public class OptParkLockActivity extends BaseActivity {
         confirmCancelDialog.setClickListener(new ConfirmCancelDialog.ClickListener() {
             @Override
             public void confirm() {
-                switch (fromType) {
-                    case FROMMANAGER:
-                        if (TextUtils.isEmpty(confirmCancelDialog.getEtContent())) {
-                            return;
-                        }
-                        reasonNote = confirmCancelDialog.getEtContent();
-                        break;
-
+                if (TextUtils.isEmpty(confirmCancelDialog.getEtContent())) {
+                    return;
                 }
+                reasonNote = confirmCancelDialog.getEtContent();
                 confirmCancelDialog.clearEtContent();
                 confirmCancelDialog.dismiss();
                 optUpDown();
@@ -168,7 +138,7 @@ public class OptParkLockActivity extends BaseActivity {
      * rise 上升 drop 下降
      */
     private void optUpDown() {
-        getTime(Api.getDefaultService().parkingControl(parkNum, opt, reasonCode, reasonNote)
+        getTime(Api.getDefaultService().parkingControl(parkNum, opt, reasonCode, reasonNote, fromType)
                 , new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
@@ -178,7 +148,7 @@ public class OptParkLockActivity extends BaseActivity {
     }
 
     private void getOptReasons() {
-        getTime(Api.getDefaultService().optReason(), new RxObserver<BaseEntity<List<OptReasonBean>>>(this, true) {
+        getTime(Api.getDefaultService().optReason(fromType), new RxObserver<BaseEntity<List<OptReasonBean>>>(this, true) {
             @Override
             public void onSuccess(BaseEntity<List<OptReasonBean>> baseEntity) {
                 List<OptReasonBean> data = baseEntity.getData();

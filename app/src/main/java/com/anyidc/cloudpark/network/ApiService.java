@@ -312,7 +312,7 @@ public interface ApiService {
     @POST("api/v1/parkingControlByManager")
     @FormUrlEncoded
     Observable<BaseEntity> parkingControl(@Field("parking_sn") String parking_sn, @Field("control") String control
-            , @Field("reason_code") String reason_code, @Field("reason_note") String reason_note);
+            , @Field("reason_code") String reason_code, @Field("reason_note") String reason_note,@Field("type")int type);
 
     /**
      * 获取车位列表接口
@@ -491,5 +491,6 @@ public interface ApiService {
      * 操作车位锁原因
      */
     @POST("/api/v1/parkingControlReason")
-    Observable<BaseEntity<List<OptReasonBean>>> optReason();
+    @FormUrlEncoded
+    Observable<BaseEntity<List<OptReasonBean>>> optReason(@Field("type")int type);
 }
