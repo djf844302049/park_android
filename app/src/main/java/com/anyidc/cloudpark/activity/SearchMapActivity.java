@@ -9,9 +9,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -310,9 +313,9 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                 getAreaList();
                 break;
             case R.id.tv_distance_first:
-                if (nearbyList.size()==0){
+                if (nearbyList.size() == 0) {
                     getNearby();
-                }else {
+                } else {
                     parkList.clear();
                     parkList.addAll(nearbyList);
                     parkListAdapter.notifyDataChanged();
@@ -338,6 +341,23 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
     }
 
     private void initSearchView() {
+        // 设置该SearchView内默认显示的提示文本
+        searchView.setQueryHint(getResources().getString(R.string.search_place));
+        searchView.clearFocus();
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView searchText = searchView.findViewById(id);
+        if (searchText != null) {
+            searchText.setTextSize(14f);
+            searchText.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
+            searchText.setHintTextColor(ContextCompat.getColor(this, R.color.text_color_gray));
+        }
+        int editId = searchView.getContext().getResources().getIdentifier("android:id/search_edit_frame", null, null);
+        LinearLayout ll = searchView.findViewById(editId);
+        ll.setGravity(Gravity.CENTER_VERTICAL);
+        ll.setBackground(null);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, 0);
+        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 33, getResources().getDisplayMetrics());
+        ll.setLayoutParams(lp);
         // 为该SearchView组件设置事件监听器
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
@@ -357,33 +377,8 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                 return false;
             }
         });
-        // 设置该SearchView内默认显示的提示文本
-        searchView.setQueryHint(getResources().getString(R.string.search_place));
-        searchView.clearFocus();
-        int searchPlateId = searchView.getContext().getResources()
-                .getIdentifier("android:id/search_plate", null, null);
-        View searchPlate = searchView.findViewById(searchPlateId);
-        if (searchPlate != null) {
-            int searchTextId = searchPlate.getContext().getResources()
-                    .getIdentifier("android:id/search_src_text", null, null);
-            //文字颜色
-            TextView searchText = searchPlate.findViewById(searchTextId);
-            if (searchText != null) {
-                searchText.setTextSize(14f);
-                searchText.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
-                searchText.setHintTextColor(ContextCompat.getColor(this, R.color.text_color_gray));
-            }
-
-            //光标颜色
-//            try {
-//                Field mCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
-//                mCursorDrawableRes.setAccessible(true);
-//                mCursorDrawableRes.set(searchText, R.drawable.cursor_color);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-        }
     }
+
 
     private void getHotArea() {
         getTime(Api.getDefaultService().getHotSearch()
@@ -666,8 +661,8 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
             if (aMapLocation.getErrorCode() == 0) {
                 lat = aMapLocation.getLatitude();//获取纬度
                 lng = aMapLocation.getLongitude();//获取经度
-                SpUtils.set(SpUtils.MYLATITUDE,String.valueOf(lat));
-                SpUtils.set(SpUtils.MYLONGITUDE,String.valueOf(lng));
+                SpUtils.set(SpUtils.MYLATITUDE, String.valueOf(lat));
+                SpUtils.set(SpUtils.MYLONGITUDE, String.valueOf(lng));
                 city = aMapLocation.getCity();
                 if (from != 0) {
                     getNearby();
