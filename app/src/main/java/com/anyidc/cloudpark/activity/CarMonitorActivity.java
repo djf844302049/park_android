@@ -41,13 +41,12 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
 
 
     /**
-     *
      * @param context
-     * @param type   0表示车辆监控  1表示车位锁操作（管理员界面操作界面）
+     * @param type    0表示车辆监控  1表示车位锁操作（管理员界面操作界面）
      */
-    public static void start(Context context,int type){
-        Intent intent = new Intent(context,CarMonitorActivity.class);
-        intent.putExtra(IntentKey.INTENT_KEY_INT,type);
+    public static void start(Context context, int type) {
+        Intent intent = new Intent(context, CarMonitorActivity.class);
+        intent.putExtra(IntentKey.INTENT_KEY_INT, type);
         context.startActivity(intent);
     }
 
@@ -59,7 +58,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initData() {
-        type = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT,0);
+        type = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 0);
         tv1 = findViewById(R.id.tv_num_1);
         tv2 = findViewById(R.id.tv_num_2);
         tv3 = findViewById(R.id.tv_num_3);
@@ -88,7 +87,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
             }
         });
         tvConfirm.setOnClickListener(clickListener);
-        if(type == 0) {
+        if (type == 0) {
             initTitle("车辆监控");
             tvTip.setText(R.string.input_watch_car_monitor);
             tvConfirm.setText(R.string.watch);
@@ -132,10 +131,11 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
         if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
             return;
         }
-        if(type == 0) {
-            watchCamera(parkNum);
+        if (type == 0) {
+//            watchCamera(parkNum);
+            startActivity(new Intent(this, MonitorVideoActivity.class));
         } else {
-            OptParkLockActivity.start(CarMonitorActivity.this,parkNum,OptParkLockActivity.FROMMANAGER);
+            OptParkLockActivity.start(CarMonitorActivity.this, parkNum, OptParkLockActivity.FROMMANAGER);
         }
     }
 

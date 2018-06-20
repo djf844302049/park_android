@@ -98,6 +98,9 @@
         <activity android:name="com.anyidc.cloudpark.activity.SelectUnitParkActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.PayResultActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.PayAppointmentActivity" />
+        <activity
+            android:name="com.anyidc.cloudpark.activity.MonitorVideoActivity"
+            android:configChanges="orientation|screenSize" />
 
         <!--微信支付回调Activity-->
         <activity

@@ -101,6 +101,10 @@ public class LicenseKeyboardUtil {
 
         @Override
         public void onKey(int primaryCode, int[] keyCodes) {
+            int visibility = mKeyboardView.getVisibility();
+            if (visibility != View.VISIBLE) {
+                return;
+            }
             Editable editable = mEdit.getText();
             int start = mEdit.getSelectionStart();
             if (primaryCode == -1 || primaryCode == -12) {//确定
