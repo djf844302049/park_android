@@ -101,24 +101,22 @@
 
                 <ImageView
                     android:id="@+id/iv_pay_park"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="161dp"
+                    android:layout_height="161dp"
                     android:src="@mipmap/img_pay_park" />
 
                 <ImageView
                     android:id="@+id/iv_park_order"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="161dp"
+                    android:layout_height="161dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
                     android:src="@mipmap/img_order_park" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_search_park"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="332dp"
+                android:layout_height="166dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"

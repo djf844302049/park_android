@@ -15,6 +15,7 @@ import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
 import com.anyidc.cloudpark.utils.OnCheckDoubleClick;
+import com.anyidc.cloudpark.utils.ScreenFitUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.githang.statusbar.StatusBarCompat;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
@@ -39,6 +40,7 @@ public abstract class BaseActivity<T> extends RxFragmentActivity implements OnCh
         super.onCreate(savedInstanceState);
         BaseApplication.getInstance().addActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无ActionBar
+        ScreenFitUtil.setCustomDensity(this,getApplication());
         setContentView(getLayoutId());
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.top_blue), true);
         clickListener = new CheckDoubleClickListener(this);
