@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_bar"
-        android:paddingBottom="@dimen/dp40"
         android:scrollbars="none">
 
         <LinearLayout
@@ -34,61 +33,53 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp10"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:id="@+id/tv_null"
-                    android:layout_width="0dp"
+                    android:layout_width="112dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/bg_blue"
+                    android:background="@drawable/selector_left_bg_blue"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/dp10"
-                    android:paddingTop="@dimen/dp10"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
                     android:text="空车位"
-                    android:textColor="@color/white"
+                    android:textColor="@drawable/selector_color_white_blue"
                     android:textSize="@dimen/text_size14" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/bg_blue" />
 
                 <TextView
                     android:id="@+id/tv_has_appointment"
-                    android:layout_width="0dp"
+                    android:layout_width="112dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/white"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_toRightOf="@id/tv_null"
+                    android:background="@drawable/selector_medium_bg_blue"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/dp10"
-                    android:paddingTop="@dimen/dp10"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
                     android:text="已预约车位"
-                    android:textColor="@color/bg_blue"
+                    android:textColor="@drawable/selector_color_white_blue"
                     android:textSize="@dimen/text_size14" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/bg_blue" />
 
                 <TextView
                     android:id="@+id/tv_has_parked"
-                    android:layout_width="0dp"
+                    android:layout_width="112dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/white"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_toRightOf="@id/tv_has_appointment"
+                    android:background="@drawable/selector_right_bg_blue"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/dp10"
-                    android:paddingTop="@dimen/dp10"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
                     android:text="已停车位"
-                    android:textColor="@color/bg_blue"
+                    android:textColor="@drawable/selector_color_white_blue"
                     android:textSize="@dimen/text_size14" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_unit_list"
@@ -204,7 +195,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/gray_line" />
+                android:background="@color/bg_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -255,59 +246,59 @@
                 android:text="预约停车"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size14" />
+
+            <LinearLayout
+                android:id="@+id/ll_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dp10"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10">
+
+                <TextView
+                    android:id="@+id/tv_id_certification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_bg_blue_gray"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="@string/id_confirm"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size16" />
+
+                <TextView
+                    android:id="@+id/tv_car_certification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_bg_blue_gray"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="@string/car_confirm"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size16" />
+
+                <TextView
+                    android:id="@+id/tv_recharge_deposit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_bg_blue_gray"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="@string/recharge_deposit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size16" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/dp10"
-        android:paddingLeft="@dimen/dp10"
-        android:paddingRight="@dimen/dp10">
-
-        <TextView
-            android:id="@+id/tv_id_certification"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_bg_blue_gray"
-            android:gravity="center"
-            android:paddingBottom="@dimen/dp10"
-            android:paddingTop="@dimen/dp10"
-            android:text="@string/id_confirm"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size16" />
-
-        <TextView
-            android:id="@+id/tv_car_certification"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_weight="1"
-            android:background="@drawable/selector_bg_blue_gray"
-            android:gravity="center"
-            android:paddingBottom="@dimen/dp10"
-            android:paddingTop="@dimen/dp10"
-            android:text="@string/car_confirm"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size16" />
-
-        <TextView
-            android:id="@+id/tv_recharge_deposit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_weight="1"
-            android:background="@drawable/selector_bg_blue_gray"
-            android:gravity="center"
-            android:paddingBottom="@dimen/dp10"
-            android:paddingTop="@dimen/dp10"
-            android:text="@string/recharge_deposit"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size16" />
-    </LinearLayout>
 
 </RelativeLayout>

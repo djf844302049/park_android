@@ -73,8 +73,6 @@ public class BaseApplication extends MultiDexApplication {
         LeakCanary.install(this);
         appContext = this;
         JPushInterface.init(this);
-        //设置极光推送别名
-        JPushInterface.setAlias(this, 0, "");
         //获取设备号
         String did = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         SpUtils.set(SpUtils.DID, did);

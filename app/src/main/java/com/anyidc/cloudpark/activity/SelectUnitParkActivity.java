@@ -3,7 +3,6 @@ package com.anyidc.cloudpark.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -94,6 +93,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         id = getIntent().getStringExtra("id");
         initTitle("选择车位");
         tvNull = findViewById(R.id.tv_null);
+        tvNull.setSelected(true);
         tvApointment = findViewById(R.id.tv_has_appointment);
         tvParked = findViewById(R.id.tv_has_parked);
         tvArr[0] = tvNull;
@@ -252,11 +252,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         dataList.clear();
         for (int i = 0; i < tvArr.length; i++) {
             if (i == pos) {
-                tvArr[i].setTextColor(ContextCompat.getColor(this, R.color.white));
-                tvArr[i].setBackgroundColor(ContextCompat.getColor(this, R.color.bg_blue));
+                tvArr[i].setSelected(true);
             } else {
-                tvArr[i].setTextColor(ContextCompat.getColor(this, R.color.bg_blue));
-                tvArr[i].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                tvArr[i].setSelected(false);
             }
         }
     }

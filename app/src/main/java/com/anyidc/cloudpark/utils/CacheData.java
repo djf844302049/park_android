@@ -15,6 +15,7 @@ public class CacheData {
 
     public static void setInfoBean(LoginRegisterBean newInfoBean) {
         infoBean = newInfoBean;
+        //设置极光推送别名
         SpUtils.setObject(SpUtils.USERINFO, infoBean);
     }
 

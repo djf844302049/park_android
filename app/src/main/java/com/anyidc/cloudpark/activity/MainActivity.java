@@ -19,6 +19,8 @@ import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.wiget.VerticalTextView;
 import com.bumptech.glide.Glide;
@@ -29,6 +31,8 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends BaseActivity implements AMapLocationListener {
     //声明AMapLocationClient类对象
@@ -108,6 +112,13 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         if (!tvMess.isScroll()) {
             tvMess.startAutoScroll();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (LoginUtil.isLogin())
+            JPushInterface.setAlias(this, 0, CacheData.getInfoBean().getMobile());
     }
 
     @Override

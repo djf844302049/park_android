@@ -24,8 +24,6 @@
         android:drawableLeft="@mipmap/img_user_name"
         android:drawablePadding="20dp"
         android:hint="@string/input_phone_num"
-        android:inputType="phone"
-        android:maxLength="11"
         android:padding="20dp" />
 
     <EditText
