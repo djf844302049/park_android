@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
@@ -51,7 +50,6 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
             holder.tvShareTime.setText("共享时间段：" + freeArrBean.getShare_time());
             holder.tvFee.setText("停车费：¥" + freeArrBean.getHourfee());
             holder.itemView.setOnClickListener(this);
-            holder.ivCheck.setOnClickListener(this);
             if (selectPos == position) {
                 holder.ivCheck.setImageResource(R.mipmap.img_cb_circle_select);
             } else {
@@ -97,7 +95,6 @@ public class ShareParkUnitAdapter extends RecyclerView.Adapter<ShareParkUnitAdap
     public class ShareParkUnitHolderView extends RecyclerView.ViewHolder {
         private TextView tvNum, tvShareTime, tvFee;
         private ImageView ivCheck;
-        private RelativeLayout rlParent;
 
         public ShareParkUnitHolderView(View itemView) {
             super(itemView);
