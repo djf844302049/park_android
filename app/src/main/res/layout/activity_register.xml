@@ -57,24 +57,18 @@
         android:inputType="textPassword"
         android:paddingLeft="@dimen/dp20" />
 
-    <LinearLayout
-        android:id="@+id/ll_cb"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/cb_statement"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:button="@null"
-            android:drawablePadding="@dimen/dp5"
-            android:drawableLeft="@drawable/selector_cb_green_gray"
-            android:text="我同意《》和《》" />
-    </LinearLayout>
+        android:button="@null"
+        android:drawableLeft="@drawable/selector_cb_green_gray"
+        android:drawablePadding="@dimen/dp5"
+        android:gravity="center"
+        android:text="我同意《》和《》" />
 
     <Button
         android:id="@+id/btn_register"
