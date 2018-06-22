@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private SelectUnitParkDialog selectUnitParkDialog;
     private CenterBean bean;
     private String selectUnitId = "";
-    private ParkDetailBean.UseArrBean selectParkUnitInfoBean;
     private TextView tvNull, tvApointment, tvParked;
     private TextView[] tvArr = new TextView[3];
     private int type;
@@ -155,7 +153,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     switch (type) {
                         case 0:
                             selectUnitId = unitInfoBean.getUnit_id();
-                            selectParkUnitInfoBean = unitInfoBean;
                             break;
                         case 1:
                             showDialog(unitInfoBean.getUnit_id(), "该车位已被预约", "", "", feeStr);
