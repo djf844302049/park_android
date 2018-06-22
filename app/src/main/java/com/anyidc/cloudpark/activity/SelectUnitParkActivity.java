@@ -149,7 +149,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 recyclerView.setVisibility(View.VISIBLE);
                 parkUnitNumAdapter.setOnItemClickListener((view, position) -> {
                     ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
-                    String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时";
+                    String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元，之后" + parkInfo.getFee().getSecond_money() + "元/小时";
                     switch (type) {
                         case 0:
                             selectUnitId = unitInfoBean.getUnit_id();
@@ -379,7 +379,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                         tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
                         tvTotal.setText(String.valueOf(parkInfo.getNum()) + "个车位，");
                         tvRemain.setText(String.valueOf(data.getCount_data().getFree()));
-                        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时");
+                        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元，之后" + parkInfo.getFee().getSecond_money() + "元/小时");
                         initRealImage();
                         updateDistance(parkInfo.getLat(), parkInfo.getLng());
                     }
