@@ -96,8 +96,7 @@
                 android:paddingBottom="@dimen/dp5"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
-                android:paddingTop="@dimen/dp5"
-                android:text="XXX停车场" />
+                android:paddingTop="@dimen/dp5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +112,6 @@
                     android:paddingLeft="@dimen/dp10"
                     android:paddingRight="@dimen/dp10"
                     android:paddingTop="@dimen/dp5"
-                    android:text="厦门海沧阿罗海"
                     android:textColor="@color/text_color_gray" />
 
                 <TextView
@@ -126,7 +124,6 @@
                     android:paddingLeft="@dimen/dp10"
                     android:paddingRight="@dimen/dp10"
                     android:paddingTop="@dimen/dp5"
-                    android:text="距离：10km"
                     android:textColor="@color/text_color_gray" />
             </LinearLayout>
 
@@ -159,7 +156,6 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dp5"
                     android:paddingTop="@dimen/dp5"
-                    android:text="111"
                     android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size14" />
 
@@ -178,7 +174,6 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dp5"
                     android:paddingTop="@dimen/dp5"
-                    android:text="50"
                     android:textColor="@color/text_color_blue"
                     android:textSize="@dimen/text_size14" />
 
@@ -225,7 +220,6 @@
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
                 android:paddingTop="@dimen/dp5"
-                android:text="收费标准：首个小时4元，之后2元/小时"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size14" />
 

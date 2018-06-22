@@ -1,7 +1,14 @@
 package com.anyidc.cloudpark.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +21,9 @@ import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.CacheData;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -23,7 +33,7 @@ import cn.jpush.android.api.JPushInterface;
 public class LoginActivity extends BaseActivity {
     private EditText etPhoneNum;
     private EditText etPassword;
-    private TextView tvRight;
+    private TextView tvRight, tvStatement;
 
     @Override
     protected int getLayoutId() {
@@ -42,6 +52,30 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.tv_login_by_code).setOnClickListener(clickListener);
         findViewById(R.id.tv_forget_password).setOnClickListener(clickListener);
         findViewById(R.id.btn_login).setOnClickListener(clickListener);
+        tvStatement = findViewById(R.id.tv_statement);
+        String message = "登录代表您已同意《云能停车用户条款》";
+        SpannableString spannableString = new SpannableString(message);
+        Pattern pattern = Pattern.compile("云能停车用户条款");
+        Matcher matcher = pattern.matcher(message);
+        while (matcher.find()) {
+            ClickableSpan what = new ClickableSpan() {
+
+                @Override
+                public void onClick(View widget) {
+                    WebViewActivity.actionStart(LoginActivity.this, Api.DEBUG_URL + "/admin/showhtml/showUserTerm", 2);
+                }
+
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setUnderlineText(false);
+                }
+            };
+            spannableString.setSpan(what, matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#0d80f7")),
+                9, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvStatement.setText(spannableString);
+        tvStatement.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override

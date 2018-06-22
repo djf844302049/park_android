@@ -35,6 +35,7 @@ public class DrawCashActivity extends BaseActivity {
     private EditText etDrawNum;
     private List<BankCardBean> list = new ArrayList<>();
     private String drawNum, bank_id;
+    private final int ADDBANKCARD = 999;
 
     public static void actionStart(Context context, String balance) {
         Intent intent = new Intent(context, DrawCashActivity.class);
@@ -66,7 +67,7 @@ public class DrawCashActivity extends BaseActivity {
         adapter.setOnItemClickListener((view, position) -> {
             dialog.dismiss();
             if (position == list.size() - 1) {
-                startActivity(new Intent(DrawCashActivity.this, BindBankCardActivity.class));
+                startActivityForResult(new Intent(this, BindBankCardActivity.class), ADDBANKCARD);
                 return;
             }
             tvBankCard.setText(list.get(position).getCardInfo());
@@ -81,7 +82,11 @@ public class DrawCashActivity extends BaseActivity {
     public void onCheckDoubleClick(View v) {
         switch (v.getId()) {
             case R.id.rl_bank_choice:
-                getBankCardList();
+                if (list.size() == 0) {
+                    getBankCardList();
+                } else {
+                    dialog.show();
+                }
                 break;
             case R.id.btn_draw_cash:
                 drawCash();
@@ -117,5 +122,15 @@ public class DrawCashActivity extends BaseActivity {
                         finish();
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADDBANKCARD) {
+            if (resultCode == RESULT_OK) {
+                getBankCardList();
+            }
+        }
     }
 }

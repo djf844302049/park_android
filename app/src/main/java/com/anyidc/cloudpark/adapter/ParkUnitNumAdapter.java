@@ -44,11 +44,6 @@ public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.
         if (unitInfoBean != null) {
             holder.itemView.setTag(position);
             holder.tvNum.setText(unitInfoBean.getUnit_id());
-//            if(unitInfoBean.getStatus() == 1 && unitInfoBean.getFrozen_time() == 0){
-//                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context,R.color.white));
-//            }else{
-//                holder.tvNum.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_line));
-//            }
             if (type != 0) {
                 holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
                 holder.tvNum.setSelected(false);
@@ -60,11 +55,9 @@ public class ParkUnitNumAdapter extends RecyclerView.Adapter<ParkUnitNumAdapter.
             }
             holder.itemView.setOnClickListener(this);
             if (selectPos == position) {
-//                holder.rlParent.setBackgroundColor(ContextCompat.getColor(context,R.color.text_color_red));
                 holder.tvNum.setSelected(true);
                 holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.bg_blue));
             } else {
-//                holder.rlParent.setBackgroundColor(ContextCompat.getColor(context,R.color.gray_line));
                 holder.tvNum.setSelected(false);
                 holder.tvNum.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
             }

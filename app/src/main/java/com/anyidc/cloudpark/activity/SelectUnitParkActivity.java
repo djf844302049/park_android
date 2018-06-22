@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.CenterBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.ParkDetailBean;
-import com.anyidc.cloudpark.moduel.ShareParkUnitInfo;
+import com.anyidc.cloudpark.moduel.ShareParkBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
@@ -52,11 +53,14 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private RecyclerView recyclerView;
     private LinearLayout llImage;
 
-    private ParkDetailBean.ParkBean parkInfo;
     private List<ParkDetailBean.UseArrBean> dataList = new ArrayList<>();
     private List<ParkDetailBean.UseArrBean> freeList = new ArrayList<>();
     private List<ParkDetailBean.UseArrBean> usingList = new ArrayList<>();
     private List<ParkDetailBean.UseArrBean> busyList = new ArrayList<>();
+    private List<ShareParkBean.FreeArrBean> shareList = new ArrayList<>();
+    private List<ShareParkBean.FreeArrBean> sFreeList = new ArrayList<>();
+    private List<ShareParkBean.FreeArrBean> sUsingList = new ArrayList<>();
+    private List<ShareParkBean.FreeArrBean> sBusyList = new ArrayList<>();
 
     private ParkUnitNumAdapter parkUnitNumAdapter;
     private ShareParkUnitAdapter shareParkUnitAdapter;
@@ -64,9 +68,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private SelectUnitParkDialog selectUnitParkDialog;
     private CenterBean bean;
     private String selectUnitId = "";
-    private boolean isShare = false;
     private ParkDetailBean.UseArrBean selectParkUnitInfoBean;
-    private ShareParkUnitInfo selectShareParkUnitInfo;
     private TextView tvNull, tvApointment, tvParked;
     private TextView[] tvArr = new TextView[3];
     private int type;
@@ -74,12 +76,18 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private RecyclerView rlvCars;
     private CarChoiceAdapter adapter;
     private List<MyCarBean> carList = new ArrayList<>();
-    private String carId;
-    public static int REQUETCODE = 999;
+    private ParkDetailBean.ParkBean parkInfo;
+    private ShareParkBean.ParkBean sParkInfo;
+    private String carId = "";
+    private int parkType;
+    private String parkName = "";
+    private float appointNum;
+    private String shareTime = "";
 
-    public static void start(Context context, String id) {
+    public static void start(Context context, String id, int type) {
         Intent intent = new Intent(context, SelectUnitParkActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 
@@ -91,6 +99,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     @Override
     protected void initData() {
         id = getIntent().getStringExtra("id");
+        parkType = getIntent().getIntExtra("type", 0);
         initTitle("选择车位");
         tvNull = findViewById(R.id.tv_null);
         tvNull.setSelected(true);
@@ -129,20 +138,75 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         rlvCars.setAdapter(adapter);
         adapter.setOnItemClickListener((view, position) -> {
             carId = String.valueOf(carList.get(position).getId());
-            PayAppointmentActivity.start(this, parkInfo.getParking_name(), selectParkUnitInfoBean.getUnit_id(), "", parkInfo.getAppointment_money(), carId);
+            PayAppointmentActivity.start(this, parkName, selectUnitId, shareTime, appointNum, carId);
             dialog.dismiss();
         });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        parkUnitNumAdapter = new ParkUnitNumAdapter(this, dataList);
-        recyclerView.setAdapter(parkUnitNumAdapter);
+        switch (parkType) {
+            case 1:
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                parkUnitNumAdapter = new ParkUnitNumAdapter(this, dataList);
+                recyclerView.setAdapter(parkUnitNumAdapter);
+                llImage.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                parkUnitNumAdapter.setOnItemClickListener((view, position) -> {
+                    ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
+                    String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时";
+                    switch (type) {
+                        case 0:
+                            selectUnitId = unitInfoBean.getUnit_id();
+                            selectParkUnitInfoBean = unitInfoBean;
+                            break;
+                        case 1:
+                            showDialog(unitInfoBean.getUnit_id(), "该车位已被预约", "", "", feeStr);
+                            break;
+                        case 2:
+                            showDialog(unitInfoBean.getUnit_id(), "该车位已有车辆驶入", "", "", feeStr);
+                            break;
+                    }
+                });
+                break;
+            case 2:
+                llImage.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                shareParkUnitAdapter = new ShareParkUnitAdapter(this, shareList);
+                shareParkUnitAdapter.setOnItemClickListener((view, position) -> {
+                    ShareParkBean.FreeArrBean freeArrBean = shareList.get(position);
+                    switch (type) {
+                        case 0:
+                            selectUnitId = freeArrBean.getUnit_id();
+                            shareTime = freeArrBean.getShare_time();
+                            appointNum = freeArrBean.getAppointment_money();
+                            tvFee.setText("收费标准：共享时段内" + freeArrBean.getHourfee() + "元/小时,超出共享时段后" + freeArrBean.getOverdose() + "元/小时");
+                            updateAppointBtn();
+                            break;
+                        case 1:
+                            showDialog(freeArrBean.getUnit_id(), "该车位已被预约", "", "", String.valueOf(freeArrBean.getHourfee()));
+                            break;
+                        case 2:
+                            showDialog(freeArrBean.getUnit_id(), "该车位已有车辆驶入", "", "", String.valueOf(freeArrBean.getHourfee()));
+                            break;
+                    }
+                });
+                recyclerView.setAdapter(shareParkUnitAdapter);
+                break;
+        }
         getCenterData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getParkDetial();
+        switch (parkType) {
+            case 1:
+                getParkDetail();
+                break;
+            case 2:
+                getShareParkDetail();
+                break;
+        }
     }
 
     private void getCarList() {
@@ -222,34 +286,62 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 }
                 break;
             case R.id.tv_null:
-                selectUnitId = null;
                 changeTitleBg(0);
-                dataList.addAll(freeList);
-                parkUnitNumAdapter.setType(0);
-                parkUnitNumAdapter.notifyDataSetChanged();
+                switch (parkType) {
+                    case 1:
+                        dataList.addAll(freeList);
+                        parkUnitNumAdapter.setType(0);
+                        parkUnitNumAdapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                        shareList.addAll(sFreeList);
+                        shareParkUnitAdapter.setType(0);
+                        shareParkUnitAdapter.notifyDataSetChanged();
+                        break;
+                }
                 break;
             case R.id.tv_has_appointment:
-                selectUnitId = null;
                 changeTitleBg(1);
-                dataList.addAll(busyList);
-                parkUnitNumAdapter.setType(1);
-                parkUnitNumAdapter.setSelectPos(-1);
-                parkUnitNumAdapter.notifyDataSetChanged();
+                switch (parkType) {
+                    case 1:
+                        dataList.addAll(busyList);
+                        parkUnitNumAdapter.setType(1);
+                        parkUnitNumAdapter.setSelectPos(-1);
+                        parkUnitNumAdapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                        shareList.addAll(sBusyList);
+                        shareParkUnitAdapter.setType(1);
+                        shareParkUnitAdapter.setSelectPos(-1);
+                        shareParkUnitAdapter.notifyDataSetChanged();
+                        break;
+                }
                 break;
             case R.id.tv_has_parked:
-                selectUnitId = null;
                 changeTitleBg(2);
-                dataList.addAll(usingList);
-                parkUnitNumAdapter.setType(1);
-                parkUnitNumAdapter.setSelectPos(-1);
-                parkUnitNumAdapter.notifyDataSetChanged();
+                switch (parkType) {
+                    case 1:
+                        dataList.addAll(usingList);
+                        parkUnitNumAdapter.setType(1);
+                        parkUnitNumAdapter.setSelectPos(-1);
+                        parkUnitNumAdapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                        shareList.addAll(sUsingList);
+                        shareParkUnitAdapter.setType(1);
+                        shareParkUnitAdapter.setSelectPos(-1);
+                        shareParkUnitAdapter.notifyDataSetChanged();
+                        break;
+                }
                 break;
         }
     }
 
     private void changeTitleBg(int pos) {
         type = pos;
+        selectUnitId = null;
         dataList.clear();
+        shareList.clear();
         for (int i = 0; i < tvArr.length; i++) {
             if (i == pos) {
                 tvArr[i].setSelected(true);
@@ -259,13 +351,15 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    private void getParkDetial() {
+    private void getParkDetail() {
         getTime(Api.getDefaultService().getParkDetail(id)
                 , new RxObserver<BaseEntity<ParkDetailBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<ParkDetailBean> parkDetailBean) {
                         ParkDetailBean data = parkDetailBean.getData();
                         parkInfo = data.getPark();
+                        parkName = parkInfo.getParking_name();
+                        appointNum = parkInfo.getAppointment_money();
                         if (data.getFree_arr() != null) {
                             freeList.clear();
                             freeList.addAll(data.getFree_arr());
@@ -281,8 +375,48 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                         selectUnitId = null;
                         dataList.clear();
                         dataList.addAll(freeList);
-                        updateView();
-                        updateDistance();
+                        parkUnitNumAdapter.setType(0);
+                        parkUnitNumAdapter.setSelectPos(-1);
+                        parkUnitNumAdapter.notifyDataSetChanged();
+                        tvTitle.setText(parkInfo.getParking_name());
+                        tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
+                        tvTotal.setText(String.valueOf(parkInfo.getNum()) + "个车位，");
+                        tvRemain.setText(String.valueOf(data.getCount_data().getFree()));
+                        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时");
+                        initRealImage();
+                        updateDistance(parkInfo.getLat(), parkInfo.getLng());
+                    }
+                });
+    }
+
+    private void getShareParkDetail() {
+        getTime(Api.getDefaultService().getShareParkList(id)
+                , new RxObserver<BaseEntity<ShareParkBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<ShareParkBean> baseEntity) {
+                        ShareParkBean data = baseEntity.getData();
+                        sParkInfo = data.getPark();
+                        parkName = sParkInfo.getParking_name();
+                        if (data.getFree_arr() != null) {
+                            sFreeList.clear();
+                            sFreeList.addAll(data.getFree_arr());
+                        }
+                        if (data.getUse_arr() != null) {
+                            sUsingList.clear();
+                            sUsingList.addAll(data.getUse_arr());
+                        }
+                        if (data.getBusy_arr() != null) {
+                            sBusyList.clear();
+                            sBusyList.addAll(data.getBusy_arr());
+                        }
+                        shareList.clear();
+                        shareList.addAll(sFreeList);
+                        shareParkUnitAdapter.notifyDataSetChanged();
+                        tvTitle.setText(sParkInfo.getParking_name());
+                        tvAddress.setText(sParkInfo.getArea_1() + " " + sParkInfo.getArea_2() + " " + sParkInfo.getArea_3() + " " + sParkInfo.getArea_4() + " ");
+                        tvTotal.setText(String.valueOf(sParkInfo.getNum()) + "个车位，");
+                        tvRemain.setText(String.valueOf(data.getCount_data().getFree()));
+                        updateDistance(sParkInfo.getLat(), sParkInfo.getLng());
                     }
                 });
     }
@@ -312,68 +446,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    private void updateView() {
-        if (parkInfo == null) return;
-        tvTitle.setText(parkInfo.getParking_name());
-        tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
-        tvTotal.setText(String.valueOf(parkInfo.getNum()));
-        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时");
-        initRealImage();
-        //共享停车场
-//        if (parkInfo.getType() == 1) {
-//            llImage.setVisibility(View.GONE);
-//            if (shareList == null || shareList.size() <= 0) {
-//                recyclerView.setVisibility(View.GONE);
-//                return;
-//            }
-//            recyclerView.setVisibility(View.VISIBLE);
-//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//            recyclerView.setLayoutManager(linearLayoutManager);
-//            shareParkUnitAdapter = new ShareParkUnitAdapter(this, shareList);
-//            shareParkUnitAdapter.setOnItemClickListener(new ItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, int position) {
-//                    ShareParkUnitInfo shareParkUnitInfo = shareList.get(position);
-//                    if (shareParkUnitInfo != null && shareParkUnitInfo.getStatus() == 1 && shareParkUnitInfo.getFrozen_time() == 0) {
-//                        selectUnitId = shareParkUnitInfo.getUnit_id();
-//                        isShare = true;
-//                        selectShareParkUnitInfo = shareParkUnitInfo;
-//                        showDialog(shareParkUnitInfo.getUnit_id(), "该车位为共享车位，可进行预约", "", "", String.valueOf(shareParkUnitInfo.getFee().getMoney()));
-//                        updateAppointBtn();
-//                    } else if (shareParkUnitInfo.getStatus() == 2) {
-//                        showDialog(shareParkUnitInfo.getUnit_id(), "该车位已有车辆驶入", "", "", String.valueOf(shareParkUnitInfo.getFee().getMoney()));
-//                    } else {
-//                        showDialog(shareParkUnitInfo.getUnit_id(), "该车位为共享车位且已被预约", "", "", String.valueOf(shareParkUnitInfo.getFee().getMoney()));
-//                    }
-//                }
-//            });
-//            recyclerView.setAdapter(shareParkUnitAdapter);
-//        } else {
-        llImage.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.VISIBLE);
-        parkUnitNumAdapter.setOnItemClickListener((view, position) -> {
-            ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
-            String feeStr = "首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元,之后" + parkInfo.getFee().getSecond_money() + "元/小时";
-            switch (type) {
-                case 0:
-                    selectUnitId = unitInfoBean.getUnit_id();
-                    isShare = false;
-                    selectParkUnitInfoBean = unitInfoBean;
-                    break;
-                case 1:
-                    showDialog(unitInfoBean.getUnit_id(), "该车位已被预约", "", "", feeStr);
-                    break;
-                case 2:
-                    showDialog(unitInfoBean.getUnit_id(), "该车位已有车辆驶入", "", "", feeStr);
-                    break;
-            }
-        });
-        parkUnitNumAdapter.setType(0);
-        parkUnitNumAdapter.setSelectPos(-1);
-        parkUnitNumAdapter.notifyDataSetChanged();
-//        }
-    }
-
     private void updateAppointBtn() {
         if (bean != null && bean.getCar_auth() == 1 && bean.getIsAuth() == 1 && bean.getDeposit_flag() == 1 && !TextUtils.isEmpty(selectUnitId)) {
             tvAppointment.setBackgroundResource(R.drawable.shape_bg_blue);
@@ -392,16 +464,17 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         selectUnitParkDialog.show();
     }
 
-    private void updateDistance() {
+    private void updateDistance(String lat1, String lng1) {
         String lat = (String) SpUtils.get(SpUtils.MYLATITUDE, "");
         String lng = (String) SpUtils.get(SpUtils.MYLONGITUDE, "");
-        if (!TextUtils.isEmpty(lat) && !TextUtils.isEmpty(lng) && parkInfo != null) {
+        if (!TextUtils.isEmpty(lat) && !TextUtils.isEmpty(lng) &&
+                !TextUtils.isEmpty(lat1) && !TextUtils.isEmpty(lng1)) {
             LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-            LatLng latLng1 = new LatLng(Double.parseDouble(parkInfo.getLat()), Double.parseDouble(parkInfo.getLng()));
+            LatLng latLng1 = new LatLng(Double.parseDouble(lat1), Double.parseDouble(lng1));
             float distance = AMapUtils.calculateLineDistance(latLng, latLng1) / 1000;
             DecimalFormat fNum = new DecimalFormat("##0.00");
             String dd = fNum.format(distance);
-            tvDistance.setText(dd + "km");
+            tvDistance.setText("距离：" + dd + "km");
         }
     }
 }

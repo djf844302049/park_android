@@ -71,8 +71,8 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_statement"
         style="@style/text_gray_14sp"
-        android:layout_marginTop="30dp"
-        android:text="登录代表您已同意《》" />
+        android:layout_marginTop="30dp" />
 
 </LinearLayout>

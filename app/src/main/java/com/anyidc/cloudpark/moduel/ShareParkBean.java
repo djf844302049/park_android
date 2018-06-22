@@ -2,25 +2,21 @@ package com.anyidc.cloudpark.moduel;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2018/4/10.
- */
-
-public class ParkDetailBean {
+public class ShareParkBean {
 
     /**
-     * count_data : {"total":7,"free":6,"busy":1,"use":0}
-     * park : {"parking_id":1,"parking_name":"海沧水云湾车场","type":1,"city_id":0,"lat":"24.4629300000","lng":"118.0329000000","num":50,"bad_num":0,"thumb":"http://park.deyuelou.top/images/9e3a35a3593f86e0848266aa63fddc8f.png","province":16068,"city":16278,"district":16294,"town":2,"address":"水云湾","fee_id":1,"create_time":0,"update_time":1528189079,"category":3,"status":1,"business_time":"09:00:00","non_business_time":"18:00:00","appointment_money":6,"area_1":"福建省","area_2":"厦门市","area_3":"海沧区","area_4":"水云湾","fee":{"first_time":"0.5","money":"5","second_money":"6","night_money":"8","day_money":"60"}}
+     * count_data : {"total":2,"free":2,"busy":0,"use":0}
+     * park : {"parking_id":10,"parking_name":"共享停车场一","type":2,"city_id":0,"lat":"24.479948","lng":"118.041212","num":0,"bad_num":0,"thumb":"http://park.deyuelou.top/images/b4d26014d306c0a060e6180cef3dd5dd.jpg","province":16068,"city":16278,"district":16294,"town":0,"address":"测试测试","fee_id":1,"create_time":1528187867,"update_time":1529630087,"category":3,"status":1,"business_time":"00:00:00","non_business_time":"23:59:00","appointment_money":6,"area_1":"福建省","area_2":"厦门市","area_3":"海沧区","area_4":"测试测试"}
      * use_arr : []
-     * free_arr : [{"unit_id":"A00002","parking_id":1,"camera_id":1,"status":1,"positionDesc":0,"lockid":"0","sub_type":0,"sub_id":0,"frozen_time":0,"order_sn":null,"lat":"","lng":"","status_key":"free"},{"unit_id":"A00003","parking_id":1,"camera_id":12,"status":1,"positionDesc":1,"lockid":"65","sub_type":0,"sub_id":0,"frozen_time":1522324128,"order_sn":null,"lat":"","lng":"","status_key":"free"},{"unit_id":"A00004","parking_id":1,"camera_id":0,"status":1,"positionDesc":1,"lockid":"456","sub_type":0,"sub_id":0,"frozen_time":0,"order_sn":null,"lat":"","lng":"","status_key":"free"},{"unit_id":"A00005","parking_id":1,"camera_id":0,"status":1,"positionDesc":2,"lockid":"666","sub_type":0,"sub_id":0,"frozen_time":1528376708,"order_sn":null,"lat":"","lng":"","status_key":"free"},{"unit_id":"A00006","parking_id":1,"camera_id":999,"status":1,"positionDesc":0,"lockid":"999","sub_type":0,"sub_id":0,"frozen_time":1528367079,"order_sn":null,"lat":"","lng":"","status_key":"free"},{"unit_id":"A00007","parking_id":1,"camera_id":88,"status":1,"positionDesc":0,"lockid":"99","sub_type":0,"sub_id":0,"frozen_time":0,"order_sn":null,"lat":"","lng":"","status_key":"free"}]
-     * busy_arr : [{"unit_id":"A00001","parking_id":1,"camera_id":1,"status":4,"positionDesc":0,"lockid":"0","sub_type":0,"sub_id":0,"frozen_time":0,"order_sn":"","lat":"","lng":"","status_key":"busy"}]
+     * free_arr : [{"unit_id":"Z0001S","user_id":18,"lockid":"0","sub_type":4,"sub_id":0,"fee_id":2,"share_time":"14:00-18:00","status":1,"open_status":1,"positionDesc":0,"parking_id":10,"hourfee":"3.00","overdose":"5.00","bank_card":999999999,"order_sn":null,"frozen_time":0,"lat":"24.479657","lng":"118.042584","status_key":"free"},{"unit_id":"Z0002S","user_id":12,"lockid":"0","sub_type":4,"sub_id":0,"fee_id":2,"share_time":"14:00-18:00","status":1,"open_status":1,"positionDesc":1,"parking_id":10,"hourfee":"0.00","overdose":"0.00","bank_card":1321321,"order_sn":null,"frozen_time":0,"lat":"","lng":"","status_key":"free"}]
+     * busy_arr : []
      */
 
     private CountDataBean count_data;
     private ParkBean park;
-    private List<UseArrBean> use_arr;
-    private List<UseArrBean> free_arr;
-    private List<UseArrBean> busy_arr;
+    private List<FreeArrBean> use_arr;
+    private List<FreeArrBean> free_arr;
+    private List<FreeArrBean> busy_arr;
 
     public CountDataBean getCount_data() {
         return count_data;
@@ -38,35 +34,35 @@ public class ParkDetailBean {
         this.park = park;
     }
 
-    public List<UseArrBean> getUse_arr() {
+    public List<FreeArrBean> getUse_arr() {
         return use_arr;
     }
 
-    public void setUse_arr(List<UseArrBean> use_arr) {
+    public void setUse_arr(List<FreeArrBean> use_arr) {
         this.use_arr = use_arr;
     }
 
-    public List<UseArrBean> getFree_arr() {
+    public List<FreeArrBean> getFree_arr() {
         return free_arr;
     }
 
-    public void setFree_arr(List<UseArrBean> free_arr) {
+    public void setFree_arr(List<FreeArrBean> free_arr) {
         this.free_arr = free_arr;
     }
 
-    public List<UseArrBean> getBusy_arr() {
+    public List<FreeArrBean> getBusy_arr() {
         return busy_arr;
     }
 
-    public void setBusy_arr(List<UseArrBean> busy_arr) {
+    public void setBusy_arr(List<FreeArrBean> busy_arr) {
         this.busy_arr = busy_arr;
     }
 
     public static class CountDataBean {
         /**
-         * total : 7
-         * free : 6
-         * busy : 1
+         * total : 2
+         * free : 2
+         * busy : 0
          * use : 0
          */
 
@@ -110,33 +106,32 @@ public class ParkDetailBean {
 
     public static class ParkBean {
         /**
-         * parking_id : 1
-         * parking_name : 海沧水云湾车场
-         * type : 1
+         * parking_id : 10
+         * parking_name : 共享停车场一
+         * type : 2
          * city_id : 0
-         * lat : 24.4629300000
-         * lng : 118.0329000000
-         * num : 50
+         * lat : 24.479948
+         * lng : 118.041212
+         * num : 0
          * bad_num : 0
-         * thumb : http://park.deyuelou.top/images/9e3a35a3593f86e0848266aa63fddc8f.png
+         * thumb : http://park.deyuelou.top/images/b4d26014d306c0a060e6180cef3dd5dd.jpg
          * province : 16068
          * city : 16278
          * district : 16294
-         * town : 2
-         * address : 水云湾
+         * town : 0
+         * address : 测试测试
          * fee_id : 1
-         * create_time : 0
-         * update_time : 1528189079
+         * create_time : 1528187867
+         * update_time : 1529630087
          * category : 3
          * status : 1
-         * business_time : 09:00:00
-         * non_business_time : 18:00:00
+         * business_time : 00:00:00
+         * non_business_time : 23:59:00
          * appointment_money : 6
          * area_1 : 福建省
          * area_2 : 厦门市
          * area_3 : 海沧区
-         * area_4 : 水云湾
-         * fee : {"first_time":"0.5","money":"5","second_money":"6","night_money":"8","day_money":"60"}
+         * area_4 : 测试测试
          */
 
         private int parking_id;
@@ -160,12 +155,11 @@ public class ParkDetailBean {
         private int status;
         private String business_time;
         private String non_business_time;
-        private float appointment_money;
+        private int appointment_money;
         private String area_1;
         private String area_2;
         private String area_3;
         private String area_4;
-        private FeeBean fee;
 
         public int getParking_id() {
             return parking_id;
@@ -335,7 +329,7 @@ public class ParkDetailBean {
             this.non_business_time = non_business_time;
         }
 
-        public float getAppointment_money() {
+        public int getAppointment_money() {
             return appointment_money;
         }
 
@@ -374,102 +368,60 @@ public class ParkDetailBean {
         public void setArea_4(String area_4) {
             this.area_4 = area_4;
         }
-
-        public FeeBean getFee() {
-            return fee;
-        }
-
-        public void setFee(FeeBean fee) {
-            this.fee = fee;
-        }
-
-        public static class FeeBean {
-            /**
-             * first_time : 0.5
-             * money : 5
-             * second_money : 6
-             * night_money : 8
-             * day_money : 60
-             */
-
-            private String first_time;
-            private String money;
-            private String second_money;
-            private String night_money;
-            private String day_money;
-
-            public String getFirst_time() {
-                return first_time;
-            }
-
-            public void setFirst_time(String first_time) {
-                this.first_time = first_time;
-            }
-
-            public String getMoney() {
-                return money;
-            }
-
-            public void setMoney(String money) {
-                this.money = money;
-            }
-
-            public String getSecond_money() {
-                return second_money;
-            }
-
-            public void setSecond_money(String second_money) {
-                this.second_money = second_money;
-            }
-
-            public String getNight_money() {
-                return night_money;
-            }
-
-            public void setNight_money(String night_money) {
-                this.night_money = night_money;
-            }
-
-            public String getDay_money() {
-                return day_money;
-            }
-
-            public void setDay_money(String day_money) {
-                this.day_money = day_money;
-            }
-        }
     }
 
-    public static class UseArrBean {
+    public static class FreeArrBean {
         /**
-         * unit_id : A00002
-         * parking_id : 1
-         * camera_id : 1
-         * status : 1
-         * positionDesc : 0
+         * unit_id : Z0001S
+         * user_id : 18
          * lockid : 0
-         * sub_type : 0
+         * sub_type : 4
          * sub_id : 0
-         * frozen_time : 0
+         * fee_id : 2
+         * share_time : 14:00-18:00
+         * status : 1
+         * open_status : 1
+         * positionDesc : 0
+         * parking_id : 10
+         * hourfee : 3.00
+         * overdose : 5.00
+         * bank_card : 999999999
          * order_sn : null
-         * lat :
-         * lng :
+         * frozen_time : 0
+         * lat : 24.479657
+         * lng : 118.042584
+         * appointment_money : 3.00
          * status_key : free
          */
 
         private String unit_id;
-        private int parking_id;
-        private int camera_id;
-        private int status;
-        private int positionDesc;
+        private int user_id;
         private String lockid;
         private int sub_type;
         private int sub_id;
-        private int frozen_time;
+        private int fee_id;
+        private String share_time;
+        private int status;
+        private int open_status;
+        private int positionDesc;
+        private int parking_id;
+        private String hourfee;
+        private String overdose;
+        private int bank_card;
         private Object order_sn;
+        private int frozen_time;
         private String lat;
         private String lng;
         private String status_key;
+        private float appointment_money;
+
+        public float getAppointment_money() {
+            return appointment_money;
+        }
+
+        public void setAppointment_money(float appointment_money) {
+            this.appointment_money = appointment_money;
+        }
 
         public String getUnit_id() {
             return unit_id;
@@ -479,36 +431,12 @@ public class ParkDetailBean {
             this.unit_id = unit_id;
         }
 
-        public int getParking_id() {
-            return parking_id;
+        public int getUser_id() {
+            return user_id;
         }
 
-        public void setParking_id(int parking_id) {
-            this.parking_id = parking_id;
-        }
-
-        public int getCamera_id() {
-            return camera_id;
-        }
-
-        public void setCamera_id(int camera_id) {
-            this.camera_id = camera_id;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
-        public int getPositionDesc() {
-            return positionDesc;
-        }
-
-        public void setPositionDesc(int positionDesc) {
-            this.positionDesc = positionDesc;
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
         }
 
         public String getLockid() {
@@ -535,12 +463,76 @@ public class ParkDetailBean {
             this.sub_id = sub_id;
         }
 
-        public int getFrozen_time() {
-            return frozen_time;
+        public int getFee_id() {
+            return fee_id;
         }
 
-        public void setFrozen_time(int frozen_time) {
-            this.frozen_time = frozen_time;
+        public void setFee_id(int fee_id) {
+            this.fee_id = fee_id;
+        }
+
+        public String getShare_time() {
+            return share_time;
+        }
+
+        public void setShare_time(String share_time) {
+            this.share_time = share_time;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public int getOpen_status() {
+            return open_status;
+        }
+
+        public void setOpen_status(int open_status) {
+            this.open_status = open_status;
+        }
+
+        public int getPositionDesc() {
+            return positionDesc;
+        }
+
+        public void setPositionDesc(int positionDesc) {
+            this.positionDesc = positionDesc;
+        }
+
+        public int getParking_id() {
+            return parking_id;
+        }
+
+        public void setParking_id(int parking_id) {
+            this.parking_id = parking_id;
+        }
+
+        public String getHourfee() {
+            return hourfee;
+        }
+
+        public void setHourfee(String hourfee) {
+            this.hourfee = hourfee;
+        }
+
+        public String getOverdose() {
+            return overdose;
+        }
+
+        public void setOverdose(String overdose) {
+            this.overdose = overdose;
+        }
+
+        public int getBank_card() {
+            return bank_card;
+        }
+
+        public void setBank_card(int bank_card) {
+            this.bank_card = bank_card;
         }
 
         public Object getOrder_sn() {
@@ -549,6 +541,14 @@ public class ParkDetailBean {
 
         public void setOrder_sn(Object order_sn) {
             this.order_sn = order_sn;
+        }
+
+        public int getFrozen_time() {
+            return frozen_time;
+        }
+
+        public void setFrozen_time(int frozen_time) {
+            this.frozen_time = frozen_time;
         }
 
         public String getLat() {

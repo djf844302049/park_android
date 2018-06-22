@@ -43,11 +43,13 @@ public class WebViewActivity extends BaseActivity {
             case 1:
                 initTitle("常见问题");
                 break;
+            case 2:
+                initTitle("用户条款");
+                break;
             default:
                 initTitle("新闻资讯");
                 break;
         }
-
         webView = new WebView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

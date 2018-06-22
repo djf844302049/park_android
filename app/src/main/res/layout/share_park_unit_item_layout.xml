@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/iv_check"
-        android:src="@mipmap/img_cb_rect_normal"
+        android:src="@mipmap/img_cb_circle_normal"
         android:layout_width="@dimen/dp20"
         android:layout_height="@dimen/dp20" />
     <LinearLayout
@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/tv_share_time"
                 android:textColor="#959595"
-                android:textSize="@dimen/text_size16"
+                android:textSize="@dimen/text_size14"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:id="@+id/tv_unit_fee"
                 android:textColor="#959595"
                 android:paddingLeft="@dimen/dp10"
-                android:textSize="@dimen/text_size16"
+                android:textSize="@dimen/text_size14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="停车费：¥12"/>

@@ -52,8 +52,8 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private SelectDialog selectDialog;
     private AlPayResultHandler mHandler;
     protected CheckDoubleClickListener clickListener;
-    private int payNum;
-    private int orderNum;
+    private float payNum;
+    private float orderNum;
     private Button btnPay;
     private int payType = 0;//1支付宝 2微信 3银联 4账号
     private String carId;
@@ -68,7 +68,7 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private List<TextView> tvList;
     private String payKey;
 
-    public static void start(Context context, String parkName, String unitNum, String shareTime, int payNum, String carId) {
+    public static void start(Context context, String parkName, String unitNum, String shareTime, float payNum, String carId) {
         Intent intent = new Intent(context, PayAppointmentActivity.class);
         intent.putExtra("parkName", parkName);
         intent.putExtra("unitNum", unitNum);
@@ -168,7 +168,7 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
         parkName = intent.getStringExtra("parkName");
         unitNum = intent.getStringExtra("unitNum");
         shareTime = intent.getStringExtra("shareTime");
-        payNum = intent.getIntExtra("payNum", 0);
+        payNum = intent.getFloatExtra("payNum", 0f);
         orderNum = payNum;
         carId = intent.getStringExtra("carId");
         if (TextUtils.isEmpty(shareTime)) {
@@ -189,21 +189,6 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     @Override
     public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
-//            case R.id.rb_account_pay:
-//                payType = 4;
-//                break;
-//            case R.id.rb_zhifubao_pay:
-//                payType = 1;
-//                break;
-//            case R.id.rb_weixin_pay:
-//                payType = 2;
-//                break;
-//            case R.id.rb_yinlian_pay:
-//                payType = 3;
-//                break;
-//            case R.id.tv_appointment_time:
-//                showTimeDialog();
-//                break;
             case R.id.btn_pay:
                 toPay();
                 break;
