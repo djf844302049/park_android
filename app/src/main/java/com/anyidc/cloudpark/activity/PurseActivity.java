@@ -1,15 +1,25 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.adapter.BankChoiceAdapter;
+import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/12.
@@ -22,6 +32,14 @@ public class PurseActivity extends BaseActivity {
     private Button btnDrawCash;
     private TextView tvRight;
     private String balance;
+    private List<BankCardBean> list = new ArrayList<>();
+    private BottomSheetDialog dialog;
+    private RecyclerView rlvBank;
+    private BankChoiceAdapter adapter;
+    private String bank_id;
+    private WeakReference<Context> reference;
+    private final int ADDBANKCARD = 999;
+    private float depositNum;
 
     @Override
     protected int getLayoutId() {
@@ -42,6 +60,23 @@ public class PurseActivity extends BaseActivity {
         findViewById(R.id.tv_pay_setting).setOnClickListener(clickListener);
         btnDrawCash = findViewById(R.id.btn_draw_cash);
         btnDrawCash.setOnClickListener(clickListener);
+        reference = new WeakReference<>(this);
+        dialog = new BottomSheetDialog(reference.get());
+        dialog.setContentView(R.layout.dialog_bankcard_picker);
+        rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        rlvBank.setLayoutManager(manager);
+        adapter = new BankChoiceAdapter(list);
+        rlvBank.setAdapter(adapter);
+        adapter.setOnItemClickListener((view, position) -> {
+            dialog.dismiss();
+            if (position == list.size() - 1) {
+                startActivityForResult(new Intent(this, BindBankCardActivity.class), ADDBANKCARD);
+                return;
+            }
+            bank_id = list.get(position).getBank_id();
+            drawDeposit();
+        });
         initTitle("我的钱包");
     }
 
@@ -56,9 +91,13 @@ public class PurseActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_recharge_deposit:
                 if ("缴纳押金".equals(btnDeposit.getText().toString().trim()))
-                    startActivity(new Intent(this, DepositActivity.class));
+                    DepositActivity.actionStart(PurseActivity.this, depositNum);
                 else {
-
+                    if (list.size() == 0) {
+                        getBankCardList();
+                    } else {
+                        dialog.show();
+                    }
                 }
                 break;
             case R.id.tv_pay_setting:
@@ -74,9 +113,9 @@ public class PurseActivity extends BaseActivity {
 //                if ("缴纳押金".equals(btnDeposit.getText().toString().trim())) {
 //                    new AlertDialog.Builder(this)
 //                            .setTitle("充值提示")
-//                            .setMessage("充值余额前需缴纳**押金")
+//                            .setMessage("充值余额前需缴纳" + String.valueOf(depositNum) + "押金")
 //                            .setPositiveButton("缴纳押金", (dialog, which) ->
-//                                    startActivity(new Intent(this, DepositActivity.class)))
+//                                    DepositActivity.actionStart(PurseActivity.this, depositNum))
 //                            .setNegativeButton("取消", null)
 //                            .show();
 //                    return;
@@ -93,6 +132,7 @@ public class PurseActivity extends BaseActivity {
                     public void onSuccess(BaseEntity<WalletInfoBean> baseEntity) {
                         WalletInfoBean data = baseEntity.getData();
                         balance = data.getUser_money();
+                        depositNum = data.getNeed_deposit();
                         tvBalance.setText("￥" + balance);
                         if (data.getDeposit_flag() == 1) {
                             tvDepositState.setText("已缴纳");
@@ -105,5 +145,39 @@ public class PurseActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    private void getBankCardList() {
+        getTime(Api.getDefaultService().getBankCard(),
+                new RxObserver<BaseEntity<List<BankCardBean>>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<List<BankCardBean>> baseEntity) {
+                        list.clear();
+                        list.addAll(baseEntity.getData());
+                        list.add(new BankCardBean());
+                        adapter.notifyDataSetChanged();
+                        dialog.show();
+                    }
+                });
+    }
+
+    private void drawDeposit() {
+        getTime(Api.getDefaultService().drawDeposit(bank_id, 0, "")
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADDBANKCARD) {
+            if (resultCode == RESULT_OK) {
+                getBankCardList();
+            }
+        }
     }
 }

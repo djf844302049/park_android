@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.adapter.ReasonsAdapter;
 import com.anyidc.cloudpark.dialog.ConfirmCancelDialog;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.OptReasonBean;
+import com.anyidc.cloudpark.moduel.UnitStateBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.IntentKey;
@@ -31,6 +32,7 @@ import java.util.List;
 
 public class OptParkLockActivity extends BaseActivity {
     private ImageView ivUp, ivDown;
+    private TextView tvUnitState;
     private String parkNum = "";
     private int fromType = 1;
     public static final int FROMMANAGER = 1;
@@ -44,6 +46,7 @@ public class OptParkLockActivity extends BaseActivity {
     private String opt;
     private String reasonCode;
     private String reasonNote;
+    private boolean showDialog = true;
 
     public static void start(Context context, String parkNum, int from) {
         Intent intent = new Intent(context, OptParkLockActivity.class);
@@ -59,6 +62,7 @@ public class OptParkLockActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        tvUnitState = findViewById(R.id.tv_unit_state);
         adapter = new ReasonsAdapter(reasons);
         bottomSheetDialog = new BottomSheetDialog(this, R.style.dialog);
         bottomSheetDialog.setContentView(R.layout.layout_bottom_choice);
@@ -82,11 +86,12 @@ public class OptParkLockActivity extends BaseActivity {
         tvHead.setText("请选择升起原因");
         parkNum = getIntent().getStringExtra(IntentKey.INTENT_KEY_STRING);
         fromType = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 2);
-        getOptReasons();
         if (TextUtils.isEmpty(parkNum)) {
             finish();
             return;
         }
+        getOptReasons();
+        getUnitState();
         ivUp = findViewById(R.id.iv_up);
         ivUp.setOnClickListener(clickListener);
         ivDown = findViewById(R.id.iv_down);
@@ -143,26 +148,51 @@ public class OptParkLockActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
                         ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
+                        showDialog = false;
+                        getUnitState();
+                    }
+                });
+    }
+
+    private void getUnitState() {
+        getTime(Api.getDefaultService().unitState(parkNum)
+                , new RxObserver<BaseEntity<UnitStateBean>>(this, showDialog) {
+                    @Override
+                    public void onSuccess(BaseEntity<UnitStateBean> baseEntity) {
+                        UnitStateBean data = baseEntity.getData();
+                        if (data.getAbn_status() == 0) {
+                            tvUnitState.setText("车位锁当前状态：异常。");
+                        } else {
+                            switch (data.getLock_status()) {
+                                case 1:
+                                    tvUnitState.setText("车位锁当前状态：上升。");
+                                    break;
+                                case 2:
+                                    tvUnitState.setText("车位锁当前状态：下降。");
+                                    break;
+                            }
+                        }
                     }
                 });
     }
 
     private void getOptReasons() {
-        getTime(Api.getDefaultService().optReason(fromType), new RxObserver<BaseEntity<List<OptReasonBean>>>(this, true) {
-            @Override
-            public void onSuccess(BaseEntity<List<OptReasonBean>> baseEntity) {
-                List<OptReasonBean> data = baseEntity.getData();
-                if (data != null && data.size() > 0) {
-                    reasons.addAll(data);
-                    for (OptReasonBean reason : reasons) {
-                        if (reason.getCode() == 201) {
-                            reasons.remove(reason);
+        getTime(Api.getDefaultService().optReason(fromType)
+                , new RxObserver<BaseEntity<List<OptReasonBean>>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<List<OptReasonBean>> baseEntity) {
+                        List<OptReasonBean> data = baseEntity.getData();
+                        if (data != null && data.size() > 0) {
+                            reasons.addAll(data);
+                            for (OptReasonBean reason : reasons) {
+                                if (reason.getCode() == 201) {
+                                    reasons.remove(reason);
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
                         }
                     }
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+                });
     }
 
     @Override

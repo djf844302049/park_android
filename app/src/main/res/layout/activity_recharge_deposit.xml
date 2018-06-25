@@ -26,9 +26,9 @@
         android:paddingLeft="30dp">
 
         <TextView
+            android:id="@+id/tv_deposit_num"
             style="@style/text_gray_18sp"
             android:layout_marginTop="20dp"
-            android:text="￥***.00"
             android:textColor="@color/black" />
 
         <TextView

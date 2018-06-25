@@ -1,8 +1,11 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.anyidc.cloudpark.R;
@@ -24,8 +27,15 @@ import java.util.Map;
 public class DepositActivity extends BaseActivity {
 
     private ImageView ivAlPay, ivWxPay;
+    private TextView tvDepositNum;
     private AlPayResultHandler mHandler;
     private int payType;
+
+    public static void actionStart(Context context, float depositNum) {
+        Intent intent = new Intent(context, DepositActivity.class);
+        intent.putExtra("depositNum", depositNum);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -35,9 +45,12 @@ public class DepositActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("缴纳押金");
+        float depositNum = getIntent().getFloatExtra("depositNum", 0f);
         mHandler = new AlPayResultHandler(this);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
+        tvDepositNum = findViewById(R.id.tv_deposit_num);
+        tvDepositNum.setText("￥" + depositNum);
         findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
             ivAlPay.setVisibility(View.VISIBLE);
             ivWxPay.setVisibility(View.GONE);

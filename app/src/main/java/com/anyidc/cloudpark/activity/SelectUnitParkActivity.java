@@ -81,6 +81,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private String parkName = "";
     private float appointNum;
     private String shareTime = "";
+    private String shareFee = "";
+    private String balanceNum = "";
 
     public static void start(Context context, String id, int type) {
         Intent intent = new Intent(context, SelectUnitParkActivity.class);
@@ -136,7 +138,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         rlvCars.setAdapter(adapter);
         adapter.setOnItemClickListener((view, position) -> {
             carId = String.valueOf(carList.get(position).getId());
-            PayAppointmentActivity.start(this, parkName, selectUnitId, shareTime, appointNum, carId);
+            PayAppointmentActivity.start(this, parkName, selectUnitId, shareTime, appointNum, carId, shareFee,balanceNum);
             dialog.dismiss();
         });
         switch (parkType) {
@@ -176,7 +178,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                             selectUnitId = freeArrBean.getUnit_id();
                             shareTime = freeArrBean.getShare_time();
                             appointNum = freeArrBean.getAppointment_money();
-                            tvFee.setText("收费标准：共享时段内" + freeArrBean.getHourfee() + "元/小时,超出共享时段后" + freeArrBean.getOverdose() + "元/小时");
+                            shareFee = "收费标准：共享时段内" + freeArrBean.getHourfee() + "元/小时,超出共享时段后" + freeArrBean.getOverdose() + "元/小时";
+                            tvFee.setText(shareFee);
                             updateAppointBtn();
                             break;
                         case 1:
@@ -236,12 +239,11 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                         }
                         if (bean.getCar_auth() == 1) {
                             tvCarAuth.setEnabled(false);
-                            return;
                         }
                         if (bean.getDeposit_flag() == 1) {
                             tvPay.setEnabled(false);
-                            return;
                         }
+                        balanceNum = bean.getUser_money();
                         updateAppointBtn();
                     }
                 });
@@ -371,8 +373,18 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                         }
                         selectUnitId = null;
                         dataList.clear();
-                        dataList.addAll(freeList);
-                        parkUnitNumAdapter.setType(0);
+                        switch (type) {
+                            case 0:
+                                dataList.addAll(freeList);
+                                break;
+                            case 1:
+                                dataList.addAll(busyList);
+                                break;
+                            case 2:
+                                dataList.addAll(usingList);
+                                break;
+                        }
+                        parkUnitNumAdapter.setType(type);
                         parkUnitNumAdapter.setSelectPos(-1);
                         parkUnitNumAdapter.notifyDataSetChanged();
                         tvTitle.setText(parkInfo.getParking_name());
@@ -407,7 +419,18 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                             sBusyList.addAll(data.getBusy_arr());
                         }
                         shareList.clear();
-                        shareList.addAll(sFreeList);
+                        switch (type) {
+                            case 0:
+                                shareList.addAll(sFreeList);
+                                break;
+                            case 1:
+                                shareList.addAll(sBusyList);
+                                break;
+                            case 2:
+                                shareList.addAll(sUsingList);
+                                break;
+                        }
+                        shareParkUnitAdapter.setType(type);
                         shareParkUnitAdapter.notifyDataSetChanged();
                         tvTitle.setText(sParkInfo.getParking_name());
                         tvAddress.setText(sParkInfo.getArea_1() + " " + sParkInfo.getArea_2() + " " + sParkInfo.getArea_3() + " " + sParkInfo.getArea_4() + " ");

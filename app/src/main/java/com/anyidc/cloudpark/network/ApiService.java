@@ -13,6 +13,7 @@ import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.MessageBean;
+import com.anyidc.cloudpark.moduel.MonitorVideoBean;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.MyCarBean;
 import com.anyidc.cloudpark.moduel.MyShareBean;
@@ -24,6 +25,7 @@ import com.anyidc.cloudpark.moduel.ShareParkBean;
 import com.anyidc.cloudpark.moduel.StopRecordBean;
 import com.anyidc.cloudpark.moduel.TimeBean;
 import com.anyidc.cloudpark.moduel.TransactionBean;
+import com.anyidc.cloudpark.moduel.UnitStateBean;
 import com.anyidc.cloudpark.moduel.UpdateImgBean;
 import com.anyidc.cloudpark.moduel.UsualQuestionBean;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
@@ -161,7 +163,7 @@ public interface ApiService {
      */
     @POST("api/v1/watchCamera")
     @FormUrlEncoded
-    Observable<BaseEntity<String>> watchCamera(@Field("parking_sn") String parkSn);
+    Observable<BaseEntity<MonitorVideoBean>> watchCamera(@Field("parking_sn") String parkSn);
 
     /**
      * 热搜地区接口
@@ -325,13 +327,15 @@ public interface ApiService {
     /**
      * 获取普通车位详情接口
      */
-    @POST("v1.parkingLot/detail")
+    @POST("api/v1/detail")
+    @FormUrlEncoded
     Observable<BaseEntity> normalParkDetail(@Field("unit_id") String unit_id);
 
     /**
      * 共享车位详情接口
      */
-    @POST("v1.parkingLot/shareDetail")
+    @POST("api/v1.parking_lot/ShareDetail")
+    @FormUrlEncoded
     Observable<BaseEntity> shareParkDetail(@Field("unit_id") String unit_id);
 
     /**
@@ -484,7 +488,7 @@ public interface ApiService {
     /**
      * 退押金 0-银行卡；1-支付宝；2-微信；3-银联
      */
-    @POST("api/v1.order/depRefund")
+    @POST("api/v1/depRefund")
     @FormUrlEncoded
     Observable<BaseEntity> drawDeposit(@Field("bank_id") String bank_id, @Field("pay_id") int pay_id
             , @Field("pay_account") String pay_account);
@@ -495,4 +499,11 @@ public interface ApiService {
     @POST("/api/v1/parkingControlReason")
     @FormUrlEncoded
     Observable<BaseEntity<List<OptReasonBean>>> optReason(@Field("type") int type);
+
+    /**
+     * 操作车位锁原因
+     */
+    @POST("/api/v1/unitDevice")
+    @FormUrlEncoded
+    Observable<BaseEntity<UnitStateBean>> unitState(@Field("unit_id") String unit_id);
 }

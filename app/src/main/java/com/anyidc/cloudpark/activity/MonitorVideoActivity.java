@@ -2,6 +2,8 @@ package com.anyidc.cloudpark.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
@@ -22,6 +24,12 @@ public class MonitorVideoActivity extends BaseActivity implements MediaPlayer.On
     private RelativeLayout rlTop;
     private Button btnTransfer;
 
+    public static void actionStart(Context context, String url) {
+        Intent intent = new Intent(context, MonitorVideoActivity.class);
+        intent.putExtra("url", url);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_monitor_video;
@@ -32,7 +40,9 @@ public class MonitorVideoActivity extends BaseActivity implements MediaPlayer.On
         initTitle("监控视频");
         videoView = findViewById(R.id.video_monitor);
         rlTop = findViewById(R.id.top_view);
-        videoView.setVideoURI(Uri.parse("http://hls.open.ys7.com/openlive/ddcd25544bb0407dafb1ea6f4f7ca02e.m3u8"));
+        String url = getIntent().getStringExtra("url");
+//        videoView.setVideoURI(Uri.parse("http://hls.open.ys7.com/openlive/ddcd25544bb0407dafb1ea6f4f7ca02e.m3u8"));
+        videoView.setVideoURI(Uri.parse(url));
         videoView.setOnPreparedListener(this);
         videoView.setOnErrorListener(this);
         dialog = new ProgressDialog(this);

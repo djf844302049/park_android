@@ -46,9 +46,9 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private TextView tvTitle, tvUnitNum, tvShareTime;
     private LinearLayout llShareTip, llShareTime;
     private TextView tvThirty, tvSixty;
-    private TextView tvPayTime;
+    private TextView tvPayTime, tvShareFee, tvBalanceNum;
     private RadioButton rbAccountPay, rbZFBPay, rbWXPay, rbYLPay;
-    private String parkName, unitNum, shareTime;
+    private String parkName, unitNum, shareTime, shareFee;
     private SelectDialog selectDialog;
     private AlPayResultHandler mHandler;
     protected CheckDoubleClickListener clickListener;
@@ -67,13 +67,17 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private EditText etNum;
     private List<TextView> tvList;
     private String payKey;
+    private String balanceNum;
 
-    public static void start(Context context, String parkName, String unitNum, String shareTime, float payNum, String carId) {
+    public static void start(Context context, String parkName, String unitNum, String shareTime,
+                             float payNum, String carId, String shareFee, String balanceNum) {
         Intent intent = new Intent(context, PayAppointmentActivity.class);
         intent.putExtra("parkName", parkName);
         intent.putExtra("unitNum", unitNum);
         intent.putExtra("shareTime", shareTime);
+        intent.putExtra("shareFee", shareFee);
         intent.putExtra("payNum", payNum);
+        intent.putExtra("balanceNum", balanceNum);
         intent.putExtra("carId", carId);
         context.startActivity(intent);
     }
@@ -90,6 +94,8 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
         tvTitle = findViewById(R.id.tv_park_name);
         tvUnitNum = findViewById(R.id.tv_unit_num);
         tvShareTime = findViewById(R.id.tv_share_time);
+        tvShareFee = findViewById(R.id.tv_share_fee);
+        tvBalanceNum = findViewById(R.id.tv_balance_num);
         llShareTip = findViewById(R.id.ll_share_tip);
         llShareTime = findViewById(R.id.ll_share_time);
         rbAccountPay = findViewById(R.id.rb_account_pay);
@@ -168,19 +174,25 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
         parkName = intent.getStringExtra("parkName");
         unitNum = intent.getStringExtra("unitNum");
         shareTime = intent.getStringExtra("shareTime");
+        shareFee = intent.getStringExtra("shareFee");
+        balanceNum = intent.getStringExtra("balanceNum");
         payNum = intent.getFloatExtra("payNum", 0f);
         orderNum = payNum;
         carId = intent.getStringExtra("carId");
         if (TextUtils.isEmpty(shareTime)) {
             llShareTime.setVisibility(View.GONE);
             llShareTip.setVisibility(View.GONE);
+//            getNormalParkDetail();
         } else {
             llShareTime.setVisibility(View.VISIBLE);
             llShareTip.setVisibility(View.VISIBLE);
+//            getShareParkDetail();
         }
+        tvBalanceNum.setText("账户余额为" + balanceNum + "可使用");
         tvTitle.setText(parkName);
         tvUnitNum.setText(unitNum);
         tvShareTime.setText(shareTime);
+        tvShareFee.setText(shareFee);
         btnPay.setText("确认支付￥" + payNum);
         btnPay.setEnabled(true);
         new FiveMinuCountDownRunnable(tvPayTime, btnPay).run();
@@ -257,6 +269,24 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
             @Override
             public void onError(String errMsg) {
                 PayResultActivity.actionStart(PayAppointmentActivity.this, 2, String.valueOf(orderNum));
+            }
+        });
+    }
+
+    private void getNormalParkDetail() {
+        getTime(Api.getDefaultService().normalParkDetail(unitNum), new RxObserver<BaseEntity>(this, true) {
+            @Override
+            public void onSuccess(BaseEntity baseEntity) {
+
+            }
+        });
+    }
+
+    private void getShareParkDetail() {
+        getTime(Api.getDefaultService().shareParkDetail(unitNum), new RxObserver<BaseEntity>(this, true) {
+            @Override
+            public void onSuccess(BaseEntity baseEntity) {
+
             }
         });
     }

@@ -83,12 +83,12 @@
                     android:id="@+id/tv_thirty_minute"
                     style="@style/common_text"
                     android:layout_width="0dp"
-                    android:padding="3dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:background="@drawable/selector_bg_blue_stroke_gray"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_bg_blue_stroke_gray"
                     android:gravity="center"
+                    android:padding="3dp"
                     android:textColor="@drawable/selector_color_white_black"
                     android:textSize="15sp" />
 
@@ -96,13 +96,13 @@
                     android:id="@+id/tv_sixty_minute"
                     style="@style/common_text"
                     android:layout_width="0dp"
-                    android:padding="3dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_bg_blue_stroke_gray"
-                    android:textColor="@drawable/selector_color_white_black"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_bg_blue_stroke_gray"
                     android:gravity="center"
+                    android:padding="3dp"
+                    android:textColor="@drawable/selector_color_white_black"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -146,9 +146,9 @@
                     android:src="@mipmap/img_tip" />
 
                 <TextView
+                    android:id="@+id/tv_share_fee"
                     style="@style/common_text"
                     android:layout_marginLeft="7dp"
-                    android:text="@string/share_tip"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -189,9 +189,9 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_balance_num"
                         style="@style/text_gray_14sp"
-                        android:layout_marginTop="3dp"
-                        android:text="账户余额为xxx可使用" />
+                        android:layout_marginTop="3dp" />
                 </LinearLayout>
 
                 <RadioButton
