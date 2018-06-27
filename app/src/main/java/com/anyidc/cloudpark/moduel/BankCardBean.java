@@ -14,7 +14,7 @@ public class BankCardBean {
 
     private String bank;
     private String card;
-    private String bank_id;
+    private int bank_id;
 
     public String getBank() {
         return bank;
@@ -58,11 +58,11 @@ public class BankCardBean {
         return card.substring(card.length() - 4);
     }
 
-    public String getBank_id() {
+    public int getBank_id() {
         return bank_id;
     }
 
-    public void setBank_id(String bank_id) {
+    public void setBank_id(int bank_id) {
         this.bank_id = bank_id;
     }
 }

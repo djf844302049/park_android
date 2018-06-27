@@ -10,7 +10,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -22,7 +22,7 @@ public class MonitorVideoActivity extends BaseActivity implements MediaPlayer.On
     private VideoView videoView;
     private Dialog dialog;
     private RelativeLayout rlTop;
-    private Button btnTransfer;
+    private ImageView btnTransfer;
 
     public static void actionStart(Context context, String url) {
         Intent intent = new Intent(context, MonitorVideoActivity.class);
@@ -65,8 +65,10 @@ public class MonitorVideoActivity extends BaseActivity implements MediaPlayer.On
         super.onConfigurationChanged(newConfig);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             rlTop.setVisibility(View.GONE);
+            btnTransfer.setImageResource(R.mipmap.img_zoom);
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             rlTop.setVisibility(View.VISIBLE);
+            btnTransfer.setImageResource(R.mipmap.img_spread);
         }
     }
 

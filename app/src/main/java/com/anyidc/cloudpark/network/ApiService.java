@@ -483,14 +483,14 @@ public interface ApiService {
      */
     @POST("api/v1.order/tixian")
     @FormUrlEncoded
-    Observable<BaseEntity<DrawCashBean>> drawCash(@Field("money") String money, @Field("bank_id") String bank_id);
+    Observable<BaseEntity<DrawCashBean>> drawCash(@Field("money") String money, @Field("bank_id") int bank_id);
 
     /**
      * 退押金 0-银行卡；1-支付宝；2-微信；3-银联
      */
     @POST("api/v1/depRefund")
     @FormUrlEncoded
-    Observable<BaseEntity> drawDeposit(@Field("bank_id") String bank_id, @Field("pay_id") int pay_id
+    Observable<BaseEntity> drawDeposit(@Field("bank_id") int bank_id, @Field("pay_id") int pay_id
             , @Field("pay_account") String pay_account);
 
     /**

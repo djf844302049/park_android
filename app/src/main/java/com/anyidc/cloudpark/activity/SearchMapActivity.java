@@ -328,7 +328,11 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                 if (parkBean == null) {
                     return;
                 }
-                SelectUnitParkActivity.start(this, String.valueOf(parkBean.getParking_id()),parkBean.getType());
+                if (!LoginUtil.isLogin()) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
+                SelectUnitParkActivity.start(this, String.valueOf(parkBean.getParking_id()), parkBean.getType());
                 break;
             case R.id.tv_list_cancel:
                 if (from == 1) {

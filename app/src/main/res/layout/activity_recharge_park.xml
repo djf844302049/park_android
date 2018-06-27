@@ -32,7 +32,8 @@
                 android:layout_alignBottom="@id/tv_park_charge_num"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="45dp"
-                android:src="@mipmap/img_help" />
+                android:src="@mipmap/img_help"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_park_duration"
@@ -49,7 +50,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="该车位为共享车位，点击右上方符号查看计费规则"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_al_pay"
@@ -73,9 +75,9 @@
                     android:id="@+id/iv_al_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/img_big_tick" />
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,8 +103,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:visibility="gone"
-                    android:src="@mipmap/img_big_tick" />
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,9 +129,9 @@
                     android:id="@+id/iv_balance_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/img_big_tick" />
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <Button
@@ -152,6 +154,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="30dp"
+                android:visibility="gone"
                 android:text="VIP不定期八折优惠 -3.00元。" />
         </RelativeLayout>
     </ScrollView>

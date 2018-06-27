@@ -3,33 +3,41 @@ package com.anyidc.cloudpark.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.dialog.BaseDialog;
 import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.ParkInfoBean;
 import com.anyidc.cloudpark.moduel.WxPayBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.AlPayResultHandler;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.WxPayHelper;
 import com.anyidc.cloudpark.wxapi.WXPayEntryActivity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2018/3/16.
  */
 
-public class ParkChargeActivity extends BaseActivity {
+public class ParkChargeActivity extends BaseActivity implements TextWatcher {
     private TextView tvChargeNum, tvParkDuration, tvSharePark, tvDiscount;
     private ImageView ivHelp, ivBalancePay, ivAlPay, ivWxPay;
     private String unitId;
@@ -37,6 +45,16 @@ public class ParkChargeActivity extends BaseActivity {
     private LinearLayout llBalancePay;
     private String rechargeNum;
     private int payType;
+    private BaseDialog payDialog;
+    private String payKey;
+    private TextView tv1;
+    private TextView tv2;
+    private TextView tv3;
+    private TextView tv4;
+    private TextView tv5;
+    private TextView tv6;
+    private EditText etNum;
+    private List<TextView> tvList;
 
     public static void actionStart(Context context, String unitId) {
         Intent intent = new Intent(context, ParkChargeActivity.class);
@@ -86,6 +104,29 @@ public class ParkChargeActivity extends BaseActivity {
         if (!LoginUtil.isLogin()) {
             llBalancePay.setVisibility(View.GONE);
         }
+        payDialog = new BaseDialog(this);
+        Window window = payDialog.getWindow();
+        window.requestFeature(Window.FEATURE_NO_TITLE);
+        payDialog.setContentView(R.layout.dialog_input_pay_key);
+        tv1 = payDialog.findViewById(R.id.tv_num_1);
+        tv2 = payDialog.findViewById(R.id.tv_num_2);
+        tv3 = payDialog.findViewById(R.id.tv_num_3);
+        tv4 = payDialog.findViewById(R.id.tv_num_4);
+        tv5 = payDialog.findViewById(R.id.tv_num_5);
+        tv6 = payDialog.findViewById(R.id.tv_num_6);
+        tvList = new ArrayList<>();
+        tvList.add(tv1);
+        tvList.add(tv2);
+        tvList.add(tv3);
+        tvList.add(tv4);
+        tvList.add(tv5);
+        tvList.add(tv6);
+        etNum = payDialog.findViewById(R.id.et_num);
+        etNum.addTextChangedListener(this);
+        payDialog.findViewById(R.id.img_cancel).setOnClickListener(v -> {
+            payDialog.dismiss();
+            etNum.setText("");
+        });
     }
 
     private void getParkInfo() {
@@ -98,6 +139,12 @@ public class ParkChargeActivity extends BaseActivity {
                         tvChargeNum.setText("￥" + data.getPay());
                         String time = "停车时间：" + data.getOrder().getCreate_time() + "-" + data.getNow() + "    停车时长：" + data.getDuration();
                         tvParkDuration.setText(time);
+                    }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        finish();
                     }
                 });
     }
@@ -123,8 +170,8 @@ public class ParkChargeActivity extends BaseActivity {
                     public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
                         Runnable payRunnable = () -> {
                             String orderInfo = baseEntity.getData().getCallback();
-                            PayTask alipay = new PayTask(ParkChargeActivity.this);
-                            Map<String, String> result = alipay.payV2(orderInfo, true);
+                            PayTask aliPay = new PayTask(ParkChargeActivity.this);
+                            Map<String, String> result = aliPay.payV2(orderInfo, true);
                             Message msg = new Message();
                             result.put("num", String.valueOf(rechargeNum));
                             msg.what = AlPayResultHandler.SDK_PAY_FLAG;
@@ -153,7 +200,7 @@ public class ParkChargeActivity extends BaseActivity {
                 if (CacheData.isFreePay() == 1) {
                     balancePay();
                 } else {
-
+                    payDialog.show();
                 }
                 break;
         }
@@ -167,5 +214,47 @@ public class ParkChargeActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        setNum(s.toString());
+    }
+
+    private void setNum(String num) {
+        char[] chars = num.toCharArray();
+        int length = chars.length;
+        for (TextView textView : tvList) {
+            textView.setText("");
+        }
+        for (int i = 0; i < length; i++) {
+            tvList.get(i).setText("●");
+        }
+        if (length == 6) {
+            payKey = num;
+            payDialog.dismiss();
+            checkPayKey();
+        }
+    }
+
+    private void checkPayKey() {
+        String encrypt = AesUtil.encrypt(payKey);
+        getTime(Api.getDefaultService().checkPayKey(encrypt)
+                , new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        balancePay();
+                    }
+                });
     }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.BankChoiceAdapter;
+import com.anyidc.cloudpark.dialog.ConfirmCancelDialog;
 import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
@@ -36,10 +37,12 @@ public class PurseActivity extends BaseActivity {
     private BottomSheetDialog dialog;
     private RecyclerView rlvBank;
     private BankChoiceAdapter adapter;
-    private String bank_id;
+    private int bank_id;
     private WeakReference<Context> reference;
+    private ConfirmCancelDialog confirmDialog;
     private final int ADDBANKCARD = 999;
     private float depositNum;
+    private int depositInYear;
 
     @Override
     protected int getLayoutId() {
@@ -61,6 +64,19 @@ public class PurseActivity extends BaseActivity {
         btnDrawCash = findViewById(R.id.btn_draw_cash);
         btnDrawCash.setOnClickListener(clickListener);
         reference = new WeakReference<>(this);
+        confirmDialog = new ConfirmCancelDialog(reference.get(), "", "您确认退回押金吗？", "确认", "取消");
+        confirmDialog.setClickListener(new ConfirmCancelDialog.ClickListener() {
+            @Override
+            public void confirm() {
+                drawDeposit();
+                confirmDialog.dismiss();
+            }
+
+            @Override
+            public void cancel() {
+                confirmDialog.dismiss();
+            }
+        });
         dialog = new BottomSheetDialog(reference.get());
         dialog.setContentView(R.layout.dialog_bankcard_picker);
         rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
@@ -92,12 +108,14 @@ public class PurseActivity extends BaseActivity {
             case R.id.btn_recharge_deposit:
                 if ("缴纳押金".equals(btnDeposit.getText().toString().trim()))
                     DepositActivity.actionStart(PurseActivity.this, depositNum);
-                else {
+                else if (depositInYear == 0) {
                     if (list.size() == 0) {
                         getBankCardList();
                     } else {
                         dialog.show();
                     }
+                } else if (depositInYear == 1) {
+                    confirmDialog.show();
                 }
                 break;
             case R.id.tv_pay_setting:
@@ -134,6 +152,7 @@ public class PurseActivity extends BaseActivity {
                         balance = data.getUser_money();
                         depositNum = data.getNeed_deposit();
                         tvBalance.setText("￥" + balance);
+                        depositInYear = data.getDeposit_InYear();
                         if (data.getDeposit_flag() == 1) {
                             tvDepositState.setText("已缴纳");
                             btnDeposit.setText("退回押金");

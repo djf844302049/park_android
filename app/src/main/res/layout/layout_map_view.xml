@@ -70,45 +70,40 @@
 
             <TextView
                 android:id="@+id/tv_place"
-                style="@style/text_black_18sp"
-                android:text="万达广场(厦门湖里店)" />
+                style="@style/text_black_18sp" />
 
             <TextView
                 android:id="@+id/tv_distance"
                 style="@style/text_gray_14sp"
                 android:layout_alignBottom="@id/tv_place"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp20"
-                android:text="距离：300km" />
+                android:layout_marginRight="@dimen/dp20" />
 
             <TextView
                 android:id="@+id/tv_address"
                 style="@style/text_gray_14sp"
                 android:layout_below="@id/tv_place"
-                android:layout_marginTop="10dp"
-                android:text="厦门市湖里区仙岳路520号" />
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/tv_park_total_num"
                 style="@style/text_gray_14sp"
                 android:layout_below="@id/tv_address"
-                android:layout_marginTop="@dimen/dp10"
-                android:text="车位数：111" />
+                android:layout_marginTop="@dimen/dp10" />
 
             <TextView
                 android:id="@+id/tv_park_remain_num"
                 style="@style/text_gray_14sp"
                 android:layout_alignTop="@id/tv_park_total_num"
                 android:layout_marginLeft="@dimen/dp20"
-                android:layout_toRightOf="@id/tv_park_total_num"
-                android:text="空车位数：111" />
+                android:layout_toRightOf="@id/tv_park_total_num" />
 
             <TextView
                 android:id="@+id/tv_park_fee_regular"
                 style="@style/text_gray_14sp"
+                android:visibility="gone"
                 android:layout_below="@id/tv_park_total_num"
-                android:layout_marginTop="@dimen/dp10"
-                android:text="收费标准：首4小时5元，之后2元/小时" />
+                android:layout_marginTop="@dimen/dp10" />
 
             <ImageView
                 android:id="@+id/iv_arrow"

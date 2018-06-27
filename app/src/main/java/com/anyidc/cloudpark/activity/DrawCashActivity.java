@@ -34,7 +34,8 @@ public class DrawCashActivity extends BaseActivity {
     private TextView tvBankCard, tvRemainBalance;
     private EditText etDrawNum;
     private List<BankCardBean> list = new ArrayList<>();
-    private String drawNum, bank_id;
+    private String drawNum;
+    private int bank_id;
     private final int ADDBANKCARD = 999;
 
     public static void actionStart(Context context, String balance) {
@@ -110,7 +111,7 @@ public class DrawCashActivity extends BaseActivity {
 
     private void drawCash() {
         drawNum = etDrawNum.getText().toString().trim();
-        if (TextUtils.isEmpty(drawNum) || TextUtils.isEmpty(bank_id)) {
+        if (TextUtils.isEmpty(drawNum) || bank_id == 0) {
             return;
         }
         getTime(Api.getDefaultService().drawCash(drawNum, bank_id),

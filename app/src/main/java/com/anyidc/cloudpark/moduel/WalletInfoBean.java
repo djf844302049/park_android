@@ -11,12 +11,14 @@ public class WalletInfoBean {
      * deposit : 0.00
      * deposit_flag : 0
      * need_deposit:300
+     * deposit_InYear:1
      */
 
     private String user_money;
     private String deposit;
     private int deposit_flag;
     private float need_deposit;
+    private int deposit_InYear;
 
     public String getUser_money() {
         return user_money;
@@ -48,5 +50,13 @@ public class WalletInfoBean {
 
     public void setNeed_deposit(float need_deposit) {
         this.need_deposit = need_deposit;
+    }
+
+    public int getDeposit_InYear() {
+        return deposit_InYear;
+    }
+
+    public void setDeposit_InYear(int deposit_InYear) {
+        this.deposit_InYear = deposit_InYear;
     }
 }
