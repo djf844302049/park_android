@@ -138,7 +138,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         rlvCars.setAdapter(adapter);
         adapter.setOnItemClickListener((view, position) -> {
             carId = String.valueOf(carList.get(position).getId());
-            PayAppointmentActivity.start(this, parkName, selectUnitId, shareTime, appointNum, carId, shareFee,balanceNum);
+            PayAppointmentActivity.start(this, parkName, selectUnitId, shareTime, appointNum, carId, shareFee, balanceNum);
             dialog.dismiss();
         });
         switch (parkType) {
@@ -155,6 +155,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     switch (type) {
                         case 0:
                             selectUnitId = unitInfoBean.getUnit_id();
+                            updateAppointBtn();
                             break;
                         case 1:
                             showDialog(unitInfoBean.getUnit_id(), "该车位已被预约", "", "", feeStr);
@@ -253,16 +254,16 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
-//                if (bean.getIsAuth() != 1) {
-//                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
-//                    return;
-//                } else if (bean.getCar_auth() != 1) {
-//                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
-//                    return;
-//                } else if (bean.getDeposit_flag() != 1) {
-//                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
-//                    return;
-//                }
+                if (bean.getIsAuth() != 1) {
+                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
+                    return;
+                } else if (bean.getCar_auth() != 1) {
+                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
+                    return;
+                } else if (bean.getDeposit_flag() != 1) {
+                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
+                    return;
+                }
                 if (TextUtils.isEmpty(selectUnitId)) {
                     ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
                     return;
@@ -339,6 +340,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private void changeTitleBg(int pos) {
         type = pos;
         selectUnitId = null;
+        updateAppointBtn();
         dataList.clear();
         shareList.clear();
         for (int i = 0; i < tvArr.length; i++) {
@@ -371,7 +373,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                             busyList.clear();
                             busyList.addAll(data.getBusy_arr());
                         }
-                        selectUnitId = null;
                         dataList.clear();
                         switch (type) {
                             case 0:
@@ -385,7 +386,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                                 break;
                         }
                         parkUnitNumAdapter.setType(type);
-                        parkUnitNumAdapter.setSelectPos(-1);
                         parkUnitNumAdapter.notifyDataSetChanged();
                         tvTitle.setText(parkInfo.getParking_name());
                         tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");

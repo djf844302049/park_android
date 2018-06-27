@@ -17,6 +17,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.anyidc.cloudpark.R;
+import com.anyidc.cloudpark.dialog.ConfirmCancelDialog;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
 import com.anyidc.cloudpark.moduel.ParkInfo;
@@ -45,6 +46,8 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     private AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
     private AMapLocationClientOption mLocationOption = null;
+    private ConfirmCancelDialog confirmCancelDialog;
+    private ConfirmCancelDialog confirmArriveDialog;
     private double lat;
     private double lng;
 
@@ -68,6 +71,32 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         mLocationOption.setNeedAddress(true);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
+        confirmCancelDialog = new ConfirmCancelDialog(getActivity(), "", "确认要取消预约吗？\n\n注：取消后押金不予退回", "确认", "取消");
+        confirmCancelDialog.setClickListener(new ConfirmCancelDialog.ClickListener() {
+            @Override
+            public void confirm() {
+                cancelAppointment();
+                confirmCancelDialog.dismiss();
+            }
+
+            @Override
+            public void cancel() {
+                confirmCancelDialog.dismiss();
+            }
+        });
+        confirmArriveDialog = new ConfirmCancelDialog(getActivity(), "", "确认到达目的地？", "确认", "取消");
+        confirmArriveDialog.setClickListener(new ConfirmCancelDialog.ClickListener() {
+            @Override
+            public void confirm() {
+                confirmAppointment();
+                confirmArriveDialog.dismiss();
+            }
+
+            @Override
+            public void cancel() {
+                confirmArriveDialog.dismiss();
+            }
+        });
         requestPermissions();
         getMyAppointmentIng();
     }
@@ -127,7 +156,6 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         }
         tvParkNum.setText(appointmentBean.getUnit_id());
         tvTime.setText("(" + stampToDate(appointmentBean.getPay_time() + appointmentBean.getTimes()) + ")");
-//        remain = System.currentTimeMillis() / 1000 - appointmentBean.getCreate_time();
         if (appointmentBean.getUnit_id().endsWith("S")) {
             layout.findViewById(R.id.ll_share).setVisibility(View.VISIBLE);
 //            tvShareTime.setText();等待接口返回数据
@@ -135,23 +163,6 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
             layout.findViewById(R.id.ll_share).setVisibility(View.GONE);
         }
         tvShareTime.setText((appointmentBean.getShare_time()));
-//        if (remain < 60) {
-//            tvTip.setVisibility(View.VISIBLE);
-//            tvTip.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    remain--;
-//                    if (remain <= 0) {
-//                        getMyAppointmentIng();
-//                    } else {
-//                        tvTip.postDelayed(this, 1000);
-//                    }
-//                }
-//            }, 1000);
-//        } else {
-//            tvTip.setVisibility(View.GONE);
-//        }
-
     }
 
 
@@ -185,10 +196,10 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm:
-                confirmAppointment();
+                confirmArriveDialog.show();
                 break;
             case R.id.tv_cancel:
-                cancelAppointment();
+                confirmCancelDialog.show();
                 break;
             case R.id.tv_navigation:
                 jumpToMap();
