@@ -8,11 +8,12 @@ import java.util.List;
 
 public class ParkSearchBean {
 
+
     /**
-     * total : 4
+     * total : 6
      * page_num : 1
-     * lngLat : {"lng":"118.048591","lat":"24.484162"}
-     * park : [{"parking_id":4,"parking_name":"东屿停车场","type":0,"num":70,"province":205,"city":203,"district":112,"town":7,"address":"海沧悦实广","lat":"24.4840500000","lng":"118.0339400000","status":1,"available_num":0,"distance":1.48},{"parking_id":3,"parking_name":"海沧悦实广场停车场","type":1,"num":70,"province":205,"city":203,"district":112,"town":7,"address":"海沧悦实广","lat":"24.4840500000","lng":"118.0339400000","status":1,"available_num":0,"distance":1.48},{"parking_id":2,"parking_name":"泰地海西停车场","type":1,"num":60,"province":201,"city":202,"district":44,"town":2,"address":"泰地海西","lat":"24.4840500000","lng":"118.0339400000","status":1,"available_num":0,"distance":1.48},{"parking_id":1,"parking_name":"海沧水云湾车场","type":1,"num":50,"province":202,"city":101,"district":22,"town":2,"address":"水云湾","lat":"24.4629300000","lng":"118.0329000000","status":1,"available_num":2,"distance":2.85}]
+     * lngLat : {"page":"1","size":"10","lat":"24.48126","lng":"118.042628"}
+     * park : [{"parking_id":10,"parking_name":"共享停车场一","type":2,"num":0,"province":16068,"city":16278,"district":16294,"town":0,"address":"测试测试","lat":"24.479948","lng":"118.041212","status":1,"fee_id":1,"available_num":2,"fee_desc":["共享停车位收费需根据车位主设定"],"distance":0.2},{"parking_id":2,"parking_name":"泰地海西停车场","type":1,"num":60,"province":201,"city":202,"district":44,"town":2,"address":"泰地海西","lat":"24.4840500000","lng":"118.0339400000","status":1,"fee_id":1,"available_num":0,"fee_desc":["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"],"distance":0.93},{"parking_id":3,"parking_name":"海沧悦实广场停车场","type":1,"num":70,"province":205,"city":203,"district":112,"town":7,"address":"海沧悦实广场","lat":"24.4840500000","lng":"118.0339400000","status":1,"fee_id":1,"available_num":0,"fee_desc":["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"],"distance":0.93},{"parking_id":1,"parking_name":"海沧水云湾车场","type":1,"num":50,"province":16068,"city":16278,"district":16294,"town":2,"address":"水云湾","lat":"24.4629300000","lng":"118.0329000000","status":1,"fee_id":1,"available_num":13,"fee_desc":["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"],"distance":2.26},{"parking_id":9,"parking_name":"奥术大师大","type":1,"num":0,"province":636,"city":1188,"district":1223,"town":0,"address":"驱蚊器翁","lat":"24.554819","lng":"117.969597","status":1,"fee_id":1,"available_num":0,"fee_desc":["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"],"distance":11.02},{"parking_id":8,"parking_name":"阿斯达","type":0,"num":0,"province":16068,"city":16278,"district":16280,"town":0,"address":"奥术大师大","lat":"24.559815","lng":"117.971657","status":1,"fee_id":10,"distance":11.31}]
      */
 
     private int total;
@@ -54,21 +55,31 @@ public class ParkSearchBean {
 
     public static class LngLatBean {
         /**
-         * lng : 118.048591
-         * lat : 24.484162
+         * page : 1
+         * size : 10
+         * lat : 24.48126
+         * lng : 118.042628
          */
 
-        private double lng;
+        private String page;
+        private String size;
         private double lat;
-        private int page;
-        private int size;
+        private double lng;
 
-        public double getLng() {
-            return lng;
+        public String getPage() {
+            return page;
         }
 
-        public void setLng(double lng) {
-            this.lng = lng;
+        public void setPage(String page) {
+            this.page = page;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
         }
 
         public double getLat() {
@@ -79,39 +90,33 @@ public class ParkSearchBean {
             this.lat = lat;
         }
 
-        public int getPage() {
-            return page;
+        public double getLng() {
+            return lng;
         }
 
-        public void setPage(int page) {
-            this.page = page;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
+        public void setLng(double lng) {
+            this.lng = lng;
         }
     }
 
     public static class ParkBean {
         /**
-         * parking_id : 4
-         * parking_name : 东屿停车场
-         * type : 0为附近停车场，1为云能停车场，2为共享停车场
-         * num : 70
-         * province : 205
-         * city : 203
-         * district : 112
-         * town : 7
-         * address : 海沧悦实广
-         * lat : 24.4840500000
-         * lng : 118.0339400000
+         * parking_id : 10
+         * parking_name : 共享停车场一
+         * type : 2
+         * num : 0
+         * province : 16068
+         * city : 16278
+         * district : 16294
+         * town : 0
+         * address : 测试测试
+         * lat : 24.479948
+         * lng : 118.041212
          * status : 1
-         * available_num : 0
-         * distance : 1.48
+         * fee_id : 1
+         * available_num : 2
+         * fee_desc : ["共享停车位收费需根据车位主设定"]
+         * distance : 0.2
          */
 
         private int parking_id;
@@ -126,8 +131,10 @@ public class ParkSearchBean {
         private double lat;
         private double lng;
         private int status;
+        private int fee_id;
         private int available_num;
         private double distance;
+        private List<String> fee_desc;
 
         public int getParking_id() {
             return parking_id;
@@ -225,6 +232,14 @@ public class ParkSearchBean {
             this.status = status;
         }
 
+        public int getFee_id() {
+            return fee_id;
+        }
+
+        public void setFee_id(int fee_id) {
+            this.fee_id = fee_id;
+        }
+
         public int getAvailable_num() {
             return available_num;
         }
@@ -239,6 +254,14 @@ public class ParkSearchBean {
 
         public void setDistance(double distance) {
             this.distance = distance;
+        }
+
+        public List<String> getFee_desc() {
+            return fee_desc;
+        }
+
+        public void setFee_desc(List<String> fee_desc) {
+            this.fee_desc = fee_desc;
         }
     }
 }

@@ -39,8 +39,9 @@
                 android:id="@+id/tv_park_duration"
                 style="@style/text_gray_14sp"
                 android:layout_below="@id/tv_park_charge_num"
+                android:lineSpacingExtra="@dimen/dp20"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:textSize="15sp" />
 
             <TextView

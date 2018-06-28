@@ -13,6 +13,7 @@ public class CenterBean {
      * isAuth : 1
      * deposit_flag : 0
      * car_auth : 0
+     * deposit_money:300
      */
 
     private String header_img;
@@ -21,6 +22,7 @@ public class CenterBean {
     private int isAuth;
     private int deposit_flag;
     private int car_auth;
+    private float deposit_money;
 
     public String getHeader_img() {
         return header_img;
@@ -68,5 +70,13 @@ public class CenterBean {
 
     public void setCar_auth(int car_auth) {
         this.car_auth = car_auth;
+    }
+
+    public float getDeposit_money() {
+        return deposit_money;
+    }
+
+    public void setDeposit_money(float deposit_money) {
+        this.deposit_money = deposit_money;
     }
 }

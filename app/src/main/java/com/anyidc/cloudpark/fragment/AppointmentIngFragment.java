@@ -71,7 +71,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
         mLocationOption.setNeedAddress(true);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
-        confirmCancelDialog = new ConfirmCancelDialog(getActivity(), "", "确认要取消预约吗？\n\n注：取消后押金不予退回", "确认", "取消");
+        confirmCancelDialog = new ConfirmCancelDialog(getActivity(), "", "确认要取消预约吗？           \n\n注：取消后预约金不予退回", "确认", "取消");
         confirmCancelDialog.setClickListener(new ConfirmCancelDialog.ClickListener() {
             @Override
             public void confirm() {

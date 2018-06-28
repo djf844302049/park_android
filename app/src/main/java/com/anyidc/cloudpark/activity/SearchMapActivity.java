@@ -631,7 +631,13 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
                     tvParkAddress.setText(parkBean.getAddress());
                     tvParkTotalNum.setText("车位数：" + parkBean.getNum());
                     tvParkRemainNum.setText("空车位数：" + parkBean.getAvailable_num());
-//        tvParkName.setText();收费规则
+                    StringBuffer fee = new StringBuffer("收费标准：");
+                    for (String s : parkBean.getFee_desc()) {
+                        fee.append(s).append("，");
+                    }
+                    fee.deleteCharAt(fee.lastIndexOf("，"));
+                    fee.append("。");
+                    tvParkFeeRegu.setText(fee);
                     rlParkDetail.setEnabled(true);
                     break;
             }

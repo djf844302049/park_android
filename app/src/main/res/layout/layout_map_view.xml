@@ -101,7 +101,6 @@
             <TextView
                 android:id="@+id/tv_park_fee_regular"
                 style="@style/text_gray_14sp"
-                android:visibility="gone"
                 android:layout_below="@id/tv_park_total_num"
                 android:layout_marginTop="@dimen/dp10" />
 

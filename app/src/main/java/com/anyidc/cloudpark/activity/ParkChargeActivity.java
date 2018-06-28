@@ -137,8 +137,12 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                         ParkInfoBean data = baseEntity.getData();
                         rechargeNum = data.getPay();
                         tvChargeNum.setText("￥" + data.getPay());
-                        String time = "停车时间：" + data.getOrder().getCreate_time() + "-" + data.getNow() + "    停车时长：" + data.getDuration();
+                        String time = "停车时间：" + data.getStart_time() + "-" + data.getEnd_time() + "\n停车时长：" + data.getStay_time();
                         tvParkDuration.setText(time);
+                        if (data.getIs_share() == 1) {
+                            ivHelp.setVisibility(View.VISIBLE);
+                            tvSharePark.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override

@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.moduel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/13.
@@ -9,26 +10,25 @@ import java.util.Date;
 
 public class ParkInfoBean {
 
-
     /**
-     * order : {"order_id":51,"order_sn":"2018041314193820494","parking_id":1,"unit_id":"A00001","user_id":0,"pay_id":0,"transaction_id":"","total_amount":"0.00","pay_status":0,"create_time":1523600378,"end_time":0,"pay_time":0,"product_id":4,"update_time":0,"status":0,"share_time":null,"times":0}
-     * fee : {"first_time":5,"money":6,"hourly":2,"max":30}
-     * now : 1523605825
-     * pay : 6
+     * order : {"order_id":114,"order_sn":"JSO2018062816313182819","parking_id":1,"unit_id":"A00001","car_id":74,"user_id":11,"pay_id":0,"transaction_id":"","total_amount":"0.00","pay_status":0,"create_time":1530174691,"end_time":1530174691,"pay_time":0,"product_id":4,"update_time":0,"status":1,"share_time":null,"times":0,"settled":0}
+     * fee : {"first_time":"0.5","money":"5","second_money":"6","night_money":"8","day_money":"60"}
+     * pay : 5.00
+     * is_share : 0
+     * start_time : 1530174691
+     * end_time : 1530174743
+     * stay_time : 00小时00分钟52秒
+     * fee_desc : ["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"]
      */
 
     private OrderBean order;
     private FeeBean fee;
-    private long now;
     private String pay;
-
-    public String getPay() {
-        return pay;
-    }
-
-    public void setPay(String pay) {
-        this.pay = pay;
-    }
+    private int is_share;
+    private long start_time;
+    private long end_time;
+    private String stay_time;
+    private List<String> fee_desc;
 
     public OrderBean getOrder() {
         return order;
@@ -46,69 +46,90 @@ public class ParkInfoBean {
         this.fee = fee;
     }
 
-    public String getNow() {
-        String format = new SimpleDateFormat("HH:mm").format(new Date(1000 * now));
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
+
+    public int getIs_share() {
+        return is_share;
+    }
+
+    public void setIs_share(int is_share) {
+        this.is_share = is_share;
+    }
+
+    public String getStart_time() {
+        String format = new SimpleDateFormat("HH:mm").format(new Date(1000 * start_time));
         return format;
     }
 
-    public String getDuration() {
-        long duration = 1000 * now - 1000 * order.create_time;
-        long longHours = duration / (60 * 60 * 1000); //根据时间差来计算小时数
-        long longMinutes = (duration - longHours * (60 * 60 * 1000)) / (60 * 1000);   //根据时间差来计算分钟数
-        long longSeconds = (duration - longHours * (60 * 60 * 1000) - longMinutes * (60 * 1000)) / 1000;//根据时间差来计算秒数
-        if (longHours != 0) {
-            if (longSeconds != 0) {
-                return longHours + "小时" + longMinutes + "分" + longSeconds + "秒";
-            } else {
-                return longHours + "小时" + longMinutes + "分";
-            }
-        } else if (longMinutes != 0) {
-            if (longSeconds != 0) {
-                return longMinutes + "分" + longSeconds + "秒";
-            } else {
-                return longMinutes + "分";
-            }
-        } else if (longSeconds != 0) {
-            return longSeconds + "秒";
-        }
-        return 0 + "分" + 0 + "秒";
+    public void setStart_time(long start_time) {
+        this.start_time = start_time;
     }
 
-    public void setNow(long now) {
-        this.now = now;
+    public String getEnd_time() {
+        String format = new SimpleDateFormat("HH:mm").format(new Date(1000 * end_time));
+        return format;
+    }
+
+    public void setEnd_time(long end_time) {
+        this.end_time = end_time;
+    }
+
+    public String getStay_time() {
+        return stay_time;
+    }
+
+    public void setStay_time(String stay_time) {
+        this.stay_time = stay_time;
+    }
+
+    public List<String> getFee_desc() {
+        return fee_desc;
+    }
+
+    public void setFee_desc(List<String> fee_desc) {
+        this.fee_desc = fee_desc;
     }
 
     public static class OrderBean {
         /**
-         * order_id : 51
-         * order_sn : 2018041314193820494
+         * order_id : 114
+         * order_sn : JSO2018062816313182819
          * parking_id : 1
          * unit_id : A00001
-         * user_id : 0
+         * car_id : 74
+         * user_id : 11
          * pay_id : 0
          * transaction_id :
          * total_amount : 0.00
          * pay_status : 0
-         * create_time : 1523600378
-         * end_time : 0
+         * create_time : 1530174691
+         * end_time : 1530174691
          * pay_time : 0
          * product_id : 4
          * update_time : 0
-         * status : 0
+         * status : 1
          * share_time : null
          * times : 0
+         * settled : 0
          */
 
         private int order_id;
         private String order_sn;
         private int parking_id;
         private String unit_id;
+        private int car_id;
         private int user_id;
         private int pay_id;
         private String transaction_id;
         private String total_amount;
         private int pay_status;
-        private long create_time;
+        private int create_time;
         private int end_time;
         private int pay_time;
         private int product_id;
@@ -116,6 +137,7 @@ public class ParkInfoBean {
         private int status;
         private Object share_time;
         private int times;
+        private int settled;
 
         public int getOrder_id() {
             return order_id;
@@ -147,6 +169,14 @@ public class ParkInfoBean {
 
         public void setUnit_id(String unit_id) {
             this.unit_id = unit_id;
+        }
+
+        public int getCar_id() {
+            return car_id;
+        }
+
+        public void setCar_id(int car_id) {
+            this.car_id = car_id;
         }
 
         public int getUser_id() {
@@ -189,12 +219,11 @@ public class ParkInfoBean {
             this.pay_status = pay_status;
         }
 
-        public String getCreate_time() {
-            String format = new SimpleDateFormat("HH:mm").format(new Date(1000 * create_time));
-            return format;
+        public int getCreate_time() {
+            return create_time;
         }
 
-        public void setCreate_time(long create_time) {
+        public void setCreate_time(int create_time) {
             this.create_time = create_time;
         }
 
@@ -253,51 +282,69 @@ public class ParkInfoBean {
         public void setTimes(int times) {
             this.times = times;
         }
+
+        public int getSettled() {
+            return settled;
+        }
+
+        public void setSettled(int settled) {
+            this.settled = settled;
+        }
     }
 
     public static class FeeBean {
         /**
-         * first_time : 5
-         * money : 6
-         * hourly : 2
-         * max : 30
+         * first_time : 0.5
+         * money : 5
+         * second_money : 6
+         * night_money : 8
+         * day_money : 60
          */
 
-        private int first_time;
-        private int money;
-        private int hourly;
-        private int max;
+        private String first_time;
+        private String money;
+        private String second_money;
+        private String night_money;
+        private String day_money;
 
-        public int getFirst_time() {
+        public String getFirst_time() {
             return first_time;
         }
 
-        public void setFirst_time(int first_time) {
+        public void setFirst_time(String first_time) {
             this.first_time = first_time;
         }
 
-        public int getMoney() {
+        public String getMoney() {
             return money;
         }
 
-        public void setMoney(int money) {
+        public void setMoney(String money) {
             this.money = money;
         }
 
-        public int getHourly() {
-            return hourly;
+        public String getSecond_money() {
+            return second_money;
         }
 
-        public void setHourly(int hourly) {
-            this.hourly = hourly;
+        public void setSecond_money(String second_money) {
+            this.second_money = second_money;
         }
 
-        public int getMax() {
-            return max;
+        public String getNight_money() {
+            return night_money;
         }
 
-        public void setMax(int max) {
-            this.max = max;
+        public void setNight_money(String night_money) {
+            this.night_money = night_money;
+        }
+
+        public String getDay_money() {
+            return day_money;
+        }
+
+        public void setDay_money(String day_money) {
+            this.day_money = day_money;
         }
     }
 }

@@ -137,6 +137,7 @@ public class ParkDetailBean {
          * area_3 : 海沧区
          * area_4 : 水云湾
          * fee : {"first_time":"0.5","money":"5","second_money":"6","night_money":"8","day_money":"60"}
+         * fee_desc:["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"]
          */
 
         private int parking_id;
@@ -166,6 +167,15 @@ public class ParkDetailBean {
         private String area_3;
         private String area_4;
         private FeeBean fee;
+        private List<String> fee_desc;
+
+        public List<String> getFee_desc() {
+            return fee_desc;
+        }
+
+        public void setFee_desc(List<String> fee_desc) {
+            this.fee_desc = fee_desc;
+        }
 
         public int getParking_id() {
             return parking_id;

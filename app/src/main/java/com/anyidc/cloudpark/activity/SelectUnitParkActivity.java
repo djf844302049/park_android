@@ -254,16 +254,16 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
-                if (bean.getIsAuth() != 1) {
-                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
-                    return;
-                } else if (bean.getCar_auth() != 1) {
-                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
-                    return;
-                } else if (bean.getDeposit_flag() != 1) {
-                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
-                    return;
-                }
+//                if (bean.getIsAuth() != 1) {
+//                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
+//                    return;
+//                } else if (bean.getCar_auth() != 1) {
+//                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
+//                    return;
+//                } else if (bean.getDeposit_flag() != 1) {
+//                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
+//                    return;
+//                }
                 if (TextUtils.isEmpty(selectUnitId)) {
                     ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
                     return;
@@ -282,7 +282,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.tv_recharge_deposit:
                 if (bean != null && bean.getDeposit_flag() != 1) {
-                    startActivity(new Intent(this, DepositActivity.class));
+                    DepositActivity.actionStart(this, bean.getDeposit_money());
                 }
                 break;
             case R.id.tv_null:
@@ -391,7 +391,13 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                         tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");
                         tvTotal.setText(String.valueOf(parkInfo.getNum()) + "个车位，");
                         tvRemain.setText(String.valueOf(data.getCount_data().getFree()));
-                        tvFee.setText("收费标准：首" + parkInfo.getFee().getFirst_time() + "小时" + parkInfo.getFee().getMoney() + "元，之后" + parkInfo.getFee().getSecond_money() + "元/小时");
+                        StringBuffer fee = new StringBuffer("收费标准：");
+                        for (String s : parkInfo.getFee_desc()) {
+                            fee.append(s).append("，");
+                        }
+                        fee.deleteCharAt(fee.lastIndexOf("，"));
+                        fee.append("。");
+                        tvFee.setText(fee.toString());
                         initRealImage();
                         updateDistance(parkInfo.getLat(), parkInfo.getLng());
                     }
