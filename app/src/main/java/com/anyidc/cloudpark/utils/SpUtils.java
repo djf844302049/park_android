@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import com.anyidc.cloudpark.BaseApplication;
 import com.google.gson.Gson;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
@@ -54,7 +52,7 @@ public class SpUtils {
         } else {
             editor.putString(key, object.toString());
         }
-        SharedPreferencesCompat.apply(editor);
+        editor.apply();
     }
 
     /**
@@ -75,7 +73,7 @@ public class SpUtils {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, jsonValue);
-        SharedPreferencesCompat.apply(editor);
+        editor.apply();
     }
 
     /**
@@ -134,7 +132,7 @@ public class SpUtils {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
-        SharedPreferencesCompat.apply(editor);
+        editor.apply();
     }
 
     /**
@@ -145,7 +143,7 @@ public class SpUtils {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
-        SharedPreferencesCompat.apply(editor);
+        editor.apply();
     }
 
     /**
@@ -169,49 +167,5 @@ public class SpUtils {
         SharedPreferences sp = BaseApplication.appContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         return sp.getAll();
-    }
-
-    /**
-     * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
-     * commit方法是同步的，apply是异步的
-     *
-     * @author zhy
-     */
-    private static class SharedPreferencesCompat {
-        private static final Method sApplyMethod = findApplyMethod();
-
-        /**
-         * 反射查找apply的方法
-         *
-         * @return
-         */
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        private static Method findApplyMethod() {
-            try {
-                Class clz = SharedPreferences.Editor.class;
-                return clz.getMethod("apply");
-            } catch (NoSuchMethodException e) {
-            }
-
-            return null;
-        }
-
-        /**
-         * 如果找到则使用apply执行，否则使用commit
-         *
-         * @param editor
-         */
-        public static void apply(SharedPreferences.Editor editor) {
-            try {
-                if (sApplyMethod != null) {
-                    sApplyMethod.invoke(editor);
-                    return;
-                }
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
-            }
-            editor.commit();
-        }
     }
 }

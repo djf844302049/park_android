@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
-import android.os.Build;
 import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
@@ -12,8 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import com.anyidc.cloudpark.R;
-
-import java.lang.reflect.Method;
 
 public class LicenseKeyboardUtil {
     private EditText mEdit;
@@ -131,24 +128,6 @@ public class LicenseKeyboardUtil {
      * 隐藏系统键盘
      */
     public void hideSystemSoftKeyboard() {
-        int sdkInt = Build.VERSION.SDK_INT;
-        if (sdkInt >= 11) {
-            try {
-                Class<EditText> cls = EditText.class;
-                Method setShowSoftInputOnFocus;
-                setShowSoftInputOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
-                setShowSoftInputOnFocus.setAccessible(true);
-                setShowSoftInputOnFocus.invoke(mEdit, false);
-
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            mEdit.setInputType(InputType.TYPE_NULL);
-        }
+        mEdit.setInputType(InputType.TYPE_NULL);
     }
 }
