@@ -20,7 +20,6 @@ import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.dialog.ConfirmCancelDialog;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyAppointmentBean;
-import com.anyidc.cloudpark.moduel.ParkInfo;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.PermissionSetting;
@@ -41,7 +40,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
     private TextView tvParkName, tvAddress, tvDistance, tvParkNum, tvTime, tvConfirm, tvCancel, tvTip, tvShareTime, tvNavigation;
     //    private long remain = 0;
     private MyAppointmentBean.AppointmentBean appointmentBean = null;
-    private ParkInfo parkInfo;
+    private MyAppointmentBean.AppointmentBean.ParkBean parkInfo;
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
@@ -142,13 +141,13 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
 
     private void updateView(MyAppointmentBean.AppointmentBean appointmentBean) {
         this.appointmentBean = appointmentBean;
-        if (appointmentBean == null || appointmentBean.getStatus() != 1) {
+        if (appointmentBean == null) {
             noData();
             return;
         }
         layout.findViewById(R.id.ll_content).setVisibility(View.VISIBLE);
         if (appointmentBean.getPark() != null) {
-            ParkInfo parkInfo = appointmentBean.getPark();
+            MyAppointmentBean.AppointmentBean.ParkBean parkInfo = appointmentBean.getPark();
             tvTip.setVisibility(View.GONE);
             tvParkName.setText(parkInfo.getParking_name());
             tvAddress.setText(parkInfo.getArea_1() + " " + parkInfo.getArea_2() + " " + parkInfo.getArea_3() + " " + parkInfo.getArea_4() + " ");

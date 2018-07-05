@@ -213,37 +213,10 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private void toPay() {
         switch (payType) {
             case 1:
-                getTime(Api.getDefaultService().alPay("预约", "预约付款", String.valueOf(orderNum)
-                        , 3, payType, unitNum, carId), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
-                    @Override
-                    public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
-                        Runnable payRunnable = () -> {
-                            String orderInfo = baseEntity.getData().getCallback();
-                            PayTask alipay = new PayTask(PayAppointmentActivity.this);
-                            Map<String, String> result = alipay.payV2(orderInfo, true);
-                            Message msg = new Message();
-                            result.put("num", String.valueOf(payNum));
-                            msg.what = AlPayResultHandler.SDK_PAY_FLAG;
-                            msg.obj = result;
-                            mHandler.sendMessage(msg);
-                        };
-                        // 必须异步调用
-                        Thread payThread = new Thread(payRunnable);
-                        payThread.start();
-                    }
-                });
+                alPay();
                 break;
             case 2:
-                getTime(Api.getDefaultService().wxPay("预约", "预约付款", String.valueOf(orderNum)
-                        , 3, payType, unitNum, carId), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
-                    @Override
-                    public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
-                        WXPayEntryActivity.setNum(String.valueOf(payNum));
-                        WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
-                        WxPayHelper.getInstance().WexPay(callback);
-                        WXPayEntryActivity.setActivity(PayAppointmentActivity.this);
-                    }
-                });
+                wxPay();
                 break;
             case 3:
                 break;
@@ -251,10 +224,48 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
                 if (CacheData.isFreePay() == 1) {//开启小额免密支付
                     balancePay();
                 } else {
+                    etNum.setText("");
                     payDialog.show();
                 }
                 break;
         }
+    }
+
+    private void wxPay() {
+        getTime(Api.getDefaultService().wxPay("预约", "预约付款", String.valueOf(orderNum)
+                , 3, payType, unitNum, carId), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
+            @Override
+            public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
+                WXPayEntryActivity.setNum(String.valueOf(orderNum));
+                WXPayEntryActivity.setFrom(2);
+                WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
+                WxPayHelper.getInstance().WexPay(callback);
+                WXPayEntryActivity.setActivity(PayAppointmentActivity.this);
+            }
+        });
+    }
+
+    private void alPay() {
+        getTime(Api.getDefaultService().alPay("预约", "预约付款", String.valueOf(orderNum)
+                , 3, payType, unitNum, carId), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
+            @Override
+            public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
+                Runnable payRunnable = () -> {
+                    String orderInfo = baseEntity.getData().getCallback();
+                    PayTask alipay = new PayTask(PayAppointmentActivity.this);
+                    Map<String, String> result = alipay.payV2(orderInfo, true);
+                    Message msg = new Message();
+                    result.put("num", String.valueOf(orderNum));
+                    result.put("from", "2");
+                    msg.what = AlPayResultHandler.SDK_PAY_FLAG;
+                    msg.obj = result;
+                    mHandler.sendMessage(msg);
+                };
+                // 必须异步调用
+                Thread payThread = new Thread(payRunnable);
+                payThread.start();
+            }
+        });
     }
 
     private void balancePay() {
@@ -262,13 +273,13 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
                 , 3, payType, unitNum, carId), new RxObserver<BaseEntity>(this, true) {
             @Override
             public void onSuccess(BaseEntity baseEntity) {
-                PayResultActivity.actionStart(PayAppointmentActivity.this, 1, String.valueOf(orderNum));
+                PayResultActivity.actionStart(PayAppointmentActivity.this, 1, String.valueOf(orderNum), 2);
                 PayAppointmentActivity.this.finish();
             }
 
             @Override
             public void onError(String errMsg) {
-                PayResultActivity.actionStart(PayAppointmentActivity.this, 2, String.valueOf(orderNum));
+                PayResultActivity.actionStart(PayAppointmentActivity.this, 2, String.valueOf(orderNum), 2);
             }
         });
     }

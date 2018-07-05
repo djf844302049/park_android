@@ -178,6 +178,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                             Map<String, String> result = aliPay.payV2(orderInfo, true);
                             Message msg = new Message();
                             result.put("num", String.valueOf(rechargeNum));
+                            result.put("from", "1");
                             msg.what = AlPayResultHandler.SDK_PAY_FLAG;
                             msg.obj = result;
                             mHandler.sendMessage(msg);
@@ -194,6 +195,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(rechargeNum));
+                        WXPayEntryActivity.setFrom(1);
                         WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
                         WxPayHelper.getInstance().WexPay(callback);
                         WXPayEntryActivity.setActivity(ParkChargeActivity.this);

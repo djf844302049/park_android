@@ -490,7 +490,7 @@ public interface ApiService {
      */
     @POST("api/v1/depRefund")
     @FormUrlEncoded
-    Observable<BaseEntity> drawDeposit(@Field("bank_id") int bank_id, @Field("pay_id") int pay_id
+    Observable<BaseEntity<DrawCashBean>> drawDeposit(@Field("bank_id") int bank_id, @Field("pay_id") int pay_id
             , @Field("pay_account") String pay_account);
 
     /**

@@ -13,6 +13,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private static String num;
+    //0缴纳押金 1停车付费 2预约 3充值
+    private static int mFrom;
     private static Activity mActivity;
 
     @Override
@@ -26,6 +28,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     public static void setNum(String nums) {
         num = nums;
+    }
+
+    public static void setFrom(int from) {
+        mFrom = from;
     }
 
     @Override
@@ -50,11 +56,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 if (mActivity != null) {
                     mActivity.finish();
                 }
-                PayResultActivity.actionStart(this, 1, num);
+                PayResultActivity.actionStart(this, 1, num, mFrom);
                 break;
             case -1://失败
             case -2://取消
-                PayResultActivity.actionStart(this, 2, null);
+                PayResultActivity.actionStart(this, 2, null, mFrom);
                 break;
         }
         mActivity = null;

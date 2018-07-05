@@ -119,6 +119,7 @@ public class ParkDetailBean {
          * num : 50
          * bad_num : 0
          * thumb : http://park.deyuelou.top/images/9e3a35a3593f86e0848266aa63fddc8f.png
+         * big_img : http:\/\/p2xsrupxn.bkt.clouddn.com\/2018\/07\/7ee3c201807041514379127.png
          * province : 16068
          * city : 16278
          * district : 16294
@@ -149,6 +150,7 @@ public class ParkDetailBean {
         private int num;
         private int bad_num;
         private String thumb;
+        private String big_img;
         private int province;
         private int city;
         private int district;
@@ -171,6 +173,14 @@ public class ParkDetailBean {
 
         public List<String> getFee_desc() {
             return fee_desc;
+        }
+
+        public String getBig_img() {
+            return big_img;
+        }
+
+        public void setBig_img(String big_img) {
+            this.big_img = big_img;
         }
 
         public void setFee_desc(List<String> fee_desc) {

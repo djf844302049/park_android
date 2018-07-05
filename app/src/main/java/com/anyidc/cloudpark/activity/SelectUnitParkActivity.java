@@ -7,11 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +28,6 @@ import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ToastUtil;
-import com.anyidc.cloudpark.utils.ViewUtils;
 import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
@@ -50,7 +46,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private TextView tvAppointment;
     private TextView tvIdAuth, tvCarAuth, tvPay;
     private RecyclerView recyclerView;
-    private LinearLayout llImage;
+    private ImageView ivImage;
 
     private List<ParkDetailBean.UseArrBean> dataList = new ArrayList<>();
     private List<ParkDetailBean.UseArrBean> freeList = new ArrayList<>();
@@ -119,7 +115,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         tvCarAuth = findViewById(R.id.tv_car_certification);
         tvPay = findViewById(R.id.tv_recharge_deposit);
         recyclerView = findViewById(R.id.rv_unit_list);
-        llImage = findViewById(R.id.ll_image);
+        ivImage = findViewById(R.id.iv_image);
+        ivImage.setOnClickListener(this);
         tvAppointment.setOnClickListener(this);
         tvIdAuth.setOnClickListener(this);
         tvCarAuth.setOnClickListener(this);
@@ -143,11 +140,12 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         });
         switch (parkType) {
             case 1:
+                getParkDetail();
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
                 recyclerView.setLayoutManager(gridLayoutManager);
                 parkUnitNumAdapter = new ParkUnitNumAdapter(this, dataList);
                 recyclerView.setAdapter(parkUnitNumAdapter);
-                llImage.setVisibility(View.VISIBLE);
+                ivImage.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
                 parkUnitNumAdapter.setOnItemClickListener((view, position) -> {
                     ParkDetailBean.UseArrBean unitInfoBean = dataList.get(position);
@@ -167,7 +165,8 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 });
                 break;
             case 2:
-                llImage.setVisibility(View.GONE);
+                getShareParkDetail();
+                ivImage.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -195,19 +194,6 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 break;
         }
         getCenterData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        switch (parkType) {
-            case 1:
-                getParkDetail();
-                break;
-            case 2:
-                getShareParkDetail();
-                break;
-        }
     }
 
     private void getCarList() {
@@ -284,6 +270,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 if (bean != null && bean.getDeposit_flag() != 1) {
                     DepositActivity.actionStart(this, bean.getDeposit_money());
                 }
+                break;
+            case R.id.iv_image:
+                ScaleImageActivity.actionStart(this, parkInfo.getBig_img());
                 break;
             case R.id.tv_null:
                 changeTitleBg(0);
@@ -451,24 +440,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
      * 初始化实景图
      */
     private void initRealImage() {
-        llImage.removeAllViews();
         String imgStr = parkInfo.getThumb();
-        String[] imgArr = imgStr.split(",");
-        if (imgArr != null && imgArr.length > 0) {
-            for (String imgUrl : imgArr) {
-                View view = LayoutInflater.from(this).inflate(R.layout.single_image_layout, null, false);
-                ImageView imageView = view.findViewById(R.id.iv_img);
-                ViewGroup.LayoutParams lp = imageView.getLayoutParams();
-                if (imgArr.length == 1) {
-                    lp.width = ViewUtils.getWindowWidth(this);
-                } else {
-                    lp.width = ViewUtils.getWindowWidth(this) - ViewUtils.dip2px(this, 30);
-                }
-                lp.height = lp.width * 9 / 16;
-                imageView.setLayoutParams(lp);
-                Glide.with(this).load(imgUrl).dontAnimate().into(imageView);
-                llImage.addView(view);
-            }
+        if (!TextUtils.isEmpty(imgStr)) {
+            Glide.with(this).load(imgStr).placeholder(R.drawable.img_place_holder).into(ivImage);
         }
     }
 

@@ -8,15 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.BankChoiceAdapter;
 import com.anyidc.cloudpark.dialog.ConfirmCancelDialog;
 import com.anyidc.cloudpark.moduel.BankCardBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
+import com.anyidc.cloudpark.moduel.DrawCashBean;
 import com.anyidc.cloudpark.moduel.WalletInfoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -182,10 +185,12 @@ public class PurseActivity extends BaseActivity {
 
     private void drawDeposit() {
         getTime(Api.getDefaultService().drawDeposit(bank_id, 0, "")
-                , new RxObserver<BaseEntity>(this, true) {
+                , new RxObserver<BaseEntity<DrawCashBean>>(this, true) {
                     @Override
-                    public void onSuccess(BaseEntity baseEntity) {
-
+                    public void onSuccess(BaseEntity<DrawCashBean> baseEntity) {
+                        ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
+                        DrawCashResultActivity.actionStart(PurseActivity.this, baseEntity.getData());
+                        btnDeposit.setText("缴纳押金");
                     }
                 });
     }

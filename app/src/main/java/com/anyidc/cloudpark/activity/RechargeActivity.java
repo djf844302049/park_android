@@ -96,7 +96,7 @@ public class RechargeActivity extends BaseActivity {
         }
         switch (payType) {
             case 1:
-                getTime(Api.getDefaultService().alPay("充值", "余额充值", String.valueOf(0.01)
+                getTime(Api.getDefaultService().alPay("充值", "余额充值", String.valueOf(rechargeNum)
                         , 1, payType, null, null), new RxObserver<BaseEntity<AlPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<AlPayBean> baseEntity) {
@@ -106,6 +106,7 @@ public class RechargeActivity extends BaseActivity {
                             Map<String, String> result = alipay.payV2(orderInfo, true);
                             Message msg = new Message();
                             result.put("num", String.valueOf(rechargeNum));
+                            result.put("from", "3");
                             msg.what = AlPayResultHandler.SDK_PAY_FLAG;
                             msg.obj = result;
                             mHandler.sendMessage(msg);
@@ -117,11 +118,12 @@ public class RechargeActivity extends BaseActivity {
                 });
                 break;
             case 2:
-                getTime(Api.getDefaultService().wxPay("充值", "余额充值", String.valueOf(0.01)
+                getTime(Api.getDefaultService().wxPay("充值", "余额充值", String.valueOf(rechargeNum)
                         , 1, payType, null, null), new RxObserver<BaseEntity<WxPayBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<WxPayBean> baseEntity) {
                         WXPayEntryActivity.setNum(String.valueOf(rechargeNum));
+                        WXPayEntryActivity.setFrom(3);
                         WxPayBean.CallbackBean callback = baseEntity.getData().getCallback();
                         WxPayHelper.getInstance().WexPay(callback);
                         WXPayEntryActivity.setActivity(RechargeActivity.this);
