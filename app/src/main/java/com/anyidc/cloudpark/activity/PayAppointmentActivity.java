@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.alipay.sdk.app.PayTask;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.dialog.BaseDialog;
-import com.anyidc.cloudpark.dialog.SelectDialog;
 import com.anyidc.cloudpark.moduel.AlPayBean;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.WxPayBean;
@@ -47,9 +46,8 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private LinearLayout llShareTip, llShareTime;
     private TextView tvThirty, tvSixty;
     private TextView tvPayTime, tvShareFee, tvBalanceNum;
-    private RadioButton rbAccountPay, rbZFBPay, rbWXPay, rbYLPay;
+    private RadioButton rbAccountPay, rbZFBPay, rbWXPay;
     private String parkName, unitNum, shareTime, shareFee;
-    private SelectDialog selectDialog;
     private AlPayResultHandler mHandler;
     protected CheckDoubleClickListener clickListener;
     private float payNum;

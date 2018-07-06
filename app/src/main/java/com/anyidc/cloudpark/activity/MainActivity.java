@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -22,6 +23,7 @@ import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.wiget.VerticalTextView;
 import com.bumptech.glide.Glide;
 import com.yanzhenjie.permission.AndPermission;
@@ -195,9 +197,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 tvCity.setText(city);
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError", "location Error, ErrCode:"
-                        + aMapLocation.getErrorCode() + ", errInfo:"
-                        + aMapLocation.getErrorInfo());
+                ToastUtil.showToast("定位失败，请检查定位权限是否开启", Toast.LENGTH_SHORT);
             }
         }
     }

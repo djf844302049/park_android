@@ -166,6 +166,13 @@ public interface ApiService {
     Observable<BaseEntity<MonitorVideoBean>> watchCamera(@Field("parking_sn") String parkSn);
 
     /**
+     * 用户停车位摄像头播放地址请求接口
+     */
+    @POST("api/v1/watchCameraByAnyone")
+    @FormUrlEncoded
+    Observable<BaseEntity<MonitorVideoBean>> userWatchCamera(@Field("parking_sn") String parkSn);
+
+    /**
      * 热搜地区接口
      */
     @GET("api/v1/getHotSearch")

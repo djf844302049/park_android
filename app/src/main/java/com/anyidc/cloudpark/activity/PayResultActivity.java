@@ -14,6 +14,7 @@ import com.anyidc.cloudpark.R;
 public class PayResultActivity extends BaseActivity {
     private TextView tvRight, tvPayResult, tvPayTip, tvGoCenter;
     private int from;
+    public static boolean rechargeDep;
 
     public static void actionStart(Context context, int result, String num, int from) {
         Intent intent = new Intent(context, PayResultActivity.class);
@@ -47,14 +48,15 @@ public class PayResultActivity extends BaseActivity {
                 switch (from) {
                     case 0://缴纳押金
                         tvPayTip.setText("您已成功缴纳押金￥" + num);
+                        rechargeDep = true;
                         break;
                     case 1://停车付费
-                        tvPayTip.setText("您已成功缴纳停车费￥" + num + "，\n\n车位锁即将降下，您有10分钟时间离开车位，\n"
+                        tvPayTip.setText("您已成功缴纳停车费￥" + num + "，\n车位锁即将降下，您有10分钟时间离开车位，\n"
                                 + "否则车位锁会再次升起，重新进入计费。");
                         break;
                     case 2://预约
                         tvGoCenter.setVisibility(View.VISIBLE);
-                        tvPayTip.setText("您已成功缴纳预约费￥" + num + "\n\n请您于预约时间点前到达车位,否则车位不予\n" +
+                        tvPayTip.setText("您已成功缴纳预约费￥" + num + "，\n请您于预约时间点前到达车位,否则车位不予\n" +
                                 "保留");
                         break;
                     case 3://充值

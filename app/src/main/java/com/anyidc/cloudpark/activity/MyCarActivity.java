@@ -3,7 +3,6 @@ package com.anyidc.cloudpark.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
@@ -22,8 +21,6 @@ import java.util.List;
 
 public class MyCarActivity extends BaseActivity {
     private RecyclerView rlvCars;
-    private Button btnIdConfirm;
-    private Button btnPaiDeposite;
     private CarListAdapter adapter;
     private TextView tvRight;
     private List<MyCarBean> cars = new ArrayList<>();
@@ -37,10 +34,6 @@ public class MyCarActivity extends BaseActivity {
     protected void initData() {
         initTitle("我的车辆");
         rlvCars = findViewById(R.id.rlv_car_list);
-//        btnIdConfirm = findViewById(R.id.btn_id_confirm);
-//        btnIdConfirm.setOnClickListener(clickListener);
-//        btnPaiDeposite = findViewById(R.id.btn_recharge_deposit);
-//        btnPaiDeposite.setOnClickListener(clickListener);
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("编辑");
@@ -84,10 +77,6 @@ public class MyCarActivity extends BaseActivity {
     @Override
     public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
-//            case R.id.btn_id_confirm:
-//                break;
-//            case R.id.btn_recharge_deposit:
-//                break;
             case R.id.btn_add_car:
                 AddCarActivity.actionStart(this, 0);
                 break;

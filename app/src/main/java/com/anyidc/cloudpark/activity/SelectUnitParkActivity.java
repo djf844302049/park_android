@@ -196,6 +196,15 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         getCenterData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (PayResultActivity.rechargeDep) {
+            getCenterData();
+            PayResultActivity.rechargeDep = false;
+        }
+    }
+
     private void getCarList() {
         getTime(Api.getDefaultService().getUserCars()
                 , new RxObserver<BaseEntity<List<MyCarBean>>>(this, true) {
@@ -203,9 +212,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
                         if (carBean.getData() != null && carBean.getData().size() > 0) {
                             for (MyCarBean myCarBean : carBean.getData()) {
-//                                if (myCarBean.getStatus() == 2) {
-                                carList.add(myCarBean);
-//                                }
+                                if (myCarBean.getStatus() == 2) {
+                                    carList.add(myCarBean);
+                                }
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -240,16 +249,16 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
-//                if (bean.getIsAuth() != 1) {
-//                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
-//                    return;
-//                } else if (bean.getCar_auth() != 1) {
-//                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
-//                    return;
-//                } else if (bean.getDeposit_flag() != 1) {
-//                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
-//                    return;
-//                }
+                if (bean.getIsAuth() != 1) {
+                    ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
+                    return;
+                } else if (bean.getCar_auth() != 1) {
+                    ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
+                    return;
+                } else if (bean.getDeposit_flag() != 1) {
+                    ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
+                    return;
+                }
                 if (TextUtils.isEmpty(selectUnitId)) {
                     ToastUtil.showToast("请选择车位", Toast.LENGTH_SHORT);
                     return;

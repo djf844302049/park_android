@@ -275,6 +275,7 @@ public class AppointmentIngFragment extends LazyBaseFragment implements View.OnC
                 Log.e("AmapError", "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
+                ToastUtil.showToast("定位失败，请检查定位权限是否开启", Toast.LENGTH_SHORT);
             }
         }
     }

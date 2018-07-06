@@ -25,7 +25,7 @@
     <string name="front_id_photo">本人手持身份证正面照片，请确保证件信息可见</string>
     <string name="inverse_id_photo">本人手持身份证背面照片，请确保证件信息可见</string>
     <string name="id_confirm_tip">*身份认证仅用于提供证明使用，会做到完全保密\n*人工审核需*个工作日</string>
-    <string name="car_confirm_tip">*行驶证仅用于提供证明使用，会做到完全保密\n*人工审核需3个工作日\n*如需帮助，请拨打。。。。</string>
+    <string name="car_confirm_tip">*行驶证仅用于提供证明使用，会做到完全保密\n*人工审核需3个工作日\n*如需帮助，请拨打0592-2932522</string>
     <string name="driver_license_chief">请拍摄上传行驶证主页</string>
     <string name="driver_license_deputy">请拍摄上传行驶证副页</string>
     <string name="input_watch_car_monitor">请输入车位编号查看监控录像</string>

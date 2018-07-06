@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -33,14 +32,6 @@ import java.util.List;
  */
 
 public class AddCarActivity extends BaseActivity implements TextWatcher {
-    //    private TextView tv1;
-//    private TextView tv2;
-//    private TextView tv3;
-//    private TextView tv4;
-//    private TextView tv5;
-//    private TextView tv6;
-//    private TextView tv7;
-//    private TextView tv8;
     private EditText etNum;
     private CheckBox cbNewEnergy;
     private Button btnAdd;
@@ -66,25 +57,9 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
     @Override
     protected void initData() {
         clickListener = new CheckDoubleClickListener(this);
-//        tv1 = findViewById(R.id.tv_num_1);
-//        tv2 = findViewById(R.id.tv_num_2);
-//        tv3 = findViewById(R.id.tv_num_3);
-//        tv4 = findViewById(R.id.tv_num_4);
-//        tv5 = findViewById(R.id.tv_num_5);
-//        tv6 = findViewById(R.id.tv_num_6);
-//        tv7 = findViewById(R.id.tv_num_7);
-//        tv8 = findViewById(R.id.tv_num_8);
         tvSkip = findViewById(R.id.tv_skip);
         tvSkip.setOnClickListener(clickListener);
         tvList = new ArrayList<>();
-//        tvList.add(tv1);
-//        tvList.add(tv2);
-//        tvList.add(tv3);
-//        tvList.add(tv4);
-//        tvList.add(tv5);
-//        tvList.add(tv6);
-//        tvList.add(tv7);
-//        tvList.add(tv8);
         etNum = findViewById(R.id.et_num);
         keyboardUtil = new LicenseKeyboardUtil(this, etNum, 1);
         etNum.addTextChangedListener(this);
@@ -99,7 +74,6 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
             if (b) {
                 isNewEnergy = 1;
                 etNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
-//                tv8.setVisibility(View.VISIBLE);
             } else {
                 isNewEnergy = 0;
                 etNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(7)});
@@ -108,7 +82,6 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
                     etNum.setText(substring);
                     etNum.setSelection(substring.length());
                 }
-//                tv8.setVisibility(View.GONE);
             }
         });
         initTitle("添加车辆");
@@ -139,20 +112,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        Log.e("tag", editable.toString() + "..................");
         carNum = editable.toString();
-//        setNum(editable.toString());
-    }
-
-    private void setNum(String num) {
-        char[] chars = num.toCharArray();
-        int length = chars.length;
-        for (TextView textView : tvList) {
-            textView.setText("");
-        }
-        for (int i = 0; i < length; i++) {
-            tvList.get(i).setText(String.valueOf(chars[i]));
-        }
     }
 
     private void commitAddCar() {

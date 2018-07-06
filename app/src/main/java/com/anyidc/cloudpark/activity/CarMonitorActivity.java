@@ -16,6 +16,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MonitorVideoBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.IntentKey;
 import com.anyidc.cloudpark.utils.LicenseKeyboardUtil;
 
@@ -133,7 +134,14 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
             return;
         }
         if (type == 0) {
-            watchCamera(parkNum);
+            switch (CacheData.getIsManager()) {
+                case 1:
+                    watchCamera(parkNum);
+                    break;
+                default:
+                    userWatchCamera(parkNum);
+                    break;
+            }
         } else {
             OptParkLockActivity.start(CarMonitorActivity.this, parkNum, OptParkLockActivity.FROMMANAGER);
         }
@@ -142,6 +150,17 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
     private void watchCamera(String parkNum) {
 
         getTime(Api.getDefaultService().watchCamera(parkNum)
+                , new RxObserver<BaseEntity<MonitorVideoBean>>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity<MonitorVideoBean> baseEntity) {
+                        MonitorVideoActivity.actionStart(CarMonitorActivity.this, baseEntity.getData().getPlay_address());
+                    }
+                });
+    }
+
+    private void userWatchCamera(String parkNum) {
+
+        getTime(Api.getDefaultService().userWatchCamera(parkNum)
                 , new RxObserver<BaseEntity<MonitorVideoBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<MonitorVideoBean> baseEntity) {

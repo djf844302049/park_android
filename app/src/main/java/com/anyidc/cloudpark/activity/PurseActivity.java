@@ -3,6 +3,7 @@ package com.anyidc.cloudpark.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -131,16 +132,16 @@ public class PurseActivity extends BaseActivity {
                 startActivity(new Intent(this, TransactionDetailActivity.class));
                 break;
             case R.id.btn_recharge_balance:
-//                if ("缴纳押金".equals(btnDeposit.getText().toString().trim())) {
-//                    new AlertDialog.Builder(this)
-//                            .setTitle("充值提示")
-//                            .setMessage("充值余额前需缴纳" + String.valueOf(depositNum) + "押金")
-//                            .setPositiveButton("缴纳押金", (dialog, which) ->
-//                                    DepositActivity.actionStart(PurseActivity.this, depositNum))
-//                            .setNegativeButton("取消", null)
-//                            .show();
-//                    return;
-//                }
+                if ("缴纳押金".equals(btnDeposit.getText().toString().trim())) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("充值提示")
+                            .setMessage("充值余额前需缴纳" + String.valueOf(depositNum) + "押金")
+                            .setPositiveButton("缴纳押金", (dialog, which) ->
+                                    DepositActivity.actionStart(PurseActivity.this, depositNum))
+                            .setNegativeButton("取消", null)
+                            .show();
+                    return;
+                }
                 startActivity(new Intent(this, RechargeActivity.class));
                 break;
         }
@@ -159,11 +160,11 @@ public class PurseActivity extends BaseActivity {
                         if (data.getDeposit_flag() == 1) {
                             tvDepositState.setText("已缴纳");
                             btnDeposit.setText("退回押金");
-//                            btnDrawCash.setEnabled(true);
+                            btnDrawCash.setEnabled(true);
                         } else {
                             tvDepositState.setText("未缴纳");
                             btnDeposit.setText("缴纳押金");
-//                            btnDrawCash.setEnabled(false);
+                            btnDrawCash.setEnabled(false);
                         }
                     }
                 });
