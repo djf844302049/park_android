@@ -13,7 +13,7 @@ import com.anyidc.cloudpark.R;
 
 public class PayResultActivity extends BaseActivity {
     private TextView tvRight, tvPayResult, tvPayTip, tvGoCenter;
-    private int from;
+    private int from, result;
     public static boolean rechargeDep;
 
     public static void actionStart(Context context, int result, String num, int from) {
@@ -39,7 +39,7 @@ public class PayResultActivity extends BaseActivity {
         tvRight.setOnClickListener(clickListener);
         tvGoCenter = findViewById(R.id.tv_go_center);
         tvGoCenter.setOnClickListener(clickListener);
-        int result = getIntent().getIntExtra("result", 0);
+        result = getIntent().getIntExtra("result", 0);
         from = getIntent().getIntExtra("from", 0);
         switch (result) {
             case 1:
@@ -78,7 +78,9 @@ public class PayResultActivity extends BaseActivity {
                 switch (from) {
                     case 1:
                     case 2:
-                        startActivity(new Intent(this, MainActivity.class));
+                        if (result == 1) {
+                            startActivity(new Intent(this, MainActivity.class));
+                        }
                         break;
                 }
                 finish();
