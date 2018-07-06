@@ -52,6 +52,7 @@ public class StopRecordBean {
          * create_time : 2018-02-27 14:41:02
          * end_time : 1519713762
          * parking_name : 海沧水云湾车场
+         * unit_id : A00014
          * fee_id : 10
          */
 
@@ -63,6 +64,15 @@ public class StopRecordBean {
         private long end_time;
         private String parking_name;
         private int fee_id;
+        private String unit_id;
+
+        public String getUnit_id() {
+            return unit_id;
+        }
+
+        public void setUnit_id(String unit_id) {
+            this.unit_id = unit_id;
+        }
 
         public String getOrder_sn() {
             return order_sn;
@@ -81,7 +91,7 @@ public class StopRecordBean {
         }
 
         public long getPay_time() {
-            return 1000*pay_time;
+            return 1000 * pay_time;
         }
 
         public void setPay_time(int pay_time) {
@@ -97,7 +107,7 @@ public class StopRecordBean {
         }
 
         public long getCreate_time() {
-            return 1000*create_time;
+            return 1000 * create_time;
         }
 
         public void setCreate_time(long create_time) {
@@ -105,7 +115,7 @@ public class StopRecordBean {
         }
 
         public long getEnd_time() {
-            return 1000*end_time;
+            return 1000 * end_time;
         }
 
         public void setEnd_time(long end_time) {

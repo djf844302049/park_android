@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,8 +54,11 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
     private TextView tv4;
     private TextView tv5;
     private TextView tv6;
+    private TextView tvChargeRules;
     private EditText etNum;
     private List<TextView> tvList;
+    private BaseDialog rulesDialog;
+    private Button btnPay;
 
     public static void actionStart(Context context, String unitId) {
         Intent intent = new Intent(context, ParkChargeActivity.class);
@@ -77,10 +81,12 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
         tvSharePark = findViewById(R.id.tv_share_park);
         tvDiscount = findViewById(R.id.tv_discount);
         ivHelp = findViewById(R.id.iv_help);
+        ivHelp.setOnClickListener(clickListener);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
         ivBalancePay = findViewById(R.id.iv_balance_pay);
-        findViewById(R.id.btn_pay).setOnClickListener(clickListener);
+        btnPay = findViewById(R.id.btn_pay);
+        btnPay.setOnClickListener(clickListener);
         llBalancePay = findViewById(R.id.ll_balance_pay);
         llBalancePay.setOnClickListener(v -> {
             ivBalancePay.setVisibility(View.VISIBLE);
@@ -127,6 +133,12 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
             payDialog.dismiss();
             etNum.setText("");
         });
+        rulesDialog = new BaseDialog(this);
+        Window w = rulesDialog.getWindow();
+        w.requestFeature(Window.FEATURE_NO_TITLE);
+        rulesDialog.setContentView(R.layout.dialog_recharge_rules);
+        tvChargeRules = rulesDialog.findViewById(R.id.tv_charge_rules);
+        rulesDialog.findViewById(R.id.tv_dismiss).setOnClickListener(v -> rulesDialog.dismiss());
     }
 
     private void getParkInfo() {
@@ -137,12 +149,20 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                         ParkInfoBean data = baseEntity.getData();
                         rechargeNum = data.getPay();
                         tvChargeNum.setText("￥" + data.getPay());
+                        btnPay.setText("确认支付  ￥" + data.getPay());
                         String time = "停车时间：" + data.getStart_time() + "-" + data.getEnd_time() + "\n停车时长：" + data.getStay_time();
                         tvParkDuration.setText(time);
-                        if (data.getIs_share() == 1) {
-                            ivHelp.setVisibility(View.VISIBLE);
-                            tvSharePark.setVisibility(View.VISIBLE);
+                        StringBuffer fee = new StringBuffer("收费标准：");
+                        for (String s : data.getFee_desc()) {
+                            fee.append(s).append("，");
                         }
+                        fee.deleteCharAt(fee.lastIndexOf("，"));
+                        fee.append("。");
+                        tvChargeRules.setText(fee);
+                        StringBuffer discount = new StringBuffer(data.getDiscount_desc());
+                        discount.append("  -").append(data.getDiscount_money()).append("元。");
+                        if (data.getDiscount_money() != 0f)
+                            tvDiscount.setText(discount);
                     }
 
                     @Override
@@ -158,6 +178,9 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
         switch (v.getId()) {
             case R.id.btn_pay:
                 recharge();
+                break;
+            case R.id.iv_help:
+                rulesDialog.show();
                 break;
         }
     }

@@ -18,17 +18,37 @@ public class ParkInfoBean {
      * start_time : 1530174691
      * end_time : 1530174743
      * stay_time : 00小时00分钟52秒
+     * discount_desc : VIP不定期八折优惠
+     * discount_money : 108.00
      * fee_desc : ["07:30-20:00（含）30分钟（含）以内收费5元","07:30-20:00（含）30分钟以后每30分钟加收6元","20:30-22:00（含）每小时收8元","连续停放24小时最高收费标准60元"]
      */
 
     private OrderBean order;
     private FeeBean fee;
     private String pay;
+    private String discount_desc;
+    private float discount_money;
     private int is_share;
     private long start_time;
     private long end_time;
     private String stay_time;
     private List<String> fee_desc;
+
+    public String getDiscount_desc() {
+        return discount_desc;
+    }
+
+    public void setDiscount_desc(String discount_desc) {
+        this.discount_desc = discount_desc;
+    }
+
+    public float getDiscount_money() {
+        return discount_money;
+    }
+
+    public void setDiscount_money(float discount_money) {
+        this.discount_money = discount_money;
+    }
 
     public OrderBean getOrder() {
         return order;

@@ -32,16 +32,15 @@
                 android:layout_alignBottom="@id/tv_park_charge_num"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="45dp"
-                android:src="@mipmap/img_help"
-                android:visibility="gone" />
+                android:src="@mipmap/img_help" />
 
             <TextView
                 android:id="@+id/tv_park_duration"
                 style="@style/text_gray_14sp"
                 android:layout_below="@id/tv_park_charge_num"
-                android:lineSpacingExtra="@dimen/dp20"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:lineSpacingExtra="@dimen/dp20"
                 android:textSize="15sp" />
 
             <TextView
@@ -50,22 +49,60 @@
                 android:layout_below="@id/tv_park_duration"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="该车位为共享车位，点击右上方符号查看计费规则"
-                android:textSize="15sp"
-                android:visibility="gone" />
+                android:text="如有疑问，点击右上方符号查看计费规则"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_balance_pay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_share_park"
+                android:layout_marginTop="@dimen/dp20"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/img_balance" />
+
+                <TextView
+                    style="@style/text_gray_16sp"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/dp5"
+                    android:gravity="center_vertical"
+                    android:text="@string/balance_pay"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/iv_balance_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/img_big_tick"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_al_pay"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/tv_share_park"
-                android:layout_marginTop="@dimen/dp30"
+                android:layout_below="@id/ll_balance_pay"
+                android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:gravity="center_vertical">
 
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/img_al" />
+
                 <TextView
                     style="@style/text_gray_16sp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
@@ -90,9 +127,15 @@
                 android:background="@color/white"
                 android:gravity="center_vertical">
 
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/img_wx" />
+
                 <TextView
                     style="@style/text_gray_16sp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:drawablePadding="@dimen/dp5"
                     android:gravity="center_vertical"
@@ -108,38 +151,11 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_balance_pay"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/ll_wx_pay"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/text_gray_16sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp5"
-                    android:gravity="center_vertical"
-                    android:text="@string/balance_pay"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/iv_balance_pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:src="@mipmap/img_big_tick"
-                    android:visibility="gone" />
-            </LinearLayout>
-
             <Button
                 android:id="@+id/btn_pay"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@id/ll_balance_pay"
+                android:layout_below="@id/ll_wx_pay"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="50dp"
@@ -154,9 +170,7 @@
                 android:layout_below="@id/btn_pay"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"
-                android:text="VIP不定期八折优惠 -3.00元。" />
+                android:layout_marginTop="30dp" />
         </RelativeLayout>
     </ScrollView>
 

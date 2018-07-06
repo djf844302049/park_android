@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="255dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_bg_round"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_black_16sp"
+        android:layout_marginTop="@dimen/dp15"
+        android:text="收费规则"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_charge_rules"
+        style="@style/text_black_16sp"
+        android:lineSpacingExtra="@dimen/dp5"
+        android:padding="@dimen/dp15"
+        android:textSize="@dimen/text_size14" />
+
+    <View style="@style/gray_line_h" />
+
+    <TextView
+        android:id="@+id/tv_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dp10"
+        android:text="我明白了"
+        android:textColor="@color/bg_blue"
+        android:textSize="@dimen/text_size16" />
+
+</LinearLayout>

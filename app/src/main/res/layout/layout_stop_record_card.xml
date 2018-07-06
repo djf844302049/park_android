@@ -11,7 +11,8 @@
         style="@style/text_gray_16sp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
-        android:text="湖滨北路XXX停车场"
+        android:maxLength="15"
+        android:maxLines="1"
         android:textColor="@color/black" />
 
     <TextView
@@ -20,7 +21,6 @@
         android:layout_below="@id/tv_park_name"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="18dp"
-        android:text="1月22日"
         android:textColor="@color/black" />
 
     <TextView
@@ -30,11 +30,11 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="18dp"
-        android:text="9:00"
         android:textColor="@color/black" />
 
     <LinearLayout
-        android:layout_width="120dp"
+        android:id="@+id/ll_right"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/tv_park_time"
         android:layout_alignParentRight="true"
@@ -48,6 +48,17 @@
             android:layout_marginTop="20dp"
             android:src="@mipmap/img_car_record" />
 
+        <Button
+            android:id="@+id/btn_go_pay"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_bg_blue"
+            android:text="停车付费"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size16"
+            android:visibility="gone" />
+
         <android.support.v4.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -56,7 +67,8 @@
         <TextView
             android:id="@+id/tv_park_price"
             style="@style/text_gray_16sp"
-            android:text="￥20.00"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/black" />
     </LinearLayout>
 

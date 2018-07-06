@@ -31,10 +31,10 @@
                     android:text="@string/in_progress"
                     android:visibility="gone" />
 
-                <include
-                    android:id="@+id/rl_in_progress"
-                    layout="@layout/layout_stop_record_card"
-                    android:visibility="gone" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlv_stop_record_ing_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tv_off_the_stock"
