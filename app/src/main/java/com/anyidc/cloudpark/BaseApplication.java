@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.multidex.MultiDexApplication;
 
+import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.LeakCanary;
@@ -24,36 +26,38 @@ public class BaseApplication extends MultiDexApplication {
     public static Context appContext;
     private static BaseApplication instance;
 
-    public static BaseApplication getInstance(){
+    public static BaseApplication getInstance() {
         return instance;
     }
 
-    private ArrayList<Activity> activitieList = new ArrayList<>();
+    private ArrayList<Activity> activityList = new ArrayList<>();
 
     /**
      * 添加一个activity
+     *
      * @param act
      */
-    public void addActivity(Activity act){
-        activitieList.add(act);
+    public void addActivity(Activity act) {
+        activityList.add(act);
     }
 
     /**
      * 去掉一个activity
+     *
      * @param act
      */
-    public void removeActivity(Activity act){
-        activitieList.remove(act);
+    public void removeActivity(Activity act) {
+        activityList.remove(act);
     }
 
     /**
      * 退出应用程序
      */
-    public void exitApp(){
-        int size = activitieList.size();
-        for(int i = 0; i < size; i++){
-            Activity activity = activitieList.get(i);
-            if(activity != null && !activity.isFinishing()){
+    public void exitApp() {
+        int size = activityList.size();
+        for (int i = 0; i < size; i++) {
+            Activity activity = activityList.get(i);
+            if (activity != null && !activity.isFinishing()) {
                 activity.finish();
             }
         }
@@ -62,7 +66,7 @@ public class BaseApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(instance == null){
+        if (instance == null) {
             instance = this;
         }
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -73,6 +77,13 @@ public class BaseApplication extends MultiDexApplication {
         LeakCanary.install(this);
         appContext = this;
         JPushInterface.init(this);
+        if (LoginUtil.isLogin()) {
+            if (CacheData.getIsManager() == 1) {
+                JPushInterface.setAlias(this, 0, String.valueOf(CacheData.getInfoBean().getUser_id()));
+            } else {
+                JPushInterface.setAlias(this, 0, CacheData.getInfoBean().getMobile());
+            }
+        }
         //获取设备号
         String did = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         SpUtils.set(SpUtils.DID, did);

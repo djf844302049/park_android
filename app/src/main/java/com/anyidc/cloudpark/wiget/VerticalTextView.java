@@ -103,10 +103,12 @@ public class VerticalTextView extends TextSwitcher implements ViewSwitcher.ViewF
      * @param titles
      */
     public void setTextList(ArrayList<String> titles) {
-        textList.clear();
-        textList.addAll(titles);
-        setText(textList.get(0));
-        currentId = 0;
+        if (titles.size() > 0) {
+            textList.clear();
+            textList.addAll(titles);
+            setText(textList.get(0));
+            currentId = 0;
+        }
     }
 
     /**

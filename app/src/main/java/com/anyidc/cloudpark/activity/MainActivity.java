@@ -14,14 +14,13 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
-import com.anyidc.cloudpark.utils.CacheData;
-import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.wiget.VerticalTextView;
@@ -33,8 +32,6 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends BaseActivity implements AMapLocationListener {
     //声明AMapLocationClient类对象
@@ -48,6 +45,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     private List<String> titles = new ArrayList<>();
     private List<String> bnUrls = new ArrayList<>();
     private ArrayList<String> mess = new ArrayList<>();
+    private long mExitTime;
 
     @Override
     protected int getLayoutId() {
@@ -114,13 +112,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         if (!tvMess.isScroll()) {
             tvMess.startAutoScroll();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (LoginUtil.isLogin())
-            JPushInterface.setAlias(this, 0, CacheData.getInfoBean().getMobile());
     }
 
     @Override
@@ -199,6 +190,16 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 ToastUtil.showToast("定位失败，请检查定位权限是否开启", Toast.LENGTH_SHORT);
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            ToastUtil.showToast("再按一次退出程序", Toast.LENGTH_SHORT);
+            mExitTime = System.currentTimeMillis();
+        } else {
+            BaseApplication.getInstance().exitApp();
         }
     }
 

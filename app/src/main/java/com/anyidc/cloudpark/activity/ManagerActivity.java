@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.ViewUtils;
@@ -58,7 +57,9 @@ public class ManagerActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            BaseApplication.getInstance().exitApp();
+            startActivity(new Intent(ManagerActivity.this, MainActivity.class));
+            LoginUtil.logout();
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);

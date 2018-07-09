@@ -1,6 +1,9 @@
 package com.anyidc.cloudpark.utils;
 
+import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Administrator on 2018/2/26.
@@ -16,6 +19,11 @@ public class CacheData {
     public static void setInfoBean(LoginRegisterBean newInfoBean) {
         infoBean = newInfoBean;
         //设置极光推送别名
+        if (newInfoBean.getIs_manager() == 1) {
+            JPushInterface.setAlias(BaseApplication.appContext, 0, String.valueOf(CacheData.getInfoBean().getUser_id()));
+        } else {
+            JPushInterface.setAlias(BaseApplication.appContext, 0, String.valueOf(CacheData.getInfoBean().getMobile()));
+        }
         SpUtils.setObject(SpUtils.USERINFO, infoBean);
     }
 
@@ -88,6 +96,7 @@ public class CacheData {
     /**
      * 是否开启小额免密
      * 0->未开启  1->开启
+     *
      * @return
      */
     public static int isFreePay() {
