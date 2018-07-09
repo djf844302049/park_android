@@ -24,8 +24,6 @@ import com.anyidc.cloudpark.utils.CacheData;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cn.jpush.android.api.JPushInterface;
-
 /**
  * Created by Administrator on 2018/2/6.
  */
@@ -82,8 +80,6 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         CacheData.setInfoBean(null);
-        //设置极光推送别名
-        JPushInterface.setAlias(this, 0, null);
     }
 
     @Override
