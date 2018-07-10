@@ -216,7 +216,7 @@ public interface ApiService {
      * 获取用户车辆列表接口
      */
     @GET("api/v1/getUserCars")
-    Observable<BaseEntity<List<MyCarBean>>> getUserCars();
+    Observable<BaseEntity<List<MyCarBean>>> getUserCars(@Query("isDatement") int isDatement);
 
     /**
      * 用户停车记录列表接口

@@ -206,16 +206,12 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     }
 
     private void getCarList() {
-        getTime(Api.getDefaultService().getUserCars()
+        getTime(Api.getDefaultService().getUserCars(1)
                 , new RxObserver<BaseEntity<List<MyCarBean>>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
                         if (carBean.getData() != null && carBean.getData().size() > 0) {
-                            for (MyCarBean myCarBean : carBean.getData()) {
-                                if (myCarBean.getStatus() == 2) {
-                                    carList.add(myCarBean);
-                                }
-                            }
+                            carList.addAll(carBean.getData());
                             adapter.notifyDataSetChanged();
                         }
                         if (carList.size() > 0)

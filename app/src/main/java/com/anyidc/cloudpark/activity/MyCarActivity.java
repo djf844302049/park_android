@@ -60,7 +60,7 @@ public class MyCarActivity extends BaseActivity {
     }
 
     private void getCarList() {
-        getTime(Api.getDefaultService().getUserCars()
+        getTime(Api.getDefaultService().getUserCars(0)
                 , new RxObserver<BaseEntity<List<MyCarBean>>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<List<MyCarBean>> carBean) {
