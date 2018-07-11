@@ -17,7 +17,7 @@ import com.anyidc.cloudpark.utils.ViewUtils;
  */
 
 public class ManagerActivity extends BaseActivity {
-    private ImageView ivScan, ivUpDown;
+    private ImageView ivScan, ivUpDown, ivRight;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ManagerActivity.class);
@@ -34,6 +34,10 @@ public class ManagerActivity extends BaseActivity {
     protected void initData() {
         ivScan = findViewById(R.id.iv_scan);
         ivUpDown = findViewById(R.id.iv_up_down);
+        ivRight = findViewById(R.id.iv_right);
+        ivRight.setVisibility(View.VISIBLE);
+        ivRight.setImageResource(R.mipmap.img_mess);
+        ivRight.setOnClickListener(clickListener);
         ViewGroup.LayoutParams lp = ivScan.getLayoutParams();
         lp.width = ViewUtils.getWindowWidth(this) - ViewUtils.dip2px(this, 34);
         lp.height = lp.width * 509 / 1040;
@@ -73,6 +77,9 @@ public class ManagerActivity extends BaseActivity {
                 break;
             case R.id.iv_up_down:
                 CarMonitorActivity.start(ManagerActivity.this, 1);
+                break;
+            case R.id.iv_right:
+                startActivity(new Intent(this, MessageCenterActivity.class));
                 break;
         }
     }
