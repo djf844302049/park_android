@@ -128,8 +128,8 @@
     <string name="commend_wx_pay">推荐已安装微信的用户使用</string>
     <string name="commend_yl_pay">输入银行卡无需开通网银即可支付</string>
     <string name="draw_cash_success">提现成功</string>
-    <string name="draw_cash_success_tip">已经成功提现，预计0-5个工作日到账</string>
-    <string name="zero_to_five_days_arrive">预计0-5个工作日到账</string>
+    <string name="draw_cash_success_tip">已经成功提现，预计0-3个工作日到账</string>
+    <string name="zero_to_five_days_arrive">预计0-3个工作日到账</string>
     <string name="draw_cash_commit_success">提交成功</string>
     <string name="draw_cash_commit_success_tip">申请提交成功，请去我的个人中心查看</string>
     <string name="draw_cash_dealing">处理中</string>

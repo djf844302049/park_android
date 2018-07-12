@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -147,9 +150,55 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 , new RxObserver<BaseEntity<InitBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InitBean> initBean) {
+                        InitBean data = initBean.getData();
+                        switch (data.getIs_update()) {
+                            case 1:
+                                new AlertDialog.Builder(MainActivity.this)
+                                        .setTitle("提示")
+                                        .setMessage("云能智能停车有新版本啦，是否前往更新？")
+                                        .setPositiveButton("确定", (dialog, which) -> {
+                                            if (TextUtils.isEmpty(data.getDownload_url()))
+                                                openApplicationMarket();
+                                            else {
 
+                                            }
+                                        })
+                                        .setNegativeButton("取消", null).show();
+                                break;
+                            case 2:
+                                new AlertDialog.Builder(MainActivity.this)
+                                        .setTitle("提示")
+                                        .setMessage("云能智能停车有重大版本更新，请前往更新后再继续使用")
+                                        .setPositiveButton("确定", (dialog, which) -> {
+                                            if (TextUtils.isEmpty(data.getDownload_url()))
+                                                openApplicationMarket();
+                                            else {
+                                                openLinkBySystem(data.getDownload_url());
+                                            }
+                                        })
+                                        .show();
+                                break;
+                        }
                     }
                 });
+    }
+
+    private void openApplicationMarket() {
+        try {
+            String str = "market://details?id=" + getPackageName();
+            Intent localIntent = new Intent(Intent.ACTION_VIEW);
+            localIntent.setData(Uri.parse(str));
+            startActivity(localIntent);
+        } catch (Exception e) {
+            // 打开应用商店失败 可能是没有手机没有安装应用市场
+            e.printStackTrace();
+        }
+    }
+
+    private void openLinkBySystem(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     private void getData(double lat, double lng) {

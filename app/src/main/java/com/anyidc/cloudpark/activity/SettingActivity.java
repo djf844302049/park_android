@@ -3,6 +3,7 @@ package com.anyidc.cloudpark.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,7 +65,13 @@ public class SettingActivity extends BaseActivity {
                             new AlertDialog.Builder(SettingActivity.this)
                                     .setTitle("提示")
                                     .setMessage("云能只能停车有新版本啦，是否前往更新？")
-                                    .setPositiveButton("确定", (dialog, which) -> openApplicationMarket())
+                                    .setPositiveButton("确定", (dialog, which) -> {
+                                        if (TextUtils.isEmpty(data.getDownload_url()))
+                                            openApplicationMarket();
+                                        else {
+                                            openLinkBySystem(data.getDownload_url());
+                                        }
+                                    })
                                     .setNegativeButton("取消", null).show();
 
                         }
@@ -82,5 +89,11 @@ public class SettingActivity extends BaseActivity {
             // 打开应用商店失败 可能是没有手机没有安装应用市场
             e.printStackTrace();
         }
+    }
+
+    private void openLinkBySystem(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 }

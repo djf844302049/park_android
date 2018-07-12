@@ -32,6 +32,15 @@ public class InitBean {
     private String create_time;
     private String update_time;
     private int is_update;
+    private String download_url;
+
+    public String getDownload_url() {
+        return download_url;
+    }
+
+    public void setDownload_url(String download_url) {
+        this.download_url = download_url;
+    }
 
     public int getId() {
         return id;
