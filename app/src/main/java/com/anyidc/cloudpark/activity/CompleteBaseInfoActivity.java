@@ -70,6 +70,7 @@ public class CompleteBaseInfoActivity extends BaseActivity  {
         switch (view.getId()) {
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
             case R.id.btn_next_step:
                 updateInfo();

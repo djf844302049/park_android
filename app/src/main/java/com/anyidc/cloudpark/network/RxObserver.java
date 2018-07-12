@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.network;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -73,6 +74,7 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
                 case -99:
                     LoginUtil.logout();
                     mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                    ((Activity) mContext).finish();
                     break;
             }
             onError(e.getMessage());

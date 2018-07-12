@@ -53,7 +53,7 @@ public class MessageBean {
 
         private int message_id;
         private String data;
-        private int send_time;
+        private long send_time;
         private int category;
 
         public int getMessage_id() {
@@ -72,11 +72,11 @@ public class MessageBean {
             this.data = data;
         }
 
-        public int getSend_time() {
-            return send_time;
+        public long getSend_time() {
+            return send_time*1000;
         }
 
-        public void setSend_time(int send_time) {
+        public void setSend_time(long send_time) {
             this.send_time = send_time;
         }
 

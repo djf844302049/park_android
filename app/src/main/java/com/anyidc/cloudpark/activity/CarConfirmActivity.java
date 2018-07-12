@@ -96,6 +96,7 @@ public class CarConfirmActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
             case R.id.iv_license_pos:
                 which = POS;

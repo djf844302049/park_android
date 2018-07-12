@@ -29,6 +29,7 @@ public class MineActivity extends BaseActivity {
     private TextView tvLogin;
     private TextView tvUserName;
     private final int PURSE = 100;
+    private final int LOGIN = 101;
 
     @Override
     protected int getLayoutId() {
@@ -56,6 +57,7 @@ public class MineActivity extends BaseActivity {
         tvBalance = findViewById(R.id.tv_balance);
         tvIdConState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(clickListener);
         ivRight = findViewById(R.id.iv_right);
         ivRight.setVisibility(View.VISIBLE);
         ivRight.setImageResource(R.mipmap.img_mess);
@@ -70,7 +72,6 @@ public class MineActivity extends BaseActivity {
         super.onResume();
         if (LoginUtil.isLogin()) {
             Glide.with(this).load(CacheData.getHeader_img()).placeholder(R.mipmap.ic_launcher).dontAnimate().into(ivAvatar);
-            ivAvatar.setOnClickListener(clickListener);
             tvLogin.setVisibility(View.GONE);
             tvUserName.setVisibility(View.VISIBLE);
             tvUserName.setText(CacheData.getUserName());
@@ -78,7 +79,6 @@ public class MineActivity extends BaseActivity {
             ivAvatar.setImageResource(R.mipmap.ic_launcher);
             tvIdConState.setText("");
             tvBalance.setText("余额：￥0.00");
-            ivAvatar.setOnClickListener(null);
             tvLogin.setVisibility(View.VISIBLE);
             tvUserName.setVisibility(View.GONE);
         }
@@ -94,7 +94,10 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(this, UsualQuestionActivity.class));
                 break;
             case R.id.iv_avatar:
-                startActivity(new Intent(this, UserInfoActivity.class));
+                if (LoginUtil.isLogin())
+                    startActivity(new Intent(this, UserInfoActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.ll_id_confirm:
                 if (LoginUtil.isLogin()) {
@@ -107,21 +110,29 @@ public class MineActivity extends BaseActivity {
             case R.id.ll_advise:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, AdviseActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.tv_login:
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.iv_right:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MessageCenterActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.tv_my_car:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyCarActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.tv_stop_record:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, StopRecordActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.tv_car_monitor:
                 startActivity(new Intent(this, CarMonitorActivity.class));
@@ -129,18 +140,26 @@ public class MineActivity extends BaseActivity {
             case R.id.ll_my_wallet:
                 if (LoginUtil.isLogin())
                     startActivityForResult(new Intent(this, PurseActivity.class), PURSE);
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.ll_share_park:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyShareParkActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.ll_my_bankcard:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyBankCardActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
             case R.id.tv_appointment_record:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, AppointmentRecordActivity.class));
+                else
+                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
                 break;
         }
     }
@@ -175,7 +194,7 @@ public class MineActivity extends BaseActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             tvIdConState.setText("审核中");
         }
-        if (requestCode == PURSE) {
+        if (requestCode == PURSE || (requestCode == LOGIN && resultCode == RESULT_OK)) {
             getCenterData();
         }
     }

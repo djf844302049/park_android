@@ -159,6 +159,7 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
                 break;
             case R.id.tv_skip:
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
         }
     }

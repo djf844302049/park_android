@@ -1,6 +1,5 @@
 package com.anyidc.cloudpark.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -117,7 +116,8 @@ public class LoginActivity extends BaseActivity {
                         if (CacheData.getIsManager() == 1) {
                             ManagerActivity.start(LoginActivity.this);
                         } else {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            setResult(RESULT_OK);
+                            finish();
                         }
                     }
                 });
