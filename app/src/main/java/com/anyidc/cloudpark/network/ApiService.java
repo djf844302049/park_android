@@ -133,7 +133,7 @@ public interface ApiService {
      */
     @POST("api/v1/auth")
     @FormUrlEncoded
-    Observable<BaseEntity<AddCarBean>> idConfirm(@Field("real_name") String realName
+    Observable<BaseEntity> idConfirm(@Field("real_name") String realName
             , @Field("id_pos") String idPos, @Field("id_neg") String idNeg, @Field("id_no") String idNum);
 
     /**
