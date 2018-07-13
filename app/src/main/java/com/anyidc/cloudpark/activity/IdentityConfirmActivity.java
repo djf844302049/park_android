@@ -159,6 +159,7 @@ public class IdentityConfirmActivity extends BaseActivity {
                 new RxObserver<BaseEntity>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
+                        ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
                         switch (from) {
                             case 1:
                                 AddCarActivity.actionStart(IdentityConfirmActivity.this, 1);
