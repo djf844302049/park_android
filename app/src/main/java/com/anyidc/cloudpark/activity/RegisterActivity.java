@@ -182,6 +182,8 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
                     @Override
                     public void onSuccess(BaseEntity<LoginRegisterBean> loginRegisterBean) {
 //                        CacheData.setInfoBean(loginRegisterBean.getData());
+                        ToastUtil.showToast(loginRegisterBean.getMessage(), Toast.LENGTH_SHORT);
+                        finish();
                     }
                 });
     }
