@@ -365,7 +365,7 @@ public class ClipZoomImageView extends AppCompatImageView implements
         draw(canvas);
         return Bitmap.createBitmap(bitmap, mHorizontalPadding,
                 mVerticalPadding, getWidth() - 2 * mHorizontalPadding,
-                getWidth() - 2 * mHorizontalPadding);
+                (int) ((getWidth() - 2 * mHorizontalPadding) / mScale));
     }
 
     /**
