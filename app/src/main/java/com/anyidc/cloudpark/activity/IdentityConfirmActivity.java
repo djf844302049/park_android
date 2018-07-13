@@ -119,6 +119,19 @@ public class IdentityConfirmActivity extends BaseActivity {
                                 break;
                         }
                     }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        switch (which) {
+                            case POS:
+                                ivIdPos.setBackgroundResource(R.mipmap.img_upload);
+                                break;
+                            case NEG:
+                                ivIdNeg.setBackgroundResource(R.mipmap.img_upload);
+                                break;
+                        }
+                    }
                 });
     }
 

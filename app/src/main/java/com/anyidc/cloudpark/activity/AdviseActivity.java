@@ -29,7 +29,7 @@ import okhttp3.RequestBody;
  * Created by Administrator on 2018/2/27.
  */
 
-public class AdviseActivity extends BaseActivity{
+public class AdviseActivity extends BaseActivity {
     private ScrollView svAdvise;
     private LinearLayout llAdviseComplete;
     private ImageView ivPic1;
@@ -116,6 +116,22 @@ public class AdviseActivity extends BaseActivity{
                                 break;
                             case 3:
                                 urls.put("2", imgUrl);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        switch (which) {
+                            case 1:
+                                ivPic1.setBackgroundResource(R.mipmap.img_upload_pic);
+                                break;
+                            case 2:
+                                ivPic2.setBackgroundResource(R.mipmap.img_upload_pic);
+                                break;
+                            case 3:
+                                ivPic3.setBackgroundResource(R.mipmap.img_upload_pic);
                                 break;
                         }
                     }

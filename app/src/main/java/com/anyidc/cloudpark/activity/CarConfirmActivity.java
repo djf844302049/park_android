@@ -132,6 +132,19 @@ public class CarConfirmActivity extends BaseActivity {
                                 break;
                         }
                     }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        switch (which) {
+                            case POS:
+                                icLicensePos.setBackgroundResource(R.mipmap.img_upload);
+                                break;
+                            case NEG:
+                                icLicenseNeg.setBackgroundResource(R.mipmap.img_upload);
+                                break;
+                        }
+                    }
                 });
     }
 
