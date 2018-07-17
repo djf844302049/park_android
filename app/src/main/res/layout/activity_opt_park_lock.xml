@@ -7,17 +7,42 @@
 
     <include layout="@layout/toolbar" />
 
-    <TextView
-        android:id="@+id/tv_unit_state"
-        style="@style/text_black_16sp"
-        android:padding="@dimen/dp10" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp15"
+        android:paddingTop="@dimen/dp15">
+
+        <TextView
+            android:id="@+id/tv_unit_num"
+            style="@style/text_black_16sp" />
+
+        <TextView
+            android:id="@+id/tv_unit_state"
+            style="@style/text_black_16sp"
+            android:layout_below="@id/tv_unit_num"
+            android:layout_marginTop="@dimen/dp10" />
+
+        <Button
+            android:id="@+id/btn_lock"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp40"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_unit_num"
+            android:layout_marginRight="@dimen/dp20"
+            android:background="@drawable/shape_bg_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size16" />
+    </RelativeLayout>
+
 
     <ImageView
         android:id="@+id/iv_up"
         android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/dp60"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp30"
         android:src="@drawable/ic_up" />
 
     <ImageView
@@ -27,4 +52,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="43dp"
         android:src="@drawable/ic_down" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_tip1"
+        style="@style/text_gray_16sp"
+        android:padding="@dimen/dp15"
+        android:text="@string/more_question_call" />
 </LinearLayout>

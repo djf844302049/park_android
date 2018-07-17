@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.BottomSheetDialog;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,8 @@ import java.util.List;
 
 public class OptParkLockActivity extends BaseActivity {
     private ImageView ivUp, ivDown;
-    private TextView tvUnitState;
+    private TextView tvUnitState, tvUnitNum;
+    private Button btnLock;
     private String parkNum = "";
     private int fromType = 1;
     public static final int FROMMANAGER = 1;
@@ -46,6 +49,8 @@ public class OptParkLockActivity extends BaseActivity {
     private String opt;
     private String reasonCode;
     private String reasonNote;
+    private AlertDialog dialog;
+    private int action;
     private boolean showDialog = true;
 
     public static void start(Context context, String parkNum, int from) {
@@ -63,6 +68,9 @@ public class OptParkLockActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvUnitState = findViewById(R.id.tv_unit_state);
+        tvUnitNum = findViewById(R.id.tv_unit_num);
+        btnLock = findViewById(R.id.btn_lock);
+        btnLock.setOnClickListener(clickListener);
         adapter = new ReasonsAdapter(reasons);
         bottomSheetDialog = new BottomSheetDialog(this, R.style.dialog);
         bottomSheetDialog.setContentView(R.layout.layout_bottom_choice);
@@ -84,8 +92,19 @@ public class OptParkLockActivity extends BaseActivity {
         });
         bottomSheetDialog.findViewById(R.id.tv_cancel).setOnClickListener(v -> bottomSheetDialog.dismiss());
         tvHead.setText("请选择升起原因");
+        dialog = new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setPositiveButton("确定", (dialog, which) -> {
+                    unitLock();
+                })
+                .setNegativeButton("取消", null)
+                .create();
         parkNum = getIntent().getStringExtra(IntentKey.INTENT_KEY_STRING);
         fromType = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 2);
+        tvUnitNum.setText("您要操作的车位编号为：" + parkNum);
+        if (fromType == 2) {
+            btnLock.setVisibility(View.GONE);
+        }
         if (TextUtils.isEmpty(parkNum)) {
             finish();
             return;
@@ -112,6 +131,16 @@ public class OptParkLockActivity extends BaseActivity {
                 opt = "drop";
                 tvHead.setText("请选择降下原因");
                 bottomSheetDialog.show();
+                break;
+            case R.id.btn_lock:
+                if ("锁定".equals(btnLock.getText())) {
+                    action = 1;
+                    dialog.setMessage("您确定要锁定该车位锁吗？");
+                } else {
+                    action = 0;
+                    dialog.setMessage("您确定要解锁该车位锁吗？");
+                }
+                dialog.show();
                 break;
         }
     }
@@ -160,17 +189,27 @@ public class OptParkLockActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseEntity<UnitStateBean> baseEntity) {
                         UnitStateBean data = baseEntity.getData();
+                        StringBuilder builder = new StringBuilder("车位锁当前状态：");
                         if (data.getAbn_status() == 0) {
-                            tvUnitState.setText("车位锁当前状态：异常。");
+                            builder.append("异常");
                         } else {
                             switch (data.getLock_status()) {
                                 case 1:
-                                    tvUnitState.setText("车位锁当前状态：上升。");
+                                    builder.append("上升");
                                     break;
                                 case 2:
-                                    tvUnitState.setText("车位锁当前状态：下降。");
+                                    builder.append("下降");
                                     break;
                             }
+                        }
+                        tvUnitState.setText(builder);
+                        switch (data.getIs_able()) {
+                            case 0:
+                                btnLock.setText("锁定");
+                                break;
+                            case 1:
+                                btnLock.setText("解锁");
+                                break;
                         }
                     }
                 });
@@ -190,6 +229,20 @@ public class OptParkLockActivity extends BaseActivity {
                                 }
                             }
                             adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
+    private void unitLock() {
+        getTime(Api.getDefaultService().unitLock(parkNum, action),
+                new RxObserver<BaseEntity>(this, true) {
+                    @Override
+                    public void onSuccess(BaseEntity baseEntity) {
+                        if ("锁定".equals(btnLock.getText())){
+                            btnLock.setText("解锁");
+                        }else {
+                            btnLock.setText("锁定");
                         }
                     }
                 });

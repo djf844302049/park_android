@@ -513,4 +513,11 @@ public interface ApiService {
     @POST("/api/v1/unitDevice")
     @FormUrlEncoded
     Observable<BaseEntity<UnitStateBean>> unitState(@Field("unit_id") String unit_id);
+
+    /**
+     * 锁定车位锁接口
+     */
+    @POST("/api/v1/unitLock")
+    @FormUrlEncoded
+    Observable<BaseEntity> unitLock(@Field("unit_id") String unit_id, @Field("action") int action);
 }

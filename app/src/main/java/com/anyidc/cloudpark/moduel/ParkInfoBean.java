@@ -83,7 +83,7 @@ public class ParkInfoBean {
     }
 
     public String getStart_time() {
-        String format = new SimpleDateFormat("HH:mm").format(new Date(1000 * start_time));
+        String format = new SimpleDateFormat("MM/dd HH:mm").format(new Date(1000 * start_time));
         return format;
     }
 
@@ -92,7 +92,7 @@ public class ParkInfoBean {
     }
 
     public String getEnd_time() {
-        String format = new SimpleDateFormat("HH:mm").format(new Date(1000 * end_time));
+        String format = new SimpleDateFormat("MM/dd HH:mm").format(new Date(1000 * end_time));
         return format;
     }
 

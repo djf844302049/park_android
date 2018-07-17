@@ -2,6 +2,7 @@ package com.anyidc.cloudpark.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.adapter.MyShareAdapter;
@@ -9,6 +10,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MyShareBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2018/3/18.
@@ -44,6 +46,9 @@ public class MyShareParkActivity extends BaseActivity {
                         if (data != null) {
                             adapter.updateList(data.getList());
                             adapter.notifyDataSetChanged();
+                            if (data.getList().size() == 0) {
+                                ToastUtil.showToast("目前您没有共享车位", Toast.LENGTH_SHORT);
+                            }
                         }
                     }
                 });

@@ -9,6 +9,7 @@ public class UnitStateBean {
      * lock_status : 1
      * abn_status : 1
      * video : http://hls.open.ys7.com/openlive/ddcd25544bb0407dafb1ea6f4f7ca02e.m3u8
+     * is_able : 0
      */
 
     private String lockid;
@@ -17,6 +18,7 @@ public class UnitStateBean {
     private int lock_status;
     private int abn_status;
     private String video;
+    private int is_able;
 
     public String getLockid() {
         return lockid;
@@ -64,5 +66,13 @@ public class UnitStateBean {
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public int getIs_able() {
+        return is_able;
+    }
+
+    public void setIs_able(int is_able) {
+        this.is_able = is_able;
     }
 }
