@@ -87,7 +87,7 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
 
                         @Override
                         public void onClick(View widget) {
-                            WebViewActivity.actionStart(RegisterActivity.this, Api.DEBUG_URL + "/admin/showhtml/showUserTerm", 2);
+                            WebViewActivity.actionStart(RegisterActivity.this, Api.BASE_URL + "/admin/showhtml/showUserTerm", 2);
                         }
 
                         @Override

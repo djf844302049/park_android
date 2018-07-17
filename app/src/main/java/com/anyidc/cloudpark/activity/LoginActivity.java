@@ -59,7 +59,7 @@ public class LoginActivity extends BaseActivity {
 
                 @Override
                 public void onClick(View widget) {
-                    WebViewActivity.actionStart(LoginActivity.this, Api.DEBUG_URL + "/admin/showhtml/showUserTerm", 2);
+                    WebViewActivity.actionStart(LoginActivity.this, Api.BASE_URL + "/admin/showhtml/showUserTerm", 2);
                 }
 
                 @Override
