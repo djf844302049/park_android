@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                                             if (TextUtils.isEmpty(data.getDownload_url()))
                                                 openApplicationMarket();
                                             else {
-
+                                                openLinkBySystem(data.getDownload_url());
                                             }
                                         })
                                         .setNegativeButton("取消", null).show();

@@ -28,7 +28,7 @@ task clean(type: Delete) {
 ext {
     configs = [
             applicationId    : "com.anyidc.cloudpark",
-            compileSdkVersion: 26,
+            compileSdkVersion: 27,
             minSdkVersion    : 17,
             targetSdkVersion : 26,
             versionCode      : 1,
