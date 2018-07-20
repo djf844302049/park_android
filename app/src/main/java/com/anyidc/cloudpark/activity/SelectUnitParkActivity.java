@@ -245,6 +245,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_appointment:
+                if (bean == null) {
+                    return;
+                }
                 if (bean.getIsAuth() != 1) {
                     ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
                     return;

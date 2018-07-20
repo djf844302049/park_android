@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.moduel;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by Administrator on 2018/4/13.
  */
 
-public class ParkInfoBean {
+public class ParkInfoBean implements Serializable{
 
     /**
      * order : {"order_id":114,"order_sn":"JSO2018062816313182819","parking_id":1,"unit_id":"A00001","car_id":74,"user_id":11,"pay_id":0,"transaction_id":"","total_amount":"0.00","pay_status":0,"create_time":1530174691,"end_time":1530174691,"pay_time":0,"product_id":4,"update_time":0,"status":1,"share_time":null,"times":0,"settled":0}

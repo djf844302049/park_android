@@ -24,6 +24,7 @@ import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
 import com.anyidc.cloudpark.utils.ToastUtil;
 import com.anyidc.cloudpark.wiget.VerticalTextView;
@@ -134,6 +135,10 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 startActivity(new Intent(this, MineActivity.class));
                 break;
             case R.id.iv_pay_park:
+                if (!LoginUtil.isLogin()) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return;
+                }
                 startActivity(new Intent(this, PayParkActivity.class));
                 break;
             case R.id.iv_search_park:

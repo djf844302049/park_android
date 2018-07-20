@@ -349,7 +349,7 @@ public interface ApiService {
      * 我的共享车位列表接口
      */
     @GET("api/v1.user_park/myshare")
-    Observable<BaseEntity<MyShareBean>> getMyshare();
+    Observable<BaseEntity<MyShareBean>> getMyshare(@Query("page") int page, @Query("size") int size);
 
     /**
      * 我的预约记录列表接口

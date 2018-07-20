@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
@@ -39,15 +41,16 @@ import java.util.Map;
  */
 
 public class ParkChargeActivity extends BaseActivity implements TextWatcher {
-    private TextView tvChargeNum, tvParkDuration, tvSharePark, tvDiscount;
-    private ImageView ivHelp, ivBalancePay, ivAlPay, ivWxPay;
+    private TextView tvChargeNum, tvParkDuration, tvBalanceNum, tvDiscount;
+    private ImageView ivHelp;
     private String unitId;
     private AlPayResultHandler mHandler;
-    private LinearLayout llBalancePay;
+    private RelativeLayout llBalancePay;
     private String rechargeNum;
     private int payType;
     private BaseDialog payDialog;
     private String payKey;
+    private RadioButton rbAccountPay, rbZFBPay, rbWXPay;
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
@@ -78,33 +81,33 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
         getParkInfo();
         tvChargeNum = findViewById(R.id.tv_park_charge_num);
         tvParkDuration = findViewById(R.id.tv_park_duration);
-        tvSharePark = findViewById(R.id.tv_share_park);
+        tvBalanceNum = findViewById(R.id.tv_balance_num);
         tvDiscount = findViewById(R.id.tv_discount);
         ivHelp = findViewById(R.id.iv_help);
         ivHelp.setOnClickListener(clickListener);
-        ivAlPay = findViewById(R.id.iv_al_pay);
-        ivWxPay = findViewById(R.id.iv_wx_pay);
-        ivBalancePay = findViewById(R.id.iv_balance_pay);
+        rbAccountPay = findViewById(R.id.rb_account_pay);
+        rbZFBPay = findViewById(R.id.rb_zhifubao_pay);
+        rbWXPay = findViewById(R.id.rb_weixin_pay);
         btnPay = findViewById(R.id.btn_pay);
         btnPay.setOnClickListener(clickListener);
-        llBalancePay = findViewById(R.id.ll_balance_pay);
+        llBalancePay = findViewById(R.id.rl_balance_pay);
         llBalancePay.setOnClickListener(v -> {
-            ivBalancePay.setVisibility(View.VISIBLE);
-            ivAlPay.setVisibility(View.GONE);
-            ivWxPay.setVisibility(View.GONE);
+            rbAccountPay.setChecked(true);
+            rbZFBPay.setChecked(false);
+            rbWXPay.setChecked(false);
             payType = 4;
         });
-        findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
+        findViewById(R.id.rl_al_pay).setOnClickListener(v -> {
             payType = 1;
-            ivBalancePay.setVisibility(View.GONE);
-            ivAlPay.setVisibility(View.VISIBLE);
-            ivWxPay.setVisibility(View.GONE);
+            rbAccountPay.setChecked(false);
+            rbZFBPay.setChecked(true);
+            rbWXPay.setChecked(false);
         });
-        findViewById(R.id.ll_wx_pay).setOnClickListener(v -> {
+        findViewById(R.id.rl_wx_pay).setOnClickListener(v -> {
             payType = 2;
-            ivBalancePay.setVisibility(View.GONE);
-            ivAlPay.setVisibility(View.GONE);
-            ivWxPay.setVisibility(View.VISIBLE);
+            rbAccountPay.setChecked(false);
+            rbZFBPay.setChecked(false);
+            rbWXPay.setChecked(true);
         });
         mHandler = new AlPayResultHandler(this);
         if (!LoginUtil.isLogin()) {
@@ -149,6 +152,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                         ParkInfoBean data = baseEntity.getData();
                         rechargeNum = data.getPay();
                         tvChargeNum.setText("￥" + data.getPay());
+                        tvBalanceNum.setText("账户余额为" + "0.00" + "可使用");
                         btnPay.setText("确认支付  ￥" + data.getPay());
                         String time = "停车时间：" + data.getStart_time() + "-" + data.getEnd_time() + "\n停车时长：" + data.getStay_time();
                         tvParkDuration.setText(time);
@@ -240,14 +244,15 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                 , 4, payType, unitId, null), new RxObserver<BaseEntity>(this, true) {
             @Override
             public void onSuccess(BaseEntity baseEntity) {
-
+                PayResultActivity.actionStart(ParkChargeActivity.this, 1, String.valueOf(rechargeNum), 1);
+                ParkChargeActivity.this.finish();
             }
         });
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        PayResultActivity.actionStart(ParkChargeActivity.this, 2, String.valueOf(rechargeNum), 1);
     }
 
     @Override

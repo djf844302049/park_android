@@ -33,26 +33,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     @Override
     public void onBindViewHolder(MessageHolder holder, int position) {
         MessageBean.OrderBean orderBean = list.get(position);
-        switch (orderBean.getCategory()) {
-            case 0:
-                holder.tvMsgType.setText("预约消息");
-                break;
-            case 1:
-                holder.tvMsgType.setText("车位更新");
-                break;
-            case 2:
-                holder.tvMsgType.setText("系统消息");
-                break;
-            case 3:
-                holder.tvMsgType.setText("注册认证");
-                break;
-            case 4:
-                holder.tvMsgType.setText("押金充值");
-                break;
-            case 5:
-                holder.tvMsgType.setText("维护公告");
-                break;
-        }
+        holder.tvMsgType.setText(orderBean.getCate_name());
         holder.tvMsgContent.setText(orderBean.getData());
         holder.tvTime.setText(new SimpleDateFormat("MM/dd").format(new Date(orderBean.getSend_time())));
     }

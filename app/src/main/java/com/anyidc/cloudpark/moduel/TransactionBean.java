@@ -56,6 +56,7 @@ public class TransactionBean {
          * pay_type : 3
          * process_type : null
          * status : 1
+         * type : 1
          */
 
         private int id;
@@ -69,6 +70,15 @@ public class TransactionBean {
         private int pay_type;
         private Object process_type;
         private int status;
+        private int type;
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
 
         public int getId() {
             return id;
@@ -103,7 +113,7 @@ public class TransactionBean {
         }
 
         public long getCreate_time() {
-            return 1000*create_time;
+            return 1000 * create_time;
         }
 
         public void setCreate_time(long create_time) {
@@ -111,7 +121,7 @@ public class TransactionBean {
         }
 
         public long getPaid_time() {
-            return 1000*paid_time;
+            return 1000 * paid_time;
         }
 
         public void setPaid_time(long paid_time) {

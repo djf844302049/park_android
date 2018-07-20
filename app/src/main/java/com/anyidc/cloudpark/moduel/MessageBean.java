@@ -49,12 +49,22 @@ public class MessageBean {
          * data : 注用户们新年快乐！
          * send_time : 1596470375
          * category : 2
+         * cate_name : 预约结算
          */
 
         private int message_id;
         private String data;
         private long send_time;
         private int category;
+        private String cate_name;
+
+        public String getCate_name() {
+            return cate_name;
+        }
+
+        public void setCate_name(String cate_name) {
+            this.cate_name = cate_name;
+        }
 
         public int getMessage_id() {
             return message_id;
@@ -73,7 +83,7 @@ public class MessageBean {
         }
 
         public long getSend_time() {
-            return send_time*1000;
+            return send_time * 1000;
         }
 
         public void setSend_time(long send_time) {

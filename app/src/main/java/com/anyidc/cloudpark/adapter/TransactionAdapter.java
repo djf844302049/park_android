@@ -50,7 +50,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 break;
         }
         holder.tvNameWay.setText(nameAndWay.toString());
-        holder.tvNum.setText("￥" + listBean.getAmount());
+        switch (listBean.getType()) {
+            case 1://支出
+                holder.tvNum.setText("-￥" + listBean.getAmount());
+                break;
+            case 2://收入
+                holder.tvNum.setText("+￥" + listBean.getAmount());
+                break;
+        }
         Date date = new Date(listBean.getPaid_time());
         String format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
         holder.tvTime.setText(format);

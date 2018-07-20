@@ -12,9 +12,9 @@ import com.anyidc.cloudpark.utils.ToastUtil;
  * Created by Administrator on 2018/3/13.
  */
 
-public class PaySettingActivity extends BaseActivity{
-    private TextView tvPayStatus;
-    private boolean isSetPayKey;
+public class PaySettingActivity extends BaseActivity {
+    private TextView tvPayStatus, tvPayKeySet;
+    private boolean isSetPayKey, isShow;
 
     @Override
     protected int getLayoutId() {
@@ -25,6 +25,7 @@ public class PaySettingActivity extends BaseActivity{
     protected void initData() {
         initTitle("支付设置");
         tvPayStatus = findViewById(R.id.tv_pay_status);
+        tvPayKeySet = findViewById(R.id.tv_pay_key_set);
         findViewById(R.id.ll_modify_pay_key).setOnClickListener(clickListener);
         findViewById(R.id.ll_find_back_pay_key).setOnClickListener(clickListener);
         findViewById(R.id.ll_pay_without_key).setOnClickListener(clickListener);
@@ -36,7 +37,13 @@ public class PaySettingActivity extends BaseActivity{
         int freePay = CacheData.isFreePay();
         isSetPayKey = CacheData.getSurplusPassword() == 1;
         if (!isSetPayKey) {
-            ToastUtil.showToast("您还未设置支付密码", Toast.LENGTH_SHORT);
+            tvPayKeySet.setText("设置支付密码");
+            if (!isShow) {
+                ToastUtil.showToast("您还未设置支付密码", Toast.LENGTH_SHORT);
+                isShow = true;
+            }
+        } else {
+            tvPayKeySet.setText("修改支付密码");
         }
         if (freePay == 1) {
             tvPayStatus.setText("已开启");
