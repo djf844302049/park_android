@@ -226,7 +226,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                     @Override
                     public void onSuccess(BaseEntity<CenterBean> centerBean) {
                         bean = centerBean.getData();
-                        if (bean.getIsAuth() == 1) {
+                        if (bean.getIsAuth() == 1 || bean.getIsAuth() == 2) {
                             tvIdAuth.setEnabled(false);
                         }
                         if (bean.getCar_auth() == 1) {
@@ -248,13 +248,19 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
                 if (bean == null) {
                     return;
                 }
+                if (bean.getIsAuth() == 2) {
+                    ToastUtil.showToast("您的身份认证尚在审核中，请\n审核通过后再进行预约操作", Toast.LENGTH_LONG);
+                    return;
+                }
                 if (bean.getIsAuth() != 1) {
                     ToastUtil.showToast("您还未进行身份认证", Toast.LENGTH_SHORT);
                     return;
-                } else if (bean.getCar_auth() != 1) {
+                }
+                if (bean.getCar_auth() != 1) {
                     ToastUtil.showToast("您还未进行车辆认证", Toast.LENGTH_SHORT);
                     return;
-                } else if (bean.getDeposit_flag() != 1) {
+                }
+                if (bean.getDeposit_flag() != 1) {
                     ToastUtil.showToast("您还未缴纳押金", Toast.LENGTH_SHORT);
                     return;
                 }
