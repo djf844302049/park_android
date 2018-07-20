@@ -597,10 +597,15 @@ public class SearchMapActivity extends BaseActivity implements AMap.OnMarkerClic
         SpUtils.setObject(SpUtils.SEARCHLIST, searchList);
         mapView.onDestroy();
         hotAreaList.clear();
+        hotAreaList = null;
         parkList.clear();
+        parkList = null;
         nearbyList.clear();
+        nearbyList = null;
         searchParkList.clear();
+        searchList = null;
         areaBeans.clear();
+        areaBeans = null;
         super.onDestroy();
     }
 

@@ -152,7 +152,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                         ParkInfoBean data = baseEntity.getData();
                         rechargeNum = data.getPay();
                         tvChargeNum.setText("￥" + data.getPay());
-                        tvBalanceNum.setText("账户余额为" + "0.00" + "可使用");
+                        tvBalanceNum.setText("账户余额为" + data.getUser_money() + "可使用");
                         btnPay.setText("确认支付  ￥" + data.getPay());
                         String time = "停车时间：" + data.getStart_time() + "-" + data.getEnd_time() + "\n停车时长：" + data.getStay_time();
                         tvParkDuration.setText(time);

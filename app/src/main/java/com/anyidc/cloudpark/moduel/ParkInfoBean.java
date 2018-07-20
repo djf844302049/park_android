@@ -9,13 +9,14 @@ import java.util.List;
  * Created by Administrator on 2018/4/13.
  */
 
-public class ParkInfoBean implements Serializable{
+public class ParkInfoBean implements Serializable {
 
     /**
      * order : {"order_id":114,"order_sn":"JSO2018062816313182819","parking_id":1,"unit_id":"A00001","car_id":74,"user_id":11,"pay_id":0,"transaction_id":"","total_amount":"0.00","pay_status":0,"create_time":1530174691,"end_time":1530174691,"pay_time":0,"product_id":4,"update_time":0,"status":1,"share_time":null,"times":0,"settled":0}
      * fee : {"first_time":"0.5","money":"5","second_money":"6","night_money":"8","day_money":"60"}
      * pay : 5.00
      * is_share : 0
+     * user_money : 0
      * start_time : 1530174691
      * end_time : 1530174743
      * stay_time : 00小时00分钟52秒
@@ -34,6 +35,15 @@ public class ParkInfoBean implements Serializable{
     private long end_time;
     private String stay_time;
     private List<String> fee_desc;
+    private String user_money;
+
+    public String getUser_money() {
+        return user_money;
+    }
+
+    public void setUser_money(String user_money) {
+        this.user_money = user_money;
+    }
 
     public String getDiscount_desc() {
         return discount_desc;
