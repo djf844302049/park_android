@@ -70,6 +70,15 @@ public class MyBankCardAdapter extends RecyclerView.Adapter<MyBankCardAdapter.My
                 }
                 preLayout = layout;
             }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+                super.onOpen(layout);
+                if (preLayout != null && preLayout != layout) {
+                    preLayout.close();
+                }
+                preLayout = layout;
+            }
         });
     }
 
