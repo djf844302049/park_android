@@ -520,4 +520,11 @@ public interface ApiService {
     @POST("/api/v1/unitLock")
     @FormUrlEncoded
     Observable<BaseEntity> unitLock(@Field("unit_id") String unit_id, @Field("action") int action);
+
+    /**
+     * 解绑银行卡接口
+     */
+    @POST("api/v1/delMycard")
+    @FormUrlEncoded
+    Observable<BaseEntity> unBindCard(@Field("bank_id") int bank_id);
 }

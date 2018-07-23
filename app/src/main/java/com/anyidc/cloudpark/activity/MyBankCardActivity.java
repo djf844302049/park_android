@@ -38,7 +38,7 @@ public class MyBankCardActivity extends BaseActivity {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvBankCard.setLayoutManager(manager);
         rlvBankCard.setNestedScrollingEnabled(false);
-        adapter = new MyBankCardAdapter(list);
+        adapter = new MyBankCardAdapter(list,this);
         rlvBankCard.setAdapter(adapter);
         getBankCardList();
     }

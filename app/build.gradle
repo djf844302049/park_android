@@ -111,4 +111,6 @@ dependencies {
 
     //微信支付sdk
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
 }

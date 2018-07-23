@@ -15,6 +15,15 @@ public class BankCardBean {
     private String bank;
     private String card;
     private int bank_id;
+    private boolean isOpen;
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
 
     public String getBank() {
         return bank;
