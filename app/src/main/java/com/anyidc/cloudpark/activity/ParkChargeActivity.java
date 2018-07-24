@@ -47,7 +47,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
     private AlPayResultHandler mHandler;
     private RelativeLayout llBalancePay;
     private String rechargeNum;
-    private int payType;
+    private int payType = 4;
     private BaseDialog payDialog;
     private String payKey;
     private RadioButton rbAccountPay, rbZFBPay, rbWXPay;
@@ -91,6 +91,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
         btnPay = findViewById(R.id.btn_pay);
         btnPay.setOnClickListener(clickListener);
         llBalancePay = findViewById(R.id.rl_balance_pay);
+        rbAccountPay.setChecked(true);
         llBalancePay.setOnClickListener(v -> {
             rbAccountPay.setChecked(true);
             rbZFBPay.setChecked(false);

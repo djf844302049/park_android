@@ -29,7 +29,7 @@ public class DepositActivity extends BaseActivity {
     private ImageView ivAlPay, ivWxPay;
     private TextView tvDepositNum;
     private AlPayResultHandler mHandler;
-    private int payType;
+    private int payType=1;
     private float depositNum;
 
     public static void actionStart(Context context, float depositNum) {
@@ -52,6 +52,7 @@ public class DepositActivity extends BaseActivity {
         ivWxPay = findViewById(R.id.iv_wx_pay);
         tvDepositNum = findViewById(R.id.tv_deposit_num);
         tvDepositNum.setText("￥" + depositNum);
+        ivAlPay.setVisibility(View.VISIBLE);
         findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
             ivAlPay.setVisibility(View.VISIBLE);
             ivWxPay.setVisibility(View.GONE);

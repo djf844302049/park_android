@@ -53,7 +53,7 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private float payNum;
     private float orderNum;
     private Button btnPay;
-    private int payType = 0;//1支付宝 2微信 3银联 4账号
+    private int payType = 4;//1支付宝 2微信 3银联 4账号
     private String carId;
     private BaseDialog payDialog;
     private TextView tv1;
@@ -120,6 +120,7 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
             orderNum = payNum;
             btnPay.setText("确认支付￥" + orderNum);
         });
+        rbAccountPay.setChecked(true);
         findViewById(R.id.rl_balance_pay).setOnClickListener(v -> {
             payType = 4;
             rbAccountPay.setChecked(true);

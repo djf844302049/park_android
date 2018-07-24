@@ -21,6 +21,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
+        android:inputType="text"
         android:background="@drawable/shape_bottom_black_line"
         android:drawableLeft="@mipmap/img_user_name"
         android:drawablePadding="20dp"

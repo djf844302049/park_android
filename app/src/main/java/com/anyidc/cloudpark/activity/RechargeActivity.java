@@ -36,7 +36,7 @@ public class RechargeActivity extends BaseActivity {
     private int rechargeNum;
     private AlPayResultHandler mHandler;
     private int[] nums = {10, 20, 30, 100, 200, 500};
-    private int payType;
+    private int payType = 1;
 
     @Override
     protected int getLayoutId() {
@@ -60,6 +60,7 @@ public class RechargeActivity extends BaseActivity {
         findViewById(R.id.btn_confirm_pay).setOnClickListener(clickListener);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
+        ivAlPay.setVisibility(View.VISIBLE);
         for (int num : nums) {
             RechargeBean bean = new RechargeBean();
             bean.setNum(num);
