@@ -21,11 +21,11 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:inputType="text"
         android:background="@drawable/shape_bottom_black_line"
         android:drawableLeft="@mipmap/img_user_name"
         android:drawablePadding="20dp"
         android:hint="@string/input_phone_num"
+        android:inputType="text"
         android:padding="15dp" />
 
     <EditText
@@ -64,8 +64,12 @@
         <TextView
             android:id="@+id/tv_login_by_code"
             style="@style/text_gray_14sp"
-            android:layout_weight="1"
             android:text="@string/short_mess_confirm_login" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tv_forget_password"
