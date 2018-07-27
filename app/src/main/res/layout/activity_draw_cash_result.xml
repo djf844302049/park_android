@@ -124,6 +124,7 @@
             android:text="@string/draw_cash_success" />
 
         <TextView
+            android:id="@+id/tv_text_draw_success_tip"
             style="@style/text_gray_14sp"
             android:layout_alignLeft="@id/tv_text_commit_success"
             android:layout_below="@id/tv_text_draw_success"

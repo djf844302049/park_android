@@ -45,7 +45,7 @@
     <string name="recharge_balance">充值余额</string>
     <string name="recharge_deposit">缴纳押金</string>
     <string name="recharge_deposit_tip">预约前需缴纳押金</string>
-    <string name="recharge_deposit_tip_detail">· 充值后您将成为VIP用户，可以进行车位\n预约，享有停车优惠折扣。\n· 押金可在“个人中心-我的钱包”中提现。</string>
+    <string name="recharge_deposit_tip_detail">· 缴纳押金后您将成为VIP用户，可以进行车位\n预约，享有停车优惠折扣。\n· 押金可在“个人中心-我的钱包”中提现。</string>
     <string name="pay_setting">支付设置</string>
     <string name="ali_pay">支付宝支付</string>
     <string name="wx_pay">微信支付</string>

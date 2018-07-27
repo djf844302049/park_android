@@ -136,7 +136,7 @@ public class DrawCashActivity extends BaseActivity implements TextWatcher {
                     @Override
                     public void onSuccess(BaseEntity<DrawCashBean> baseEntity) {
                         DrawCashBean bean = baseEntity.getData();
-                        DrawCashResultActivity.actionStart(DrawCashActivity.this, bean);
+                        DrawCashResultActivity.actionStart(DrawCashActivity.this, bean, 0);
                         finish();
                     }
                 });

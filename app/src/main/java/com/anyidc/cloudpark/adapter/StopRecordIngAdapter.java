@@ -39,7 +39,7 @@ public class StopRecordIngAdapter extends RecyclerView.Adapter<StopRecordIngAdap
         holder.btnGoPay.setOnClickListener(v -> ParkChargeActivity.actionStart(holder.itemView.getContext(), orderBean.getUnit_id()));
         holder.tvParkName.setText(orderBean.getParking_name());
         Date parse = new Date(orderBean.getCreate_time());
-        String time = new SimpleDateFormat("HH:mm").format(parse);
+        String time = new SimpleDateFormat("HH:mm:ss").format(parse);
         String date = new SimpleDateFormat("yyyy-MM-dd").format(parse);
         holder.tvParkDate.setText(date);
         holder.tvParkTime.setText(time);

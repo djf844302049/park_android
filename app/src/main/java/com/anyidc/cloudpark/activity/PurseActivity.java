@@ -190,7 +190,7 @@ public class PurseActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseEntity<DrawCashBean> baseEntity) {
                         ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
-                        DrawCashResultActivity.actionStart(PurseActivity.this, baseEntity.getData());
+                        DrawCashResultActivity.actionStart(PurseActivity.this, baseEntity.getData(), 1);
                         btnDeposit.setText("缴纳押金");
                     }
                 });
