@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -278,6 +279,7 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
 
             @Override
             public void onError(String errMsg) {
+                super.onError(errMsg);
                 PayResultActivity.actionStart(PayAppointmentActivity.this, 2, String.valueOf(orderNum), 2);
             }
         });

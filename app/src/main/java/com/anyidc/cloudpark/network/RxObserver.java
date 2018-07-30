@@ -65,7 +65,6 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
         if (mDialog.isShowing()) {
             mDialog.dismiss();
         }
-        onError(e.getMessage());
         if (e instanceof EOFException || e instanceof ConnectException || e instanceof SocketException
                 || e instanceof BindException || e instanceof SocketTimeoutException || e instanceof UnknownHostException) {
             onError("网络异常，请稍后重试！");
