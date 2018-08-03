@@ -23,6 +23,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
+import com.anyidc.cloudpark.network.ApiService;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 Glide.with(context).load(path).into(imageView);
             }
         });
-        banner.setOnBannerListener(position -> WebViewActivity.actionStart(MainActivity.this, bnUrls.get(position), 0));
+        banner.setOnBannerListener(position -> WebViewActivity.actionStart(MainActivity.this, bnUrls.get(position)));
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
@@ -107,6 +108,9 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
             new PermissionSetting(MainActivity.this).showSetting(permissions);
         }).start();
         getInit();
+        if (LoginUtil.isLogin()) {
+            isIllegal();
+        }
     }
 
     @Override

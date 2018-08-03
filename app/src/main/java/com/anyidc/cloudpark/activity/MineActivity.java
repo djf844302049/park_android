@@ -1,6 +1,9 @@
 package com.anyidc.cloudpark.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
 import com.anyidc.cloudpark.utils.LoginUtil;
+import com.anyidc.cloudpark.utils.SpUtils;
 import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,6 +34,7 @@ public class MineActivity extends BaseActivity {
     private TextView tvUserName;
     private final int PURSE = 100;
     private final int LOGIN = 101;
+    private MessageReceiver receiver;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +70,10 @@ public class MineActivity extends BaseActivity {
             getCenterData();
         }
         ivRight.setOnClickListener(clickListener);
+        receiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.anyidc.message.RECEIVER");
+        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -75,6 +84,15 @@ public class MineActivity extends BaseActivity {
             tvLogin.setVisibility(View.GONE);
             tvUserName.setVisibility(View.VISIBLE);
             tvUserName.setText(CacheData.getUserName());
+            int state = (int) SpUtils.get(SpUtils.UNREADMESSAGE, 0);
+            switch (state) {
+                case 0:
+                    ivRight.setImageResource(R.mipmap.img_mess);
+                    break;
+                case 1:
+                    ivRight.setImageResource(R.mipmap.img_mess_with_point);
+                    break;
+            }
         } else {
             ivAvatar.setImageResource(R.mipmap.ic_launcher);
             tvIdConState.setText("");
@@ -97,7 +115,7 @@ public class MineActivity extends BaseActivity {
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, UserInfoActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.ll_id_confirm:
                 if (LoginUtil.isLogin()) {
@@ -111,28 +129,28 @@ public class MineActivity extends BaseActivity {
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, AdviseActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.tv_login:
-                startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.iv_right:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MessageCenterActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.tv_my_car:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyCarActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.tv_stop_record:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, StopRecordActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.tv_car_monitor:
                 startActivity(new Intent(this, CarMonitorActivity.class));
@@ -141,25 +159,25 @@ public class MineActivity extends BaseActivity {
                 if (LoginUtil.isLogin())
                     startActivityForResult(new Intent(this, PurseActivity.class), PURSE);
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.ll_share_park:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyShareParkActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.ll_my_bankcard:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, MyBankCardActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.tv_appointment_record:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, AppointmentRecordActivity.class));
                 else
-                    startActivityForResult(new Intent(this,LoginActivity.class),LOGIN);
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
         }
     }
@@ -189,8 +207,21 @@ public class MineActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ivRight.setImageResource(R.mipmap.img_mess_with_point);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             tvIdConState.setText("审核中");
         }

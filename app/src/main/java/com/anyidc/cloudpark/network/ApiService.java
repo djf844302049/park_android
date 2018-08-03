@@ -11,6 +11,7 @@ import com.anyidc.cloudpark.moduel.HotAreaBean;
 import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InfoBean;
 import com.anyidc.cloudpark.moduel.InitBean;
+import com.anyidc.cloudpark.moduel.IsIllegalBean;
 import com.anyidc.cloudpark.moduel.LoginRegisterBean;
 import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.moduel.MonitorVideoBean;
@@ -527,4 +528,10 @@ public interface ApiService {
     @POST("api/v1/delMycard")
     @FormUrlEncoded
     Observable<BaseEntity> unBindCard(@Field("bank_id") int bank_id);
+
+    /**
+     * 是否有违规记录接口
+     */
+    @POST("api/v1/isIllegal")
+    Observable<BaseEntity<IsIllegalBean>> isIllegal();
 }

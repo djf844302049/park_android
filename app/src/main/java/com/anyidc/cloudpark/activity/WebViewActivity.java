@@ -29,27 +29,20 @@ public class WebViewActivity extends BaseActivity {
         return R.layout.activity_webview;
     }
 
-    public static void actionStart(Context context, String path, int from) {
+    public static void actionStart(Context context, String path) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("path", path);
-        intent.putExtra("from", from);
         context.startActivity(intent);
+    }
+
+    public static void actionStartForResult(BaseActivity context, String path, int requestCode) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra("path", path);
+        context.startActivityForResult(intent, requestCode);
     }
 
     @Override
     protected void initData() {
-        int from = getIntent().getIntExtra("from", 0);
-        switch (from) {
-            case 1:
-                initTitle("常见问题");
-                break;
-            case 2:
-                initTitle("用户条款");
-                break;
-            default:
-                initTitle("新闻资讯");
-                break;
-        }
         webView = new WebView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -87,6 +80,14 @@ public class WebViewActivity extends BaseActivity {
                     pb.setVisibility(View.GONE);
                 }
             }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                if (title != null) {
+                    initTitle(title);
+                }
+            }
         });
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -102,6 +103,7 @@ public class WebViewActivity extends BaseActivity {
         webView.requestFocus();
         String path = getIntent().getStringExtra("path");
         webView.loadUrl(path);
+        setResult(RESULT_OK);
     }
 
     @Override

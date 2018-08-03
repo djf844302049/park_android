@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -30,7 +31,7 @@ public class BaseApplication extends MultiDexApplication {
         return instance;
     }
 
-    private ArrayList<Activity> activityList = new ArrayList<>();
+    private Stack<Activity> activityList = new Stack<>();
 
     /**
      * 添加一个activity
@@ -48,6 +49,18 @@ public class BaseApplication extends MultiDexApplication {
      */
     public void removeActivity(Activity act) {
         activityList.remove(act);
+    }
+
+    /**
+     * 获取栈顶Activity
+     *
+     * @return
+     */
+    public Activity getTopActivity() {
+        if (activityList.size() > 0) {
+            return activityList.peek();
+        }
+        return null;
     }
 
     /**

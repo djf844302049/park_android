@@ -3,29 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@drawable/sel_com"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="9dp"-->
-    <!--android:layout_marginRight="16dp"-->
-    <!--android:src="@drawable/ic_message_check" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:orientation="vertical"
+        android:paddingLeft="@dimen/dp15"
+        android:paddingRight="@dimen/dp15"
         android:paddingTop="15dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
@@ -35,6 +22,7 @@
                 style="@style/text_black_18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textColor="@color/black" />
 
             <TextView
@@ -42,7 +30,7 @@
                 style="@style/text_black_18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
+                android:layout_marginRight="@dimen/dp10"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -50,12 +38,10 @@
             android:id="@+id/tv_message_content"
             style="@style/text_gray_14sp"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="@dimen/dp15"
             android:lineSpacingExtra="@dimen/dp3" />
 
         <View
-            style="@style/gray_line_h"
-            android:layout_marginRight="@dimen/dp15" />
+            style="@style/gray_line_h" />
     </LinearLayout>
 
     <!--</LinearLayout>-->

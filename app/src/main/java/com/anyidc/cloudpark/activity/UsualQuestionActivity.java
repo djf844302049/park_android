@@ -35,7 +35,7 @@ public class UsualQuestionActivity extends BaseActivity {
         rlvQues.setLayoutManager(manager);
         adapter = new QuestionAdapter(list);
         adapter.setOnItemClickListener((v, position) -> WebViewActivity.actionStart(UsualQuestionActivity.this
-                , list.get(position).getUrl(), 1));
+                , list.get(position).getUrl()));
         rlvQues.setAdapter(adapter);
         getQuestion();
     }

@@ -21,8 +21,8 @@ public class CacheData {
         SpUtils.setObject(SpUtils.USERINFO, infoBean);
         //设置极光推送别名
         if (newInfoBean == null) {
-            //设置极光推送别名
-            JPushInterface.setAlias(BaseApplication.appContext, 0, null);
+            //删除极光推送别名
+            JPushInterface.deleteAlias(BaseApplication.appContext,0);
             return;
         }
         if (newInfoBean.getIs_manager() == 1) {

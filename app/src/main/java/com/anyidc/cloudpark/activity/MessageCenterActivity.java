@@ -1,6 +1,9 @@
 package com.anyidc.cloudpark.activity;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +17,7 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.MessageBean;
 import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
+import com.anyidc.cloudpark.utils.SpUtils;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -39,6 +43,7 @@ public class MessageCenterActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("消息中心");
+        SpUtils.set(SpUtils.UNREADMESSAGE, 0);
         xRefreshView = findViewById(R.id.my_xrefreshview);
         recyclerView = findViewById(R.id.rlv_message_list);
         tvRight = findViewById(R.id.tv_right);

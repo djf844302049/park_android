@@ -114,7 +114,6 @@ public class CompleteBaseInfoActivity extends BaseActivity  {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         imgUtil.onActivityResult(requestCode, resultCode, data);
     }
 

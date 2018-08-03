@@ -1,14 +1,19 @@
 package com.anyidc.cloudpark.receiver;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
+import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.activity.MessageCenterActivity;
 import com.anyidc.cloudpark.utils.LoginUtil;
+import com.anyidc.cloudpark.utils.SpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +36,22 @@ public class JPushReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
+            String illegalUrl = null;
+            JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+            if (json.has("pushvalue")) {
+                illegalUrl = json.getString("pushvalue");
+                if (!TextUtils.isEmpty(illegalUrl)) {
+                    //通知弹窗
+                    Intent intent1 = new Intent("com.anyidc.alert.RECEIVER");
+                    intent1.putExtra("url", illegalUrl);
+                    context.sendBroadcast(intent1);
+                }
+            } else {
+                SpUtils.set(SpUtils.UNREADMESSAGE, 1);
+                Intent intent1 = new Intent("com.anyidc.message.RECEIVER");
+                context.sendBroadcast(intent1);
+            }
+            Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle) + "---->>" + illegalUrl);
 
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
@@ -46,13 +66,18 @@ public class JPushReceiver extends BroadcastReceiver {
                 Log.d(TAG, "[JPushReceiver] 接收到推送下来的通知");
                 int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                 Log.d(TAG, "[JPushReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                Log.d(TAG, "[JPushReceiver] 用户点击打开了通知");
                 if (LoginUtil.isLogin()) {
-                    //打开自定义的Activity
-                    Intent i = new Intent(context, MessageCenterActivity.class);
-                    context.startActivity(i);
+                    if (TextUtils.isEmpty(illegalUrl)) {
+                        Intent i = new Intent(context, MessageCenterActivity.class);
+                        context.startActivity(i);
+                    } else {
+                        Intent i = new Intent(Intent.ACTION_MAIN);
+                        i.addCategory(Intent.CATEGORY_LAUNCHER);
+                        i.setComponent(new ComponentName(context.getPackageName(), context.getPackageName() + "." + BaseApplication.getInstance().getTopActivity().getLocalClassName()));
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                        context.startActivity(i);
+                    }
                 }
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {

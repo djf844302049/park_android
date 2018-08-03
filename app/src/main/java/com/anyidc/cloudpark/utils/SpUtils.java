@@ -27,6 +27,7 @@ public class SpUtils {
     public static final String USERINFO = "userinfo";
     public static final String MYLATITUDE = "latitude";
     public static final String MYLONGITUDE = "longitude";
+    public static final String UNREADMESSAGE = "unreadmessage";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法

@@ -116,7 +116,6 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         imageUtil.onActivityResult(requestCode, resultCode, data);
     }
 }
