@@ -14,6 +14,7 @@ public class CenterBean {
      * deposit_flag : 0
      * car_auth : 0
      * deposit_money:300
+     * unRead : 0
      */
 
     private String header_img;
@@ -23,6 +24,15 @@ public class CenterBean {
     private int deposit_flag;
     private int car_auth;
     private float deposit_money;
+    private int unRead;
+
+    public int getUnRead() {
+        return unRead;
+    }
+
+    public void setUnRead(int unRead) {
+        this.unRead = unRead;
+    }
 
     public String getHeader_img() {
         return header_img;

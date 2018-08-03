@@ -84,15 +84,6 @@ public class MineActivity extends BaseActivity {
             tvLogin.setVisibility(View.GONE);
             tvUserName.setVisibility(View.VISIBLE);
             tvUserName.setText(CacheData.getUserName());
-            int state = (int) SpUtils.get(SpUtils.UNREADMESSAGE, 0);
-            switch (state) {
-                case 0:
-                    ivRight.setImageResource(R.mipmap.img_mess);
-                    break;
-                case 1:
-                    ivRight.setImageResource(R.mipmap.img_mess_with_point);
-                    break;
-            }
         } else {
             ivAvatar.setImageResource(R.mipmap.ic_launcher);
             tvIdConState.setText("");
@@ -135,9 +126,10 @@ public class MineActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.iv_right:
-                if (LoginUtil.isLogin())
+                if (LoginUtil.isLogin()) {
                     startActivity(new Intent(this, MessageCenterActivity.class));
-                else
+                    ivRight.setImageResource(R.mipmap.img_mess);
+                } else
                     startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
                 break;
             case R.id.tv_my_car:
@@ -201,6 +193,9 @@ public class MineActivity extends BaseActivity {
                             case 3:
                                 tvIdConState.setText("未认证");
                                 break;
+                        }
+                        if (centerBean.getData().getUnRead() == 1) {
+                            ivRight.setImageResource(R.mipmap.img_mess_with_point);
                         }
                     }
                 });

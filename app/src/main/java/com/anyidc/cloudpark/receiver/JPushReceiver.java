@@ -47,11 +47,10 @@ public class JPushReceiver extends BroadcastReceiver {
                     context.sendBroadcast(intent1);
                 }
             } else {
-                SpUtils.set(SpUtils.UNREADMESSAGE, 1);
                 Intent intent1 = new Intent("com.anyidc.message.RECEIVER");
                 context.sendBroadcast(intent1);
             }
-            Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle) + "---->>" + illegalUrl);
+            Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle) );
 
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);

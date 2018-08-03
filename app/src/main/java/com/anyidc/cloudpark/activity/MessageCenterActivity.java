@@ -43,7 +43,6 @@ public class MessageCenterActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("消息中心");
-        SpUtils.set(SpUtils.UNREADMESSAGE, 0);
         xRefreshView = findViewById(R.id.my_xrefreshview);
         recyclerView = findViewById(R.id.rlv_message_list);
         tvRight = findViewById(R.id.tv_right);
