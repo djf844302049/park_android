@@ -38,7 +38,7 @@ public class JPushReceiver extends BroadcastReceiver {
             Bundle bundle = intent.getExtras();
             String illegalUrl = null;
             JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-            if (json.has("pushvalue")) {
+            if (json.has("pushtype") && "isIllegal".equals(json.get("pushtype")) && json.has("pushvalue")) {
                 illegalUrl = json.getString("pushvalue");
                 if (!TextUtils.isEmpty(illegalUrl)) {
                     //通知弹窗
@@ -50,7 +50,7 @@ public class JPushReceiver extends BroadcastReceiver {
                 Intent intent1 = new Intent("com.anyidc.message.RECEIVER");
                 context.sendBroadcast(intent1);
             }
-            Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle) );
+            Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
