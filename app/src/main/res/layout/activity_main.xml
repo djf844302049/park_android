@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/main_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -58,70 +58,79 @@
             <com.youth.banner.Banner
                 android:id="@+id/bn_main"
                 android:layout_width="match_parent"
-                android:layout_height="158dp" />
+                android:layout_height="158dp"
+                android:background="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/img_message" />
-
-                <com.anyidc.cloudpark.wiget.VerticalTextView
-                    android:id="@+id/tv_message"
-                    style="@style/text_gray_16sp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:background="@color/text_color_gray" />
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:layout_marginBottom="@dimen/dp10"
+                android:paddingBottom="@dimen/dp10">
 
-                <ImageView
-                    android:id="@+id/iv_pay_park"
-                    android:layout_width="161dp"
-                    android:layout_height="161dp"
-                    android:src="@mipmap/img_pay_park" />
+                <LinearLayout
+                    android:id="@+id/ll_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp10">
 
-                <ImageView
-                    android:id="@+id/iv_park_order"
-                    android:layout_width="161dp"
-                    android:layout_height="161dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/img_order_park" />
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/img_message" />
 
-            <ImageView
-                android:id="@+id/iv_search_park"
-                android:layout_width="332dp"
-                android:layout_height="166dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="10dp"
-                android:src="@mipmap/img_search_park" />
+                    <com.anyidc.cloudpark.wiget.VerticalTextView
+                        android:id="@+id/tv_message"
+                        style="@style/text_gray_16sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/ll_message"
+                    android:background="@color/text_color_gray" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/iv_pay_park"
+                        android:layout_width="156dp"
+                        android:layout_height="164dp"
+                        android:src="@mipmap/img_pay_park" />
+
+                    <ImageView
+                        android:id="@+id/iv_park_order"
+                        android:layout_width="156dp"
+                        android:layout_height="164dp"
+                        android:layout_below="@id/iv_pay_park"
+                        android:layout_marginTop="5dp"
+                        android:src="@mipmap/img_order_park" />
+
+                    <ImageView
+                        android:id="@+id/iv_search_park"
+                        android:layout_width="171dp"
+                        android:layout_height="333dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_toRightOf="@id/iv_pay_park"
+                        android:src="@mipmap/img_search_park" />
+                </RelativeLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

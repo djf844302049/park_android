@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.anyidc.cloudpark.activity.LoginActivity;
+import com.anyidc.cloudpark.activity.MainActivity;
 import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.ToastUtil;
@@ -73,7 +74,9 @@ public abstract class RxObserver<T extends BaseEntity> implements Observer<T> {
                 case -99:
                     LoginUtil.logout();
                     mContext.startActivity(new Intent(mContext, LoginActivity.class));
-                    ((Activity) mContext).finish();
+                    if (!(mContext instanceof MainActivity)) {
+                        ((Activity) mContext).finish();
+                    }
                     break;
             }
             onError(e.getMessage());
