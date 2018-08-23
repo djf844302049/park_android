@@ -48,7 +48,7 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private TextView tvThirty, tvSixty;
     private TextView tvPayTime, tvShareFee, tvBalanceNum;
     private RadioButton rbAccountPay, rbZFBPay, rbWXPay;
-    private String parkName, unitNum, shareTime, shareFee;
+    private String unitNum;
     private AlPayResultHandler mHandler;
     protected CheckDoubleClickListener clickListener;
     private float payNum;
@@ -57,12 +57,6 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
     private int payType = 4;//1支付宝 2微信 3银联 4账号
     private String carId;
     private BaseDialog payDialog;
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-    private TextView tv5;
-    private TextView tv6;
     private EditText etNum;
     private List<TextView> tvList;
     private String payKey;
@@ -145,12 +139,12 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
         Window window = payDialog.getWindow();
         window.requestFeature(Window.FEATURE_NO_TITLE);
         payDialog.setContentView(R.layout.dialog_input_pay_key);
-        tv1 = payDialog.findViewById(R.id.tv_num_1);
-        tv2 = payDialog.findViewById(R.id.tv_num_2);
-        tv3 = payDialog.findViewById(R.id.tv_num_3);
-        tv4 = payDialog.findViewById(R.id.tv_num_4);
-        tv5 = payDialog.findViewById(R.id.tv_num_5);
-        tv6 = payDialog.findViewById(R.id.tv_num_6);
+        TextView tv1 = payDialog.findViewById(R.id.tv_num_1);
+        TextView tv2 = payDialog.findViewById(R.id.tv_num_2);
+        TextView tv3 = payDialog.findViewById(R.id.tv_num_3);
+        TextView tv4 = payDialog.findViewById(R.id.tv_num_4);
+        TextView tv5 = payDialog.findViewById(R.id.tv_num_5);
+        TextView tv6 = payDialog.findViewById(R.id.tv_num_6);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);
@@ -171,10 +165,10 @@ public class PayAppointmentActivity extends BaseActivity implements TextWatcher 
 
     private void updateView() {
         Intent intent = getIntent();
-        parkName = intent.getStringExtra("parkName");
+        String parkName = intent.getStringExtra("parkName");
         unitNum = intent.getStringExtra("unitNum");
-        shareTime = intent.getStringExtra("shareTime");
-        shareFee = intent.getStringExtra("shareFee");
+        String shareTime = intent.getStringExtra("shareTime");
+        String shareFee = intent.getStringExtra("shareFee");
         balanceNum = intent.getStringExtra("balanceNum");
         payNum = intent.getFloatExtra("payNum", 0f);
         orderNum = payNum;

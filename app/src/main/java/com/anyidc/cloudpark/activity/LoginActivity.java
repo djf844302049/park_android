@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
 public class LoginActivity extends BaseActivity {
     private EditText etPhoneNum;
     private EditText etPassword;
-    private TextView tvRight, tvStatement;
 
     @Override
     protected int getLayoutId() {
@@ -42,14 +41,14 @@ public class LoginActivity extends BaseActivity {
         initTitle(getString(R.string.login));
         etPhoneNum = findViewById(R.id.et_phone_num);
         etPassword = findViewById(R.id.et_password);
-        tvRight = findViewById(R.id.tv_right);
+        TextView tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText(getResources().getString(R.string.register));
         tvRight.setOnClickListener(clickListener);
         findViewById(R.id.tv_login_by_code).setOnClickListener(clickListener);
         findViewById(R.id.tv_forget_password).setOnClickListener(clickListener);
         findViewById(R.id.btn_login).setOnClickListener(clickListener);
-        tvStatement = findViewById(R.id.tv_statement);
+        TextView tvStatement = findViewById(R.id.tv_statement);
         String message = "登录代表您已同意《云能停车用户条款》";
         SpannableString spannableString = new SpannableString(message);
         Pattern pattern = Pattern.compile("云能停车用户条款");

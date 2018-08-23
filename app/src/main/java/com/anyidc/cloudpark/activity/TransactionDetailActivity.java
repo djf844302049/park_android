@@ -20,7 +20,6 @@ import java.util.List;
 
 public class TransactionDetailActivity extends BaseActivity {
     private XRefreshView xRefreshView;
-    private RecyclerView xlvDetails;
     private TransactionAdapter adapter;
     private List<TransactionBean.ListBean> list = new ArrayList<>();
     private int page = 1;
@@ -34,7 +33,7 @@ public class TransactionDetailActivity extends BaseActivity {
     protected void initData() {
         initTitle("交易明细");
         xRefreshView = findViewById(R.id.my_xrefreshview);
-        xlvDetails = findViewById(R.id.rlv_message_list);
+        RecyclerView xlvDetails = findViewById(R.id.rlv_message_list);
         adapter = new TransactionAdapter(list);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         xlvDetails.setLayoutManager(manager);

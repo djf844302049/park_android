@@ -23,13 +23,11 @@ import java.util.List;
  */
 
 public class MyShareParkActivity extends BaseActivity {
-    private RecyclerView recyclerView;
     private MyShareAdapter adapter;
     private XRefreshView xRefreshView;
     private TextView tvTip;
     private ArrayList<MyShareBean.ShareParkBean> parkBeans = new ArrayList<>();
     private int page = 1;
-    private int size = 10;
 
     @Override
     protected int getLayoutId() {
@@ -41,7 +39,7 @@ public class MyShareParkActivity extends BaseActivity {
         initTitle("我的共享车位");
         tvTip = findViewById(R.id.tv_tip);
         xRefreshView = findViewById(R.id.xrv_share_park);
-        recyclerView = findViewById(R.id.rlv_my_share);
+        RecyclerView recyclerView = findViewById(R.id.rlv_my_share);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setNestedScrollingEnabled(false);
@@ -64,6 +62,7 @@ public class MyShareParkActivity extends BaseActivity {
     }
 
     private void getMySharePark() {
+        int size = 10;
         getTime(Api.getDefaultService().getMyshare(page, size)
                 , new RxObserver<BaseEntity<MyShareBean>>(this, true) {
                     @Override

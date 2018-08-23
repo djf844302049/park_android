@@ -27,12 +27,6 @@ import java.util.List;
 public class PayKeySetActivity extends BaseActivity implements TextWatcher {
 
     private TextView tvDesc;
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-    private TextView tv5;
-    private TextView tv6;
     private TextView tvErrDesc;
     private EditText etNum;
     private List<TextView> tvList;
@@ -56,12 +50,12 @@ public class PayKeySetActivity extends BaseActivity implements TextWatcher {
     protected void initData() {
         tvDesc = findViewById(R.id.tv_desc);
         tvErrDesc = findViewById(R.id.tv_err_desc);
-        tv1 = findViewById(R.id.tv_num_1);
-        tv2 = findViewById(R.id.tv_num_2);
-        tv3 = findViewById(R.id.tv_num_3);
-        tv4 = findViewById(R.id.tv_num_4);
-        tv5 = findViewById(R.id.tv_num_5);
-        tv6 = findViewById(R.id.tv_num_6);
+        TextView tv1 = findViewById(R.id.tv_num_1);
+        TextView tv2 = findViewById(R.id.tv_num_2);
+        TextView tv3 = findViewById(R.id.tv_num_3);
+        TextView tv4 = findViewById(R.id.tv_num_4);
+        TextView tv5 = findViewById(R.id.tv_num_5);
+        TextView tv6 = findViewById(R.id.tv_num_6);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);

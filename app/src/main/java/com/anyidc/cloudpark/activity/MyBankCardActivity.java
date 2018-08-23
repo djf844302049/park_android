@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 public class MyBankCardActivity extends BaseActivity {
-    private RecyclerView rlvBankCard;
     private List<BankCardBean> list = new ArrayList<>();
     private MyBankCardAdapter adapter;
     private final int ADDBANKCARD = 999;
@@ -33,7 +32,7 @@ public class MyBankCardActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("银行卡");
-        rlvBankCard = findViewById(R.id.rlv_bank_card);
+        RecyclerView rlvBankCard = findViewById(R.id.rlv_bank_card);
         findViewById(R.id.tv_add_bank).setOnClickListener(clickListener);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvBankCard.setLayoutManager(manager);

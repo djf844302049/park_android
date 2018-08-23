@@ -22,7 +22,6 @@ import com.anyidc.cloudpark.utils.ToastUtil;
 public class BindBankCardActivity extends BaseActivity implements TextWatcher {
     private EditText etRealName, etIdNum, etBankNum, etPhoneNum;
     private TextView tvBank;
-    private String cardNum, idNum, phoneNum, bank, realName;
 
     @Override
     protected int getLayoutId() {
@@ -72,11 +71,11 @@ public class BindBankCardActivity extends BaseActivity implements TextWatcher {
     }
 
     public void addBankCard() {
-        realName = etRealName.getText().toString();
-        idNum = etIdNum.getText().toString();
-        cardNum = etBankNum.getText().toString();
-        bank = tvBank.getText().toString();
-        phoneNum = etPhoneNum.getText().toString();
+        String realName = etRealName.getText().toString();
+        String idNum = etIdNum.getText().toString();
+        String cardNum = etBankNum.getText().toString();
+        String bank = tvBank.getText().toString();
+        String phoneNum = etPhoneNum.getText().toString();
         if (TextUtils.isEmpty(realName)) {
             ToastUtil.showToast("请填写您的真实姓名", Toast.LENGTH_SHORT);
             return;

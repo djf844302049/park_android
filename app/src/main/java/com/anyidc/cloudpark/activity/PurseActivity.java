@@ -35,14 +35,11 @@ public class PurseActivity extends BaseActivity {
     private TextView tvDepositState;
     private Button btnDeposit;
     private Button btnDrawCash;
-    private TextView tvRight;
     private String balance;
     private List<BankCardBean> list = new ArrayList<>();
     private BottomSheetDialog dialog;
-    private RecyclerView rlvBank;
     private BankChoiceAdapter adapter;
     private int bank_id;
-    private WeakReference<Context> reference;
     private ConfirmCancelDialog confirmDialog;
     private final int ADDBANKCARD = 999;
     private float depositNum;
@@ -60,14 +57,14 @@ public class PurseActivity extends BaseActivity {
         btnDeposit = findViewById(R.id.btn_recharge_deposit);
         findViewById(R.id.btn_recharge_balance).setOnClickListener(clickListener);
         btnDeposit.setOnClickListener(clickListener);
-        tvRight = findViewById(R.id.tv_right);
+        TextView tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("交易明细");
         tvRight.setOnClickListener(clickListener);
         findViewById(R.id.tv_pay_setting).setOnClickListener(clickListener);
         btnDrawCash = findViewById(R.id.btn_draw_cash);
         btnDrawCash.setOnClickListener(clickListener);
-        reference = new WeakReference<>(this);
+        WeakReference<Context> reference = new WeakReference<>(this);
         confirmDialog = new ConfirmCancelDialog(reference.get(), "", "您确认退回押金吗？", "确认", "取消");
         confirmDialog.setClickListener(new ConfirmCancelDialog.ClickListener() {
             @Override
@@ -83,7 +80,7 @@ public class PurseActivity extends BaseActivity {
         });
         dialog = new BottomSheetDialog(reference.get());
         dialog.setContentView(R.layout.dialog_bankcard_picker);
-        rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
+        RecyclerView rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvBank.setLayoutManager(manager);
         adapter = new BankChoiceAdapter(list);

@@ -33,8 +33,6 @@ public class IdentityConfirmActivity extends BaseActivity {
     private EditText etIdNum;
     private ImageView ivIdPos;
     private ImageView ivIdNeg;
-    private TextView tvSkip;
-    private Button btnNext;
     private UploadImageUtil imgUtil;
     private String idPosImgUrl;
     private String idNegImgUrl;
@@ -63,9 +61,9 @@ public class IdentityConfirmActivity extends BaseActivity {
         ivIdPos.setOnClickListener(clickListener);
         ivIdNeg = findViewById(R.id.iv_id_neg);
         ivIdNeg.setOnClickListener(clickListener);
-        btnNext = findViewById(R.id.btn_next_step);
+        Button btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(clickListener);
-        tvSkip = findViewById(R.id.tv_skip);
+        TextView tvSkip = findViewById(R.id.tv_skip);
         from = getIntent().getIntExtra("from", 0);
         switch (from) {
             case 1:

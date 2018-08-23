@@ -42,7 +42,6 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
     private EditText etPassword;
     private TextView tvGetCode;
     private CheckBox cbStatement;
-    private Button btnCommit;
     private String phoneNum;
     private int from;
 
@@ -67,7 +66,7 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
         tvGetCode = findViewById(R.id.tv_get_code);
         tvGetCode.setOnClickListener(clickListener);
         tvGetCode.setEnabled(false);
-        btnCommit = findViewById(R.id.btn_register);
+        Button btnCommit = findViewById(R.id.btn_register);
         btnCommit.setOnClickListener(clickListener);
         from = getIntent().getIntExtra("from", 0);
         switch (from) {

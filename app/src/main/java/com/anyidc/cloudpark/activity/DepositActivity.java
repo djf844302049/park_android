@@ -27,7 +27,6 @@ import java.util.Map;
 public class DepositActivity extends BaseActivity {
 
     private ImageView ivAlPay, ivWxPay;
-    private TextView tvDepositNum;
     private AlPayResultHandler mHandler;
     private int payType=1;
     private float depositNum;
@@ -50,7 +49,7 @@ public class DepositActivity extends BaseActivity {
         mHandler = new AlPayResultHandler(this);
         ivAlPay = findViewById(R.id.iv_al_pay);
         ivWxPay = findViewById(R.id.iv_wx_pay);
-        tvDepositNum = findViewById(R.id.tv_deposit_num);
+        TextView tvDepositNum = findViewById(R.id.tv_deposit_num);
         tvDepositNum.setText("￥" + depositNum);
         ivAlPay.setVisibility(View.VISIBLE);
         findViewById(R.id.ll_al_pay).setOnClickListener(v -> {

@@ -25,8 +25,6 @@ import java.util.List;
 
 public class StopRecordActivity extends BaseActivity {
     private XRefreshView xRefreshView;
-    private RecyclerView recyclerView;
-    private RecyclerView rlvIng;
     private TextView tvInPro;
     private TextView tvComplete;
     private TextView tvNoMoreData;
@@ -45,8 +43,8 @@ public class StopRecordActivity extends BaseActivity {
     protected void initData() {
         initTitle("停车记录");
         xRefreshView = findViewById(R.id.xrv_stop_record);
-        recyclerView = findViewById(R.id.rlv_stop_record_list);
-        rlvIng = findViewById(R.id.rlv_stop_record_ing_list);
+        RecyclerView recyclerView = findViewById(R.id.rlv_stop_record_list);
+        RecyclerView rlvIng = findViewById(R.id.rlv_stop_record_ing_list);
         tvInPro = findViewById(R.id.tv_in_progress);
         tvComplete = findViewById(R.id.tv_off_the_stock);
         tvNoMoreData = findViewById(R.id.tv_tip_no_more_data);

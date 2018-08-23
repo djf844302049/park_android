@@ -28,14 +28,6 @@ import java.util.List;
  */
 
 public class CarMonitorActivity extends BaseActivity implements TextWatcher {
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-    private TextView tv5;
-    private TextView tv6;
-    private TextView tvTip;
-    private TextView tvConfirm;
     private EditText etNum;
     private List<TextView> tvList;
     private int type = 0;//0表示车辆监控  1表示车位锁操作（管理员界面操作界面）
@@ -61,14 +53,14 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
     @Override
     protected void initData() {
         type = getIntent().getIntExtra(IntentKey.INTENT_KEY_INT, 0);
-        tv1 = findViewById(R.id.tv_num_1);
-        tv2 = findViewById(R.id.tv_num_2);
-        tv3 = findViewById(R.id.tv_num_3);
-        tv4 = findViewById(R.id.tv_num_4);
-        tv5 = findViewById(R.id.tv_num_5);
-        tv6 = findViewById(R.id.tv_num_6);
-        tvTip = findViewById(R.id.tv_tip);
-        tvConfirm = findViewById(R.id.btn_watch_camera);
+        TextView tv1 = findViewById(R.id.tv_num_1);
+        TextView tv2 = findViewById(R.id.tv_num_2);
+        TextView tv3 = findViewById(R.id.tv_num_3);
+        TextView tv4 = findViewById(R.id.tv_num_4);
+        TextView tv5 = findViewById(R.id.tv_num_5);
+        TextView tv6 = findViewById(R.id.tv_num_6);
+        TextView tvTip = findViewById(R.id.tv_tip);
+        TextView tvConfirm = findViewById(R.id.btn_watch_camera);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);

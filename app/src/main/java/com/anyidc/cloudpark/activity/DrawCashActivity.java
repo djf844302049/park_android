@@ -32,13 +32,11 @@ import java.util.List;
 
 public class DrawCashActivity extends BaseActivity implements TextWatcher {
     private BottomSheetDialog dialog;
-    private RecyclerView rlvBank;
     private BankChoiceAdapter adapter;
-    private WeakReference<Context> reference;
     private TextView tvBankCard, tvRemainBalance;
     private EditText etDrawNum;
     private List<BankCardBean> list = new ArrayList<>();
-    private String drawNum, balance;
+    private String balance;
     private int bank_id;
     private final int ADDBANKCARD = 999;
 
@@ -62,10 +60,10 @@ public class DrawCashActivity extends BaseActivity implements TextWatcher {
         tvRemainBalance.setText("当前账户余额" + balance + "元");
         etDrawNum = findViewById(R.id.et_draw_num);
         etDrawNum.addTextChangedListener(this);
-        reference = new WeakReference<>(this);
+        WeakReference<Context> reference = new WeakReference<>(this);
         dialog = new BottomSheetDialog(reference.get());
         dialog.setContentView(R.layout.dialog_bankcard_picker);
-        rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
+        RecyclerView rlvBank = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvBank.setLayoutManager(manager);
         adapter = new BankChoiceAdapter(list);
@@ -119,7 +117,7 @@ public class DrawCashActivity extends BaseActivity implements TextWatcher {
     }
 
     private void drawCash() {
-        drawNum = etDrawNum.getText().toString().trim();
+        String drawNum = etDrawNum.getText().toString().trim();
         if (TextUtils.isEmpty(drawNum)) {
             ToastUtil.showToast("请输入提现金额", Toast.LENGTH_SHORT);
             return;

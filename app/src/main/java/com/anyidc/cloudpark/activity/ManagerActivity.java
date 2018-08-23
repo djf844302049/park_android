@@ -17,7 +17,6 @@ import com.anyidc.cloudpark.utils.ViewUtils;
  */
 
 public class ManagerActivity extends BaseActivity {
-    private ImageView ivScan, ivUpDown, ivRight;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ManagerActivity.class);
@@ -32,9 +31,9 @@ public class ManagerActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        ivScan = findViewById(R.id.iv_scan);
-        ivUpDown = findViewById(R.id.iv_up_down);
-        ivRight = findViewById(R.id.iv_right);
+        ImageView ivScan = findViewById(R.id.iv_scan);
+        ImageView ivUpDown = findViewById(R.id.iv_up_down);
+        ImageView ivRight = findViewById(R.id.iv_right);
         ivRight.setVisibility(View.VISIBLE);
         ivRight.setImageResource(R.mipmap.img_mess);
         ivRight.setOnClickListener(clickListener);

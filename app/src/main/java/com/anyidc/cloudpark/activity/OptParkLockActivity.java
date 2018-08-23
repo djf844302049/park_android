@@ -33,8 +33,7 @@ import java.util.List;
  */
 
 public class OptParkLockActivity extends BaseActivity {
-    private ImageView ivUp, ivDown;
-    private TextView tvUnitState, tvUnitNum;
+    private TextView tvUnitState;
     private Button btnLock;
     private String parkNum = "";
     private int fromType = 1;
@@ -43,7 +42,6 @@ public class OptParkLockActivity extends BaseActivity {
     private ConfirmCancelDialog confirmCancelDialog;
     private BottomSheetDialog bottomSheetDialog;
     private TextView tvHead;
-    private RecyclerView rlvReason;
     private List<OptReasonBean> reasons = new ArrayList<>();
     private ReasonsAdapter adapter;
     private String opt;
@@ -68,13 +66,13 @@ public class OptParkLockActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvUnitState = findViewById(R.id.tv_unit_state);
-        tvUnitNum = findViewById(R.id.tv_unit_num);
+        TextView tvUnitNum = findViewById(R.id.tv_unit_num);
         btnLock = findViewById(R.id.btn_lock);
         btnLock.setOnClickListener(clickListener);
         adapter = new ReasonsAdapter(reasons);
         bottomSheetDialog = new BottomSheetDialog(this, R.style.dialog);
         bottomSheetDialog.setContentView(R.layout.layout_bottom_choice);
-        rlvReason = (RecyclerView) bottomSheetDialog.findViewById(R.id.rlv_bottom_choice);
+        RecyclerView rlvReason = (RecyclerView) bottomSheetDialog.findViewById(R.id.rlv_bottom_choice);
         rlvReason.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rlvReason.setAdapter(adapter);
         tvHead = (TextView) bottomSheetDialog.findViewById(R.id.tv_ahead);
@@ -111,9 +109,9 @@ public class OptParkLockActivity extends BaseActivity {
         }
         getOptReasons();
         getUnitState();
-        ivUp = findViewById(R.id.iv_up);
+        ImageView ivUp = findViewById(R.id.iv_up);
         ivUp.setOnClickListener(clickListener);
-        ivDown = findViewById(R.id.iv_down);
+        ImageView ivDown = findViewById(R.id.iv_down);
         ivDown.setOnClickListener(clickListener);
         initTitle("操作车位锁");
     }

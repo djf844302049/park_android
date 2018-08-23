@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 public class MyCarActivity extends BaseActivity {
-    private RecyclerView rlvCars;
     private CarListAdapter adapter;
     private TextView tvRight;
     private List<MyCarBean> cars = new ArrayList<>();
@@ -33,7 +32,7 @@ public class MyCarActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("我的车辆");
-        rlvCars = findViewById(R.id.rlv_car_list);
+        RecyclerView rlvCars = findViewById(R.id.rlv_car_list);
         tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("编辑");

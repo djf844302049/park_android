@@ -19,7 +19,6 @@ import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.utils.ToastUtil;
 
 public class MonitorVideoActivity extends BaseActivity implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
-    private VideoView videoView;
     private Dialog dialog;
     private RelativeLayout rlTop;
     private ImageView btnTransfer;
@@ -38,7 +37,7 @@ public class MonitorVideoActivity extends BaseActivity implements MediaPlayer.On
     @Override
     protected void initData() {
         initTitle("监控视频");
-        videoView = findViewById(R.id.video_monitor);
+        VideoView videoView = findViewById(R.id.video_monitor);
         rlTop = findViewById(R.id.top_view);
         String url = getIntent().getStringExtra("url");
 //        videoView.setVideoURI(Uri.parse("http://hls.open.ys7.com/openlive/ddcd25544bb0407dafb1ea6f4f7ca02e.m3u8"));

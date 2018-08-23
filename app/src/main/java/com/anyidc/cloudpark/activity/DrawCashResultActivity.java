@@ -12,7 +12,6 @@ import com.anyidc.cloudpark.moduel.DrawCashBean;
  */
 
 public class DrawCashResultActivity extends BaseActivity {
-    private TextView tvSn, tvDate, tvDrawNum, tvDrawSuccess, tvDrawSuccessTip;
 
     public static void actionStart(Context context, DrawCashBean bean, int from) {
         Intent intent = new Intent(context, DrawCashResultActivity.class);
@@ -30,11 +29,11 @@ public class DrawCashResultActivity extends BaseActivity {
     protected void initData() {
         DrawCashBean bean = (DrawCashBean) getIntent().getSerializableExtra("bean");
         int from = getIntent().getIntExtra("from", 0);
-        tvSn = findViewById(R.id.tv_draw_sn);
-        tvDate = findViewById(R.id.tv_draw_date);
-        tvDrawNum = findViewById(R.id.tv_draw_num);
-        tvDrawSuccess = findViewById(R.id.tv_text_draw_success);
-        tvDrawSuccessTip = findViewById(R.id.tv_text_draw_success_tip);
+        TextView tvSn = findViewById(R.id.tv_draw_sn);
+        TextView tvDate = findViewById(R.id.tv_draw_date);
+        TextView tvDrawNum = findViewById(R.id.tv_draw_num);
+        TextView tvDrawSuccess = findViewById(R.id.tv_text_draw_success);
+        TextView tvDrawSuccessTip = findViewById(R.id.tv_text_draw_success_tip);
         String head;
         switch (from) {
             case 1:

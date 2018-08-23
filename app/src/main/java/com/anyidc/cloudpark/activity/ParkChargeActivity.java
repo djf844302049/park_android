@@ -42,21 +42,13 @@ import java.util.Map;
 
 public class ParkChargeActivity extends BaseActivity implements TextWatcher {
     private TextView tvChargeNum, tvParkDuration, tvBalanceNum, tvDiscount;
-    private ImageView ivHelp;
     private String unitId;
     private AlPayResultHandler mHandler;
-    private RelativeLayout llBalancePay;
     private String rechargeNum;
     private int payType = 4;
     private BaseDialog payDialog;
     private String payKey;
     private RadioButton rbAccountPay, rbZFBPay, rbWXPay;
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-    private TextView tv5;
-    private TextView tv6;
     private TextView tvChargeRules;
     private EditText etNum;
     private List<TextView> tvList;
@@ -83,14 +75,14 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
         tvParkDuration = findViewById(R.id.tv_park_duration);
         tvBalanceNum = findViewById(R.id.tv_balance_num);
         tvDiscount = findViewById(R.id.tv_discount);
-        ivHelp = findViewById(R.id.iv_help);
+        ImageView ivHelp = findViewById(R.id.iv_help);
         ivHelp.setOnClickListener(clickListener);
         rbAccountPay = findViewById(R.id.rb_account_pay);
         rbZFBPay = findViewById(R.id.rb_zhifubao_pay);
         rbWXPay = findViewById(R.id.rb_weixin_pay);
         btnPay = findViewById(R.id.btn_pay);
         btnPay.setOnClickListener(clickListener);
-        llBalancePay = findViewById(R.id.rl_balance_pay);
+        RelativeLayout llBalancePay = findViewById(R.id.rl_balance_pay);
         rbAccountPay.setChecked(true);
         llBalancePay.setOnClickListener(v -> {
             rbAccountPay.setChecked(true);
@@ -118,12 +110,12 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
         Window window = payDialog.getWindow();
         window.requestFeature(Window.FEATURE_NO_TITLE);
         payDialog.setContentView(R.layout.dialog_input_pay_key);
-        tv1 = payDialog.findViewById(R.id.tv_num_1);
-        tv2 = payDialog.findViewById(R.id.tv_num_2);
-        tv3 = payDialog.findViewById(R.id.tv_num_3);
-        tv4 = payDialog.findViewById(R.id.tv_num_4);
-        tv5 = payDialog.findViewById(R.id.tv_num_5);
-        tv6 = payDialog.findViewById(R.id.tv_num_6);
+        TextView tv1 = payDialog.findViewById(R.id.tv_num_1);
+        TextView tv2 = payDialog.findViewById(R.id.tv_num_2);
+        TextView tv3 = payDialog.findViewById(R.id.tv_num_3);
+        TextView tv4 = payDialog.findViewById(R.id.tv_num_4);
+        TextView tv5 = payDialog.findViewById(R.id.tv_num_5);
+        TextView tv6 = payDialog.findViewById(R.id.tv_num_6);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);

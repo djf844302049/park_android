@@ -41,8 +41,6 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements AMapLocationListener {
     //声明AMapLocationClient类对象
     private AMapLocationClient mLocationClient = null;
-    //声明AMapLocationClientOption对象
-    private AMapLocationClientOption mLocationOption = null;
     private VerticalTextView tvMess;
     private Banner banner;
     private TextView tvCity;
@@ -83,7 +81,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
         //初始化AMapLocationClientOption对象
-        mLocationOption = new AMapLocationClientOption();
+        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //获取一次定位结果

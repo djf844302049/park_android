@@ -12,7 +12,6 @@ import com.anyidc.cloudpark.R;
  */
 
 public class PayResultActivity extends BaseActivity {
-    private TextView tvRight, tvPayResult, tvPayTip, tvGoCenter;
     private int from, result;
     public static boolean rechargeDep;
 
@@ -32,12 +31,12 @@ public class PayResultActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("支付结果");
-        tvRight = findViewById(R.id.tv_right);
-        tvPayResult = findViewById(R.id.tv_pay_result);
-        tvPayTip = findViewById(R.id.tv_pay_result_tip);
+        TextView tvRight = findViewById(R.id.tv_right);
+        TextView tvPayResult = findViewById(R.id.tv_pay_result);
+        TextView tvPayTip = findViewById(R.id.tv_pay_result_tip);
         findViewById(R.id.iv_back).setOnClickListener(clickListener);
         tvRight.setOnClickListener(clickListener);
-        tvGoCenter = findViewById(R.id.tv_go_center);
+        TextView tvGoCenter = findViewById(R.id.tv_go_center);
         tvGoCenter.setOnClickListener(clickListener);
         result = getIntent().getIntExtra("result", 0);
         from = getIntent().getIntExtra("from", 0);

@@ -29,9 +29,7 @@ import java.util.List;
 
 public class MessageCenterActivity extends BaseActivity {
     private XRefreshView xRefreshView;
-    private RecyclerView recyclerView;
     private MessageAdapter adapter;
-    private TextView tvRight;
     private List<MessageBean.OrderBean> messages = new ArrayList<>();
     private int page = 1;
 
@@ -44,8 +42,8 @@ public class MessageCenterActivity extends BaseActivity {
     protected void initData() {
         initTitle("消息中心");
         xRefreshView = findViewById(R.id.my_xrefreshview);
-        recyclerView = findViewById(R.id.rlv_message_list);
-        tvRight = findViewById(R.id.tv_right);
+        RecyclerView recyclerView = findViewById(R.id.rlv_message_list);
+        TextView tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("清空");
         tvRight.setOnClickListener(clickListener);

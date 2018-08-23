@@ -28,7 +28,6 @@ import java.util.Map;
  */
 
 public class RechargeActivity extends BaseActivity {
-    private RecyclerView rlv;
     private RechargeAdapter adapter;
     private List<RechargeBean> list = new ArrayList<>();
     private ImageView ivAlPay, ivWxPay;
@@ -46,7 +45,7 @@ public class RechargeActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("充值余额");
-        rlv = findViewById(R.id.rlv_recharge);
+        RecyclerView rlv = findViewById(R.id.rlv_recharge);
         findViewById(R.id.ll_al_pay).setOnClickListener(v -> {
             ivAlPay.setVisibility(View.VISIBLE);
             ivWxPay.setVisibility(View.GONE);

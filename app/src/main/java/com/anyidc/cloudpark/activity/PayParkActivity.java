@@ -23,12 +23,6 @@ import java.util.List;
  */
 
 public class PayParkActivity extends BaseActivity implements TextWatcher {
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-    private TextView tv5;
-    private TextView tv6;
     private EditText etNum;
     private List<TextView> tvList;
     private String unitId;
@@ -43,12 +37,12 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
     @Override
     protected void initData() {
         initTitle("停车付费");
-        tv1 = findViewById(R.id.tv_num_1);
-        tv2 = findViewById(R.id.tv_num_2);
-        tv3 = findViewById(R.id.tv_num_3);
-        tv4 = findViewById(R.id.tv_num_4);
-        tv5 = findViewById(R.id.tv_num_5);
-        tv6 = findViewById(R.id.tv_num_6);
+        TextView tv1 = findViewById(R.id.tv_num_1);
+        TextView tv2 = findViewById(R.id.tv_num_2);
+        TextView tv3 = findViewById(R.id.tv_num_3);
+        TextView tv4 = findViewById(R.id.tv_num_4);
+        TextView tv5 = findViewById(R.id.tv_num_5);
+        TextView tv6 = findViewById(R.id.tv_num_6);
         tvList = new ArrayList<>();
         tvList.add(tv1);
         tvList.add(tv2);

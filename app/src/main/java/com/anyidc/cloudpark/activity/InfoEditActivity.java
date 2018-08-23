@@ -20,14 +20,10 @@ import com.anyidc.cloudpark.utils.CacheData;
  */
 
 public class InfoEditActivity extends BaseActivity {
-    private TextView tvRight;
     private ImageView ivMaleCheck;
     private ImageView ivFemaleCheck;
-    private LinearLayout llMale;
-    private LinearLayout llFemale;
     private EditText etUserName;
     private int which;
-    private String userName;
     private int sex;
 
     public static void actionStart(Context context, int setWhich) {
@@ -44,13 +40,13 @@ public class InfoEditActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-        tvRight = findViewById(R.id.tv_right);
+        TextView tvRight = findViewById(R.id.tv_right);
         tvRight.setVisibility(View.VISIBLE);
         tvRight.setText("完成");
         tvRight.setOnClickListener(clickListener);
-        llMale = findViewById(R.id.ll_male);
+        LinearLayout llMale = findViewById(R.id.ll_male);
         llMale.setOnClickListener(clickListener);
-        llFemale = findViewById(R.id.ll_female);
+        LinearLayout llFemale = findViewById(R.id.ll_female);
         llFemale.setOnClickListener(clickListener);
         etUserName = findViewById(R.id.et_user_name);
         ivMaleCheck = findViewById(R.id.iv_male_check);
@@ -88,7 +84,7 @@ public class InfoEditActivity extends BaseActivity {
             case R.id.tv_right:
                 switch (which) {
                     case 1:
-                        userName = etUserName.getText().toString().trim();
+                        String userName = etUserName.getText().toString().trim();
                         if (CacheData.getUserName().equals(userName)) {
                             finish();
                             return;

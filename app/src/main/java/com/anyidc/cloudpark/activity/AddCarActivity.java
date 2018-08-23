@@ -33,11 +33,7 @@ import java.util.List;
 
 public class AddCarActivity extends BaseActivity implements TextWatcher {
     private EditText etNum;
-    private CheckBox cbNewEnergy;
-    private Button btnAdd;
     private int isNewEnergy;
-    private List<TextView> tvList;
-    private TextView tvSkip;
     private int from;
     private String carNum;
     private LicenseKeyboardUtil keyboardUtil;
@@ -57,9 +53,8 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
     @Override
     protected void initData() {
         clickListener = new CheckDoubleClickListener(this);
-        tvSkip = findViewById(R.id.tv_skip);
+        TextView tvSkip = findViewById(R.id.tv_skip);
         tvSkip.setOnClickListener(clickListener);
-        tvList = new ArrayList<>();
         etNum = findViewById(R.id.et_num);
         keyboardUtil = new LicenseKeyboardUtil(this, etNum, 1);
         etNum.addTextChangedListener(this);
@@ -67,9 +62,9 @@ public class AddCarActivity extends BaseActivity implements TextWatcher {
             keyboardUtil.showKeyboard();
             return false;
         });
-        btnAdd = findViewById(R.id.btn_confirm_add);
+        Button btnAdd = findViewById(R.id.btn_confirm_add);
         btnAdd.setOnClickListener(clickListener);
-        cbNewEnergy = findViewById(R.id.cb_new_energy_car);
+        CheckBox cbNewEnergy = findViewById(R.id.cb_new_energy_car);
         cbNewEnergy.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 isNewEnergy = 1;

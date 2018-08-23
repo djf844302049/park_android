@@ -18,7 +18,6 @@ import java.util.List;
  */
 
 public class UsualQuestionActivity extends BaseActivity {
-    private RecyclerView rlvQues;
     private QuestionAdapter adapter;
     private List<UsualQuestionBean> list = new ArrayList<>();
 
@@ -30,7 +29,7 @@ public class UsualQuestionActivity extends BaseActivity {
     @Override
     protected void initData() {
         initTitle("常见问题");
-        rlvQues = findViewById(R.id.rlv_question);
+        RecyclerView rlvQues = findViewById(R.id.rlv_question);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         rlvQues.setLayoutManager(manager);
         adapter = new QuestionAdapter(list);

@@ -32,8 +32,6 @@ import okhttp3.RequestBody;
 public class CompleteBaseInfoActivity extends BaseActivity  {
     private ImageView ivAvatar;
     private EditText etUserName;
-    private RadioGroup rbGender;
-    private Button btnNext;
     private UploadImageUtil imgUtil;
     private String imgUrl;
     private int sex;
@@ -50,7 +48,7 @@ public class CompleteBaseInfoActivity extends BaseActivity  {
         ivAvatar = findViewById(R.id.iv_upload_img);
         ivAvatar.setOnClickListener(clickListener);
         etUserName = findViewById(R.id.et_user_name);
-        rbGender = findViewById(R.id.rg_gender);
+        RadioGroup rbGender = findViewById(R.id.rg_gender);
         rbGender.setOnCheckedChangeListener((radioGroup, i) -> {
             switch (radioGroup.getCheckedRadioButtonId()) {
                 case R.id.rb_male:
@@ -61,7 +59,7 @@ public class CompleteBaseInfoActivity extends BaseActivity  {
                     break;
             }
         });
-        btnNext = findViewById(R.id.btn_next_step);
+        Button btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(clickListener);
     }
 

@@ -33,18 +33,12 @@ public class CarConfirmActivity extends BaseActivity {
 
     private ImageView icLicensePos;
     private ImageView icLicenseNeg;
-    private Button btnConfirm;
     private String licensePosImgUrl;
     private String licenseNegImgUrl;
     private UploadImageUtil imgUtil;
     private ScrollView svCarConfirm;
     private LinearLayout llComplete;
-    private ImageView ivComplete;
-    private TextView tvComplete;
-    private TextView tvCompleteTip;
-    private TextView tvSkip;
     private String id;
-    private int from;
     private final int POS = 1;
     private final int NEG = 2;
     private int which;
@@ -67,20 +61,20 @@ public class CarConfirmActivity extends BaseActivity {
         icLicensePos.setOnClickListener(clickListener);
         icLicenseNeg = findViewById(R.id.iv_license_neg);
         icLicenseNeg.setOnClickListener(clickListener);
-        btnConfirm = findViewById(R.id.btn_confirm);
+        Button btnConfirm = findViewById(R.id.btn_confirm);
         btnConfirm.setOnClickListener(clickListener);
         svCarConfirm = findViewById(R.id.sv_car_confirm);
         llComplete = findViewById(R.id.ll_commit_complete);
-        ivComplete = findViewById(R.id.iv_complete);
+        ImageView ivComplete = findViewById(R.id.iv_complete);
         ivComplete.setImageResource(R.mipmap.img_time);
-        tvComplete = findViewById(R.id.tv_complete);
+        TextView tvComplete = findViewById(R.id.tv_complete);
         tvComplete.setText("正在提交审核");
-        tvCompleteTip = findViewById(R.id.tv_complete_tip);
+        TextView tvCompleteTip = findViewById(R.id.tv_complete_tip);
         tvCompleteTip.setText("您的信息已提交，请耐心等待");
-        tvSkip = findViewById(R.id.tv_skip);
+        TextView tvSkip = findViewById(R.id.tv_skip);
         tvSkip.setOnClickListener(clickListener);
         id = getIntent().getStringExtra("id");
-        from = getIntent().getIntExtra("from", 0);
+        int from = getIntent().getIntExtra("from", 0);
         switch (from) {
             case 1:
                 break;

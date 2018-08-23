@@ -63,11 +63,9 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
     private SelectUnitParkDialog selectUnitParkDialog;
     private CenterBean bean;
     private String selectUnitId = "";
-    private TextView tvNull, tvApointment, tvParked;
     private TextView[] tvArr = new TextView[3];
     private int type;
     private BottomSheetDialog dialog;
-    private RecyclerView rlvCars;
     private CarChoiceAdapter adapter;
     private List<MyCarBean> carList = new ArrayList<>();
     private ParkDetailBean.ParkBean parkInfo;
@@ -97,10 +95,10 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         id = getIntent().getStringExtra("id");
         parkType = getIntent().getIntExtra("type", 0);
         initTitle("选择车位");
-        tvNull = findViewById(R.id.tv_null);
+        TextView tvNull = findViewById(R.id.tv_null);
         tvNull.setSelected(true);
-        tvApointment = findViewById(R.id.tv_has_appointment);
-        tvParked = findViewById(R.id.tv_has_parked);
+        TextView tvApointment = findViewById(R.id.tv_has_appointment);
+        TextView tvParked = findViewById(R.id.tv_has_parked);
         tvArr[0] = tvNull;
         tvArr[1] = tvApointment;
         tvArr[2] = tvParked;
@@ -126,7 +124,7 @@ public class SelectUnitParkActivity extends BaseActivity implements View.OnClick
         tvParked.setOnClickListener(this);
         dialog = new BottomSheetDialog(this);
         dialog.setContentView(R.layout.dialog_bankcard_picker);
-        rlvCars = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
+        RecyclerView rlvCars = (RecyclerView) dialog.findViewById(R.id.rlv_bank_card);
         TextView tvTitle = (TextView) dialog.findViewById(R.id.tv_title);
         tvTitle.setText("请选择需要预约的车辆");
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);

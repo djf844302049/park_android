@@ -26,7 +26,6 @@ public class LoginByCodeActivity extends BaseActivity implements TextWatcher {
     private EditText etPhoneNum;
     private EditText etConfirmCode;
     private TextView tvGetCode;
-    private Button btnLogin;
     private String phoneNum;
     private int from;
 
@@ -47,7 +46,7 @@ public class LoginByCodeActivity extends BaseActivity implements TextWatcher {
         etPhoneNum = findViewById(R.id.et_phone_num);
         etPhoneNum.addTextChangedListener(this);
         etConfirmCode = findViewById(R.id.et_confirm_code);
-        btnLogin = findViewById(R.id.btn_login);
+        Button btnLogin = findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(clickListener);
         tvGetCode = findViewById(R.id.tv_get_code);
         tvGetCode.setOnClickListener(clickListener);
