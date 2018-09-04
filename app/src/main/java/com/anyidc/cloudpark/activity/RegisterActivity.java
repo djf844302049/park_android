@@ -77,9 +77,9 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
                 break;
             default:
                 initTitle(getString(R.string.register));
-                String message = "我同意《云能停车用户条款》";
+                String message = "我同意《停易停用户条款》";
                 SpannableString spannableString = new SpannableString(message);
-                Pattern pattern = Pattern.compile("云能停车用户条款");
+                Pattern pattern = Pattern.compile("停易停用户条款");
                 Matcher matcher = pattern.matcher(message);
                 while (matcher.find()) {
                     ClickableSpan what = new ClickableSpan() {
@@ -97,7 +97,7 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
                     spannableString.setSpan(what, matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#0d80f7")),
-                        4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        4, 11, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 cbStatement.setText(spannableString);
                 cbStatement.setMovementMethod(LinkMovementMethod.getInstance());
                 break;

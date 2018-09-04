@@ -59,8 +59,7 @@
             style="@style/text_gray_14sp"
             android:drawablePadding="15dp"
             android:drawableRight="@mipmap/img_right_arrow"
-            android:gravity="center"
-            android:text="lalala" />
+            android:gravity="center" />
 
     </LinearLayout>
 
