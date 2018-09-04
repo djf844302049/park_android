@@ -64,11 +64,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
                 android:layout_marginLeft="9dp"
                 android:layout_marginRight="9dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:layout_marginBottom="@dimen/dp10"
                 android:paddingBottom="@dimen/dp10">
 
                 <LinearLayout
@@ -109,18 +109,19 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/iv_pay_park"
-                        android:layout_width="156dp"
-                        android:layout_height="164dp"
-                        android:src="@mipmap/img_pay_park" />
-
-                    <ImageView
                         android:id="@+id/iv_park_order"
                         android:layout_width="156dp"
                         android:layout_height="164dp"
-                        android:layout_below="@id/iv_pay_park"
-                        android:layout_marginTop="5dp"
                         android:src="@mipmap/img_order_park" />
+
+                    <ImageView
+                        android:id="@+id/iv_pay_park"
+                        android:layout_width="156dp"
+                        android:layout_height="164dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@id/iv_park_order"
+                        android:src="@mipmap/img_pay_park" />
+
 
                     <ImageView
                         android:id="@+id/iv_search_park"

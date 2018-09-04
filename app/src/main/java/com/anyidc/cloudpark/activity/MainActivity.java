@@ -23,7 +23,6 @@ import com.anyidc.cloudpark.moduel.BaseEntity;
 import com.anyidc.cloudpark.moduel.IndexBean;
 import com.anyidc.cloudpark.moduel.InitBean;
 import com.anyidc.cloudpark.network.Api;
-import com.anyidc.cloudpark.network.ApiService;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.LoginUtil;
 import com.anyidc.cloudpark.utils.PermissionSetting;
@@ -49,6 +48,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     private List<String> bnUrls = new ArrayList<>();
     private ArrayList<String> mess = new ArrayList<>();
     private long mExitTime;
+    private boolean dataInit = false;
 
     @Override
     protected int getLayoutId() {
@@ -90,21 +90,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         mLocationOption.setNeedAddress(true);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
-        AndPermission.with(this)
-                .permission(Manifest.permission.ACCESS_COARSE_LOCATION,
-                        android.Manifest.permission.CAMERA
-                        , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .onGranted(permissions -> {
-                    //启动定位
-                    mLocationClient.startLocation();
-                }).onDenied(permissions -> {
-            if (permissions.contains(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                getData(0d, 0d);
-            } else {
-                mLocationClient.startLocation();
-            }
-            new PermissionSetting(MainActivity.this).showSetting(permissions);
-        }).start();
         getInit();
         if (LoginUtil.isLogin()) {
             isIllegal();
@@ -117,6 +102,28 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         banner.startAutoPlay();
         if (!tvMess.isScroll()) {
             tvMess.startAutoScroll();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!dataInit){
+            AndPermission.with(this)
+                    .permission(Manifest.permission.ACCESS_COARSE_LOCATION,
+                            android.Manifest.permission.CAMERA
+                            , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .onGranted(permissions -> {
+                        //启动定位
+                        mLocationClient.startLocation();
+                    }).onDenied(permissions -> {
+                if (permissions.contains(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    getData(0d, 0d);
+                } else {
+                    mLocationClient.startLocation();
+                }
+                new PermissionSetting(MainActivity.this).showSetting(permissions);
+            }).start();
         }
     }
 
@@ -213,6 +220,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 , new RxObserver<BaseEntity<IndexBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<IndexBean> indexBean) {
+                        dataInit = true;
                         for (IndexBean.SlideBean slideBean : indexBean.getData().getSlide()) {
                             imgs.add(slideBean.getImage());
                             titles.add(slideBean.getTitle());
