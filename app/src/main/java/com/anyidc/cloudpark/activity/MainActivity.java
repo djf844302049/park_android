@@ -49,6 +49,9 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     private ArrayList<String> mess = new ArrayList<>();
     private long mExitTime;
     private boolean dataInit = false;
+    private boolean isUpdate = false;
+    private boolean isIllegalGet = false;
+    private boolean isUpdateGet = false;
 
     @Override
     protected int getLayoutId() {
@@ -91,9 +94,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         getInit();
-        if (LoginUtil.isLogin()) {
-            isIllegal();
-        }
     }
 
     @Override
@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!dataInit){
+        if (!dataInit) {
             AndPermission.with(this)
                     .permission(Manifest.permission.ACCESS_COARSE_LOCATION,
                             android.Manifest.permission.CAMERA
@@ -124,6 +124,12 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 }
                 new PermissionSetting(MainActivity.this).showSetting(permissions);
             }).start();
+        }
+        if (isUpdate) {
+            getInit();
+        }
+        if (!isUpdate && !isIllegalGet && isUpdateGet && LoginUtil.isLogin()) {
+            isIllegal();
         }
     }
 
@@ -164,6 +170,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 , new RxObserver<BaseEntity<InitBean>>(this, true) {
                     @Override
                     public void onSuccess(BaseEntity<InitBean> initBean) {
+                        isUpdateGet = true;
                         InitBean data = initBean.getData();
                         switch (data.getIs_update()) {
                             case 1:
@@ -177,9 +184,14 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                                                 openLinkBySystem(data.getDownload_url());
                                             }
                                         })
-                                        .setNegativeButton("取消", null).show();
+                                        .setNegativeButton("取消", (dialogInterface, i) -> {
+                                            if (LoginUtil.isLogin()) {
+                                                isIllegal();
+                                            }
+                                        }).show();
                                 break;
                             case 2:
+                                isUpdate = true;
                                 new AlertDialog.Builder(MainActivity.this)
                                         .setTitle("提示")
                                         .setMessage("云能智能停车有重大版本更新，请前往更新后再继续使用")
@@ -189,8 +201,12 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                                             else {
                                                 openLinkBySystem(data.getDownload_url());
                                             }
-                                        })
-                                        .show();
+                                        }).show();
+                                break;
+                            default:
+                                if (LoginUtil.isLogin()) {
+                                    isIllegal();
+                                }
                                 break;
                         }
                     }
@@ -238,6 +254,12 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void isIllegal() {
+        isIllegalGet = true;
+        super.isIllegal();
     }
 
     @Override
