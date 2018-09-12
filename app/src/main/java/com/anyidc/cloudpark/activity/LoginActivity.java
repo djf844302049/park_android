@@ -49,9 +49,9 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.tv_forget_password).setOnClickListener(clickListener);
         findViewById(R.id.btn_login).setOnClickListener(clickListener);
         TextView tvStatement = findViewById(R.id.tv_statement);
-        String message = "登录代表您已同意《停易停用户条款》";
+        String message = "登录代表您已同意《云霞停车用户条款》";
         SpannableString spannableString = new SpannableString(message);
-        Pattern pattern = Pattern.compile("停易停用户条款");
+        Pattern pattern = Pattern.compile("云霞停车用户条款");
         Matcher matcher = pattern.matcher(message);
         while (matcher.find()) {
             ClickableSpan what = new ClickableSpan() {
@@ -69,7 +69,7 @@ public class LoginActivity extends BaseActivity {
             spannableString.setSpan(what, matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#0d80f7")),
-                9, 16, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                9, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvStatement.setText(spannableString);
         tvStatement.setMovementMethod(LinkMovementMethod.getInstance());
     }
