@@ -62,7 +62,7 @@ public class MineActivity extends BaseActivity {
         tvBalance = findViewById(R.id.tv_balance);
         tvIdConState = findViewById(R.id.tv_id_confirm_state);
         ivAvatar = findViewById(R.id.iv_avatar);
-        ivAvatar.setOnClickListener(clickListener);
+        findViewById(R.id.ll_avatar).setOnClickListener(clickListener);
         ivRight = findViewById(R.id.iv_right);
         ivRight.setVisibility(View.VISIBLE);
         ivRight.setImageResource(R.mipmap.img_mess);
@@ -102,7 +102,7 @@ public class MineActivity extends BaseActivity {
             case R.id.ll_usual_question:
                 startActivity(new Intent(this, UsualQuestionActivity.class));
                 break;
-            case R.id.iv_avatar:
+            case R.id.ll_avatar:
                 if (LoginUtil.isLogin())
                     startActivity(new Intent(this, UserInfoActivity.class));
                 else

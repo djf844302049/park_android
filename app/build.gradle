@@ -53,7 +53,7 @@ android {
 
     //改变输出apk文件名称
     applicationVariants.all { variant ->
-        def newName = "停易停"
+        def newName = "云霞停车"
         variant.outputs.all { output ->
             newName += "-v" + defaultConfig.versionName
             if (variant.buildType.name == "release") {
