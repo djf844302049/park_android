@@ -2,7 +2,9 @@ package com.anyidc.cloudpark.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -14,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.anyidc.cloudpark.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/27.
@@ -92,10 +97,24 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String url = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    view.loadUrl(request.getUrl().toString());
+                    url = request.getUrl().toString();
                 } else {
-                    view.loadUrl(request.toString());
+                    url = request.toString();
+                }
+                if (url.startsWith("weixin://wap/pay?")) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                } else if (url.contains("https://wx.tenpay.com")) {
+                    Map<String, String> extraHeaders = new HashMap();
+                    extraHeaders.put("Referer", "http://app.xwbtech.com");
+                    view.loadUrl(url, extraHeaders);
+                } else {
+                    view.loadUrl(url);
                 }
                 return true;
             }
