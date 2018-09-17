@@ -145,7 +145,7 @@ public abstract class BaseActivity<T> extends RxFragmentActivity implements OnCh
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ISILLEGA && resultCode == RESULT_OK) {
+        if (requestCode == ISILLEGA||requestCode==MineActivity.LOGIN && resultCode == RESULT_OK) {
             isIllegal();
         }
     }

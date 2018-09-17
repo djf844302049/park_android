@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -111,7 +110,7 @@ public class WebViewActivity extends BaseActivity {
                     return true;
                 } else if (url.contains("https://wx.tenpay.com")) {
                     Map<String, String> extraHeaders = new HashMap();
-                    extraHeaders.put("Referer", "http://app.xwbtech.com");
+                    extraHeaders.put("Referer", "http://yunnengpark.com");
                     view.loadUrl(url, extraHeaders);
                 } else {
                     view.loadUrl(url);

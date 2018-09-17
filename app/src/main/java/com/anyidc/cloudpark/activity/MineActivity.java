@@ -32,8 +32,8 @@ public class MineActivity extends BaseActivity {
     private ImageView ivRight;
     private TextView tvLogin;
     private TextView tvUserName;
-    private final int PURSE = 100;
-    private final int LOGIN = 101;
+    private static final int PURSE = 100;
+    public static final int LOGIN = 101;
     private MessageReceiver receiver;
 
     @Override
