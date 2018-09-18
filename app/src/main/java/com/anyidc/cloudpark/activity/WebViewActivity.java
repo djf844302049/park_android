@@ -102,26 +102,39 @@ public class WebViewActivity extends BaseActivity {
                 } else {
                     url = request.toString();
                 }
-                if (url.startsWith("weixin://wap/pay?")) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(url));
-                    startActivity(intent);
-                    return true;
-                } else if (url.contains("https://wx.tenpay.com")) {
-                    Map<String, String> extraHeaders = new HashMap();
-                    extraHeaders.put("Referer", "http://yunnengpark.com");
-                    view.loadUrl(url, extraHeaders);
-                } else {
-                    view.loadUrl(url);
-                }
-                return true;
+                return loadUrl(view, url);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return loadUrl(view, url);
             }
         });
         webView.requestFocus();
         String path = getIntent().getStringExtra("path");
         webView.loadUrl(path);
         setResult(RESULT_OK);
+    }
+
+    private boolean loadUrl(WebView view, String url) {
+        if (url.startsWith("weixin://wap/pay?")) {
+            try {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (url.contains("https://wx.tenpay.com")) {
+            Map<String, String> extraHeaders = new HashMap();
+            extraHeaders.put("Referer", "http://yunnengpark.com");
+            view.loadUrl(url, extraHeaders);
+        } else {
+            view.loadUrl(url);
+        }
+        return true;
     }
 
     @Override
