@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     private Banner banner;
     private TextView tvCity;
     private List<String> imgs = new ArrayList<>();
-    private List<String> titles = new ArrayList<>();
+//    private List<String> titles = new ArrayList<>();
     private List<String> bnUrls = new ArrayList<>();
     private ArrayList<String> mess = new ArrayList<>();
     private long mExitTime;
@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         tvMess.setOnItemClickListener(position -> Log.e("tag", "点击了" + position));
         tvCity = findViewById(R.id.tv_city);
         banner = findViewById(R.id.bn_main);
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -239,10 +239,10 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                         dataInit = true;
                         for (IndexBean.SlideBean slideBean : indexBean.getData().getSlide()) {
                             imgs.add(slideBean.getImage());
-                            titles.add(slideBean.getTitle());
+//                            titles.add(slideBean.getTitle());
                             bnUrls.add(slideBean.getUrl());
                         }
-                        banner.setBannerTitles(titles);
+//                        banner.setBannerTitles(titles);
                         banner.setImages(imgs);
                         banner.start();
                         for (IndexBean.MessageBean messageBean : indexBean.getData().getMessage()) {

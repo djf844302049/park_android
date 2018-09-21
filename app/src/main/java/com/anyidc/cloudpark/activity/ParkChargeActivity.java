@@ -11,7 +11,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -245,7 +244,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        PayResultActivity.actionStart(ParkChargeActivity.this, 2, String.valueOf(rechargeNum), 1);
+
     }
 
     @Override
@@ -259,8 +258,7 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
     }
 
     private void setNum(String num) {
-        char[] chars = num.toCharArray();
-        int length = chars.length;
+        int length = num.length();
         for (TextView textView : tvList) {
             textView.setText("");
         }
@@ -281,6 +279,12 @@ public class ParkChargeActivity extends BaseActivity implements TextWatcher {
                     @Override
                     public void onSuccess(BaseEntity baseEntity) {
                         balancePay();
+                    }
+
+                    @Override
+                    public void onError(String errMsg) {
+                        super.onError(errMsg);
+                        etNum.setText("");
                     }
                 });
     }
