@@ -122,6 +122,7 @@ public class InfoEditActivity extends BaseActivity {
                         CacheData.getInfoBean().setHeader_img(data.getHeader_img());
                         CacheData.getInfoBean().setSex(data.getSex());
                         CacheData.getInfoBean().setUsername(data.getUsername());
+                        CacheData.setInfoBean(CacheData.getInfoBean());
                         finish();
                     }
                 });

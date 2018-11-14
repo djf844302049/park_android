@@ -13,6 +13,7 @@ public class CacheData {
     private static LoginRegisterBean infoBean = null;
 
     public static LoginRegisterBean getInfoBean() {
+        infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
         return infoBean;
     }
 
@@ -22,7 +23,7 @@ public class CacheData {
         //设置极光推送别名
         if (newInfoBean == null) {
             //删除极光推送别名
-            JPushInterface.deleteAlias(BaseApplication.appContext,0);
+            JPushInterface.deleteAlias(BaseApplication.appContext, 0);
             return;
         }
         if (newInfoBean.getIs_manager() == 1) {

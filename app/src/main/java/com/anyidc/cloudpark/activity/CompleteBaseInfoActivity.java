@@ -104,6 +104,7 @@ public class CompleteBaseInfoActivity extends BaseActivity  {
                         CacheData.getInfoBean().setHeader_img(data.getHeader_img());
                         CacheData.getInfoBean().setSex(data.getSex());
                         CacheData.getInfoBean().setUsername(data.getUsername());
+                        CacheData.setInfoBean(CacheData.getInfoBean());
                         IdentityConfirmActivity.actionStart(CompleteBaseInfoActivity.this, 1);
                         finish();
                     }
