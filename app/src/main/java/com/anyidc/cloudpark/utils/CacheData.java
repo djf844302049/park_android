@@ -13,7 +13,6 @@ public class CacheData {
     private static LoginRegisterBean infoBean = null;
 
     public static LoginRegisterBean getInfoBean() {
-        infoBean = SpUtils.getObject(SpUtils.USERINFO, LoginRegisterBean.class);
         return infoBean;
     }
 
