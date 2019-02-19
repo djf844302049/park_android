@@ -8,9 +8,11 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.moduel.BaseEntity;
@@ -19,6 +21,7 @@ import com.anyidc.cloudpark.network.Api;
 import com.anyidc.cloudpark.network.RxObserver;
 import com.anyidc.cloudpark.utils.AesUtil;
 import com.anyidc.cloudpark.utils.CacheData;
+import com.anyidc.cloudpark.utils.ToastUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

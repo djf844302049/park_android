@@ -8,6 +8,7 @@ import com.anyidc.cloudpark.utils.CacheData;
 
 /**
  * Created by Administrator on 2018/3/14.
+ * 启动页
  */
 
 public class SplashActivity extends BaseActivity {

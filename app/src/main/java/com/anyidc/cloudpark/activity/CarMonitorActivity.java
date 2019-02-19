@@ -68,13 +68,15 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
         tvList.add(tv4);
         tvList.add(tv5);
         tvList.add(tv6);
-        etNum = findViewById(R.id.et_num);
-        keyboardUtil = new LicenseKeyboardUtil(CarMonitorActivity.this, etNum, 0);
+        etNum = findViewById(R.id.et_num);//输入框
+        keyboardUtil = new LicenseKeyboardUtil(CarMonitorActivity.this, etNum, 0);//new一个键盘方法类
         etNum.addTextChangedListener(this);
+        //点击输入框显示键盘
         etNum.setOnTouchListener((v, event) -> {
             keyboardUtil.showKeyboard();
             return false;
         });
+        //点击屏幕上除输入框外任何位置监听：隐藏键盘
         findViewById(R.id.rl_root).setOnClickListener(v -> {
             if (keyboardUtil.isShow()) {
                 keyboardUtil.hideKeyboard();
@@ -107,7 +109,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
     public void afterTextChanged(Editable editable) {
         setNum(editable.toString());
     }
-
+    //让每个框对应输入的字符
     private void setNum(String num) {
         char[] chars = num.toCharArray();
         int length = chars.length;
@@ -125,6 +127,9 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
         if (TextUtils.isEmpty(parkNum) || parkNum.length() != 6) {
             return;
         }
+        /*
+        * 0的话则打开监控
+        * */
         if (type == 0) {
             switch (CacheData.getIsManager()) {
                 case 1:
@@ -135,7 +140,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
                     break;
             }
         } else {
-            OptParkLockActivity.start(CarMonitorActivity.this, parkNum, OptParkLockActivity.FROMMANAGER);
+            OptParkLockActivity.start(CarMonitorActivity.this, parkNum, OptParkLockActivity.FROMMANAGER);//1的话打开操作车位锁
         }
     }
 

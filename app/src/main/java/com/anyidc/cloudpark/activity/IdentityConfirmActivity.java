@@ -160,7 +160,7 @@ public class IdentityConfirmActivity extends BaseActivity {
                         ToastUtil.showToast(baseEntity.getMessage(), Toast.LENGTH_SHORT);
                         switch (from) {
                             case 1:
-                                AddCarActivity.actionStart(IdentityConfirmActivity.this, 1);
+                                AddCarTwoActivity.actionStart(IdentityConfirmActivity.this, 1);
                                 break;
                             default:
                                 setResult(RESULT_OK);

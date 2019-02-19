@@ -77,7 +77,7 @@ public class MyCarActivity extends BaseActivity {
     public void onCheckDoubleClick(View view) {
         switch (view.getId()) {
             case R.id.btn_add_car:
-                AddCarActivity.actionStart(this, 0);
+                AddCarTwoActivity.actionStart(this, 0);
                 break;
             case R.id.tv_right:
                 boolean edit = true;

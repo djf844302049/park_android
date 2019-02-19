@@ -1,5 +1,6 @@
 package com.anyidc.cloudpark.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.BaseApplication;
 import com.anyidc.cloudpark.R;
@@ -25,6 +27,7 @@ import com.anyidc.cloudpark.utils.CheckDoubleClickListener;
 import com.anyidc.cloudpark.utils.OnCheckDoubleClick;
 import com.anyidc.cloudpark.utils.ScreenFitUtil;
 import com.anyidc.cloudpark.utils.SpUtils;
+import com.anyidc.cloudpark.utils.ToastUtil;
 import com.githang.statusbar.StatusBarCompat;
 import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 
@@ -87,6 +90,7 @@ public abstract class BaseActivity<T> extends RxFragmentActivity implements OnCh
 
     }
 
+    @SuppressLint("CheckResult")
     public void getTime(Observable<BaseEntity<T>> observable, RxObserver<BaseEntity<T>> observer) {
         Api.getDefaultService()
                 .getTime()

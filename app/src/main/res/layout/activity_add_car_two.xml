@@ -1,0 +1,197 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/top"
+        layout="@layout/toolbar" />
+    <TextView
+        android:id="@+id/tv_skip"
+        style="@style/text_gray_16sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/top"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="18dp"
+        android:drawablePadding="3dp"
+        android:drawableRight="@mipmap/img_right_arrow"
+        android:gravity="center"
+        android:text="@string/skip"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        style="@style/text_gray_18sp"
+        android:layout_below="@id/tv_skip"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/bind_real_car_num"
+        android:textColor="@color/black" />
+    <RelativeLayout
+        android:id="@+id/rl_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_text"
+        android:layout_marginTop="25dp">
+
+        <LinearLayout
+            android:id="@+id/ll_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_num_1"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_2"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_3"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_4"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_5"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_6"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_7"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_num_8"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:gravity="center"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ll_num"
+            android:layout_alignLeft="@id/ll_num"
+            android:layout_alignRight="@id/ll_num"
+            android:layout_alignTop="@id/ll_num"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:inputType="text"
+            android:maxLength="7"
+            android:maxLines="1"
+            android:textColor="#0000" />
+
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/hhh"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/rl_et">-->
+        <!--<View-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="1dp"/>-->
+        <!--<TextView-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="当前为："-->
+            <!--android:textSize="15sp"/>-->
+        <!--<Button-->
+            <!--android:id="@+id/new_energy_button"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@drawable/shape_transparent_round_stroke_white_bg"-->
+            <!--android:text="@string/change_new_energy"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="14sp" />-->
+    <!--</LinearLayout>-->
+    <CheckBox
+        android:id="@+id/cb_new_energy_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/rl_et"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="20dp"
+        android:button="@null"
+        android:drawableLeft="@drawable/selector_cb_rect"
+        android:drawablePadding="5dp"
+        android:text="@string/new_energy_car"
+        android:textColor="@color/text_color_gray" />
+
+    <Button
+        android:id="@+id/btn_confirm_add"
+        android:layout_width="220dp"
+        android:layout_height="47dp"
+        android:layout_below="@id/cb_new_energy_car"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_bg_blue"
+        android:text="@string/confirm_add"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <com.anyidc.cloudpark.wiget.ColorKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F0EFF4"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@android:color/white"
+        android:keyTextColor="@color/black"
+        android:keyTextSize="18sp"
+        android:labelTextSize="18sp"
+        android:paddingTop="2dp"
+        android:shadowColor="#ffffff"
+        android:visibility="gone" />
+
+</RelativeLayout>

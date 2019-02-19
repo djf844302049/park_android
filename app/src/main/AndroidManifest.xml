@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.anyidc.cloudpark">
 
     <!-- 小米推送start -->
@@ -23,9 +24,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -44,7 +47,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/img_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.anyidc.cloudpark.activity.SplashActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
@@ -67,6 +71,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CutImageActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AddCarActivity" />
+        <activity android:name=".activity.AddCarTwoActivity"/>
         <activity android:name="com.anyidc.cloudpark.activity.SettingActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UsualQuestionActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UserInfoActivity" />
