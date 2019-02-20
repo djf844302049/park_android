@@ -11,7 +11,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import com.anyidc.cloudpark.R;
-
+/*
+* 键盘工具类
+* */
 public class LicenseKeyboardUtil {
     private EditText mEdit;
     private Context mContext;
@@ -103,12 +105,21 @@ public class LicenseKeyboardUtil {
                 return;
             }
             Editable editable = mEdit.getText();
-            int start = mEdit.getSelectionStart();
+            int start = mEdit.getSelectionStart();//获取光标位置
+            String reg = "[\\u4e00-\\u9fa5]";
+            String oCh = "[\\u4e00-\\u9fa5]{0,0}";
+//            if (editable.toString().matches(oCh)){
+//                mKeyboardView.setKeyboard(province_keyboard);
+//            }
             if (primaryCode == -1 || primaryCode == -12) {//确定
                 hideKeyboard();
             } else if (primaryCode == -3) {//删除
                 if (editable != null && editable.length() > 0) {
-                    if (start > 0) {
+//                    //没有输入内容时软件盘重置为省份软键盘
+//                    if(editable.length() == 1 ){
+//                        mKeyboardView.setKeyboard(province_keyboard);
+//                    }//用了sp，匹配正则表达式等很多种方法都无法解决:在字母键盘按住删除键不放，删完放掉。会自动输入33487苏，然后删掉。重复如此，导致键盘一直切换。
+                    if (start > 0 ) {
                         editable.delete(start - 1, start);
                     }
                 }
@@ -120,6 +131,10 @@ public class LicenseKeyboardUtil {
 
             } else {
                 editable.insert(start, Character.toString((char) primaryCode));
+                //匹配正则表达式判断是否包含中文，是则跳到数字软键盘
+                if(mEdit.getText().toString().matches(reg)){
+                    mKeyboardView.setKeyboard(car_num_keyboard);
+                }
             }
         }
     };

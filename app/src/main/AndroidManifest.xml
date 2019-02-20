@@ -132,7 +132,7 @@
         <!--高德地图appKey配置-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="003b5dbfbbc36b430a44f1ffbf44cf5a" />
+            android:value="abb8db78489aa5806a70470694d82748" />
 
         <service android:name="com.amap.api.location.APSService" />
 
