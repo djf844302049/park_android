@@ -58,15 +58,16 @@ import java.lang.reflect.Field;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
+public final class CaptureActivity extends Activity implements View.OnClickListener,SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
 
-    private ImageButton btnFlash;//闪光灯开关按钮
-    Boolean isFlashOn = false;
+    private ImageButton btnFlash;//闪光灯打开
+    private ImageButton btnCloseFlash;//闪光灯关闭
+    Boolean isFlashOn = true;
     private Camera camera = null;
-    private Camera.Parameters parameters = null;
-
+    private Camera.Parameters parameter;
+    private ImageButton btnBack;
 
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
@@ -80,6 +81,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
+
 
     public Handler getHandler() {
         return handler;
@@ -113,9 +115,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         animation.setRepeatMode(Animation.RESTART);
         scanLine.startAnimation(animation);
 
-        //闪光灯
+        //打开闪光灯
         btnFlash = findViewById(R.id.btn_flash);
-        btnFlash.setOnClickListener(flashListener);
+        btnFlash.setOnClickListener(this);
+        //关闭闪光灯
+        btnCloseFlash = findViewById(R.id.btn_close_flash);
+        btnCloseFlash.setOnClickListener(this);
+        //返回
+        btnBack = findViewById(R.id.qr_code_back);
+        btnBack.setOnClickListener(this);
     }
 
     @Override
@@ -182,6 +190,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         isHasSurface = false;
+        if (camera != null) {
+            CameraManager.stopPreview();
+        }
     }
 
     @Override
@@ -321,36 +332,29 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     /**
      *  闪光灯开关按钮
      */
-    private View.OnClickListener flashListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            try {
-                boolean isSuccess = CameraManager.get().setFlashLight(!isFlashOn);
-                if(!isSuccess){
-                    Toast.makeText(CaptureActivity.this, "暂时无法开启闪光灯", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (isFlashOn) {
-                    // 关闭闪光灯
-                    btnFlash.setImageResource(R.drawable.shoukai);
-                    isFlashOn = false;
-                    //直接关闭闪光灯
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
-                    camera.setParameters(parameters);
-                    camera.release();
-                } else {
-                    // 开启闪光灯
-                    btnFlash.setImageResource(R.drawable.shouguan);
-                    isFlashOn = true;
-                    //直接开启闪光灯
-                    camera = Camera.open();
-                    parameters = camera.getParameters();
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
-                    camera.setParameters(parameters);
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+    @Override
+    public void onClick(View view) {
+        //获取到ZXing相机管理器创建的camera
+        camera = CameraManager.getCamera();
+        parameter = camera.getParameters();
+        int i = view.getId();
+        if (i == R.id.btn_flash) {
+            // 开启闪光灯
+            btnFlash.setVisibility(View.GONE);
+            btnCloseFlash.setVisibility(View.VISIBLE);
+            //直接开启闪光灯
+            parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(parameter);
+        } else if (i == R.id.btn_close_flash) {
+            // 关闭闪光灯
+            btnCloseFlash.setVisibility(View.GONE);
+            btnFlash.setVisibility(View.VISIBLE);
+            isFlashOn = false;
+            //直接关闭闪光灯
+            parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            camera.setParameters(parameter);
+        }else if(i==R.id.qr_code_back){
+            finish();
         }
-    };
+    }
 }

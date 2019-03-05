@@ -48,11 +48,11 @@ public class CameraManager {
      * handler. Make sure to clear the handler so it will only receive one
      * message.
      */
-    private final PreviewCallback previewCallback;
-    private Camera camera;
-    private AutoFocusManager autoFocusManager;
+    public static PreviewCallback previewCallback;
+    public static Camera camera;
+    public static AutoFocusManager autoFocusManager;
     private boolean initialized;
-    private boolean previewing;
+    public static boolean previewing;
     private int requestedCameraId = -1;
 
     public CameraManager(Context context) {
@@ -157,7 +157,7 @@ public class CameraManager {
     /**
      * Tells the camera to stop drawing preview frames.
      */
-    public synchronized void stopPreview() {
+    public static void stopPreview() {
         if (autoFocusManager != null) {
             autoFocusManager.stop();
             autoFocusManager = null;
@@ -257,5 +257,13 @@ public class CameraManager {
                 return false;
             }
         }
+    }
+
+    /**
+     * 获取相机的方法
+     * @return camera
+     */
+    public static Camera getCamera(){
+        return camera;
     }
 }
