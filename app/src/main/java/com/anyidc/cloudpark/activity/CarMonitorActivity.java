@@ -143,6 +143,7 @@ public class CarMonitorActivity extends BaseActivity implements TextWatcher {
             OptParkLockActivity.start(CarMonitorActivity.this, parkNum, OptParkLockActivity.FROMMANAGER);//1的话打开操作车位锁
         }
     }
+    //OptParkLockActivity.start(CarMonitorActivity.this,parkNum,OptParkLockActivity.FROMMANAGER);
 
     private void watchCamera(String parkNum) {
 

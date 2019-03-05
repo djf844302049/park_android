@@ -6,9 +6,11 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.text.Editable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.anyidc.cloudpark.R;
 /*
@@ -97,6 +99,8 @@ public class LicenseKeyboardUtil {
         @Override
         public void onPress(int primaryCode) {
         }
+
+
 
         @Override
         public void onKey(int primaryCode, int[] keyCodes) {

@@ -16,6 +16,13 @@
         android:protectionLevel="signature" />
 
     <!-- Required -->
+
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 振动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 闪光灯 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,7 +37,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <!-- Optional. Required for location feature -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
@@ -71,7 +78,7 @@
         <activity android:name="com.anyidc.cloudpark.activity.IdentityConfirmActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.CutImageActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.AddCarActivity" />
-        <activity android:name=".activity.AddCarTwoActivity"/>
+        <activity android:name="com.anyidc.cloudpark.activity.AddCarTwoActivity"/>
         <activity android:name="com.anyidc.cloudpark.activity.SettingActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UsualQuestionActivity" />
         <activity android:name="com.anyidc.cloudpark.activity.UserInfoActivity" />
@@ -107,6 +114,12 @@
         <activity
             android:name="com.anyidc.cloudpark.activity.MonitorVideoActivity"
             android:configChanges="orientation|screenSize" />
+        <activity android:name="com.xys.libzxing.zxing.activity.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
 
         <!--微信支付回调Activity-->
         <activity

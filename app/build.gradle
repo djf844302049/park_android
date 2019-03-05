@@ -108,9 +108,8 @@ dependencies {
     //Xrefreshview
     implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
     implementation project(':indicator')
-
     //微信支付sdk
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
+    implementation project(':libzxing')
 }

@@ -5,18 +5,24 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anyidc.cloudpark.R;
 import com.anyidc.cloudpark.utils.CacheData;
 import com.anyidc.cloudpark.utils.LicenseKeyboardUtil;
 import com.anyidc.cloudpark.utils.LoginUtil;
+import com.anyidc.cloudpark.utils.ToastUtil;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.anyidc.cloudpark.activity.MineActivity.LOGIN;
 
 /**
  * Created by Administrator on 2018/3/13.
@@ -27,6 +33,7 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
     private List<TextView> tvList;
     private String unitId;
     private LicenseKeyboardUtil keyboardUtil;
+    private ImageView ivRight;
 
     @Override
     protected int getLayoutId() {
@@ -37,6 +44,16 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
     @Override
     protected void initData() {
         initTitle("停车付费");
+
+        ivRight = findViewById(R.id.iv_right);//右上二维码扫描
+        ivRight.setVisibility(View.VISIBLE);
+        ivRight.setImageResource(R.mipmap.qr_code);
+        ivRight.setOnClickListener(clickListener);
+
+        findViewById(R.id.btn_qrcode).setOnClickListener(clickListener);//二维码扫描按钮
+
+        findViewById(R.id.text_delete_all).setOnClickListener(clickListener);//清空按钮
+
         TextView tv1 = findViewById(R.id.tv_num_1);
         TextView tv2 = findViewById(R.id.tv_num_2);
         TextView tv3 = findViewById(R.id.tv_num_3);
@@ -57,6 +74,7 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
             keyboardUtil.showKeyboard();
             return false;
         });
+
         findViewById(R.id.btn_go_pay).setOnClickListener(clickListener);
         findViewById(R.id.rl_root).setOnClickListener(v -> {
             if (keyboardUtil.isShow()) {
@@ -67,10 +85,51 @@ public class PayParkActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onCheckDoubleClick(View v) {
-        if (TextUtils.isEmpty(unitId) || unitId.length() != 6) {
-            return;
+        switch (v.getId()){
+            case R.id.iv_right://右上二维码扫码
+                if (LoginUtil.isLogin()) {
+                    startActivityForResult(new Intent(PayParkActivity.this, CaptureActivity.class), 0);
+                } else
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
+                break;
+
+            case R.id.btn_qrcode://二维码扫描按钮
+                if (LoginUtil.isLogin()) {
+                    startActivityForResult(new Intent(PayParkActivity.this, CaptureActivity.class), 0);
+                } else
+                    startActivityForResult(new Intent(this, LoginActivity.class), LOGIN);
+                break;
+
+            case R.id.btn_go_pay://去支付按钮
+                if (TextUtils.isEmpty(unitId) || unitId.length() != 6) {
+                    return;
+                }
+                ParkChargeActivity.actionStart(this, unitId);
+                break;
+
+            case R.id.text_delete_all:
+                etNum.setText("");
+                break;
         }
-        ParkChargeActivity.actionStart(this, unitId);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            String result = data.getExtras().getString("result");
+//            etNum.setText(result);//将获取到的返回值设置到输入框上
+            char[] chars = result.toCharArray();
+
+            Editable editable = etNum.getText();
+            int start = etNum.getSelectionStart();//获取光标位置
+
+            for(int i = 5 ; i >= 0 ; i-- ){
+                editable.insert(start, Character.toString(chars[i]));
+            }
+
+        }
     }
 
     @Override
